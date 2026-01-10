@@ -553,7 +553,8 @@ Components render semantic HTML elements. Use appropriate components for accessi
 <Button type="submit">Submit Form</Button>
 
 // Avoid creating custom buttons from divs
-<div onClick={handleClick}>Click me</div>
+// Avoid creating custom buttons from divs - use proper semantic HTML
+<div onClick={() => console.log('clicked')}>Click me</div>
 ```
 
 ### 3. Compose Components
