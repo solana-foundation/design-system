@@ -207,7 +207,8 @@ import {
 } from "@solana/design-system";
 
 function ConfirmationModal() {
-  const [isOpen, setIsOpen] = useState(false);
+import { useState } from "react";
+import {
 
   return (
     <>
