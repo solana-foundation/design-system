@@ -1,13 +1,17 @@
 ---
-alwaysApply: true
----
-
 name: ui-skills
 description: Opinionated constraints for building better interfaces with agents.
+---
 
 # UI Skills
 
 Opinionated constraints for building better interfaces with agents.
+
+## When to Use
+
+- Use this skill when building UI components or interfaces
+- This skill is helpful for ensuring consistent design patterns and accessibility
+- Apply when working with React components, animations, or styling
 
 ## Stack
 
@@ -19,7 +23,7 @@ Opinionated constraints for building better interfaces with agents.
 ## Components
 
 - MUST use accessible component primitives for anything with keyboard or focus behavior (`Base UI`, `React Aria`, `Radix`)
-- MUST use the project’s existing component primitives first
+- MUST use the project's existing component primitives first
 - NEVER mix primitive systems within the same interaction surface
 - SHOULD prefer [`Base UI`](https://base-ui.com/react/components) for new primitives if compatible with the stack
 - MUST add an `aria-label` to icon-only buttons
