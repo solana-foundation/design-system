@@ -23,7 +23,7 @@ export function DoExample({ description, children }: DoExampleProps) {
           Do
         </span>
       </div>
-      <div className="flex min-h-[80px] items-center justify-center rounded-lg bg-gray-100 p-6">
+      <div className="flex min-h-[80px] items-center justify-center rounded-lg border border-border-medium p-6">
         {children}
       </div>
       <p className="text-body-sm text-text-medium">{description}</p>
@@ -53,7 +53,7 @@ export function DontExample({ description, children }: DontExampleProps) {
           Don't
         </span>
       </div>
-      <div className="flex min-h-[80px] items-center justify-center rounded-lg bg-gray-100 p-6">
+      <div className="flex min-h-[80px] items-center justify-center rounded-lg border border-border-medium p-6">
         {children}
       </div>
       <p className="text-body-sm text-text-medium">{description}</p>

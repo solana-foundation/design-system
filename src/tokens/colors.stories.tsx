@@ -30,7 +30,7 @@ const borderTokens = [
 
 function GrayScale() {
   return (
-    <div className="min-w-[500px] bg-gray-50 p-8">
+    <div className="min-w-[500px] p-8">
       <h2 className="mb-6 font-semibold text-text-extra-high text-xl">
         Gray Scale
       </h2>
@@ -53,7 +53,7 @@ function GrayScale() {
 
 function TextEmphasis() {
   return (
-    <div className="min-w-[550px] bg-gray-50 p-8">
+    <div className="min-w-[550px] p-8">
       <h2 className="mb-2 font-semibold text-text-extra-high text-xl">
         Text Emphasis
       </h2>
@@ -64,7 +64,7 @@ function TextEmphasis() {
         {textTokens.map((token) => (
           <div className="flex items-center gap-4" key={token.name}>
             <div
-              className="flex h-12 w-24 items-center justify-center rounded border border-border-light bg-gray-100"
+              className="flex h-12 w-24 items-center justify-center rounded border border-border-medium"
               style={{ color: `var(--${token.name})` }}
             >
               <span className="font-semibold text-2xl">Aa</span>
@@ -87,7 +87,7 @@ function TextEmphasis() {
 
 function BorderScale() {
   return (
-    <div className="min-w-[550px] bg-gray-50 p-8">
+    <div className="min-w-[550px] p-8">
       <h2 className="mb-2 font-semibold text-text-extra-high text-xl">
         Border Scale
       </h2>
@@ -98,7 +98,7 @@ function BorderScale() {
         {borderTokens.map((token) => (
           <div className="flex items-center gap-4" key={token.name}>
             <div
-              className="h-12 w-24 rounded bg-gray-100"
+              className="h-12 w-24 rounded border border-border-medium"
               style={{ border: `2px solid var(--${token.name})` }}
             />
             <div>
@@ -119,7 +119,7 @@ function BorderScale() {
 
 function BaseColors() {
   return (
-    <div className="min-w-[400px] bg-gray-50 p-8">
+    <div className="min-w-[400px] p-8">
       <h2 className="mb-6 font-semibold text-text-extra-high text-xl">
         Base Colors
       </h2>

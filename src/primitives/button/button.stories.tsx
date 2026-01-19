@@ -219,7 +219,7 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
           Variants
         </h4>
-        <div className="flex items-center gap-4 rounded-xl bg-gray-100 p-6">
+        <div className="flex items-center gap-4 rounded-xl border border-border-medium p-6">
           <Button size="lg" variant="primary">
             Primary
           </Button>
@@ -234,7 +234,7 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
           Sizes
         </h4>
-        <div className="flex items-end gap-4 rounded-xl bg-gray-100 p-6">
+        <div className="flex items-end gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col items-center gap-2">
             <Button size="xl" variant="primary">
               Button
@@ -267,7 +267,7 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
           Shapes
         </h4>
-        <div className="flex items-center gap-4 rounded-xl bg-gray-100 p-6">
+        <div className="flex items-center gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col items-center gap-2">
             <Button radius="default" size="lg" variant="primary">
               Default
@@ -288,7 +288,7 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
           States
         </h4>
-        <div className="flex items-center gap-4 rounded-xl bg-gray-100 p-6">
+        <div className="flex items-center gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col items-center gap-2">
             <Button size="md" variant="primary">
               Default
@@ -315,7 +315,7 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
           Icons
         </h4>
-        <div className="flex items-center gap-4 rounded-xl bg-gray-100 p-6">
+        <div className="flex items-center gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col items-center gap-2">
             <Button iconLeft={<Plus />} size="md" variant="primary">
               Leading
@@ -346,7 +346,7 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
           Interactive Demo
         </h4>
-        <div className="flex flex-col items-start gap-3 rounded-xl bg-gray-100 p-6">
+        <div className="flex flex-col items-start gap-3 rounded-xl border border-border-medium p-6">
           <CopyButtonDemo />
           <p className="text-body-sm text-text-medium">
             Click to see blur+scale icon transition

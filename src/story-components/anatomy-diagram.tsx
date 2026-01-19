@@ -47,7 +47,7 @@ export function AnatomyDiagram({ children, parts }: AnatomyDiagramProps) {
   return (
     <div className="flex flex-col items-start gap-8 lg:flex-row">
       {/* Component display area */}
-      <div className="flex min-h-[120px] flex-1 items-center justify-center rounded-lg bg-gray-100 p-8">
+      <div className="flex min-h-[120px] flex-1 items-center justify-center rounded-lg border border-border-medium p-8">
         {children}
       </div>
       {/* Parts legend */}

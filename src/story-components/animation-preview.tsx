@@ -29,7 +29,7 @@ export function AnimationPreview({ children, label }: AnimationPreviewProps) {
   return (
     <div className="flex flex-col gap-4">
       <div
-        className="flex items-center justify-center rounded-lg bg-gray-100 p-8"
+        className="flex items-center justify-center rounded-lg border border-border-medium p-8"
         data-animation-playing={isPlaying}
       >
         {children}

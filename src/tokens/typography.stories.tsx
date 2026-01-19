@@ -175,7 +175,7 @@ function StyleRow({
   return (
     <div className="border-border-light border-b py-4 last:border-b-0">
       <div className="mb-2 flex items-baseline gap-4">
-        <code className="rounded bg-gray-100 px-2 py-1 font-mono text-text-medium text-xs">
+        <code className="rounded border border-border-medium px-2 py-1 font-mono text-text-medium text-xs">
           .{className}
         </code>
         <span className="text-body-sm text-text-low">
@@ -190,7 +190,7 @@ function StyleRow({
 
 function Overview() {
   return (
-    <div className="max-w-4xl bg-gray-50 p-8">
+    <div className="max-w-4xl p-8">
       <div className="mb-8">
         <h1 className="mb-2 text-display text-text-extra-high">Typography</h1>
         <p className="text-body-lg text-text-medium">
@@ -204,7 +204,7 @@ function Overview() {
           <h2 className="mb-4 text-headline-lg text-text-high uppercase tracking-wider">
             Display & Titles
           </h2>
-          <div className="rounded-lg border border-border-light bg-gray-100 p-6">
+          <div className="rounded-lg border border-border-medium p-6">
             {displayTitles.map((style) => (
               <StyleRow
                 className={style.class}
@@ -225,7 +225,7 @@ function Overview() {
           <h2 className="mb-4 text-headline-lg text-text-high uppercase tracking-wider">
             Headlines
           </h2>
-          <div className="rounded-lg border border-border-light bg-gray-100 p-6">
+          <div className="rounded-lg border border-border-medium p-6">
             {headlines.map((style) => (
               <StyleRow
                 className={style.class}
@@ -245,7 +245,7 @@ function Overview() {
           <h2 className="mb-4 text-headline-lg text-text-high uppercase tracking-wider">
             Body Text
           </h2>
-          <div className="rounded-lg border border-border-light bg-gray-100 p-6">
+          <div className="rounded-lg border border-border-medium p-6">
             {bodyText.map((style) => (
               <StyleRow
                 className={style.class}
@@ -264,7 +264,7 @@ function Overview() {
           <h2 className="mb-4 text-headline-lg text-text-high uppercase tracking-wider">
             Button Text
           </h2>
-          <div className="rounded-lg border border-border-light bg-gray-100 p-6">
+          <div className="rounded-lg border border-border-medium p-6">
             {buttonText.map((style) => (
               <StyleRow
                 className={style.class}
@@ -286,7 +286,7 @@ function Overview() {
 
 function DisplayTitles() {
   return (
-    <div className="max-w-4xl bg-gray-50 p-8">
+    <div className="max-w-4xl p-8">
       <div className="mb-6">
         <h2 className="mb-2 text-text-extra-high text-title-lg">
           Display & Titles
@@ -296,7 +296,7 @@ function DisplayTitles() {
           Uses Inter Variable at weight 500.
         </p>
       </div>
-      <div className="rounded-lg border border-border-light bg-gray-100 p-6">
+      <div className="rounded-lg border border-border-medium p-6">
         {displayTitles.map((style) => (
           <StyleRow
             className={style.class}
@@ -317,7 +317,7 @@ function DisplayTitles() {
 
 function Headlines() {
   return (
-    <div className="max-w-3xl bg-gray-50 p-8">
+    <div className="max-w-3xl p-8">
       <div className="mb-6">
         <h2 className="mb-2 text-text-extra-high text-title-lg">Headlines</h2>
         <p className="text-body-md text-text-medium">
@@ -325,7 +325,7 @@ function Headlines() {
           weight 600.
         </p>
       </div>
-      <div className="rounded-lg border border-border-light bg-gray-100 p-6">
+      <div className="rounded-lg border border-border-medium p-6">
         {headlines.map((style) => (
           <StyleRow
             className={style.class}
@@ -345,7 +345,7 @@ function Headlines() {
 
 function BodyText() {
   return (
-    <div className="max-w-3xl bg-gray-50 p-8">
+    <div className="max-w-3xl p-8">
       <div className="mb-6">
         <h2 className="mb-2 text-text-extra-high text-title-lg">Body Text</h2>
         <p className="text-body-md text-text-medium">
@@ -353,7 +353,7 @@ function BodyText() {
           variant (550).
         </p>
       </div>
-      <div className="rounded-lg border border-border-light bg-gray-100 p-6">
+      <div className="rounded-lg border border-border-medium p-6">
         {bodyText.map((style) => (
           <StyleRow
             className={style.class}
@@ -372,7 +372,7 @@ function BodyText() {
 
 function ButtonText() {
   return (
-    <div className="max-w-3xl bg-gray-50 p-8">
+    <div className="max-w-3xl p-8">
       <div className="mb-6">
         <h2 className="mb-2 text-text-extra-high text-title-lg">Button Text</h2>
         <p className="text-body-md text-text-medium">
@@ -380,7 +380,7 @@ function ButtonText() {
           line-height 1.
         </p>
       </div>
-      <div className="rounded-lg border border-border-light bg-gray-100 p-6">
+      <div className="rounded-lg border border-border-medium p-6">
         {buttonText.map((style) => (
           <StyleRow
             className={style.class}
@@ -400,7 +400,7 @@ function ButtonText() {
 
 function FluidDemo() {
   return (
-    <div className="max-w-4xl bg-gray-50 p-8">
+    <div className="max-w-4xl p-8">
       <div className="mb-6">
         <h2 className="mb-2 text-text-extra-high text-title-lg">
           Fluid Scaling Demo
@@ -409,7 +409,7 @@ function FluidDemo() {
           Resize your browser window between 768px and 1440px to see the fluid
           scaling in action.
         </p>
-        <div className="inline-block rounded bg-gray-100 px-4 py-2 text-body-sm text-text-low">
+        <div className="inline-block rounded border border-border-medium px-4 py-2 text-body-sm text-text-low">
           Current viewport:{" "}
           <span className="font-mono" id="viewport-width">
             calculating...
@@ -417,7 +417,7 @@ function FluidDemo() {
         </div>
       </div>
 
-      <div className="space-y-6 rounded-lg border border-border-light bg-gray-100 p-8">
+      <div className="space-y-6 rounded-lg border border-border-medium p-8">
         <div>
           <p className="mb-1 text-body-sm text-text-low">
             .text-display (36px → 48px)
@@ -484,7 +484,7 @@ function WeightScale() {
   ];
 
   return (
-    <div className="max-w-3xl bg-gray-50 p-8">
+    <div className="max-w-3xl p-8">
       <div className="mb-6">
         <h2 className="mb-2 text-text-extra-high text-title-lg">
           Weight Scale
@@ -494,7 +494,7 @@ function WeightScale() {
           500, 550, and 600.
         </p>
       </div>
-      <div className="space-y-3 rounded-lg border border-border-light bg-gray-100 p-6">
+      <div className="space-y-3 rounded-lg border border-border-medium p-6">
         {weights.map((w) => (
           <div className="flex items-center gap-4" key={w.value}>
             <span

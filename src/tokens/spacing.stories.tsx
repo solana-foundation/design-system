@@ -48,7 +48,7 @@ function SpacingScaleTable() {
       </p>
       <div className="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800">
         <table className="w-full text-left text-sm">
-          <thead className="bg-gray-50 dark:bg-gray-900">
+          <thead className="border border-border-medium dark:border-gray-700">
             <tr>
               <th className="px-4 py-3 font-medium text-gray-900 dark:text-gray-100">
                 Token
