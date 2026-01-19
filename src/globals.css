@@ -326,7 +326,7 @@
 
   /* Button Primary - high contrast, inverts in dark mode */
   --button-primary-bg: var(--gray-1400);
-  --button-primary-bg-hover: var(--gray-1200);
+  --button-primary-bg-hover: var(--gray-1300);
   --button-primary-bg-active: var(--gray-1100);
   --button-primary-text: var(--white);
 
