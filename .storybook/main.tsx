@@ -10,6 +10,7 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
+    "@storybook/addon-themes",
   ],
 
   framework: {
@@ -23,9 +24,13 @@ const config: StorybookConfig = {
     if (config.resolve) {
       config.resolve.alias = {
         ...config.resolve.alias,
-        hooks: path.resolve(__dirname, "../src/ui/hooks"),
-        primitives: path.resolve(__dirname, "../src/ui/primitives"),
-        utils: path.resolve(__dirname, "../src/ui/utils"),
+        "@tokens": path.resolve(__dirname, "../src/tokens"),
+        "@primitives": path.resolve(__dirname, "../src/primitives"),
+        "@components": path.resolve(__dirname, "../src/components"),
+        "@patterns": path.resolve(__dirname, "../src/patterns"),
+        "@hooks": path.resolve(__dirname, "../src/hooks"),
+        "@utils": path.resolve(__dirname, "../src/utils"),
+        "@story-components": path.resolve(__dirname, "../src/story-components"),
       };
     }
 

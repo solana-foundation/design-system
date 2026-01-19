@@ -115,14 +115,6 @@ const sizeStyles: Record<
 };
 
 /**
- * Motion spring configurations for button interactions.
- * Snappy spring for responsive feel without feeling sluggish.
- */
-const spring = {
-  snappy: { stiffness: 500, damping: 30 },
-} as const;
-
-/**
  * Button component with motion-enhanced interactions.
  *
  * Features:
@@ -298,44 +290,56 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       );
     }
 
-    // Motion variants for hover and press animations
-    // Subtle hover scale (1.02) + lift (-1px) creates depth, press scale (0.97) provides tactile feedback
-    // Per Emil Kowalski & Jakub.kr animation principles
-    // Note: whileHover only triggers on actual mouse hover, not keyboard focus (Motion design)
-    const motionProps: HTMLMotionProps<"button"> = {
-      whileHover: isDisabled ? undefined : { scale: 1.02, y: -1 },
+    // Press animation only - no hover scale
+    // Per Emil Kowalski: scale 0.97 on press with ~150ms transition
+    // https://emilkowal.ski/ui/7-practical-animation-tips
+    const scaleMotionProps = {
       whileTap: isDisabled ? undefined : { scale: 0.97 },
-      transition: spring.snappy,
+      transition: { type: "spring" as const, duration: 0.15, bounce: 0 },
     };
 
-    const buttonElement = (
+    // Wrap in squircle for iOS-style corner smoothing (60%)
+    // Scale animation is applied to outer wrapper to prevent clip-path clipping
+    if (useSquircle) {
+      return (
+        <motion.div
+          className="inline-flex"
+          {...scaleMotionProps}
+        >
+          <CornerSmoothing
+            cornerRadius={sizeConfig.squircleRadius}
+            cornerSmoothing={IOS_CORNER_SMOOTHING}
+            className="inline-flex"
+          >
+            <motion.button
+              ref={ref}
+              className={buttonClasses}
+              style={buttonStyles}
+              disabled={isDisabled}
+              aria-busy={loading}
+              {...props}
+            >
+              {content}
+            </motion.button>
+          </CornerSmoothing>
+        </motion.div>
+      );
+    }
+
+    // Pill mode: scale animation on button directly (no clip-path)
+    return (
       <motion.button
         ref={ref}
         className={buttonClasses}
         style={buttonStyles}
         disabled={isDisabled}
         aria-busy={loading}
-        {...motionProps}
+        {...scaleMotionProps}
         {...props}
       >
         {content}
       </motion.button>
     );
-
-    // Wrap in squircle for iOS-style corner smoothing (60%)
-    if (useSquircle) {
-      return (
-        <CornerSmoothing
-          cornerRadius={sizeConfig.squircleRadius}
-          cornerSmoothing={IOS_CORNER_SMOOTHING}
-          className="inline-flex"
-        >
-          {buttonElement}
-        </CornerSmoothing>
-      );
-    }
-
-    return buttonElement;
   }
 );
 
