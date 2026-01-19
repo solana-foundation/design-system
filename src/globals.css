@@ -360,6 +360,12 @@
   --button-padding-x-md: 12px;
   --button-padding-x-sm: 8px;
 
+  /* Button Padding Horizontal - Round variant */
+  --button-padding-x-round-xl: 28px;
+  --button-padding-x-round-lg: 24px;
+  --button-padding-x-round-md: 20px;
+  --button-padding-x-round-sm: 16px;
+
   /* Button Radii - Default (per size) */
   --button-radius-xl: 12px;
   --button-radius-lg: 10px;
@@ -1307,4 +1313,9 @@ body {
 .illustration-animate {
   animation: illustration-entrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s
     both;
+}
+
+/* Animation Preview - Override reduced motion for docs opt-in viewing */
+[data-animation-playing="true"] .animate-spin {
+  animation-play-state: running !important;
 }

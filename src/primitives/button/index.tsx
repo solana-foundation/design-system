@@ -65,6 +65,7 @@ const sizeStyles: Record<
   {
     height: string;
     paddingX: string;
+    paddingXRound: string;
     radius: string;
     iconSize: string;
     gap: string;
@@ -74,6 +75,7 @@ const sizeStyles: Record<
   xl: {
     height: "var(--button-height-xl)",
     paddingX: "var(--button-padding-x-xl)",
+    paddingXRound: "var(--button-padding-x-round-xl)",
     radius: "var(--button-radius-xl)",
     iconSize: "var(--button-icon-xl)",
     gap: "var(--button-gap-xl)",
@@ -82,6 +84,7 @@ const sizeStyles: Record<
   lg: {
     height: "var(--button-height-lg)",
     paddingX: "var(--button-padding-x-lg)",
+    paddingXRound: "var(--button-padding-x-round-lg)",
     radius: "var(--button-radius-lg)",
     iconSize: "var(--button-icon-lg)",
     gap: "var(--button-gap-lg)",
@@ -90,6 +93,7 @@ const sizeStyles: Record<
   md: {
     height: "var(--button-height-md)",
     paddingX: "var(--button-padding-x-md)",
+    paddingXRound: "var(--button-padding-x-round-md)",
     radius: "var(--button-radius-md)",
     iconSize: "var(--button-icon-md)",
     gap: "var(--button-gap-md)",
@@ -98,6 +102,7 @@ const sizeStyles: Record<
   sm: {
     height: "var(--button-height-sm)",
     paddingX: "var(--button-padding-x-sm)",
+    paddingXRound: "var(--button-padding-x-round-sm)",
     radius: "var(--button-radius-sm)",
     iconSize: "var(--button-icon-sm)",
     gap: "var(--button-gap-sm)",
@@ -174,7 +179,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     // For icon-only buttons, use height for both dimensions
     const buttonWidth = iconOnly ? sizeConfig.height : "auto";
-    const buttonPadding = iconOnly ? "0" : `0 ${sizeConfig.paddingX}`;
+    // Use increased padding for round buttons to compensate for optical illusion
+    const effectivePaddingX =
+      radius === "round" ? sizeConfig.paddingXRound : sizeConfig.paddingX;
+    const buttonPadding = iconOnly ? "0" : `0 ${effectivePaddingX}`;
 
     // Combined styles for the button
     const buttonStyles = {
@@ -222,10 +230,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
 
     // Icon wrapper component for consistent sizing
-    // overflow-visible allows blur animations to extend beyond icon bounds
+    // relative: required for AnimatePresence popLayout mode to anchor exiting elements
+    // overflow-visible: allows blur animations to extend beyond icon bounds
     const IconWrapper = ({ children: icon }: { children: ReactNode }) => (
       <span
-        className="inline-flex shrink-0 items-center justify-center overflow-visible"
+        className="relative inline-flex shrink-0 items-center justify-center overflow-visible"
         style={{
           width: "var(--icon-size)",
           height: "var(--icon-size)",

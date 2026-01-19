@@ -46,8 +46,9 @@ export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(
         className={cn(
           // Smooth rotation animation
           "animate-spin",
-          // Pause animation when reduced motion is preferred
-          "motion-reduce:animate-none motion-reduce:opacity-70",
+          // Pause animation when reduced motion is preferred (paused, not removed)
+          // Can be overridden by parent [data-animation-playing="true"] for docs
+          "motion-reduce:opacity-70 motion-reduce:[animation-play-state:paused]",
           className
         )}
         fill="none"

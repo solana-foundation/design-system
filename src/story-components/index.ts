@@ -8,6 +8,10 @@ export {
   type AnatomyPartProps,
 } from "./anatomy-diagram";
 export {
+  AnimationPreview,
+  type AnimationPreviewProps,
+} from "./animation-preview";
+export {
   DoExample,
   type DoExampleProps,
   DontExample,

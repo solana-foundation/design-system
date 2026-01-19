@@ -1,5 +1,6 @@
 import {
   AnatomyDiagram,
+  AnimationPreview,
   DoExample,
   DontExample,
   GridCell,
@@ -487,7 +488,74 @@ export const Radius: Story = {
 };
 
 // =============================================================================
-// 6. WITH ICONS
+// 6. RADIUS PADDING COMPARISON
+// =============================================================================
+
+/**
+ * Side-by-side comparison of default vs round padding.
+ * Round buttons use increased horizontal padding to compensate for the
+ * optical illusion where curved ends "eat into" visual space.
+ */
+export const RadiusPaddingComparison: Story = {
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          "Round buttons use increased horizontal padding (approximately 2:1 ratio vs default) to maintain visual balance. The curved ends create an optical illusion of less space, so extra padding compensates.",
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-col gap-8 p-8">
+      <StorySection
+        description="Round buttons have increased horizontal padding to maintain visual balance."
+        title="Default vs Round Padding"
+      >
+        <StoryGrid columns={3}>
+          {/* Header */}
+          <GridLabel header>Size</GridLabel>
+          <GridLabel header>Default</GridLabel>
+          <GridLabel header>Round</GridLabel>
+
+          {/* Size rows */}
+          {sizes.map((size) => (
+            <>
+              <GridLabel key={`label-${size}`}>{size.toUpperCase()}</GridLabel>
+              <GridCell center key={`default-${size}`}>
+                <Button radius="default" size={size} variant="primary">
+                  Connect Wallet
+                </Button>
+              </GridCell>
+              <GridCell center key={`round-${size}`}>
+                <Button radius="round" size={size} variant="primary">
+                  Connect Wallet
+                </Button>
+              </GridCell>
+            </>
+          ))}
+        </StoryGrid>
+      </StorySection>
+
+      <StorySection
+        description="Visual comparison with secondary variant."
+        title="Secondary Variant Comparison"
+      >
+        <div className="flex flex-wrap items-center justify-center gap-4 rounded-lg bg-gray-100 p-6">
+          <Button radius="default" size="lg" variant="secondary">
+            Default
+          </Button>
+          <Button radius="round" size="lg" variant="secondary">
+            Round
+          </Button>
+        </div>
+      </StorySection>
+    </div>
+  ),
+};
+
+// =============================================================================
+// 7. WITH ICONS
 // =============================================================================
 
 /**
@@ -657,17 +725,27 @@ export const States: Story = {
               </Button>
             </GridCell>
           ))}
+        </StoryGrid>
+      </StorySection>
 
-          {/* Loading */}
-          <GridLabel>Loading</GridLabel>
-          {sizes.map((size) => (
-            <GridCell center key={`loading-${size}`}>
-              <Button loading size={size} variant="primary">
+      <StorySection
+        description="Loading spinner animation respects reduced motion. Click Play to preview."
+        title="Loading State"
+      >
+        <AnimationPreview label="Spinner rotation - 1s linear, infinite">
+          <div className="flex items-center justify-center gap-4">
+            {sizes.map((size) => (
+              <Button
+                key={`loading-${size}`}
+                loading
+                size={size}
+                variant="primary"
+              >
                 Button
               </Button>
-            </GridCell>
-          ))}
-        </StoryGrid>
+            ))}
+          </div>
+        </AnimationPreview>
       </StorySection>
 
       <StorySection
@@ -1039,6 +1117,30 @@ export const Accessibility: Story = {
 // =============================================================================
 
 /**
+ * Animated icon component for blur+scale crossfade transitions.
+ * Uses AnimatePresence with mode="wait" for sequential exit/enter.
+ * The absolute positioning ensures both icons occupy the same space
+ * within the Button's IconWrapper (which has relative positioning).
+ * Pattern from Jakub Antalik (jakub.kr).
+ */
+const AnimatedCopyIcon = ({ copied }: { copied: boolean }) => (
+  <AnimatePresence initial={false} mode="wait">
+    <motion.span
+      key={copied ? "check" : "copy"}
+      initial={{ opacity: 0, scale: 0.25, filter: "blur(4px)" }}
+      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      exit={{ opacity: 0, scale: 0.25, filter: "blur(4px)" }}
+      transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+      // Absolute positioning within IconWrapper for proper crossfade
+      // inset-0 fills the container, flex centers the icon
+      className="absolute inset-0 flex items-center justify-center"
+    >
+      {copied ? <Check size={16} /> : <Copy size={16} />}
+    </motion.span>
+  </AnimatePresence>
+);
+
+/**
  * Animated icon transitions using Motion's AnimatePresence.
  * Pattern inspired by Jakub.kr's blur-scale micro-interactions.
  */
@@ -1056,19 +1158,7 @@ export const IconTransitions: Story = {
     const { copied, copy } = useCopyToClipboard();
     return (
       <Button
-        iconLeft={
-          <AnimatePresence initial={false} mode="popLayout">
-            <motion.div
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 0.25, filter: "blur(4px)" }}
-              initial={{ opacity: 0, scale: 0.25, filter: "blur(4px)" }}
-              key={copied ? "check" : "copy"}
-              transition={{ type: "spring", duration: 0.3, bounce: 0 }}
-            >
-              {copied ? <Check /> : <Copy />}
-            </motion.div>
-          </AnimatePresence>
-        }
+        iconLeft={<AnimatedCopyIcon copied={copied} />}
         onClick={() => copy("0x1234...5678")}
         size="md"
         variant="secondary"
