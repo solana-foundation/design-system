@@ -205,6 +205,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const buttonClasses = cn(
       // Layout - relative for spinner overlay positioning
       "relative inline-flex items-center justify-center",
+      // GPU optimization - prevents first-frame animation stutter (Jakub.kr)
+      "will-change-transform",
       // Typography - uses existing text-button-* classes
       sizeConfig.textClass,
       // Variant colors
@@ -297,10 +299,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     // Motion variants for hover and press animations
-    // Subtle hover scale (1.02) creates anticipation, press scale (0.97) provides tactile feedback
-    // Per Emil Kowalski's animation principles
+    // Subtle hover scale (1.02) + lift (-1px) creates depth, press scale (0.97) provides tactile feedback
+    // Per Emil Kowalski & Jakub.kr animation principles
+    // Note: whileHover only triggers on actual mouse hover, not keyboard focus (Motion design)
     const motionProps: HTMLMotionProps<"button"> = {
-      whileHover: isDisabled ? undefined : { scale: 1.02 },
+      whileHover: isDisabled ? undefined : { scale: 1.02, y: -1 },
       whileTap: isDisabled ? undefined : { scale: 0.97 },
       transition: spring.snappy,
     };
