@@ -29,7 +29,7 @@ export function StorySection({
             <h3 className="text-headline-lg text-text-extra-high">{title}</h3>
           )}
           {description && (
-            <p className="text-body-md text-text-medium max-w-xl">
+            <p className="max-w-xl text-body-md text-text-medium">
               {description}
             </p>
           )}

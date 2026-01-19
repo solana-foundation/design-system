@@ -27,7 +27,7 @@ export function StoryGrid({
 }: StoryGridProps) {
   return (
     <div
-      className={`grid ${columnClasses[columns]} gap-x-8 gap-y-6 items-center ${className}`}
+      className={`grid ${columnClasses[columns]} items-center gap-x-8 gap-y-6 ${className}`}
     >
       {children}
     </div>
@@ -47,14 +47,12 @@ export interface GridLabelProps {
 export function GridLabel({ children, header = false }: GridLabelProps) {
   if (header) {
     return (
-      <div className="text-xs font-medium text-text-low text-center uppercase tracking-wide">
+      <div className="text-center font-medium text-text-low text-xs uppercase tracking-wide">
         {children}
       </div>
     );
   }
-  return (
-    <div className="text-xs font-medium text-text-low">{children}</div>
-  );
+  return <div className="font-medium text-text-low text-xs">{children}</div>;
 }
 
 export interface GridCellProps {
@@ -68,7 +66,5 @@ export interface GridCellProps {
  * Content cell for StoryGrid.
  */
 export function GridCell({ children, center = false }: GridCellProps) {
-  return (
-    <div className={center ? "flex justify-center" : ""}>{children}</div>
-  );
+  return <div className={center ? "flex justify-center" : ""}>{children}</div>;
 }

@@ -1,17 +1,30 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Plus, ArrowRight, Search, Download, Trash2, Settings, Mail, Heart } from "lucide-react";
-import { Button } from "./index";
 import {
-  StorySection,
-  StoryGrid,
-  GridLabel,
-  GridCell,
+  AnatomyDiagram,
   DoExample,
   DontExample,
+  GridCell,
+  GridLabel,
   GuidelinesGrid,
-  AnatomyDiagram,
   KeyboardShortcut,
+  StoryGrid,
+  StorySection,
 } from "@story-components";
+import type { Meta, StoryObj } from "@storybook/react";
+import {
+  ArrowRight,
+  Check,
+  Copy,
+  Download,
+  Heart,
+  Mail,
+  Plus,
+  Search,
+  Settings,
+  Trash2,
+} from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useCopyToClipboard } from "@/hooks";
+import { Button } from "./index";
 
 /**
  * # Button
@@ -22,7 +35,7 @@ import {
  * ## Features
  * - **Two variants**: Primary (high contrast) and Secondary (subtle)
  * - **Four sizes**: XL (48px), LG (40px), MD (36px), SM (28px)
- * - **iOS-style corners**: Squircle smoothing (60%) for organic feel
+ * - **Rounded corners**: Size-specific border radius for consistent look
  * - **Icon support**: Leading, trailing, or icon-only configurations
  * - **Motion**: Spring-based hover/press animations with reduced-motion support
  * - **Loading state**: Spinner overlay with content blur transition
@@ -42,7 +55,7 @@ const meta: Meta<typeof Button> = {
     docs: {
       description: {
         component:
-          "Interactive button component with motion-enhanced feedback, multiple variants, and iOS-style corner smoothing.",
+          "Interactive button component with motion-enhanced feedback and multiple variants.",
       },
     },
   },
@@ -72,12 +85,12 @@ const meta: Meta<typeof Button> = {
     },
     radius: {
       control: "radio",
-      options: ["default", "pill"],
+      options: ["default", "round"],
       description:
-        "Corner style. **Default** uses size-specific squircle radius. **Pill** is fully rounded.",
+        "Corner style. **Default** uses size-specific radius. **Round** is fully rounded.",
       table: {
         category: "Appearance",
-        type: { summary: '"default" | "pill"' },
+        type: { summary: '"default" | "round"' },
         defaultValue: { summary: "default" },
       },
     },
@@ -121,7 +134,8 @@ const meta: Meta<typeof Button> = {
     // === State ===
     disabled: {
       control: "boolean",
-      description: "Disables the button, reducing opacity and preventing interaction.",
+      description:
+        "Disables the button, reducing opacity and preventing interaction.",
       table: {
         category: "State",
         type: { summary: "boolean" },
@@ -227,16 +241,16 @@ export const Overview: Story = {
   render: () => (
     <div className="flex flex-col gap-12 p-8">
       {/* Hero buttons */}
-      <div className="flex flex-col gap-6 items-center">
-        <div className="flex gap-4 items-center">
-          <Button variant="primary" size="lg">
+      <div className="flex flex-col items-start gap-6">
+        <div className="flex items-center gap-4">
+          <Button size="lg" variant="primary">
             Primary Action
           </Button>
-          <Button variant="secondary" size="lg">
+          <Button size="lg" variant="secondary">
             Secondary Action
           </Button>
         </div>
-        <p className="text-body-sm text-text-medium text-center max-w-md">
+        <p className="max-w-md text-body-sm text-text-medium">
           Two variants for visual hierarchy. Primary for main actions, Secondary
           for supporting options.
         </p>
@@ -244,25 +258,25 @@ export const Overview: Story = {
 
       {/* Feature highlights */}
       <div className="grid grid-cols-3 gap-8">
-        <div className="flex flex-col gap-3 items-center text-center">
-          <Button variant="primary" size="md" iconLeft={<Plus />}>
+        <div className="flex flex-col items-start gap-3 text-left">
+          <Button iconLeft={<Plus />} size="md" variant="primary">
             With Icon
           </Button>
           <p className="text-body-sm text-text-medium">
             Icons reinforce action meaning
           </p>
         </div>
-        <div className="flex flex-col gap-3 items-center text-center">
-          <Button variant="primary" size="md" loading>
+        <div className="flex flex-col items-start gap-3 text-left">
+          <Button loading size="md" variant="primary">
             Loading
           </Button>
           <p className="text-body-sm text-text-medium">
             Smooth loading transitions
           </p>
         </div>
-        <div className="flex flex-col gap-3 items-center text-center">
-          <Button variant="primary" size="md" radius="pill">
-            Pill Shape
+        <div className="flex flex-col items-start gap-3 text-left">
+          <Button radius="round" size="md" variant="primary">
+            Round Shape
           </Button>
           <p className="text-body-sm text-text-medium">
             Alternative corner style
@@ -293,18 +307,18 @@ export const Variants: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <StorySection
-        title="Visual Hierarchy"
         description="Use variants to establish clear action priority."
+        title="Visual Hierarchy"
       >
         <div className="grid grid-cols-2 gap-8">
           <div className="flex flex-col gap-4">
-            <div className="rounded-lg bg-gray-100 p-6 flex justify-center">
-              <Button variant="primary" size="lg">
+            <div className="flex justify-center rounded-lg bg-gray-100 p-6">
+              <Button size="lg" variant="primary">
                 Submit Form
               </Button>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-body-sm text-text-extra-high font-medium">
+              <span className="font-medium text-body-sm text-text-extra-high">
                 Primary
               </span>
               <span className="text-body-sm text-text-medium">
@@ -314,18 +328,18 @@ export const Variants: Story = {
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <div className="rounded-lg bg-gray-100 p-6 flex justify-center">
-              <Button variant="secondary" size="lg">
+            <div className="flex justify-center rounded-lg bg-gray-100 p-6">
+              <Button size="lg" variant="secondary">
                 Cancel
               </Button>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-body-sm text-text-extra-high font-medium">
+              <span className="font-medium text-body-sm text-text-extra-high">
                 Secondary
               </span>
               <span className="text-body-sm text-text-medium">
-                Subtle transparency. Use for supporting actions that
-                don&apos;t compete with primary.
+                Subtle transparency. Use for supporting actions that don&apos;t
+                compete with primary.
               </span>
             </div>
           </div>
@@ -333,11 +347,11 @@ export const Variants: Story = {
       </StorySection>
 
       <StorySection title="Together in Context">
-        <div className="rounded-lg bg-gray-100 p-8 flex gap-3 justify-center">
-          <Button variant="primary" size="md">
+        <div className="flex justify-center gap-3 rounded-lg bg-gray-100 p-8">
+          <Button size="md" variant="primary">
             Confirm
           </Button>
-          <Button variant="secondary" size="md">
+          <Button size="md" variant="secondary">
             Cancel
           </Button>
         </div>
@@ -366,8 +380,8 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <StorySection
-        title="Size Scale"
         description="Each size includes coordinated height, padding, typography, and icon sizing."
+        title="Size Scale"
       >
         <StoryGrid columns={5}>
           {/* Header */}
@@ -377,26 +391,11 @@ export const Sizes: Story = {
           <GridLabel header>MD</GridLabel>
           <GridLabel header>SM</GridLabel>
 
-          {/* Height row */}
-          <GridLabel>Height</GridLabel>
-          <GridCell center>
-            <span className="text-xs text-text-low font-mono">48px</span>
-          </GridCell>
-          <GridCell center>
-            <span className="text-xs text-text-low font-mono">40px</span>
-          </GridCell>
-          <GridCell center>
-            <span className="text-xs text-text-low font-mono">36px</span>
-          </GridCell>
-          <GridCell center>
-            <span className="text-xs text-text-low font-mono">28px</span>
-          </GridCell>
-
           {/* Primary row */}
           <GridLabel>Primary</GridLabel>
           {sizes.map((size) => (
-            <GridCell key={`primary-${size}`} center>
-              <Button variant="primary" size={size}>
+            <GridCell center key={`primary-${size}`}>
+              <Button size={size} variant="primary">
                 Button
               </Button>
             </GridCell>
@@ -405,27 +404,12 @@ export const Sizes: Story = {
           {/* Secondary row */}
           <GridLabel>Secondary</GridLabel>
           {sizes.map((size) => (
-            <GridCell key={`secondary-${size}`} center>
-              <Button variant="secondary" size={size}>
+            <GridCell center key={`secondary-${size}`}>
+              <Button size={size} variant="secondary">
                 Button
               </Button>
             </GridCell>
           ))}
-
-          {/* Icon size row */}
-          <GridLabel>Icon Size</GridLabel>
-          <GridCell center>
-            <span className="text-xs text-text-low font-mono">20px</span>
-          </GridCell>
-          <GridCell center>
-            <span className="text-xs text-text-low font-mono">18px</span>
-          </GridCell>
-          <GridCell center>
-            <span className="text-xs text-text-low font-mono">16px</span>
-          </GridCell>
-          <GridCell center>
-            <span className="text-xs text-text-low font-mono">14px</span>
-          </GridCell>
         </StoryGrid>
       </StorySection>
     </div>
@@ -437,7 +421,7 @@ export const Sizes: Story = {
 // =============================================================================
 
 /**
- * Corner radius options: squircle vs pill.
+ * Corner radius options: default vs round.
  */
 export const Radius: Story = {
   parameters: {
@@ -445,46 +429,50 @@ export const Radius: Story = {
     docs: {
       description: {
         story:
-          "Two corner styles. **Default** uses iOS-style squircle smoothing (60%) for an organic feel. **Pill** uses full rounding for a softer, more playful appearance.",
+          "Two corner styles. **Default** uses size-specific border radius. **Round** uses full rounding for a softer, more playful appearance.",
       },
     },
   },
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <StorySection
-        title="Corner Styles"
         description="Choose based on context and desired personality."
+        title="Corner Styles"
       >
         <div className="grid grid-cols-2 gap-8">
           <div className="flex flex-col gap-4">
-            <div className="rounded-lg bg-gray-100 p-6 flex flex-col gap-3 items-center">
+            <div className="flex flex-col items-start gap-3 rounded-lg bg-gray-100 p-6">
               {sizes.map((size) => (
-                <Button key={size} variant="primary" size={size} radius="default">
-                  Squircle
+                <Button
+                  key={size}
+                  radius="default"
+                  size={size}
+                  variant="primary"
+                >
+                  Default
                 </Button>
               ))}
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-body-sm text-text-extra-high font-medium">
-                Default (Squircle)
+              <span className="font-medium text-body-sm text-text-extra-high">
+                Default
               </span>
               <span className="text-body-sm text-text-medium">
-                iOS-style 60% corner smoothing. Size-specific radii: XL=12px,
-                LG=10px, MD=8px, SM=6px.
+                Size-specific radii: XL=12px, LG=10px, MD=8px, SM=6px.
               </span>
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            <div className="rounded-lg bg-gray-100 p-6 flex flex-col gap-3 items-center">
+            <div className="flex flex-col items-start gap-3 rounded-lg bg-gray-100 p-6">
               {sizes.map((size) => (
-                <Button key={size} variant="primary" size={size} radius="pill">
-                  Pill
+                <Button key={size} radius="round" size={size} variant="primary">
+                  Round
                 </Button>
               ))}
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-body-sm text-text-extra-high font-medium">
-                Pill
+              <span className="font-medium text-body-sm text-text-extra-high">
+                Round
               </span>
               <span className="text-body-sm text-text-medium">
                 Fully rounded corners (9999px). Creates a softer, more playful
@@ -518,8 +506,8 @@ export const WithIcons: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <StorySection
-        title="Icon Positions"
         description="Place icons strategically to reinforce the action."
+        title="Icon Positions"
       >
         <StoryGrid columns={5}>
           {/* Header */}
@@ -532,8 +520,8 @@ export const WithIcons: Story = {
           {/* Left Icon */}
           <GridLabel>Leading</GridLabel>
           {sizes.map((size) => (
-            <GridCell key={`left-${size}`} center>
-              <Button variant="primary" size={size} iconLeft={<Plus />}>
+            <GridCell center key={`left-${size}`}>
+              <Button iconLeft={<Plus />} size={size} variant="primary">
                 Add
               </Button>
             </GridCell>
@@ -542,8 +530,8 @@ export const WithIcons: Story = {
           {/* Right Icon */}
           <GridLabel>Trailing</GridLabel>
           {sizes.map((size) => (
-            <GridCell key={`right-${size}`} center>
-              <Button variant="primary" size={size} iconRight={<ArrowRight />}>
+            <GridCell center key={`right-${size}`}>
+              <Button iconRight={<ArrowRight />} size={size} variant="primary">
                 Next
               </Button>
             </GridCell>
@@ -552,12 +540,12 @@ export const WithIcons: Story = {
           {/* Both Icons */}
           <GridLabel>Both</GridLabel>
           {sizes.map((size) => (
-            <GridCell key={`both-${size}`} center>
+            <GridCell center key={`both-${size}`}>
               <Button
-                variant="primary"
-                size={size}
                 iconLeft={<Download />}
                 iconRight={<ArrowRight />}
+                size={size}
+                variant="primary"
               >
                 Download
               </Button>
@@ -567,13 +555,13 @@ export const WithIcons: Story = {
           {/* Icon Only */}
           <GridLabel>Icon Only</GridLabel>
           {sizes.map((size) => (
-            <GridCell key={`icon-only-${size}`} center>
+            <GridCell center key={`icon-only-${size}`}>
               <Button
-                variant="primary"
-                size={size}
-                iconOnly
-                iconLeft={<Search />}
                 aria-label="Search"
+                iconLeft={<Search />}
+                iconOnly
+                size={size}
+                variant="primary"
               />
             </GridCell>
           ))}
@@ -581,14 +569,38 @@ export const WithIcons: Story = {
       </StorySection>
 
       <StorySection
-        title="Icon-Only Variants"
         description="Common icon-only button patterns."
+        title="Icon-Only Variants"
       >
-        <div className="flex gap-3 items-center justify-center">
-          <Button variant="secondary" size="md" iconOnly iconLeft={<Heart />} aria-label="Favorite" />
-          <Button variant="secondary" size="md" iconOnly iconLeft={<Mail />} aria-label="Message" />
-          <Button variant="secondary" size="md" iconOnly iconLeft={<Settings />} aria-label="Settings" />
-          <Button variant="secondary" size="md" iconOnly iconLeft={<Trash2 />} aria-label="Delete" />
+        <div className="flex items-center justify-center gap-3">
+          <Button
+            aria-label="Favorite"
+            iconLeft={<Heart />}
+            iconOnly
+            size="md"
+            variant="secondary"
+          />
+          <Button
+            aria-label="Message"
+            iconLeft={<Mail />}
+            iconOnly
+            size="md"
+            variant="secondary"
+          />
+          <Button
+            aria-label="Settings"
+            iconLeft={<Settings />}
+            iconOnly
+            size="md"
+            variant="secondary"
+          />
+          <Button
+            aria-label="Delete"
+            iconLeft={<Trash2 />}
+            iconOnly
+            size="md"
+            variant="secondary"
+          />
         </div>
       </StorySection>
     </div>
@@ -615,8 +627,8 @@ export const States: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <StorySection
-        title="Interactive States"
         description="Each state provides clear visual feedback."
+        title="Interactive States"
       >
         <StoryGrid columns={5}>
           {/* Header */}
@@ -629,8 +641,8 @@ export const States: Story = {
           {/* Default */}
           <GridLabel>Default</GridLabel>
           {sizes.map((size) => (
-            <GridCell key={`default-${size}`} center>
-              <Button variant="primary" size={size}>
+            <GridCell center key={`default-${size}`}>
+              <Button size={size} variant="primary">
                 Button
               </Button>
             </GridCell>
@@ -639,8 +651,8 @@ export const States: Story = {
           {/* Disabled */}
           <GridLabel>Disabled</GridLabel>
           {sizes.map((size) => (
-            <GridCell key={`disabled-${size}`} center>
-              <Button variant="primary" size={size} disabled>
+            <GridCell center key={`disabled-${size}`}>
+              <Button disabled size={size} variant="primary">
                 Button
               </Button>
             </GridCell>
@@ -649,8 +661,8 @@ export const States: Story = {
           {/* Loading */}
           <GridLabel>Loading</GridLabel>
           {sizes.map((size) => (
-            <GridCell key={`loading-${size}`} center>
-              <Button variant="primary" size={size} loading>
+            <GridCell center key={`loading-${size}`}>
+              <Button loading size={size} variant="primary">
                 Button
               </Button>
             </GridCell>
@@ -659,36 +671,46 @@ export const States: Story = {
       </StorySection>
 
       <StorySection
-        title="State Details"
         description="Hover for scale (1.02) + lift (-1px). Press for scale (0.97). Focus shows ring."
+        title="State Details"
       >
         <div className="grid grid-cols-3 gap-6">
-          <div className="flex flex-col gap-2 items-center">
-            <div className="text-xs text-text-low font-mono mb-2">Hover</div>
+          <div className="flex flex-col items-center gap-2">
+            <div className="mb-2 font-mono text-text-low text-xs">Hover</div>
             <div className="rounded-lg bg-gray-100 p-4">
-              <Button variant="primary" size="md" className="scale-[1.02] -translate-y-px">
+              <Button
+                className="-translate-y-px scale-[1.02]"
+                size="md"
+                variant="primary"
+              >
                 Hover state
               </Button>
             </div>
-            <span className="text-xs text-text-medium">scale(1.02) translateY(-1px)</span>
+            <span className="text-text-medium text-xs">
+              scale(1.02) translateY(-1px)
+            </span>
           </div>
-          <div className="flex flex-col gap-2 items-center">
-            <div className="text-xs text-text-low font-mono mb-2">Press</div>
+          <div className="flex flex-col items-center gap-2">
+            <div className="mb-2 font-mono text-text-low text-xs">Press</div>
             <div className="rounded-lg bg-gray-100 p-4">
-              <Button variant="primary" size="md" className="scale-[0.97]">
+              <Button className="scale-[0.97]" size="md" variant="primary">
                 Press state
               </Button>
             </div>
-            <span className="text-xs text-text-medium">scale(0.97)</span>
+            <span className="text-text-medium text-xs">scale(0.97)</span>
           </div>
-          <div className="flex flex-col gap-2 items-center">
-            <div className="text-xs text-text-low font-mono mb-2">Focus</div>
+          <div className="flex flex-col items-center gap-2">
+            <div className="mb-2 font-mono text-text-low text-xs">Focus</div>
             <div className="rounded-lg bg-gray-100 p-4">
-              <Button variant="primary" size="md" className="ring-2 ring-[var(--button-focus-ring)] ring-offset-2">
+              <Button
+                className="ring-2 ring-[var(--button-focus-ring)] ring-offset-2"
+                size="md"
+                variant="primary"
+              >
                 Focus state
               </Button>
             </div>
-            <span className="text-xs text-text-medium">ring-2 + offset-2</span>
+            <span className="text-text-medium text-xs">ring-2 + offset-2</span>
           </div>
         </div>
       </StorySection>
@@ -722,7 +744,7 @@ export const Anatomy: Story = {
               number: 1,
               name: "Container",
               description:
-                "Squircle-clipped surface with background color and padding. Height varies by size.",
+                "Rounded surface with background color and padding. Height varies by size.",
             },
             {
               number: 2,
@@ -753,11 +775,11 @@ export const Anatomy: Story = {
           <div className="relative">
             {/* Annotated button */}
             <Button
-              variant="primary"
-              size="lg"
+              className="ring-2 ring-[var(--button-focus-ring)] ring-offset-2"
               iconLeft={<Download />}
               iconRight={<ArrowRight />}
-              className="ring-2 ring-[var(--button-focus-ring)] ring-offset-2"
+              size="lg"
+              variant="primary"
             >
               Download App
             </Button>
@@ -789,29 +811,29 @@ export const Guidelines: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <StorySection
-        title="Usage Guidelines"
         description="Best practices for button hierarchy and labeling."
+        title="Usage Guidelines"
       >
         <GuidelinesGrid>
           <DoExample description="Use one primary button per section for the main action.">
             <div className="flex gap-3">
-              <Button variant="primary" size="md">
+              <Button size="md" variant="primary">
                 Save changes
               </Button>
-              <Button variant="secondary" size="md">
+              <Button size="md" variant="secondary">
                 Cancel
               </Button>
             </div>
           </DoExample>
           <DontExample description="Avoid multiple primary buttons competing for attention.">
             <div className="flex gap-3">
-              <Button variant="primary" size="md">
+              <Button size="md" variant="primary">
                 Save
               </Button>
-              <Button variant="primary" size="md">
+              <Button size="md" variant="primary">
                 Submit
               </Button>
-              <Button variant="primary" size="md">
+              <Button size="md" variant="primary">
                 Confirm
               </Button>
             </div>
@@ -820,12 +842,12 @@ export const Guidelines: Story = {
 
         <GuidelinesGrid>
           <DoExample description="Use clear, action-oriented labels that describe what happens.">
-            <Button variant="primary" size="md" iconLeft={<Mail />}>
+            <Button iconLeft={<Mail />} size="md" variant="primary">
               Send message
             </Button>
           </DoExample>
           <DontExample description="Avoid vague labels that don't communicate the action.">
-            <Button variant="primary" size="md">
+            <Button size="md" variant="primary">
               Submit
             </Button>
           </DontExample>
@@ -834,15 +856,20 @@ export const Guidelines: Story = {
         <GuidelinesGrid>
           <DoExample description="Include aria-label for icon-only buttons.">
             <Button
-              variant="secondary"
-              size="md"
-              iconOnly
-              iconLeft={<Search />}
               aria-label="Search"
+              iconLeft={<Search />}
+              iconOnly
+              size="md"
+              variant="secondary"
             />
           </DoExample>
           <DontExample description="Icon-only buttons without labels are inaccessible.">
-            <Button variant="secondary" size="md" iconOnly iconLeft={<Search />} />
+            <Button
+              iconLeft={<Search />}
+              iconOnly
+              size="md"
+              variant="secondary"
+            />
           </DontExample>
         </GuidelinesGrid>
 
@@ -850,13 +877,25 @@ export const Guidelines: Story = {
           <DoExample description="Match button size to the context and surrounding elements.">
             <div className="flex items-center gap-4">
               <div className="text-body-md text-text-high">Compact toolbar</div>
-              <Button variant="secondary" size="sm" iconOnly iconLeft={<Settings />} aria-label="Settings" />
+              <Button
+                aria-label="Settings"
+                iconLeft={<Settings />}
+                iconOnly
+                size="sm"
+                variant="secondary"
+              />
             </div>
           </DoExample>
           <DontExample description="Oversized buttons in compact layouts feel unbalanced.">
             <div className="flex items-center gap-4">
               <div className="text-body-md text-text-high">Compact toolbar</div>
-              <Button variant="secondary" size="xl" iconOnly iconLeft={<Settings />} aria-label="Settings" />
+              <Button
+                aria-label="Settings"
+                iconLeft={<Settings />}
+                iconOnly
+                size="xl"
+                variant="secondary"
+              />
             </div>
           </DontExample>
         </GuidelinesGrid>
@@ -885,62 +924,60 @@ export const Accessibility: Story = {
   render: () => (
     <div className="flex flex-col gap-8 p-8">
       <StorySection
-        title="Keyboard Navigation"
         description="All buttons are fully keyboard accessible."
+        title="Keyboard Navigation"
       >
         <div className="rounded-lg bg-gray-100 p-6">
-          <div className="flex flex-col gap-2 max-w-md">
+          <div className="flex max-w-md flex-col gap-2">
             <KeyboardShortcut
-              keys={["Tab"]}
               description="Move focus to the button"
+              keys={["Tab"]}
             />
             <KeyboardShortcut
+              description="Activate the button"
               keys={["Enter"]}
-              description="Activate the button"
             />
             <KeyboardShortcut
+              description="Activate the button"
               keys={["Space"]}
-              description="Activate the button"
             />
             <KeyboardShortcut
-              keys={["Shift", "Tab"]}
               description="Move focus to previous element"
+              keys={["Shift", "Tab"]}
             />
           </div>
         </div>
       </StorySection>
 
       <StorySection
-        title="ARIA Attributes"
         description="Semantic attributes for assistive technology."
+        title="ARIA Attributes"
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="rounded-lg bg-gray-100 p-4 flex flex-col gap-2">
-            <code className="text-xs font-mono text-text-medium">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="flex flex-col gap-2 rounded-lg bg-gray-100 p-4">
+            <code className="font-mono text-text-medium text-xs">
               aria-label="Search"
             </code>
             <p className="text-body-sm text-text-medium">
               Required for icon-only buttons. Provides accessible name.
             </p>
           </div>
-          <div className="rounded-lg bg-gray-100 p-4 flex flex-col gap-2">
-            <code className="text-xs font-mono text-text-medium">
+          <div className="flex flex-col gap-2 rounded-lg bg-gray-100 p-4">
+            <code className="font-mono text-text-medium text-xs">
               aria-busy="true"
             </code>
             <p className="text-body-sm text-text-medium">
               Applied during loading state. Announces to screen readers.
             </p>
           </div>
-          <div className="rounded-lg bg-gray-100 p-4 flex flex-col gap-2">
-            <code className="text-xs font-mono text-text-medium">
-              disabled
-            </code>
+          <div className="flex flex-col gap-2 rounded-lg bg-gray-100 p-4">
+            <code className="font-mono text-text-medium text-xs">disabled</code>
             <p className="text-body-sm text-text-medium">
               Native disabled attribute. Button cannot be focused or activated.
             </p>
           </div>
-          <div className="rounded-lg bg-gray-100 p-4 flex flex-col gap-2">
-            <code className="text-xs font-mono text-text-medium">
+          <div className="flex flex-col gap-2 rounded-lg bg-gray-100 p-4">
+            <code className="font-mono text-text-medium text-xs">
               type="button"
             </code>
             <p className="text-body-sm text-text-medium">
@@ -951,45 +988,93 @@ export const Accessibility: Story = {
       </StorySection>
 
       <StorySection
-        title="Focus Management"
         description="Visible focus indicators for keyboard users."
+        title="Focus Management"
       >
-        <div className="flex gap-6 items-start">
-          <div className="flex flex-col gap-3 items-center">
+        <div className="flex items-start gap-6">
+          <div className="flex flex-col items-center gap-3">
             <Button
-              variant="primary"
-              size="lg"
               className="ring-2 ring-[var(--button-focus-ring)] ring-offset-2"
+              size="lg"
+              variant="primary"
             >
               Focused Primary
             </Button>
-            <span className="text-xs text-text-medium">Light mode offset</span>
+            <span className="text-text-medium text-xs">Light mode offset</span>
           </div>
-          <div className="flex flex-col gap-3 items-center">
+          <div className="flex flex-col items-center gap-3">
             <Button
-              variant="secondary"
-              size="lg"
               className="ring-2 ring-[var(--button-focus-ring)] ring-offset-2"
+              size="lg"
+              variant="secondary"
             >
               Focused Secondary
             </Button>
-            <span className="text-xs text-text-medium">50% opacity ring</span>
+            <span className="text-text-medium text-xs">50% opacity ring</span>
           </div>
         </div>
       </StorySection>
 
       <StorySection
-        title="Reduced Motion"
         description="Animations respect user preferences."
+        title="Reduced Motion"
       >
         <div className="rounded-lg bg-gray-100 p-6">
-          <p className="text-body-sm text-text-medium max-w-lg">
-            When <code className="text-xs bg-gray-200 px-1.5 py-0.5 rounded">prefers-reduced-motion: reduce</code> is
-            set, all hover/press scale animations and loading transitions are
+          <p className="max-w-lg text-body-sm text-text-medium">
+            When{" "}
+            <code className="rounded bg-gray-200 px-1.5 py-0.5 text-xs">
+              prefers-reduced-motion: reduce
+            </code>{" "}
+            is set, all hover/press scale animations and loading transitions are
             disabled. Color transitions become instant.
           </p>
         </div>
       </StorySection>
     </div>
   ),
+};
+
+// =============================================================================
+// 11. ICON TRANSITIONS
+// =============================================================================
+
+/**
+ * Animated icon transitions using Motion's AnimatePresence.
+ * Pattern inspired by Jakub.kr's blur-scale micro-interactions.
+ */
+export const IconTransitions: Story = {
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'Smooth icon transitions for state changes. Use `AnimatePresence` with `mode="popLayout"` and a blur-scale animation for delightful feedback.',
+      },
+    },
+  },
+  render: () => {
+    const { copied, copy } = useCopyToClipboard();
+    return (
+      <Button
+        iconLeft={
+          <AnimatePresence initial={false} mode="popLayout">
+            <motion.div
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 0.25, filter: "blur(4px)" }}
+              initial={{ opacity: 0, scale: 0.25, filter: "blur(4px)" }}
+              key={copied ? "check" : "copy"}
+              transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+            >
+              {copied ? <Check /> : <Copy />}
+            </motion.div>
+          </AnimatePresence>
+        }
+        onClick={() => copy("0x1234...5678")}
+        size="md"
+        variant="secondary"
+      >
+        Copy
+      </Button>
+    );
+  },
 };

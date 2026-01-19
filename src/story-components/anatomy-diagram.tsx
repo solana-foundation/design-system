@@ -15,11 +15,11 @@ export interface AnatomyPartProps {
 export function AnatomyPart({ number, name, description }: AnatomyPartProps) {
   return (
     <div className="flex items-start gap-3">
-      <div className="flex items-center justify-center w-6 h-6 rounded-full bg-gray-1400 text-white text-xs font-semibold shrink-0">
+      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gray-1400 font-semibold text-white text-xs">
         {number}
       </div>
       <div className="flex flex-col gap-0.5">
-        <span className="text-body-sm text-text-extra-high font-medium">
+        <span className="font-medium text-body-sm text-text-extra-high">
           {name}
         </span>
         <span className="text-body-sm text-text-medium">{description}</span>
@@ -45,19 +45,19 @@ export interface AnatomyDiagramProps {
  */
 export function AnatomyDiagram({ children, parts }: AnatomyDiagramProps) {
   return (
-    <div className="flex flex-col lg:flex-row gap-8 items-start">
+    <div className="flex flex-col items-start gap-8 lg:flex-row">
       {/* Component display area */}
-      <div className="flex-1 rounded-lg bg-gray-100 p-8 flex items-center justify-center min-h-[120px]">
+      <div className="flex min-h-[120px] flex-1 items-center justify-center rounded-lg bg-gray-100 p-8">
         {children}
       </div>
       {/* Parts legend */}
       <div className="flex flex-col gap-4 lg:w-80">
         {parts.map((part) => (
           <AnatomyPart
-            key={part.number}
-            number={part.number}
-            name={part.name}
             description={part.description}
+            key={part.number}
+            name={part.name}
+            number={part.number}
           />
         ))}
       </div>

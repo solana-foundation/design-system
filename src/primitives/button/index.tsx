@@ -1,9 +1,7 @@
+import { type HTMLMotionProps, motion } from "motion/react";
 import { forwardRef, type ReactNode } from "react";
-import { motion, type HTMLMotionProps } from "motion/react";
-import { Squircle as CornerSmoothing } from "corner-smoothing";
 import { cn, Slot } from "../../utils";
 import { Spinner } from "../spinner";
-import { IOS_CORNER_SMOOTHING } from "../squircle";
 
 /**
  * Base props for the button, excluding motion-conflicting event handlers.
@@ -12,9 +10,7 @@ import { IOS_CORNER_SMOOTHING } from "../squircle";
  */
 type BaseButtonProps = Omit<
   HTMLMotionProps<"button">,
-  | "children"
-  | "disabled"
-  | "ref"
+  "children" | "disabled" | "ref"
 >;
 
 /**
@@ -33,9 +29,9 @@ type ButtonVariant = "primary" | "secondary";
 /**
  * Button border radius variants.
  * Default: Size-specific radius (12/10/8/6px).
- * Pill: Fully rounded (9999px).
+ * Round: Fully rounded (9999px).
  */
-type ButtonRadius = "default" | "pill";
+type ButtonRadius = "default" | "round";
 
 export interface ButtonProps extends BaseButtonProps {
   /** Visual style variant */
@@ -44,7 +40,7 @@ export interface ButtonProps extends BaseButtonProps {
   size?: ButtonSize;
   /** Disables the button */
   disabled?: boolean;
-  /** Border radius style - default uses size-specific values, pill is fully rounded */
+  /** Border radius style - default uses size-specific values, round is fully rounded */
   radius?: ButtonRadius;
   /** Icon element to display before the button text */
   iconLeft?: ReactNode;
@@ -70,7 +66,6 @@ const sizeStyles: Record<
     height: string;
     paddingX: string;
     radius: string;
-    squircleRadius: number; // Pixel value for corner-smoothing
     iconSize: string;
     gap: string;
     textClass: string;
@@ -80,7 +75,6 @@ const sizeStyles: Record<
     height: "var(--button-height-xl)",
     paddingX: "var(--button-padding-x-xl)",
     radius: "var(--button-radius-xl)",
-    squircleRadius: 12,
     iconSize: "var(--button-icon-xl)",
     gap: "var(--button-gap-xl)",
     textClass: "text-button-xl",
@@ -89,7 +83,6 @@ const sizeStyles: Record<
     height: "var(--button-height-lg)",
     paddingX: "var(--button-padding-x-lg)",
     radius: "var(--button-radius-lg)",
-    squircleRadius: 10,
     iconSize: "var(--button-icon-lg)",
     gap: "var(--button-gap-lg)",
     textClass: "text-button-lg",
@@ -98,7 +91,6 @@ const sizeStyles: Record<
     height: "var(--button-height-md)",
     paddingX: "var(--button-padding-x-md)",
     radius: "var(--button-radius-md)",
-    squircleRadius: 8,
     iconSize: "var(--button-icon-md)",
     gap: "var(--button-gap-md)",
     textClass: "text-button-md",
@@ -107,7 +99,6 @@ const sizeStyles: Record<
     height: "var(--button-height-sm)",
     paddingX: "var(--button-padding-x-sm)",
     radius: "var(--button-radius-sm)",
-    squircleRadius: 6,
     iconSize: "var(--button-icon-sm)",
     gap: "var(--button-gap-sm)",
     textClass: "text-button-sm",
@@ -167,9 +158,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const sizeConfig = sizeStyles[size];
     const isDisabled = disabled || loading;
 
-    // Use squircle for default radius, CSS border-radius for pill
-    const useSquircle = radius === "default";
-    const borderRadius = radius === "pill" ? "9999px" : "0px"; // 0 when using squircle clip-path
+    // Border radius: use size-specific for default, fully rounded for round
+    const borderRadius = radius === "round" ? "9999px" : sizeConfig.radius;
 
     // For icon-only buttons, use height for both dimensions
     const buttonWidth = iconOnly ? sizeConfig.height : "auto";
@@ -188,10 +178,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     } as React.CSSProperties;
 
     // Variant-specific classes using CSS variable references
+    // Note: No active: color change - scale animation provides sufficient press feedback
     const variantClasses =
       variant === "primary"
-        ? "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] hover:bg-[var(--button-primary-bg-hover)] active:bg-[var(--button-primary-bg-active)]"
-        : "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] hover:bg-[var(--button-secondary-bg-hover)] active:bg-[var(--button-secondary-bg-active)]";
+        ? "bg-[var(--button-primary-bg)] text-[var(--button-primary-text)] hover:bg-[var(--button-primary-bg-hover)]"
+        : "bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] hover:bg-[var(--button-secondary-bg-hover)]";
 
     // Base button classes
     const buttonClasses = cn(
@@ -208,7 +199,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       // Dark mode focus offset
       "dark:focus-visible:ring-offset-[var(--gray-100)]",
       // Disabled state
-      isDisabled && "opacity-40 pointer-events-none",
+      isDisabled && "pointer-events-none opacity-40",
       // Cursor
       !isDisabled && "cursor-pointer",
       // Transition for color changes with ease-out (motion handles scale)
@@ -222,7 +213,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     // Icon wrapper component for consistent sizing
     const IconWrapper = ({ children: icon }: { children: ReactNode }) => (
       <span
-        className="inline-flex items-center justify-center shrink-0"
+        className="inline-flex shrink-0 items-center justify-center"
         style={{
           width: "var(--icon-size)",
           height: "var(--icon-size)",
@@ -238,12 +229,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <>
         {/* Content wrapper - blurs and fades when loading */}
         <motion.span
-          className="inline-flex items-center justify-center"
-          style={{ gap: "inherit" }}
           animate={{
             filter: loading ? "blur(4px)" : "blur(0px)",
             opacity: loading ? 0 : 1,
           }}
+          className="inline-flex items-center justify-center"
+          style={{ gap: "inherit" }}
           transition={{ duration: 0.15 }}
         >
           {iconLeft && <IconWrapper>{iconLeft}</IconWrapper>}
@@ -253,12 +244,12 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {/* Spinner - fades in when loading, positioned absolutely to overlay */}
         {loading && (
           <motion.span
+            animate={{ opacity: 1 }}
             className="absolute inset-0 flex items-center justify-center"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
             transition={{ duration: 0.15 }}
           >
-            <Spinner size={size} label="Loading" />
+            <Spinner label="Loading" size={size} />
           </motion.span>
         )}
       </>
@@ -270,18 +261,27 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       // Extract only standard HTML attributes for the Slot
       const {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        whileTap, whileHover, whileFocus, whileDrag, whileInView,
+        whileTap,
+        whileHover,
+        whileFocus,
+        whileDrag,
+        whileInView,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        animate, initial, exit, variants, transition,
+        animate,
+        initial,
+        exit,
+        variants,
+        transition,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        onAnimationStart, onAnimationComplete,
+        onAnimationStart,
+        onAnimationComplete,
         ...htmlProps
       } = props;
 
       return (
         <Slot
-          ref={ref as React.Ref<HTMLElement>}
           className={buttonClasses}
+          ref={ref as React.Ref<HTMLElement>}
           style={buttonStyles as React.CSSProperties}
           {...(htmlProps as React.HTMLAttributes<HTMLElement>)}
         >
@@ -298,42 +298,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       transition: { type: "spring" as const, duration: 0.15, bounce: 0 },
     };
 
-    // Wrap in squircle for iOS-style corner smoothing (60%)
-    // Scale animation is applied to outer wrapper to prevent clip-path clipping
-    if (useSquircle) {
-      return (
-        <motion.div
-          className="inline-flex"
-          {...scaleMotionProps}
-        >
-          <CornerSmoothing
-            cornerRadius={sizeConfig.squircleRadius}
-            cornerSmoothing={IOS_CORNER_SMOOTHING}
-            className="inline-flex"
-          >
-            <motion.button
-              ref={ref}
-              className={buttonClasses}
-              style={buttonStyles}
-              disabled={isDisabled}
-              aria-busy={loading}
-              {...props}
-            >
-              {content}
-            </motion.button>
-          </CornerSmoothing>
-        </motion.div>
-      );
-    }
-
-    // Pill mode: scale animation on button directly (no clip-path)
     return (
       <motion.button
-        ref={ref}
-        className={buttonClasses}
-        style={buttonStyles}
-        disabled={isDisabled}
         aria-busy={loading}
+        className={buttonClasses}
+        disabled={isDisabled}
+        ref={ref}
+        style={buttonStyles}
         {...scaleMotionProps}
         {...props}
       >

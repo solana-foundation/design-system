@@ -1,9 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-const graySteps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400];
+const graySteps = [
+  50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400,
+];
 
 const textTokens = [
-  { name: "text-extra-high", desc: "Headings, important text", opacity: "100%" },
+  {
+    name: "text-extra-high",
+    desc: "Headings, important text",
+    opacity: "100%",
+  },
   { name: "text-high", desc: "Primary body text", opacity: "88%" },
   { name: "text-medium", desc: "Secondary text", opacity: "72%" },
   { name: "text-low", desc: "Muted text, captions", opacity: "56%" },
@@ -11,7 +17,11 @@ const textTokens = [
 ];
 
 const borderTokens = [
-  { name: "border-strongest", desc: "Strong emphasis borders", opacity: "100%" },
+  {
+    name: "border-strongest",
+    desc: "Strong emphasis borders",
+    opacity: "100%",
+  },
   { name: "border-strong", desc: "Prominent borders", opacity: "48%" },
   { name: "border-medium", desc: "Default borders", opacity: "20%" },
   { name: "border-light", desc: "Subtle borders", opacity: "12%" },
@@ -20,16 +30,20 @@ const borderTokens = [
 
 function GrayScale() {
   return (
-    <div className="p-8 bg-gray-50 min-w-[500px]">
-      <h2 className="text-xl font-semibold mb-6 text-text-extra-high">Gray Scale</h2>
+    <div className="min-w-[500px] bg-gray-50 p-8">
+      <h2 className="mb-6 font-semibold text-text-extra-high text-xl">
+        Gray Scale
+      </h2>
       <div className="grid grid-cols-1 gap-2">
         {graySteps.map((step) => (
-          <div key={step} className="flex items-center gap-4">
+          <div className="flex items-center gap-4" key={step}>
             <div
-              className="w-16 h-10 rounded border border-border-medium"
+              className="h-10 w-16 rounded border border-border-medium"
               style={{ backgroundColor: `var(--gray-${step})` }}
             />
-            <code className="text-sm text-text-high font-mono w-24">gray-{step}</code>
+            <code className="w-24 font-mono text-sm text-text-high">
+              gray-{step}
+            </code>
           </div>
         ))}
       </div>
@@ -39,23 +53,29 @@ function GrayScale() {
 
 function TextEmphasis() {
   return (
-    <div className="p-8 bg-gray-50 min-w-[550px]">
-      <h2 className="text-xl font-semibold mb-2 text-text-extra-high">Text Emphasis</h2>
-      <p className="text-sm text-text-medium mb-6">
+    <div className="min-w-[550px] bg-gray-50 p-8">
+      <h2 className="mb-2 font-semibold text-text-extra-high text-xl">
+        Text Emphasis
+      </h2>
+      <p className="mb-6 text-sm text-text-medium">
         gray-1400 + transparency (light) · white + transparency (dark)
       </p>
       <div className="grid grid-cols-1 gap-4">
         {textTokens.map((token) => (
-          <div key={token.name} className="flex items-center gap-4">
+          <div className="flex items-center gap-4" key={token.name}>
             <div
-              className="w-24 h-12 rounded border border-border-light flex items-center justify-center bg-gray-100"
+              className="flex h-12 w-24 items-center justify-center rounded border border-border-light bg-gray-100"
               style={{ color: `var(--${token.name})` }}
             >
-              <span className="text-2xl font-semibold">Aa</span>
+              <span className="font-semibold text-2xl">Aa</span>
             </div>
             <div>
-              <code className="text-sm text-text-high font-mono">{token.name}</code>
-              <span className="text-sm text-text-medium ml-2">({token.opacity})</span>
+              <code className="font-mono text-sm text-text-high">
+                {token.name}
+              </code>
+              <span className="ml-2 text-sm text-text-medium">
+                ({token.opacity})
+              </span>
               <div className="text-sm text-text-low">{token.desc}</div>
             </div>
           </div>
@@ -67,21 +87,27 @@ function TextEmphasis() {
 
 function BorderScale() {
   return (
-    <div className="p-8 bg-gray-50 min-w-[550px]">
-      <h2 className="text-xl font-semibold mb-2 text-text-extra-high">Border Scale</h2>
-      <p className="text-sm text-text-medium mb-6">
+    <div className="min-w-[550px] bg-gray-50 p-8">
+      <h2 className="mb-2 font-semibold text-text-extra-high text-xl">
+        Border Scale
+      </h2>
+      <p className="mb-6 text-sm text-text-medium">
         gray-1300 + transparency (light) · white + transparency (dark)
       </p>
       <div className="grid grid-cols-1 gap-4">
         {borderTokens.map((token) => (
-          <div key={token.name} className="flex items-center gap-4">
+          <div className="flex items-center gap-4" key={token.name}>
             <div
-              className="w-24 h-12 rounded bg-gray-100"
+              className="h-12 w-24 rounded bg-gray-100"
               style={{ border: `2px solid var(--${token.name})` }}
             />
             <div>
-              <code className="text-sm text-text-high font-mono">{token.name}</code>
-              <span className="text-sm text-text-medium ml-2">({token.opacity})</span>
+              <code className="font-mono text-sm text-text-high">
+                {token.name}
+              </code>
+              <span className="ml-2 text-sm text-text-medium">
+                ({token.opacity})
+              </span>
               <div className="text-sm text-text-low">{token.desc}</div>
             </div>
           </div>
@@ -93,20 +119,22 @@ function BorderScale() {
 
 function BaseColors() {
   return (
-    <div className="p-8 bg-gray-50 min-w-[400px]">
-      <h2 className="text-xl font-semibold mb-6 text-text-extra-high">Base Colors</h2>
+    <div className="min-w-[400px] bg-gray-50 p-8">
+      <h2 className="mb-6 font-semibold text-text-extra-high text-xl">
+        Base Colors
+      </h2>
       <div className="grid grid-cols-1 gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded border border-border-medium bg-black" />
+          <div className="h-16 w-16 rounded border border-border-medium bg-black" />
           <div>
-            <code className="text-sm text-text-high font-mono">black</code>
+            <code className="font-mono text-sm text-text-high">black</code>
             <div className="text-sm text-text-low">#000000</div>
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded border border-border-medium bg-white" />
+          <div className="h-16 w-16 rounded border border-border-medium bg-white" />
           <div>
-            <code className="text-sm text-text-high font-mono">white</code>
+            <code className="font-mono text-sm text-text-high">white</code>
             <div className="text-sm text-text-low">#FFFFFF</div>
           </div>
         </div>
@@ -117,7 +145,7 @@ function BaseColors() {
 
 function AllColors() {
   return (
-    <div className="flex gap-8 flex-wrap">
+    <div className="flex flex-wrap gap-8">
       <GrayScale />
       <div className="flex flex-col gap-8">
         <BaseColors />

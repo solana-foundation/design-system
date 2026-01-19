@@ -190,25 +190,25 @@
 
 :root {
   /* Gray palette - Light mode */
-  --gray-50: #F6F6F9;
-  --gray-100: #EDEDF3;
-  --gray-200: #DBDAE5;
-  --gray-300: #CBC9D7;
-  --gray-400: #BBB8C7;
-  --gray-500: #ACA8B7;
-  --gray-600: #9D98A6;
-  --gray-700: #8E8A94;
-  --gray-800: #7B7782;
-  --gray-900: #69666F;
-  --gray-1000: #56555C;
+  --gray-50: #f6f6f9;
+  --gray-100: #ededf3;
+  --gray-200: #dbdae5;
+  --gray-300: #cbc9d7;
+  --gray-400: #bbb8c7;
+  --gray-500: #aca8b7;
+  --gray-600: #9d98a6;
+  --gray-700: #8e8a94;
+  --gray-800: #7b7782;
+  --gray-900: #69666f;
+  --gray-1000: #56555c;
   --gray-1100: #444449;
   --gray-1200: #323236;
   --gray-1300: #212123;
-  --gray-1400: #0F0F10;
+  --gray-1400: #0f0f10;
 
   /* Base colors */
   --black: #000000;
-  --white: #FFFFFF;
+  --white: #ffffff;
 
   /* Semantic tokens - Text (emphasis scale using transparency) */
   --text-extra-high: var(--gray-1400);
@@ -225,7 +225,7 @@
   --border-extra-light: color-mix(in srgb, var(--gray-1300) 4%, transparent);
 
   /* Typography - Font Family */
-  --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
 
   /* Typography - Weights */
   --font-weight-regular: 450;
@@ -245,11 +245,31 @@
   --leading-normal: 1.5;
 
   /* Typography - Fluid Sizes (768px → 1440px) */
-  --text-display: clamp(36px, calc(36px + (48 - 36) * ((100vw - 768px) / (1440 - 768))), 48px);
-  --text-title-xl: clamp(28px, calc(28px + (36 - 28) * ((100vw - 768px) / (1440 - 768))), 36px);
-  --text-title-lg: clamp(22px, calc(22px + (28 - 22) * ((100vw - 768px) / (1440 - 768))), 28px);
-  --text-title-md: clamp(19px, calc(19px + (24 - 19) * ((100vw - 768px) / (1440 - 768))), 24px);
-  --text-title-sm: clamp(16px, calc(16px + (19 - 16) * ((100vw - 768px) / (1440 - 768))), 19px);
+  --text-display: clamp(
+    36px,
+    calc(36px + (48 - 36) * ((100vw - 768px) / (1440 - 768))),
+    48px
+  );
+  --text-title-xl: clamp(
+    28px,
+    calc(28px + (36 - 28) * ((100vw - 768px) / (1440 - 768))),
+    36px
+  );
+  --text-title-lg: clamp(
+    22px,
+    calc(22px + (28 - 22) * ((100vw - 768px) / (1440 - 768))),
+    28px
+  );
+  --text-title-md: clamp(
+    19px,
+    calc(19px + (24 - 19) * ((100vw - 768px) / (1440 - 768))),
+    24px
+  );
+  --text-title-sm: clamp(
+    16px,
+    calc(16px + (19 - 16) * ((100vw - 768px) / (1440 - 768))),
+    19px
+  );
 
   /* Typography - Static Sizes */
   --text-headline-lg: 16px;
@@ -274,12 +294,20 @@
 
   /* Button Secondary - subtle transparency-based fill */
   --button-secondary-bg: color-mix(in srgb, var(--gray-1400) 8%, transparent);
-  --button-secondary-bg-hover: color-mix(in srgb, var(--gray-1400) 12%, transparent);
-  --button-secondary-bg-active: color-mix(in srgb, var(--gray-1400) 16%, transparent);
+  --button-secondary-bg-hover: color-mix(
+    in srgb,
+    var(--gray-1400) 12%,
+    transparent
+  );
+  --button-secondary-bg-active: color-mix(
+    in srgb,
+    var(--gray-1400) 16%,
+    transparent
+  );
   --button-secondary-text: var(--text-high);
 
-  /* Button Focus Ring - visible focus state for accessibility */
-  --button-focus-ring: color-mix(in srgb, var(--gray-1200) 50%, transparent);
+  /* Button Focus Ring - solid color for WCAG 2.4.13 compliance (≥3:1 contrast) */
+  --button-focus-ring: var(--gray-1200);
   --button-focus-ring-offset: 2px;
 
   /* Button Heights */
@@ -311,22 +339,6 @@
   --button-gap-lg: 8px;
   --button-gap-md: 6px;
   --button-gap-sm: 4px;
-
-  /* =============================================================================
-     SQUIRCLE TOKENS
-     iOS-style corner smoothing (60%) for smooth, continuous curvature
-     ============================================================================= */
-
-  /* Squircle radius tokens (in px for corner-smoothing library) */
-  --squircle-radius-sm: 6;
-  --squircle-radius-md: 8;
-  --squircle-radius-lg: 10;
-  --squircle-radius-xl: 12;
-  --squircle-radius-2xl: 16;
-  --squircle-radius-3xl: 24;
-
-  /* iOS corner smoothing (60%) */
-  --squircle-smoothing: 0.6;
 
   --radius: 0.625rem;
 
@@ -615,20 +627,20 @@ body {
 .dark {
   /* Gray palette - Dark mode */
   --gray-50: #000000;
-  --gray-100: #0F0F10;
+  --gray-100: #0f0f10;
   --gray-200: #212123;
   --gray-300: #323236;
   --gray-400: #444449;
-  --gray-500: #56555C;
-  --gray-600: #69666F;
-  --gray-700: #7B7782;
-  --gray-800: #8E8A94;
-  --gray-900: #9B96A3;
-  --gray-1000: #A7A3B2;
-  --gray-1100: #B4B1C0;
-  --gray-1200: #C1BFCE;
-  --gray-1300: #CFCEDB;
-  --gray-1400: #DEDDE7;
+  --gray-500: #56555c;
+  --gray-600: #69666f;
+  --gray-700: #7b7782;
+  --gray-800: #8e8a94;
+  --gray-900: #9b96a3;
+  --gray-1000: #a7a3b2;
+  --gray-1100: #b4b1c0;
+  --gray-1200: #c1bfce;
+  --gray-1300: #cfcedb;
+  --gray-1400: #dedde7;
 
   /* Text tokens use white with transparency in dark mode */
   --text-extra-high: var(--white);
@@ -652,12 +664,20 @@ body {
 
   /* Button Secondary - uses white transparency in dark mode */
   --button-secondary-bg: color-mix(in srgb, var(--white) 8%, transparent);
-  --button-secondary-bg-hover: color-mix(in srgb, var(--white) 12%, transparent);
-  --button-secondary-bg-active: color-mix(in srgb, var(--white) 16%, transparent);
+  --button-secondary-bg-hover: color-mix(
+    in srgb,
+    var(--white) 12%,
+    transparent
+  );
+  --button-secondary-bg-active: color-mix(
+    in srgb,
+    var(--white) 16%,
+    transparent
+  );
   --button-secondary-text: var(--text-high);
 
-  /* Button Focus Ring - lighter in dark mode */
-  --button-focus-ring: color-mix(in srgb, var(--white) 40%, transparent);
+  /* Button Focus Ring - solid white for WCAG 2.4.13 compliance (≥3:1 contrast) */
+  --button-focus-ring: var(--white);
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -925,53 +945,6 @@ body {
 .font-inter-bold {
   font-family: var(--font-sans);
   font-weight: var(--font-weight-bold);
-}
-
-/* =============================================================================
-   SQUIRCLE SHADOW UTILITIES
-   Use filter: drop-shadow() because clip-path blocks box-shadow
-   Apply these classes to the PARENT of a Squircle component
-   ============================================================================= */
-
-.squircle-shadow-sm {
-  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.05));
-}
-
-.squircle-shadow {
-  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 2px rgb(0 0 0 / 0.06));
-}
-
-.squircle-shadow-md {
-  filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.1)) drop-shadow(0 2px 4px rgb(0 0 0 / 0.06));
-}
-
-.squircle-shadow-lg {
-  filter: drop-shadow(0 10px 15px rgb(0 0 0 / 0.1)) drop-shadow(0 4px 6px rgb(0 0 0 / 0.05));
-}
-
-.squircle-shadow-xl {
-  filter: drop-shadow(0 20px 25px rgb(0 0 0 / 0.1)) drop-shadow(0 8px 10px rgb(0 0 0 / 0.04));
-}
-
-/* Dark mode shadow adjustments - slightly more visible */
-.dark .squircle-shadow-sm {
-  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.2));
-}
-
-.dark .squircle-shadow {
-  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.3)) drop-shadow(0 1px 2px rgb(0 0 0 / 0.2));
-}
-
-.dark .squircle-shadow-md {
-  filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.3)) drop-shadow(0 2px 4px rgb(0 0 0 / 0.2));
-}
-
-.dark .squircle-shadow-lg {
-  filter: drop-shadow(0 10px 15px rgb(0 0 0 / 0.3)) drop-shadow(0 4px 6px rgb(0 0 0 / 0.15));
-}
-
-.dark .squircle-shadow-xl {
-  filter: drop-shadow(0 20px 25px rgb(0 0 0 / 0.35)) drop-shadow(0 8px 10px rgb(0 0 0 / 0.2));
 }
 
 /* Pulse animations for hero lines and borders */

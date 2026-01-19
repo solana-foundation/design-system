@@ -39,7 +39,7 @@ const paddingClasses: Record<SpacingToken, string> = {
 function SpacingScaleTable() {
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+      <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
         Spacing Scale
       </h2>
       <p className="text-gray-600 dark:text-gray-400">
@@ -102,7 +102,7 @@ function GapPlayground() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+      <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
         Gap Playground
       </h2>
       <p className="text-gray-600 dark:text-gray-400">
@@ -112,14 +112,14 @@ function GapPlayground() {
       <div className="flex flex-wrap gap-2">
         {spacingScale.map(({ token }) => (
           <button
-            key={token}
-            type="button"
-            onClick={() => setSelectedGap(token)}
-            className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+            className={`rounded-md px-3 py-1.5 font-medium text-sm transition-colors ${
               selectedGap === token
                 ? "bg-primary text-white"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
             }`}
+            key={token}
+            onClick={() => setSelectedGap(token)}
+            type="button"
           >
             {token}
           </button>
@@ -127,14 +127,14 @@ function GapPlayground() {
       </div>
 
       <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-900">
-        <p className="mb-3 font-mono text-sm text-gray-600 dark:text-gray-400">
+        <p className="mb-3 font-mono text-gray-600 text-sm dark:text-gray-400">
           className="{gapClasses[selectedGap]}"
         </p>
         <div className={`flex ${gapClasses[selectedGap]}`}>
           {[1, 2, 3, 4, 5].map((i) => (
             <div
+              className="flex h-12 w-12 items-center justify-center rounded-md bg-primary font-medium text-sm text-white"
               key={i}
-              className="flex h-12 w-12 items-center justify-center rounded-md bg-primary text-sm font-medium text-white"
             >
               {i}
             </div>
@@ -150,7 +150,7 @@ function PaddingPlayground() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+      <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
         Padding Playground
       </h2>
       <p className="text-gray-600 dark:text-gray-400">
@@ -161,14 +161,14 @@ function PaddingPlayground() {
       <div className="flex flex-wrap gap-2">
         {spacingScale.map(({ token }) => (
           <button
-            key={token}
-            type="button"
-            onClick={() => setSelectedPadding(token)}
-            className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+            className={`rounded-md px-3 py-1.5 font-medium text-sm transition-colors ${
               selectedPadding === token
                 ? "bg-primary text-white"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
             }`}
+            key={token}
+            onClick={() => setSelectedPadding(token)}
+            type="button"
           >
             {token}
           </button>
@@ -176,12 +176,12 @@ function PaddingPlayground() {
       </div>
 
       <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-900">
-        <p className="mb-3 font-mono text-sm text-gray-600 dark:text-gray-400">
+        <p className="mb-3 font-mono text-gray-600 text-sm dark:text-gray-400">
           className="{paddingClasses[selectedPadding]}"
         </p>
-        <div className="inline-block rounded-md border-2 border-dashed border-primary/50 bg-primary/10">
+        <div className="inline-block rounded-md border-2 border-primary/50 border-dashed bg-primary/10">
           <div
-            className={`rounded bg-primary text-sm font-medium text-white ${paddingClasses[selectedPadding]}`}
+            className={`rounded bg-primary font-medium text-sm text-white ${paddingClasses[selectedPadding]}`}
           >
             Content with padding
           </div>
@@ -195,7 +195,7 @@ function SpacingDocs() {
   return (
     <div className="space-y-12 p-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+        <h1 className="font-bold text-2xl text-gray-900 dark:text-gray-100">
           Spacing
         </h1>
         <p className="mt-2 text-gray-600 dark:text-gray-400">
@@ -209,7 +209,7 @@ function SpacingDocs() {
       <PaddingPlayground />
 
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+        <h2 className="font-semibold text-gray-900 text-xl dark:text-gray-100">
           Usage Guidelines
         </h2>
         <div className="space-y-3 text-gray-600 dark:text-gray-400">

@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
 import { Check, X } from "lucide-react";
+import type { ReactNode } from "react";
 
 export interface DoExampleProps {
   /** Description of the correct usage */
@@ -16,14 +16,14 @@ export function DoExample({ description, children }: DoExampleProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
-        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-green-500/15">
-          <Check className="w-3 h-3 text-green-600" strokeWidth={3} />
+        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500/15">
+          <Check className="h-3 w-3 text-green-600" strokeWidth={3} />
         </div>
-        <span className="text-xs font-semibold text-green-700 uppercase tracking-wide">
+        <span className="font-semibold text-green-700 text-xs uppercase tracking-wide">
           Do
         </span>
       </div>
-      <div className="rounded-lg bg-gray-100 p-6 flex items-center justify-center min-h-[80px]">
+      <div className="flex min-h-[80px] items-center justify-center rounded-lg bg-gray-100 p-6">
         {children}
       </div>
       <p className="text-body-sm text-text-medium">{description}</p>
@@ -46,14 +46,14 @@ export function DontExample({ description, children }: DontExampleProps) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
-        <div className="flex items-center justify-center w-5 h-5 rounded-full bg-red-500/15">
-          <X className="w-3 h-3 text-red-600" strokeWidth={3} />
+        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500/15">
+          <X className="h-3 w-3 text-red-600" strokeWidth={3} />
         </div>
-        <span className="text-xs font-semibold text-red-700 uppercase tracking-wide">
+        <span className="font-semibold text-red-700 text-xs uppercase tracking-wide">
           Don't
         </span>
       </div>
-      <div className="rounded-lg bg-gray-100 p-6 flex items-center justify-center min-h-[80px]">
+      <div className="flex min-h-[80px] items-center justify-center rounded-lg bg-gray-100 p-6">
         {children}
       </div>
       <p className="text-body-sm text-text-medium">{description}</p>
@@ -71,6 +71,6 @@ export interface GuidelinesGridProps {
  */
 export function GuidelinesGrid({ children }: GuidelinesGridProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">{children}</div>
+    <div className="grid grid-cols-1 gap-8 md:grid-cols-2">{children}</div>
   );
 }

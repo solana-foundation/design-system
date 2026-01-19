@@ -11,7 +11,7 @@ export interface KeyboardKeyProps {
  */
 export function KeyboardKey({ children }: KeyboardKeyProps) {
   return (
-    <kbd className="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded bg-gray-200 border border-gray-300 text-xs font-medium text-text-high font-mono shadow-[0_1px_0_1px_var(--gray-400)]">
+    <kbd className="inline-flex h-6 min-w-[24px] items-center justify-center rounded border border-gray-300 bg-gray-200 px-2 font-medium font-mono text-text-high text-xs shadow-[0_1px_0_1px_var(--gray-400)]">
       {children}
     </kbd>
   );
@@ -32,7 +32,7 @@ export function KeyboardShortcut({ keys, description }: KeyboardShortcutProps) {
     <div className="flex items-center justify-between gap-4 py-2">
       <div className="flex items-center gap-1.5">
         {keys.map((key, index) => (
-          <span key={index} className="flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5" key={index}>
             <KeyboardKey>{key}</KeyboardKey>
             {index < keys.length - 1 && (
               <span className="text-text-low text-xs">+</span>

@@ -98,10 +98,18 @@ const mockTokens: Token[] = [
 ];
 
 function formatPrice(price: number): string {
-  if (price === 0) return "$0.00";
-  if (price < 0.000_01) return `$${price.toExponential(2)}`;
-  if (price < 0.01) return `$${price.toFixed(6)}`;
-  if (price < 1) return `$${price.toFixed(4)}`;
+  if (price === 0) {
+    return "$0.00";
+  }
+  if (price < 0.000_01) {
+    return `$${price.toExponential(2)}`;
+  }
+  if (price < 0.01) {
+    return `$${price.toFixed(6)}`;
+  }
+  if (price < 1) {
+    return `$${price.toFixed(4)}`;
+  }
   return `$${price.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
@@ -109,10 +117,15 @@ function formatPrice(price: number): string {
 }
 
 function formatVolume(volume: number): string {
-  if (volume >= 1_000_000_000)
+  if (volume >= 1_000_000_000) {
     return `$${(volume / 1_000_000_000).toFixed(2)}B`;
-  if (volume >= 1_000_000) return `$${(volume / 1_000_000).toFixed(2)}M`;
-  if (volume >= 1000) return `$${(volume / 1000).toFixed(2)}K`;
+  }
+  if (volume >= 1_000_000) {
+    return `$${(volume / 1_000_000).toFixed(2)}M`;
+  }
+  if (volume >= 1000) {
+    return `$${(volume / 1000).toFixed(2)}K`;
+  }
   return `$${volume.toFixed(2)}`;
 }
 
