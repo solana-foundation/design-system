@@ -222,9 +222,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
 
     // Icon wrapper component for consistent sizing
+    // overflow-visible allows blur animations to extend beyond icon bounds
     const IconWrapper = ({ children: icon }: { children: ReactNode }) => (
       <span
-        className="inline-flex shrink-0 items-center justify-center"
+        className="inline-flex shrink-0 items-center justify-center overflow-visible"
         style={{
           width: "var(--icon-size)",
           height: "var(--icon-size)",
@@ -244,7 +245,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             filter: loading ? "blur(4px)" : "blur(0px)",
             opacity: loading ? 0 : 1,
           }}
-          className="inline-flex items-center justify-center"
+          className="inline-flex items-center justify-center overflow-visible"
           style={{ gap: "inherit" }}
           transition={{ duration: 0.15 }}
         >
@@ -302,10 +303,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     // Press animation only - no hover scale
-    // Per Emil Kowalski: scale 0.97 on press with ~150ms transition
+    // Per Emil Kowalski: scale 0.98 on press with ~150ms transition
     // https://emilkowal.ski/ui/7-practical-animation-tips
     const scaleMotionProps = {
-      whileTap: isDisabled ? undefined : { scale: 0.97 },
+      whileTap: isDisabled ? undefined : { scale: 0.98 },
       transition: { type: "spring" as const, duration: 0.15, bounce: 0 },
     };
 
