@@ -312,6 +312,22 @@
   --button-gap-md: 6px;
   --button-gap-sm: 4px;
 
+  /* =============================================================================
+     SQUIRCLE TOKENS
+     iOS-style corner smoothing (60%) for smooth, continuous curvature
+     ============================================================================= */
+
+  /* Squircle radius tokens (in px for corner-smoothing library) */
+  --squircle-radius-sm: 6;
+  --squircle-radius-md: 8;
+  --squircle-radius-lg: 10;
+  --squircle-radius-xl: 12;
+  --squircle-radius-2xl: 16;
+  --squircle-radius-3xl: 24;
+
+  /* iOS corner smoothing (60%) */
+  --squircle-smoothing: 0.6;
+
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
@@ -463,7 +479,7 @@
 .text-button-xl {
   font-family: var(--font-sans);
   font-size: var(--text-button-xl);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   line-height: var(--leading-none);
   letter-spacing: var(--tracking-wide);
 }
@@ -471,7 +487,7 @@
 .text-button-lg {
   font-family: var(--font-sans);
   font-size: var(--text-button-lg);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   line-height: var(--leading-none);
   letter-spacing: var(--tracking-wide);
 }
@@ -479,7 +495,7 @@
 .text-button-md {
   font-family: var(--font-sans);
   font-size: var(--text-button-md);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   line-height: var(--leading-none);
   letter-spacing: var(--tracking-wide);
 }
@@ -487,7 +503,7 @@
 .text-button-sm {
   font-family: var(--font-sans);
   font-size: var(--text-button-sm);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   line-height: var(--leading-none);
   letter-spacing: var(--tracking-wide);
 }
@@ -909,6 +925,53 @@ body {
 .font-inter-bold {
   font-family: var(--font-sans);
   font-weight: var(--font-weight-bold);
+}
+
+/* =============================================================================
+   SQUIRCLE SHADOW UTILITIES
+   Use filter: drop-shadow() because clip-path blocks box-shadow
+   Apply these classes to the PARENT of a Squircle component
+   ============================================================================= */
+
+.squircle-shadow-sm {
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.05));
+}
+
+.squircle-shadow {
+  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.1)) drop-shadow(0 1px 2px rgb(0 0 0 / 0.06));
+}
+
+.squircle-shadow-md {
+  filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.1)) drop-shadow(0 2px 4px rgb(0 0 0 / 0.06));
+}
+
+.squircle-shadow-lg {
+  filter: drop-shadow(0 10px 15px rgb(0 0 0 / 0.1)) drop-shadow(0 4px 6px rgb(0 0 0 / 0.05));
+}
+
+.squircle-shadow-xl {
+  filter: drop-shadow(0 20px 25px rgb(0 0 0 / 0.1)) drop-shadow(0 8px 10px rgb(0 0 0 / 0.04));
+}
+
+/* Dark mode shadow adjustments - slightly more visible */
+.dark .squircle-shadow-sm {
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.2));
+}
+
+.dark .squircle-shadow {
+  filter: drop-shadow(0 1px 3px rgb(0 0 0 / 0.3)) drop-shadow(0 1px 2px rgb(0 0 0 / 0.2));
+}
+
+.dark .squircle-shadow-md {
+  filter: drop-shadow(0 4px 6px rgb(0 0 0 / 0.3)) drop-shadow(0 2px 4px rgb(0 0 0 / 0.2));
+}
+
+.dark .squircle-shadow-lg {
+  filter: drop-shadow(0 10px 15px rgb(0 0 0 / 0.3)) drop-shadow(0 4px 6px rgb(0 0 0 / 0.15));
+}
+
+.dark .squircle-shadow-xl {
+  filter: drop-shadow(0 20px 25px rgb(0 0 0 / 0.35)) drop-shadow(0 8px 10px rgb(0 0 0 / 0.2));
 }
 
 /* Pulse animations for hero lines and borders */
