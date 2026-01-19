@@ -91,6 +91,16 @@ export const Playground: Story = {
       ],
     },
   },
+  render: (args) => {
+    // When iconOnly is true but no icon is provided, default to Plus icon
+    const needsDefaultIcon = args.iconOnly && !args.iconLeft && !args.iconRight;
+    return (
+      <Button
+        {...args}
+        iconLeft={args.iconLeft || (needsDefaultIcon ? <Plus /> : undefined)}
+      />
+    );
+  },
 };
 
 export const AllVariants: Story = {
