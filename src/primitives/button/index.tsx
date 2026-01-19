@@ -155,6 +155,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
+    // Development-only accessibility warning for icon-only buttons
+    if (
+      process.env.NODE_ENV === "development" &&
+      iconOnly &&
+      !props["aria-label"]
+    ) {
+      console.warn(
+        "Button: iconOnly buttons require an aria-label for accessibility"
+      );
+    }
+
     const sizeConfig = sizeStyles[size];
     const isDisabled = disabled || loading;
 
@@ -305,6 +316,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isDisabled}
         ref={ref}
         style={buttonStyles}
+        type="button"
         {...scaleMotionProps}
         {...props}
       >

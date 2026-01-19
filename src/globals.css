@@ -227,11 +227,49 @@
   /* Typography - Font Family */
   --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
 
-  /* Typography - Weights */
-  --font-weight-regular: 450;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 550;
+  /* ==========================================================================
+     Dark Mode Font Weight Compensation
+
+     The irradiation illusion causes light text on dark backgrounds
+     to appear 15-25% heavier than intended. We use a weight multiplier
+     to reduce the rendered weight in dark mode.
+
+     How it works:
+     1. Define base weights (the intended design values)
+     2. Apply multiplier: computed_weight = base_weight × multiplier
+     3. Light mode: multiplier = 1 (no change)
+     4. Dark mode: multiplier = 0.90 (10% reduction)
+
+     Why 0.90?
+     - Inter's weights (450/500/550/600) are already custom-tuned
+     - 0.90 provides visible improvement with minimal layout shift
+     - More aggressive values (0.85) cause noticeable text reflow
+
+     Trade-off accepted:
+     - Minor layout shift occurs on theme toggle
+     - This is acceptable because toggles are user-initiated
+     ========================================================================== */
+
+  /* Weight multiplier (1 = no adjustment, <1 = lighter in dark mode) */
+  --fw-mult: 1;
+
+  /* Letter-spacing offset for dark mode (compensates for narrower glyphs) */
+  --tracking-dark-offset: 0em;
+
+  /* Base weight values - these are the intended design weights */
+  --font-weight-regular-base: 450;
+  --font-weight-medium-base: 500;
+  --font-weight-semibold-base: 600;
+  --font-weight-bold-base: 550;
+
+  /* Typography - Weights (computed: base × multiplier) */
+  --font-weight-regular: calc(var(--font-weight-regular-base) * var(--fw-mult));
+  --font-weight-medium: calc(var(--font-weight-medium-base) * var(--fw-mult));
+  --font-weight-semibold: calc(
+    var(--font-weight-semibold-base) *
+    var(--fw-mult)
+  );
+  --font-weight-bold: calc(var(--font-weight-bold-base) * var(--fw-mult));
 
   /* Typography - Tracking */
   --tracking-tight: -0.01em;
@@ -625,6 +663,22 @@ body {
 }
 
 .dark {
+  /* ==========================================================================
+     Dark Mode Typography Adjustments
+
+     These values counteract the irradiation illusion:
+     - Reduce weight by 10% (0.90 multiplier)
+     - Add slight letter-spacing to offset narrower glyphs
+
+     Resulting weights in dark mode:
+     - Regular: 450 × 0.90 = 405
+     - Medium:  500 × 0.90 = 450
+     - Bold:    550 × 0.90 = 495
+     - Semibold: 600 × 0.90 = 540
+     ========================================================================== */
+  --fw-mult: 0.9;
+  --tracking-dark-offset: 0.01em;
+
   /* Gray palette - Dark mode */
   --gray-50: #000000;
   --gray-100: #0f0f10;
@@ -657,8 +711,9 @@ body {
   --border-extra-light: color-mix(in srgb, var(--white) 4%, transparent);
 
   /* Button Primary - inverted for dark mode (white bg, dark text) */
+  /* Hover uses subtle dim instead of gray to avoid contrast inversion */
   --button-primary-bg: var(--white);
-  --button-primary-bg-hover: var(--gray-200);
+  --button-primary-bg-hover: color-mix(in srgb, var(--white) 90%, transparent);
   --button-primary-bg-active: var(--gray-300);
   --button-primary-text: var(--black);
 
@@ -719,6 +774,20 @@ body {
 
   body {
     @apply bg-background text-foreground;
+
+    /* ==========================================================================
+       Font Smoothing
+
+       Grayscale antialiasing provides consistent rendering:
+       - Prevents color fringing from subpixel rendering
+       - Especially important on dark backgrounds
+       - Standard practice for design systems
+       ========================================================================== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Enable Inter's optical size axis for automatic size-based tuning */
+    font-optical-sizing: auto;
   }
 }
 
