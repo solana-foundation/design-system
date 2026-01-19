@@ -24,6 +24,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { useState } from "react";
 import { useCopyToClipboard } from "@/hooks";
 import { Button } from "./index";
 
@@ -1118,22 +1119,22 @@ export const Accessibility: Story = {
 
 /**
  * Animated icon component for blur+scale crossfade transitions.
- * Uses AnimatePresence with mode="wait" for sequential exit/enter.
- * The absolute positioning ensures both icons occupy the same space
- * within the Button's IconWrapper (which has relative positioning).
+ * Uses AnimatePresence with mode="popLayout" for simultaneous exit/enter.
+ * The popLayout mode automatically handles positioning for crossfade:
+ * - Entering element takes normal layout flow
+ * - Exiting element is removed from flow and positioned absolutely
  * Pattern from Jakub Antalik (jakub.kr).
  */
 const AnimatedCopyIcon = ({ copied }: { copied: boolean }) => (
-  <AnimatePresence initial={false} mode="wait">
+  <AnimatePresence initial={false} mode="popLayout">
     <motion.span
-      key={copied ? "check" : "copy"}
-      initial={{ opacity: 0, scale: 0.25, filter: "blur(4px)" }}
       animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      // Flex display for centering, popLayout handles crossfade positioning
+      className="flex items-center justify-center"
       exit={{ opacity: 0, scale: 0.25, filter: "blur(4px)" }}
+      initial={{ opacity: 0, scale: 0.25, filter: "blur(4px)" }}
+      key={copied ? "check" : "copy"}
       transition={{ type: "spring", duration: 0.3, bounce: 0 }}
-      // Absolute positioning within IconWrapper for proper crossfade
-      // inset-0 fills the container, flex centers the icon
-      className="absolute inset-0 flex items-center justify-center"
     >
       {copied ? <Check size={16} /> : <Copy size={16} />}
     </motion.span>
@@ -1141,8 +1142,38 @@ const AnimatedCopyIcon = ({ copied }: { copied: boolean }) => (
 );
 
 /**
+ * Story render component with stateful icon animation.
+ * Must be a proper React component to use hooks.
+ */
+const IconTransitionsDemo = () => {
+  // Use local state for reliable animation testing
+  // In production, use useCopyToClipboard() hook instead
+  const [copied, setCopied] = useState(false);
+
+  const handleClick = () => {
+    setCopied(true);
+    // Reset after 2 seconds to match useCopyToClipboard behavior
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <Button
+      iconLeft={<AnimatedCopyIcon copied={copied} />}
+      onClick={handleClick}
+      size="md"
+      variant="secondary"
+    >
+      {copied ? "Copied!" : "Copy"}
+    </Button>
+  );
+};
+
+/**
  * Animated icon transitions using Motion's AnimatePresence.
  * Pattern inspired by Jakub.kr's blur-scale micro-interactions.
+ *
+ * Click the button to see the blur+scale crossfade animation.
+ * The icon transitions from Copy to Check with a smooth animation.
  */
 export const IconTransitions: Story = {
   parameters: {
@@ -1154,17 +1185,5 @@ export const IconTransitions: Story = {
       },
     },
   },
-  render: () => {
-    const { copied, copy } = useCopyToClipboard();
-    return (
-      <Button
-        iconLeft={<AnimatedCopyIcon copied={copied} />}
-        onClick={() => copy("0x1234...5678")}
-        size="md"
-        variant="secondary"
-      >
-        Copy
-      </Button>
-    );
-  },
+  render: () => <IconTransitionsDemo />,
 };

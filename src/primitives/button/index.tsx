@@ -60,6 +60,27 @@ export interface ButtonProps extends BaseButtonProps {
  * CSS variable names for size tokens.
  * Used to apply consistent sizing from the design system.
  */
+/**
+ * Icon wrapper component for consistent sizing.
+ * MUST be defined outside Button to maintain stable React identity.
+ * This prevents AnimatePresence from losing exit animation state on re-renders.
+ *
+ * - relative: required for AnimatePresence popLayout mode to anchor exiting elements
+ * - overflow-visible: allows blur animations to extend beyond icon bounds
+ * - Uses inherited --icon-size CSS variable set by parent Button
+ */
+const IconWrapper = ({ children }: { children: ReactNode }) => (
+  <span
+    className="relative inline-flex shrink-0 items-center justify-center overflow-visible"
+    style={{
+      width: "var(--icon-size)",
+      height: "var(--icon-size)",
+    }}
+  >
+    {children}
+  </span>
+);
+
 const sizeStyles: Record<
   ButtonSize,
   {
@@ -227,21 +248,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       // Reduced motion: instant transitions
       "motion-reduce:transition-none",
       className
-    );
-
-    // Icon wrapper component for consistent sizing
-    // relative: required for AnimatePresence popLayout mode to anchor exiting elements
-    // overflow-visible: allows blur animations to extend beyond icon bounds
-    const IconWrapper = ({ children: icon }: { children: ReactNode }) => (
-      <span
-        className="relative inline-flex shrink-0 items-center justify-center overflow-visible"
-        style={{
-          width: "var(--icon-size)",
-          height: "var(--icon-size)",
-        }}
-      >
-        {icon}
-      </span>
     );
 
     // Button content with loading blur transition

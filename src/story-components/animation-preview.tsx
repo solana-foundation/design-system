@@ -1,4 +1,5 @@
 import { Pause, Play } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { Button } from "@/primitives/button";
 
@@ -40,7 +41,19 @@ export function AnimationPreview({ children, label }: AnimationPreviewProps) {
           <span />
         )}
         <Button
-          iconLeft={isPlaying ? <Pause /> : <Play />}
+          iconLeft={
+            <AnimatePresence initial={false} mode="popLayout">
+              <motion.div
+                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                exit={{ opacity: 0, scale: 0.5, filter: "blur(4px)" }}
+                initial={{ opacity: 0, scale: 0.5, filter: "blur(4px)" }}
+                key={isPlaying ? "pause" : "play"}
+                transition={{ type: "spring", duration: 0.2, bounce: 0 }}
+              >
+                {isPlaying ? <Pause /> : <Play />}
+              </motion.div>
+            </AnimatePresence>
+          }
           onClick={() => setIsPlaying(!isPlaying)}
           size="sm"
           variant="secondary"
