@@ -361,10 +361,10 @@
   --button-padding-x-sm: 8px;
 
   /* Button Padding Horizontal - Round variant */
-  --button-padding-x-round-xl: 28px;
-  --button-padding-x-round-lg: 24px;
-  --button-padding-x-round-md: 20px;
-  --button-padding-x-round-sm: 16px;
+  --button-padding-x-round-xl: 26px;
+  --button-padding-x-round-lg: 22px;
+  --button-padding-x-round-md: 16px;
+  --button-padding-x-round-sm: 12px;
 
   /* Button Radii - Default (per size) */
   --button-radius-xl: 12px;
