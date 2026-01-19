@@ -152,62 +152,114 @@
 }
 
 @theme {
-  --color-cream: oklch(0.9553 0.003 286.25);
-  --color-bg1: oklch(0.9826 0.002 286.25);
+  /* Gray palette - references CSS variables for light/dark mode switching */
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+  --color-gray-900: var(--gray-900);
+  --color-gray-1000: var(--gray-1000);
+  --color-gray-1100: var(--gray-1100);
+  --color-gray-1200: var(--gray-1200);
+  --color-gray-1300: var(--gray-1300);
+  --color-gray-1400: var(--gray-1400);
 
-  /* Border colors mapped to sand scale */
-  --color-border-strong: oklch(0.839 0.009 286.25); /* sand/400 */
-  --color-border-medium: oklch(0.884 0.007 286.25); /* sand/300 */
-  --color-border-low: oklch(0.927 0.005 286.25); /* sand/200 */
-  --color-border-extra-low: oklch(0.9665 0.003 286.25); /* sand/100 */
+  /* Text emphasis scale */
+  --color-text-extra-high: var(--text-extra-high);
+  --color-text-high: var(--text-high);
+  --color-text-medium: var(--text-medium);
+  --color-text-low: var(--text-low);
+  --color-text-extra-low: var(--text-extra-low);
 
-  --color-sand-100: oklch(0.9665 0.003 286.25);
-  --color-sand-200: oklch(0.927 0.005 286.25);
-  --color-sand-300: oklch(0.884 0.007 286.25);
-  --color-sand-400: oklch(0.839 0.009 286.25);
-  --color-sand-500: oklch(0.7935 0.011 286.25);
-  --color-sand-600: oklch(0.7454 0.012 286.25);
-  --color-sand-700: oklch(0.6938 0.012 286.25);
-  --color-sand-800: oklch(0.6436 0.011 286.25);
-  --color-sand-900: oklch(0.5916 0.01 286.25);
-  --color-sand-1000: oklch(0.5438 0.008 286.25);
-  --color-sand-1100: oklch(0.4947 0.007 286.25);
-  --color-sand-1200: oklch(0.442 0.005 286.25);
-  --color-sand-1300: oklch(0.3909 0.004 286.25);
-  --color-sand-1400: oklch(0.3356 0.003 286.25);
-  --color-sand-1500: oklch(0.2269 0.002 286.25);
-  --color-sand-1600: oklch(0.18 0.001 286.25);
+  /* Border scale */
+  --color-border-strongest: var(--border-strongest);
+  --color-border-strong: var(--border-strong);
+  --color-border-medium: var(--border-medium);
+  --color-border-light: var(--border-light);
+  --color-border-extra-light: var(--border-extra-light);
 
-  --color-highlight: oklch(1 0 0);
-  --color-black: oklch(0 0 0);
-  --color-white: oklch(1 0 0);
-
-  --color-gray-900: oklch(0.1725 0.008 286.25);
-  --color-gray-800: oklch(0.2706 0.012 286.25);
-  --color-gray-600: oklch(0.4569 0.014 286.25);
-  --color-gray-500: oklch(0.5137 0.014 286.25);
-  --color-gray-400: oklch(0.6196 0.014 286.25);
+  /* Base colors */
+  --color-black: var(--black);
+  --color-white: var(--white);
 }
 
 :root {
-  /* Title sizes */
-  --text-h1-mobile: 36px;
-  --text-h1-desktop: 64px;
-  --text-title-2-mobile: 36px;
-  --text-title-2-desktop: 56px;
-  --text-h2-mobile: 29px;
-  --text-h2-desktop: 44px;
-  --text-title-4-mobile: 24px;
-  --text-title-4-desktop: 32px;
-  --text-title-5: 21px;
+  /* Gray palette - Light mode */
+  --gray-50: #F6F6F9;
+  --gray-100: #EDEDF3;
+  --gray-200: #DBDAE5;
+  --gray-300: #CBC9D7;
+  --gray-400: #BBB8C7;
+  --gray-500: #ACA8B7;
+  --gray-600: #9D98A6;
+  --gray-700: #8E8A94;
+  --gray-800: #7B7782;
+  --gray-900: #69666F;
+  --gray-1000: #56555C;
+  --gray-1100: #444449;
+  --gray-1200: #323236;
+  --gray-1300: #212123;
+  --gray-1400: #0F0F10;
 
-  /* Body sizes */
-  --text-body-xl: 19px;
-  --text-body-l: 16px;
-  --text-body-md: 14px;
+  /* Base colors */
+  --black: #000000;
+  --white: #FFFFFF;
 
-  /* UI sizes */
-  --text-nav-item: 14px;
+  /* Semantic tokens - Text (emphasis scale using transparency) */
+  --text-extra-high: var(--gray-1400);
+  --text-high: color-mix(in srgb, var(--gray-1400) 88%, transparent);
+  --text-medium: color-mix(in srgb, var(--gray-1400) 72%, transparent);
+  --text-low: color-mix(in srgb, var(--gray-1400) 56%, transparent);
+  --text-extra-low: color-mix(in srgb, var(--gray-1400) 44%, transparent);
+
+  /* Semantic tokens - Borders (using gray-1300 with transparency) */
+  --border-strongest: var(--gray-1300);
+  --border-strong: color-mix(in srgb, var(--gray-1300) 48%, transparent);
+  --border-medium: color-mix(in srgb, var(--gray-1300) 20%, transparent);
+  --border-light: color-mix(in srgb, var(--gray-1300) 12%, transparent);
+  --border-extra-light: color-mix(in srgb, var(--gray-1300) 4%, transparent);
+
+  /* Typography - Font Family */
+  --font-sans: 'Inter Variable', 'Inter', system-ui, sans-serif;
+
+  /* Typography - Weights */
+  --font-weight-regular: 450;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 550;
+
+  /* Typography - Tracking */
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+
+  /* Typography - Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+
+  /* Typography - Fluid Sizes (768px → 1440px) */
+  --text-display: clamp(36px, calc(36px + (48 - 36) * ((100vw - 768px) / (1440 - 768))), 48px);
+  --text-title-xl: clamp(28px, calc(28px + (36 - 28) * ((100vw - 768px) / (1440 - 768))), 36px);
+  --text-title-lg: clamp(22px, calc(22px + (28 - 22) * ((100vw - 768px) / (1440 - 768))), 28px);
+  --text-title-md: clamp(19px, calc(19px + (24 - 19) * ((100vw - 768px) / (1440 - 768))), 24px);
+  --text-title-sm: clamp(16px, calc(16px + (19 - 16) * ((100vw - 768px) / (1440 - 768))), 19px);
+
+  /* Typography - Static Sizes */
+  --text-headline-lg: 16px;
+  --text-headline-md: 14px;
+  --text-body-lg-size: 16px;
+  --text-body-md-size: 14px;
+  --text-body-sm-size: 12px;
+  --text-button-xl: 16px;
+  --text-button-lg: 15px;
+  --text-button-md: 14px;
+  --text-button-sm: 13px;
 
   --radius: 0.625rem;
 
@@ -244,111 +296,206 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-/* Responsive typography classes matching Figma specs */
+/* =============================================================================
+   TYPOGRAPHY SYSTEM - Inter Variable
+   Using fluid scaling for display/titles, static sizes for body/UI text
+   ============================================================================= */
 
-/* Title/1: 64px, weight 500, line-height 1.03, tracking -2.88px */
-.text-h1 {
-  font-family: var(--font-abc-diatype);
-  font-size: var(--text-h1-mobile);
-  font-weight: 500;
-  line-height: 1.03;
-  letter-spacing: -2.88px;
+/* Display & Titles (Fluid) */
+.text-display {
+  font-family: var(--font-sans);
+  font-size: var(--text-display);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
 }
 
-@media (min-width: 768px) {
-  .text-h1 {
-    font-size: var(--text-h1-desktop);
-  }
+.text-title-xl {
+  font-family: var(--font-sans);
+  font-size: var(--text-title-xl);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
 }
 
-/* Title/2: 56px, weight 500, line-height 1.05, tracking -2.52px */
-.text-title-2 {
-  font-family: var(--font-abc-diatype);
-  font-size: var(--text-title-2-mobile);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -2.52px;
+.text-title-lg {
+  font-family: var(--font-sans);
+  font-size: var(--text-title-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
 }
 
-@media (min-width: 768px) {
-  .text-title-2 {
-    font-size: var(--text-title-2-desktop);
-  }
+.text-title-md {
+  font-family: var(--font-sans);
+  font-size: var(--text-title-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
 }
 
-/* Title/3: 44px, weight 500, line-height 1.1, tracking -1.76px */
-.text-h2 {
-  font-family: var(--font-abc-diatype);
-  font-size: var(--text-h2-mobile);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -1.76px;
+.text-title-sm {
+  font-family: var(--font-sans);
+  font-size: var(--text-title-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 24px;
+  letter-spacing: var(--tracking-tight);
 }
 
-@media (min-width: 768px) {
-  .text-h2 {
-    font-size: var(--text-h2-desktop);
-  }
+/* Headlines (Static) */
+.text-headline-lg {
+  font-family: var(--font-sans);
+  font-size: var(--text-headline-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
 }
 
-/* Title/4: 32px, weight 500, line-height 1.1, tracking -1.28px */
-.text-title-4 {
-  font-family: var(--font-abc-diatype);
-  font-size: var(--text-title-4-mobile);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -1.28px;
+.text-headline-md {
+  font-family: var(--font-sans);
+  font-size: var(--text-headline-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
 }
 
-@media (min-width: 768px) {
-  .text-title-4 {
-    font-size: var(--text-title-4-desktop);
-  }
+/* Body (Static) */
+.text-body-lg {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
 }
 
-/* Title/5: 21px, weight 500, line-height 1.1, tracking -0.42px */
-.text-title-5 {
-  font-family: var(--font-abc-diatype);
-  font-size: var(--text-title-5);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.42px;
+.text-body-lg-bold {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
 }
 
-/* Body/XL: 19px, weight 450, line-height 1.3, tracking -0.19px */
-.text-body-xl {
-  font-family: var(--font-inter);
-  font-size: var(--text-body-xl);
-  font-weight: 450;
-  line-height: 1.3;
-  letter-spacing: -0.19px;
-}
-
-/* Body/L: 16px, weight 450, line-height normal, tracking -0.16px */
-.text-body-l {
-  font-family: var(--font-inter);
-  font-size: var(--text-body-l);
-  font-weight: 450;
-  line-height: normal;
-  letter-spacing: -0.16px;
-}
-
-/* Body/Md: 14px, weight 450, line-height normal, tracking -0.14px */
 .text-body-md {
-  font-family: var(--font-inter);
-  font-size: var(--text-body-md);
-  font-weight: 450;
-  line-height: normal;
-  letter-spacing: -0.14px;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-tight);
 }
 
-/* Nav Item: 14px, weight 550, line-height 18px, tracking -0.28px */
+.text-body-md-bold {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-md-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-body-sm {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-normal);
+}
+
+.text-body-sm-bold {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm-size);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-normal);
+}
+
+/* Buttons (Static) */
+.text-button-xl {
+  font-family: var(--font-sans);
+  font-size: var(--text-button-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-normal);
+}
+
+.text-button-lg {
+  font-family: var(--font-sans);
+  font-size: var(--text-button-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-button-md {
+  font-family: var(--font-sans);
+  font-size: var(--text-button-md);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-normal);
+}
+
+.text-button-sm {
+  font-family: var(--font-sans);
+  font-size: var(--text-button-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-none);
+  letter-spacing: var(--tracking-normal);
+}
+
+/* Legacy aliases for backwards compatibility */
+.text-h1 {
+  font-family: var(--font-sans);
+  font-size: var(--text-display);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-title-2 {
+  font-family: var(--font-sans);
+  font-size: var(--text-title-xl);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-h2 {
+  font-family: var(--font-sans);
+  font-size: var(--text-title-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-title-4 {
+  font-family: var(--font-sans);
+  font-size: var(--text-title-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-title-5 {
+  font-family: var(--font-sans);
+  font-size: var(--text-title-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 24px;
+  letter-spacing: var(--tracking-tight);
+}
+
+.text-body-l {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-normal);
+  letter-spacing: var(--tracking-normal);
+}
+
 .text-nav-item {
-  font-family: var(--font-inter);
-  font-size: var(--text-nav-item);
-  font-weight: 550;
-  line-height: 18px;
-  letter-spacing: -0.28px;
+  font-family: var(--font-sans);
+  font-size: var(--text-headline-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
 }
 
 body {
@@ -392,12 +539,44 @@ body {
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-sans);
   --font-abc-diatype: var(--font-abc-diatype), system-ui, sans-serif;
   --font-berkeley-mono: var(--font-berkeley-mono), ui-monospace, monospace;
-  --font-inter: var(--font-inter), system-ui, sans-serif;
+  --font-inter: var(--font-sans);
 }
 
 .dark {
+  /* Gray palette - Dark mode */
+  --gray-50: #000000;
+  --gray-100: #0F0F10;
+  --gray-200: #212123;
+  --gray-300: #323236;
+  --gray-400: #444449;
+  --gray-500: #56555C;
+  --gray-600: #69666F;
+  --gray-700: #7B7782;
+  --gray-800: #8E8A94;
+  --gray-900: #9B96A3;
+  --gray-1000: #A7A3B2;
+  --gray-1100: #B4B1C0;
+  --gray-1200: #C1BFCE;
+  --gray-1300: #CFCEDB;
+  --gray-1400: #DEDDE7;
+
+  /* Text tokens use white with transparency in dark mode */
+  --text-extra-high: var(--white);
+  --text-high: color-mix(in srgb, var(--white) 88%, transparent);
+  --text-medium: color-mix(in srgb, var(--white) 72%, transparent);
+  --text-low: color-mix(in srgb, var(--white) 56%, transparent);
+  --text-extra-low: color-mix(in srgb, var(--white) 44%, transparent);
+
+  /* Border tokens use white with transparency in dark mode */
+  --border-strongest: var(--gray-1300);
+  --border-strong: color-mix(in srgb, var(--white) 48%, transparent);
+  --border-medium: color-mix(in srgb, var(--white) 20%, transparent);
+  --border-light: color-mix(in srgb, var(--white) 12%, transparent);
+  --border-extra-light: color-mix(in srgb, var(--white) 4%, transparent);
+
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -637,24 +816,33 @@ body {
   font-weight: 700;
 }
 
-/* Inter font utilities for body text */
+/* Inter Variable font utilities */
+.font-sans {
+  font-family: var(--font-sans);
+}
+
 .font-inter {
-  font-family: var(--font-inter);
+  font-family: var(--font-sans);
 }
 
 .font-inter-regular {
-  font-family: var(--font-inter);
-  font-weight: 450;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
 }
 
 .font-inter-medium {
-  font-family: var(--font-inter);
-  font-weight: 550;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
 }
 
 .font-inter-semibold {
-  font-family: var(--font-inter);
-  font-weight: 600;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+}
+
+.font-inter-bold {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-bold);
 }
 
 /* Pulse animations for hero lines and borders */
