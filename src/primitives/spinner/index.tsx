@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, type SVGProps } from "react";
 import { cn } from "../../utils";
 
 /**
@@ -7,11 +7,9 @@ import { cn } from "../../utils";
  */
 type SpinnerSize = "xl" | "lg" | "md" | "sm";
 
-export interface SpinnerProps {
+export interface SpinnerProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
   /** Size of the spinner - matches button icon sizes */
   size?: SpinnerSize;
-  /** Additional CSS classes */
-  className?: string;
   /** Accessible label for screen readers */
   label?: string;
 }
@@ -37,15 +35,15 @@ const sizeMap: Record<SpinnerSize, number> = {
  * ```
  */
 export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(
-  ({ size = "md", className, label = "Loading" }, ref) => {
+  ({ size = "md", className, label = "Loading", ...props }, ref) => {
     const dimension = sizeMap[size];
 
     return (
       <svg
         aria-label={label}
         className={cn(
-          // Smooth rotation animation
-          "animate-spin",
+          // Fast rotation with cubic easing
+          "animate-spinner",
           // Pause animation when reduced motion is preferred (paused, not removed)
           // Can be overridden by parent [data-animation-playing="true"] for docs
           "motion-reduce:opacity-70 motion-reduce:[animation-play-state:paused]",
@@ -58,6 +56,7 @@ export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(
         viewBox="0 0 24 24"
         width={dimension}
         xmlns="http://www.w3.org/2000/svg"
+        {...props}
       >
         {/* Track circle - subtle background */}
         <circle
@@ -67,7 +66,7 @@ export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(
           r="10"
           stroke="currentColor"
           strokeOpacity="0.2"
-          strokeWidth="2.5"
+          strokeWidth="3"
         />
         {/* Progress arc - visible spinner portion */}
         <path
@@ -75,7 +74,7 @@ export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(
           fill="none"
           stroke="currentColor"
           strokeLinecap="round"
-          strokeWidth="2.5"
+          strokeWidth="3"
         />
       </svg>
     );
