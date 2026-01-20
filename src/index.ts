@@ -1,3 +1,13 @@
-export * from "./ui/hooks";
-export * from "./ui/primitives";
-export * from "./ui/utils";
+// Solana Design System
+
+// Components (molecules)
+export * from "./components";
+
+// Hooks
+export * from "./hooks";
+// Patterns (templates)
+export * from "./patterns";
+// Primitives (atoms)
+export * from "./primitives";
+// Utilities
+export * from "./utils";
