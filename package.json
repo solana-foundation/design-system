@@ -25,6 +25,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.11.0",
   "dependencies": {
+    "@base-ui/react": "^1.1.0",
     "@tailwindcss/vite": "^4.1.18",
     "corner-smoothing": "^0.1.5",
     "dompurify": "^3.3.1",
