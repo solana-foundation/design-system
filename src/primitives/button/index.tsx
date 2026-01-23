@@ -1,6 +1,13 @@
+import { Button as BaseButton } from "@base-ui/react/button";
 import { type HTMLMotionProps, motion } from "motion/react";
-import { forwardRef, type ReactNode } from "react";
-import { cn, Slot } from "../../utils";
+import {
+  Children,
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  type ReactNode,
+} from "react";
+import { cn } from "../../utils";
 import { Spinner } from "../spinner";
 
 /**
@@ -228,8 +235,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const buttonClasses = cn(
       // Layout - relative for spinner overlay positioning
       "relative inline-flex items-center justify-center",
-      // GPU optimization - prevents first-frame animation stutter (Jakub.kr)
-      "will-change-transform",
       // Typography - uses existing text-button-* classes
       sizeConfig.textClass,
       // Variant colors
@@ -282,62 +287,60 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       </>
     );
 
-    // If asChild, render using Slot to merge props with child element
-    // Note: asChild does not support motion props - use for static link buttons
-    if (asChild) {
-      // Extract only standard HTML attributes for the Slot
-      const {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        whileTap,
-        whileHover,
-        whileFocus,
-        whileDrag,
-        whileInView,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        animate,
-        initial,
-        exit,
-        variants,
-        transition,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        onAnimationStart,
-        onAnimationComplete,
-        ...htmlProps
-      } = props;
-
-      return (
-        <Slot
-          className={buttonClasses}
-          ref={ref as React.Ref<HTMLElement>}
-          style={buttonStyles as React.CSSProperties}
-          {...(htmlProps as React.HTMLAttributes<HTMLElement>)}
-        >
-          {children}
-        </Slot>
-      );
-    }
-
-    // Press animation only - no hover scale
-    // Per Emil Kowalski: scale 0.98 on press with ~150ms transition
+    // Press animation props - per Emil Kowalski: scale 0.98 on press
     // https://emilkowal.ski/ui/7-practical-animation-tips
     const scaleMotionProps = {
       whileTap: isDisabled ? undefined : { scale: 0.98 },
       transition: { type: "spring" as const, duration: 0.15, bounce: 0 },
     };
 
+    // If asChild, render the child element with button props merged via Base UI's render prop
+    // Note: asChild does not support motion props - use for static link buttons
+    if (asChild) {
+      const child = Children.only(children);
+      if (!isValidElement(child)) {
+        throw new Error("Button with asChild requires a single valid element");
+      }
+
+      return (
+        <BaseButton
+          className={buttonClasses}
+          disabled={isDisabled}
+          focusableWhenDisabled={loading}
+          nativeButton={false}
+          ref={ref}
+          render={(baseProps) =>
+            cloneElement(child as React.ReactElement<Record<string, unknown>>, {
+              ...baseProps,
+              className: cn(
+                buttonClasses,
+                (child.props as { className?: string }).className
+              ),
+              style: {
+                ...buttonStyles,
+                ...((child.props as { style?: React.CSSProperties }).style ||
+                  {}),
+              },
+            })
+          }
+          style={buttonStyles}
+        />
+      );
+    }
+
     return (
-      <motion.button
+      <BaseButton
         aria-busy={loading}
         className={buttonClasses}
         disabled={isDisabled}
+        focusableWhenDisabled={loading}
         ref={ref}
+        render={<motion.button {...scaleMotionProps} {...props} />}
         style={buttonStyles}
         type="button"
-        {...scaleMotionProps}
-        {...props}
       >
         {content}
-      </motion.button>
+      </BaseButton>
     );
   }
 );
