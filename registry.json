@@ -1,51 +1,77 @@
 {
-  "name": "@solana/design-system",
-  "components": [
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "solana",
+  "homepage": "https://solana.com",
+  "items": [
     {
-      "name": "button",
-      "description": "Accessible button with primary/secondary variants, four sizes, icon support, and loading state.",
-      "files": ["src/primitives/button/index.tsx"],
-      "dependencies": ["@base-ui/react", "motion", "lucide-react"],
-      "registryDependencies": ["spinner", "cn", "slot"]
+      "name": "cn",
+      "type": "registry:lib",
+      "title": "cn",
+      "description": "Class name utility for conditionally joining class strings.",
+      "files": [{ "path": "registry/solana/cn.ts", "type": "registry:lib" }]
+    },
+    {
+      "name": "slot",
+      "type": "registry:lib",
+      "title": "Slot",
+      "description": "Slot component for the asChild pattern. Merges props, classNames, styles, and refs.",
+      "files": [{ "path": "registry/solana/slot.tsx", "type": "registry:lib" }],
+      "registryDependencies": ["cn"]
     },
     {
       "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
       "description": "SVG loading spinner with size variants. Respects prefers-reduced-motion.",
-      "files": ["src/primitives/spinner/index.tsx"],
-      "dependencies": [],
+      "files": [
+        { "path": "registry/solana/spinner.tsx", "type": "registry:ui" }
+      ],
       "registryDependencies": ["cn"]
     },
     {
       "name": "animated-icon",
+      "type": "registry:ui",
+      "title": "Animated Icon",
       "description": "Animates icon transitions with blur and scale using AnimatePresence.",
-      "files": ["src/primitives/animated-icon/index.tsx"],
       "dependencies": ["motion"],
-      "registryDependencies": []
+      "files": [
+        { "path": "registry/solana/animated-icon.tsx", "type": "registry:ui" }
+      ]
     },
     {
-      "name": "cn",
-      "description": "Class name utility for conditionally joining class strings.",
-      "files": ["src/utils/cn.ts"],
-      "dependencies": [],
-      "registryDependencies": []
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Accessible button with primary/secondary variants, four sizes, icon support, and loading state.",
+      "dependencies": ["@base-ui/react", "motion", "lucide-react"],
+      "registryDependencies": ["spinner", "cn"],
+      "files": [{ "path": "registry/solana/button.tsx", "type": "registry:ui" }]
     },
     {
-      "name": "slot",
-      "description": "Slot component for the asChild pattern. Merges props, classNames, styles, and refs.",
-      "files": ["src/utils/slot.tsx"],
-      "dependencies": [],
-      "registryDependencies": ["cn"]
+      "name": "segment-control",
+      "type": "registry:ui",
+      "title": "Segment Control",
+      "description": "Segmented control with smooth sliding indicator animation. Built on Base UI ToggleGroup.",
+      "dependencies": ["@base-ui/react", "motion"],
+      "registryDependencies": ["cn"],
+      "files": [
+        {
+          "path": "registry/solana/segment-control.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "use-copy-to-clipboard",
+      "type": "registry:hook",
+      "title": "useCopyToClipboard",
       "description": "Hook for copying text to clipboard with automatic reset timer.",
-      "files": ["src/hooks/use-copy-to-clipboard.ts"],
-      "dependencies": [],
-      "registryDependencies": []
+      "files": [
+        {
+          "path": "registry/solana/use-copy-to-clipboard.ts",
+          "type": "registry:hook"
+        }
+      ]
     }
-  ],
-  "styles": {
-    "globals": "src/globals.css",
-    "defaults": "src/defaults.css"
-  }
+  ]
 }
