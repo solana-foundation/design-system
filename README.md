@@ -1,163 +1,116 @@
 # Solana Design System
 
-A comprehensive design system for building Solana applications with React and Tailwind CSS v4.
-
-## Features
-
-- **30+ Primitive Components** - Built with Radix UI for accessibility
-- **Tailwind CSS v4** - Modern styling with CSS @theme
-- **TypeScript** - Full type safety
-- **Storybook** - Interactive component documentation
-- **Example Applications** - Real-world usage examples
+Component library for Solana Foundation. Built with React, Tailwind CSS v4, Base UI, and Motion.
 
 ## Installation
 
+### shadcn CLI (recommended)
+
+Add components individually using the shadcn CLI:
+
 ```bash
-pnpm install
+npx shadcn@latest add https://design.solana.com/r/button.json
+```
+
+This copies the component source into your project so you own the code.
+
+### npm package
+
+```bash
+pnpm add @solana/design-system
+```
+
+```tsx
+import { Button, Spinner, SegmentControl } from "@solana/design-system";
+import "@solana/design-system/styles";
 ```
 
 ## Components
 
-All components are located in `src/ui/primitives/` and follow a primitives-first approach inspired by Figma's Simple Design System.
+### Primitives
 
-### Core Components
+| Component | Description |
+|---|---|
+| **Button** | Primary/secondary variants, four sizes (xl/lg/md/sm), icon support, loading state |
+| **Spinner** | SVG loading spinner with size variants, respects `prefers-reduced-motion` |
+| **Segment Control** | Segmented toggle with smooth sliding indicator animation |
+| **Animated Icon** | Icon transitions with blur and scale using AnimatePresence |
 
-- **Layout**: Card, Separator, Sheet, Tabs
-- **Forms**: Input, Textarea, Label, Checkbox, Radio Group, Select, Switch
-- **Data Display**: Table, Badge, Avatar, Skeleton, Progress
-- **Navigation**: Breadcrumb, Dropdown Menu, Command
-- **Feedback**: Alert, Dialog, Modal, Tooltip, Popover, Spinner
-- **Solana-Specific**: TransactionSuccessView, WarningBanner, SolanaLogo, TokenLogo, ExpandableText
+### Utilities
 
-### Using Components
+| Name | Description |
+|---|---|
+| **cn** | Minimal class name joiner (no clsx/tailwind-merge) |
+| **Slot** | `asChild` pattern — merges props, classNames, styles, and refs |
 
-```tsx
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  Button,
-  Modal,
-  Card,
-} from "@solana/design-system";
+### Hooks
 
-function MyComponent() {
-  return (
-    <Card>
-      <Table>
-        {/* Table content */}
-      </Table>
-    </Card>
-  );
-}
-```
+| Name | Description |
+|---|---|
+| **useCopyToClipboard** | Clipboard API wrapper with automatic reset timer |
+
+## Tech Stack
+
+- **React 19** + TypeScript
+- **Tailwind CSS v4** with `@theme` CSS variables
+- **Base UI** (`@base-ui/react`) for accessible headless primitives
+- **Motion** for animations
+- **Lucide React** for icons
+- **Biome** for linting/formatting
+- **Storybook 8** for component documentation
 
 ## Development
 
-### Storybook
-
-View and interact with all components:
-
 ```bash
-pnpm storybook
+pnpm install
+pnpm storybook       # Component docs at localhost:6006
+pnpm lint             # Check code with Biome
+pnpm build            # Build npm package to dist/
+pnpm registry:build   # Build shadcn registry to public/r/
 ```
-
-Opens at http://localhost:6006
-
-### Build Storybook
-
-```bash
-pnpm storybook:build
-```
-
-### Linting & Formatting
-
-This project uses Biome for linting and formatting:
-
-```bash
-# Check for issues
-pnpm lint
-
-# Fix issues automatically
-pnpm lint:fix
-
-# Format code
-pnpm format
-
-# Check formatting
-pnpm format:check
-```
-
-## Examples
-
-See the [`examples/`](./examples) directory for complete example applications:
-
-- **Token List** - A full-featured token listing interface with sortable tables, modals, and stats
-
-### Running Examples
-
-From the root directory:
-
-```bash
-# Run the token list example
-pnpm example:token-list
-```
-
-Or navigate to the example directory:
-
-```bash
-cd examples/token-list
-pnpm dev
-```
-
-## Color Palette
-
-The design system uses a "sand" color palette:
-
-- `sand-50` to `sand-900` - Main scale
-- `sand-1000` - Near black
-- `sand-1500` - Pure black
-
-## Typography
-
-- **ABC Diatype** - Primary font family
-- **Berkeley Mono** - Monospace for code and numbers
 
 ## Project Structure
 
 ```
-design-system/
-├── src/
-│   ├── ui/
-│   │   ├── primitives/     # All UI components
-│   │   ├── hooks/          # Shared hooks
-│   │   └── utils/          # Utility functions
-│   ├── globals.css         # Tailwind config
-│   └── index.ts            # Main export
-├── .storybook/             # Storybook configuration
-├── examples/               # Example applications
-│   └── token-list/         # Token list example
-└── package.json
+muscat/
+├── src/                      # Source (npm package build)
+│   ├── primitives/           # Button, Spinner, SegmentControl, AnimatedIcon
+│   ├── utils/                # cn, Slot
+│   ├── hooks/                # useCopyToClipboard
+│   ├── components/           # Composed components (planned)
+│   ├── patterns/             # Page patterns (planned)
+│   ├── tokens/               # Design token Storybook stories
+│   └── globals.css           # Theme, CSS variables, utilities
+├── registry/                 # Source (shadcn CLI build)
+│   └── solana/               # Components with @/ alias imports
+├── public/r/                 # Generated shadcn registry JSON (gitignored)
+├── registry.json             # shadcn registry manifest
+├── examples/
+│   └── token-list/           # Example app
+└── .storybook/               # Storybook config
 ```
 
-## Adding New Components
+## Color System
 
-Use the shadcn CLI to generate a new component:
+### Primitives
+- **Gray scale**: `gray-50` through `gray-1400` (15 steps)
+- **Base colors**: `black`, `white`
 
-```bash
-pnpm generate:component
-```
+### Semantic Tokens (transparency-based)
 
-This will prompt you to select a component from the shadcn library, which will be added to `src/ui/primitives/`.
+**Text** (uses gray-1400 in light, white in dark):
+- `text-extra-high` (100%), `text-high` (88%), `text-medium` (72%), `text-low` (56%), `text-extra-low` (44%)
+
+**Borders** (uses gray-1300 in light, white in dark):
+- `border-strongest` (100%), `border-strong` (48%), `border-medium` (20%), `border-light` (12%), `border-extra-light` (4%)
 
 ## Contributing
 
-1. Components should follow the primitive approach - they cannot be reduced further
-2. All components must use `React.forwardRef` for ref forwarding
-3. Components should be exported from `src/ui/primitives/index.ts`
-4. Each component should have a Storybook story in its directory
-5. Use TypeScript for all components
-6. Follow the existing code style (enforced by Biome)
+1. Components go in `src/primitives/` (atoms) or `src/components/` (molecules)
+2. Each component needs a Storybook story in its directory
+3. Add new components to both `src/` (for npm) and `registry/solana/` (for shadcn CLI)
+4. Registry files use `@/` alias imports; source files use relative imports
+5. Run `pnpm lint` before committing
 
 ## License
 
