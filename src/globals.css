@@ -117,6 +117,16 @@
   --tw-exit-translate-x: 0.5rem;
 }
 
+@utility autofill-transparent {
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: inherit !important;
+    transition: background-color 9999s ease-in-out 0s;
+  }
+}
+
 /* Inline code styling - sand background for code wrapped in `` */
 .prose :not(pre) > code,
 .prose p code,
@@ -231,7 +241,7 @@
   --text-extra-low: color-mix(in srgb, var(--gray-1400) 44%, transparent);
 
   /* Semantic tokens - Borders (using gray-1300 with transparency) */
-  --border-strongest: var(--gray-1300);
+  --border-strongest: color-mix(in srgb, var(--gray-1300) 80%, transparent);
   --border-strong: color-mix(in srgb, var(--gray-1300) 48%, transparent);
   --border-medium: color-mix(in srgb, var(--gray-1300) 20%, transparent);
   --border-light: color-mix(in srgb, var(--gray-1300) 12%, transparent);
@@ -396,6 +406,47 @@
   --button-gap-lg: 8px;
   --button-gap-md: 6px;
   --button-gap-sm: 4px;
+
+  /* =============================================================================
+     INPUT FIELD TOKENS
+     ============================================================================= */
+
+  /* Input Heights - matches button heights for vertical alignment */
+  --input-height-xl: 48px;
+  --input-height-lg: 40px;
+  --input-height-md: 36px;
+
+  /* Input Padding Horizontal */
+  --input-padding-x-xl: 14px;
+  --input-padding-x-lg: 10px;
+  --input-padding-x-md: 8px;
+
+  /* Input Radii - matches button radii */
+  --input-radius-xl: 12px;
+  --input-radius-lg: 10px;
+  --input-radius-md: 8px;
+
+  /* Input Icon Sizes */
+  --input-icon-xl: 20px;
+  --input-icon-lg: 16px;
+  --input-icon-md: 14px;
+
+  /* Input Icon Gaps */
+  --input-gap-xl: 8px;
+  --input-gap-lg: 8px;
+  --input-gap-md: 6px;
+
+  /* Input Border */
+  --input-border-width: 1.5px;
+  --input-border-idle: color-mix(in srgb, var(--gray-1300) 12%, transparent);
+  --input-border-hover: color-mix(in srgb, var(--gray-1300) 20%, transparent);
+  --input-border-focus: var(--border-strongest);
+
+  /* Input Background - subtle tint on hover/focus */
+  --input-bg-hover: color-mix(in srgb, var(--gray-1400) 2%, transparent);
+
+  /* Input Focus Ring */
+  --input-focus-ring: color-mix(in srgb, var(--gray-1200) 30%, transparent);
 
   --radius: 0.625rem;
 
@@ -723,11 +774,11 @@ body {
   --text-extra-low: color-mix(in srgb, var(--white) 44%, transparent);
 
   /* Border tokens use white with transparency in dark mode */
-  --border-strongest: var(--gray-1300);
+  --border-strongest: color-mix(in srgb, var(--white) 80%, transparent);
   --border-strong: color-mix(in srgb, var(--white) 48%, transparent);
-  --border-medium: color-mix(in srgb, var(--white) 20%, transparent);
-  --border-light: color-mix(in srgb, var(--white) 12%, transparent);
-  --border-extra-light: color-mix(in srgb, var(--white) 4%, transparent);
+  --border-medium: color-mix(in srgb, var(--white) 24%, transparent);
+  --border-light: color-mix(in srgb, var(--white) 20%, transparent);
+  --border-extra-light: color-mix(in srgb, var(--white) 12%, transparent);
 
   /* Button Primary - inverted for dark mode (white bg, dark text) */
   /* Hover uses subtle dim instead of gray to avoid contrast inversion */
@@ -752,6 +803,13 @@ body {
 
   /* Button Focus Ring - solid white for WCAG 2.4.13 compliance (≥3:1 contrast) */
   --button-focus-ring: var(--white);
+
+  /* Input Field - dark mode overrides */
+  --input-border-idle: var(--border-light);
+  --input-border-hover: var(--border-medium);
+  --input-border-focus: var(--border-strongest);
+  --input-bg-hover: color-mix(in srgb, var(--white) 2%, transparent);
+  --input-focus-ring: color-mix(in srgb, var(--gray-1200) 30%, transparent);
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
