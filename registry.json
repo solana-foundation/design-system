@@ -1,0 +1,51 @@
+{
+  "name": "@solana/design-system",
+  "components": [
+    {
+      "name": "button",
+      "description": "Accessible button with primary/secondary variants, four sizes, icon support, and loading state.",
+      "files": ["src/primitives/button/index.tsx"],
+      "dependencies": ["@base-ui/react", "motion", "lucide-react"],
+      "registryDependencies": ["spinner", "cn", "slot"]
+    },
+    {
+      "name": "spinner",
+      "description": "SVG loading spinner with size variants. Respects prefers-reduced-motion.",
+      "files": ["src/primitives/spinner/index.tsx"],
+      "dependencies": [],
+      "registryDependencies": ["cn"]
+    },
+    {
+      "name": "animated-icon",
+      "description": "Animates icon transitions with blur and scale using AnimatePresence.",
+      "files": ["src/primitives/animated-icon/index.tsx"],
+      "dependencies": ["motion"],
+      "registryDependencies": []
+    },
+    {
+      "name": "cn",
+      "description": "Class name utility for conditionally joining class strings.",
+      "files": ["src/utils/cn.ts"],
+      "dependencies": [],
+      "registryDependencies": []
+    },
+    {
+      "name": "slot",
+      "description": "Slot component for the asChild pattern. Merges props, classNames, styles, and refs.",
+      "files": ["src/utils/slot.tsx"],
+      "dependencies": [],
+      "registryDependencies": ["cn"]
+    },
+    {
+      "name": "use-copy-to-clipboard",
+      "description": "Hook for copying text to clipboard with automatic reset timer.",
+      "files": ["src/hooks/use-copy-to-clipboard.ts"],
+      "dependencies": [],
+      "registryDependencies": []
+    }
+  ],
+  "styles": {
+    "globals": "src/globals.css",
+    "defaults": "src/defaults.css"
+  }
+}
