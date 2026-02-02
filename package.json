@@ -3,18 +3,40 @@
   "version": "1.0.0",
   "description": "Solana Design System - A collection of React components for building Solana applications",
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles": "./src/globals.css",
+    "./defaults": "./src/defaults.css",
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js"
+    },
     "./globals.css": "./src/globals.css",
     "./defaults.css": "./src/defaults.css"
   },
+  "files": [
+    "dist",
+    "src",
+    "registry.json"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
+    "build": "vite build --config vite.config.lib.ts",
     "storybook": "storybook dev -p 6006 --no-open",
-    "storybook:build": "storybook build --output-dir dist/storybook",
-    "storybook:run": "npx serve dist/storybook",
+    "storybook:build": "storybook build --output-dir storybook-static",
+    "storybook:run": "npx serve storybook-static",
     "example:token-list": "pnpm --filter token-list-example dev",
-    "generate:component": "pnpm dlx shadcn@latest add",
     "lint": "biome check",
     "lint:fix": "biome check --write",
     "format": "biome format --write",
@@ -24,16 +46,15 @@
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.11.0",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "tailwindcss": "^4.0.0"
+  },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
-    "@tailwindcss/vite": "^4.1.18",
-    "corner-smoothing": "^0.1.5",
-    "dompurify": "^3.3.1",
     "lucide-react": "^0.468.0",
-    "motion": "^12.26.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "^4.1.18"
+    "motion": "^12.26.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.11",
@@ -44,13 +65,20 @@
     "@storybook/addon-themes": "^8.6.15",
     "@storybook/react": "^8.6.15",
     "@storybook/react-vite": "^8.6.15",
+    "@tailwindcss/vite": "^4.1.18",
     "@types/dompurify": "^3.2.0",
     "@types/node": "^22.10.5",
     "@types/react": "^19.0.6",
     "@types/react-dom": "^19.0.2",
+    "corner-smoothing": "^0.1.5",
+    "dompurify": "^3.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "storybook": "^8.6.15",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "ultracite": "^7.0.11",
-    "vite": "^6.0.7"
+    "vite": "^6.0.7",
+    "vite-plugin-dts": "^4.5.4"
   }
 }

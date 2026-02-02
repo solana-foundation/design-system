@@ -2,4 +2,4 @@
 @import "./globals.css";
 
 /* Scan design system components for Tailwind class names */
-@source "./ui/primitives";
+@source "./primitives";
