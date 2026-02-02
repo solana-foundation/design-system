@@ -32,7 +32,7 @@ export default function Home() {
           <CodeBlock label="Install" code="npm i @solana/design-system" />
           <CodeBlock
             label="Import styles"
-            code={`@import "tailwindcss";\n@import "@solana/design-system/styles";`}
+            code={`@import "@solana/design-system/defaults";`}
           />
           <CodeBlock
             label="Use"
