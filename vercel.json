@@ -2,6 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "installCommand": "pnpm install --frozen-lockfile",
-  "buildCommand": "pnpm storybook:build",
+  "buildCommand": "pnpm --filter @solana/design-system storybook:build",
   "outputDirectory": "packages/design-system/storybook-static"
 }
