@@ -1,0 +1,99 @@
+name: Publish Design System
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "Which package(s) to publish to npm"
+        type: choice
+        required: true
+        default: all
+        options:
+          - all
+          - design-system
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish-packages:
+    if: ${{ startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    environment: npm-publish
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          # npm trusted publishing requires Node >= 22.14.0
+          node-version: "22.14.0"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.28.0
+
+      - name: Update npm for trusted publishing
+        run: npm install -g npm@latest
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build @solana/design-system
+        run: pnpm --filter @solana/design-system build
+
+      - name: Run tests (skip for now)
+        run: echo "Skipping tests for initial publish"
+
+      - name: Publish @solana/design-system
+        if: ${{ startsWith(github.ref, 'refs/tags/') || github.event.inputs.package == 'all' || github.event.inputs.package == 'design-system' }}
+        working-directory: packages/design-system
+        run: npm publish --access public
+
+  create-release:
+    if: startsWith(github.ref, 'refs/tags/') && always() && !cancelled()
+    needs: [publish-packages]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: |
+            ## @solana/design-system published
+
+            - Package: `@solana/design-system`
+            - Version: ${{ github.ref_name }}
+            - Registry: npm
+
+            ## Installation
+
+            ```bash
+            npm install @solana/design-system@${{ github.ref_name }}
+            ```
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+
