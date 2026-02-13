@@ -1,0 +1,81 @@
+{
+  "name": "@solana/design-system",
+  "version": "1.0.0",
+  "description": "Solana Design System - A collection of React components for building Solana applications",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles": "./src/globals.css",
+    "./defaults": "./src/defaults.css",
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js"
+    },
+    "./globals.css": "./src/globals.css",
+    "./defaults.css": "./src/defaults.css"
+  },
+  "files": [
+    "dist",
+    "src",
+    "registry.json"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "build": "vite build --config vite.config.lib.ts",
+    "dev": "storybook dev --disable-telemetry -p 6006 --no-open",
+    "storybook": "storybook dev --disable-telemetry -p 6006 --no-open",
+    "storybook:build": "storybook build --disable-telemetry --output-dir storybook-static",
+    "storybook:run": "npx serve storybook-static",
+    "lint": "biome check",
+    "lint:fix": "biome check --write",
+    "format": "biome format --write",
+    "format:check": "biome format --check",
+    "registry:build": "npx shadcn@latest build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "tailwindcss": "^4.0.0"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.1.0",
+    "lucide-react": "^0.468.0",
+    "motion": "^12.26.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.11",
+    "@storybook/addon-a11y": "10.2.8",
+    "@storybook/addon-links": "10.2.8",
+    "@storybook/addon-themes": "10.2.8",
+    "@storybook/react-vite": "10.2.8",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/dompurify": "^3.2.0",
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.6",
+    "@types/react-dom": "^19.0.2",
+    "corner-smoothing": "^0.1.5",
+    "dompurify": "^3.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "storybook": "10.2.8",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "vite": "^6.0.7",
+    "vite-plugin-dts": "^4.5.4",
+    "@storybook/addon-docs": "10.2.8"
+  }
+}

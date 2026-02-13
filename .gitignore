@@ -10,7 +10,10 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
-public/r
+**/public/r
+storybook-static
+.turbo
+.pnpm-store
 *.local
 .env
 .VSCodeCounter

@@ -12,29 +12,29 @@ Documentation must be clear to both humans and AI agents. Write concisely, use c
 ## Tech Stack
 - React 19, TypeScript, Tailwind CSS v4, Motion, Lucide React
 - Base UI (`@base-ui/react`) for accessible headless primitives
-- Vite, Storybook 8, Biome, pnpm
+- Vite, Storybook 8, Biome, pnpm, Turborepo
 
 ## Distribution
 
 ### Two distribution channels
-1. **npm package** (`@solana/design-system`) — compiled build from `src/`, imported as a dependency
-2. **shadcn CLI** — source files from `registry/solana/`, copied into consumer projects via `npx shadcn add`
+1. **npm package** (`@solana/design-system`) — compiled build from `packages/design-system/src/`, imported as a dependency
+2. **shadcn CLI** — source files from `packages/design-system/registry/solana/`, copied into consumer projects via `npx shadcn add`
 
 ### Directory structure
-- `src/` — Source for the npm package build. Uses relative imports.
-- `registry/solana/` — Source for shadcn CLI. Uses `@/` alias imports (`@/lib/`, `@/components/ui/`, `@/hooks/`).
-- `registry.json` — shadcn registry manifest defining all components.
-- `public/r/` — Generated per-component JSON files (gitignored, built by `pnpm registry:build`).
+- `packages/design-system/src/` — Source for the npm package build. Uses relative imports.
+- `packages/design-system/registry/solana/` — Source for shadcn CLI. Uses `@/` alias imports (`@/lib/`, `@/components/ui/`, `@/hooks/`).
+- `packages/design-system/registry.json` — shadcn registry manifest defining all components.
+- `packages/design-system/public/r/` — Generated per-component JSON files (gitignored, built by `pnpm registry:build`).
 
 ### Adding a new component
-1. Create the component in `src/primitives/<name>/index.tsx` (or `src/utils/`, `src/hooks/`)
-2. Export it from the appropriate barrel file (`src/primitives/index.ts`, etc.)
-3. Copy the file to `registry/solana/<name>.tsx`
+1. Create the component in `packages/design-system/src/primitives/<name>/index.tsx` (or `packages/design-system/src/utils/`, `packages/design-system/src/hooks/`)
+2. Export it from the appropriate barrel file (`packages/design-system/src/primitives/index.ts`, etc.)
+3. Copy the file to `packages/design-system/registry/solana/<name>.tsx`
 4. In the registry copy, replace relative imports with `@/` aliases:
    - `../../utils` → `@/lib/cn`
    - `../spinner` → `@/components/ui/spinner`
-5. Add an entry to `registry.json` with `name`, `type`, `title`, `description`, `files`, `dependencies`, and `registryDependencies`
-6. Run `pnpm registry:build` to generate `public/r/<name>.json`
+5. Add an entry to `packages/design-system/registry.json` with `name`, `type`, `title`, `description`, `files`, `dependencies`, and `registryDependencies`
+6. Run `pnpm registry:build` to generate `packages/design-system/public/r/<name>.json`
 
 ## Color System
 
@@ -58,10 +58,10 @@ Documentation must be clear to both humans and AI agents. Write concisely, use c
 ```
 
 ## Key Files
-- `src/globals.css` — Styles, CSS variables, theme
-- `src/tokens/` — Color stories for Storybook
-- `registry.json` — shadcn registry manifest
-- `registry/solana/` — Registry component sources
+- `packages/design-system/src/globals.css` — Styles, CSS variables, theme
+- `packages/design-system/src/tokens/` — Color stories for Storybook
+- `packages/design-system/registry.json` — shadcn registry manifest
+- `packages/design-system/registry/solana/` — Registry component sources
 - `CHANGELOG.md` — All changes with explanations
 
 ## Commands

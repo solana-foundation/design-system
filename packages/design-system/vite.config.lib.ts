@@ -12,9 +12,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        index: resolve(__dirname, "src/index.ts"),
-        "utils/index": resolve(__dirname, "src/utils/index.ts"),
-        "hooks/index": resolve(__dirname, "src/hooks/index.ts"),
+        index: resolve(import.meta.dirname, "src/index.ts"),
+        "utils/index": resolve(import.meta.dirname, "src/utils/index.ts"),
+        "hooks/index": resolve(import.meta.dirname, "src/hooks/index.ts"),
       },
       formats: ["es"],
       fileName: (_format, entryName) => `${entryName}.js`,
@@ -38,7 +38,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": resolve(__dirname, "src"),
+      "@": resolve(import.meta.dirname, "src"),
     },
   },
 });

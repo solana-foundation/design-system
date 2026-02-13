@@ -28,9 +28,9 @@ This example demonstrates:
    pnpm example:token-list
    ```
 
-   **Or from the example directory:**
+   **Or from the app directory:**
    ```bash
-   cd examples/token-list
+   cd apps/token-list
    pnpm dev
    ```
 

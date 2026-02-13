@@ -28,15 +28,18 @@ export default function Home() {
           </p>
         </header>
 
-        <section className="enter-animate flex flex-col gap-5" style={{ animationDelay: "220ms" }}>
-          <CodeBlock label="Install" code="npm i @solana/design-system" />
+        <section
+          className="enter-animate flex flex-col gap-5"
+          style={{ animationDelay: "220ms" }}
+        >
+          <CodeBlock code="npm i @solana/design-system" label="Install" />
           <CodeBlock
-            label="Import styles"
             code={`@import "@solana/design-system/defaults";`}
+            label="Import styles"
           />
           <CodeBlock
-            label="Use"
             code={`import { Button } from "@solana/design-system";`}
+            label="Use"
           />
         </section>
       </div>
@@ -46,10 +49,10 @@ export default function Home() {
         style={{ animationDelay: "400ms" }}
       >
         <a
-          href="https://github.com/solana-foundation"
-          target="_blank"
-          rel="noopener noreferrer"
           className="underline decoration-border-medium underline-offset-4 transition-colors hover:text-text-medium"
+          href="https://github.com/solana-foundation"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           GitHub
         </a>
@@ -65,19 +68,19 @@ function CodeBlock({ label, code }: { label: string; code: string }) {
     <div className="flex flex-col gap-1.5">
       <span className="text-body-sm-bold text-text-medium">{label}</span>
       <div className="group relative">
-        <pre className="text-body-sm text-text-high overflow-x-auto rounded-lg bg-gray-50 px-4 py-3">
+        <pre className="overflow-x-auto rounded-lg bg-gray-50 px-4 py-3 text-body-sm text-text-high">
           <code>{code}</code>
         </pre>
         <button
-          type="button"
-          onClick={() => copy(code)}
-          className="absolute right-2.5 top-2.5 rounded p-1 opacity-0 transition-opacity hover:bg-gray-100 group-hover:opacity-100"
           aria-label={copied ? "Copied" : "Copy to clipboard"}
+          className="absolute top-2.5 right-2.5 rounded p-1 opacity-0 transition-opacity hover:bg-gray-100 group-hover:opacity-100"
+          onClick={() => copy(code)}
+          type="button"
         >
           {copied ? (
-            <Check size={14} className="text-text-medium" />
+            <Check className="text-text-medium" size={14} />
           ) : (
-            <Copy size={14} className="text-text-low" />
+            <Copy className="text-text-low" size={14} />
           )}
         </button>
       </div>

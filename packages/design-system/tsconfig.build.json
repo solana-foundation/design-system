@@ -14,7 +14,6 @@
     "src/**/*.stories.tsx",
     "src/story-components/**",
     "src/tokens/**",
-    ".storybook/**",
-    "examples/**"
+    ".storybook/**"
   ]
 }

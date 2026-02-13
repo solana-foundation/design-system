@@ -19,7 +19,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@solana/design-system": ["../../src/index.ts"]
+      "@solana/design-system": ["../../packages/design-system/src/index.ts"]
     },
     "target": "ES2017"
   },
