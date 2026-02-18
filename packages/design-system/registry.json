@@ -70,6 +70,17 @@
       ]
     },
     {
+      "name": "select-field",
+      "type": "registry:ui",
+      "title": "Select Field",
+      "description": "Accessible dropdown select with icon sync, groups, separators, descriptions, and multi-select. Built on Base UI Select.",
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["cn"],
+      "files": [
+        { "path": "registry/solana/select-field.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "segment-control",
       "type": "registry:ui",
       "title": "Segment Control",

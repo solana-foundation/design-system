@@ -449,6 +449,52 @@
   /* Input Focus Ring */
   --input-focus-ring: color-mix(in srgb, var(--gray-1200) 16%, transparent);
 
+  /* Input Error */
+  --input-border-error: oklch(0.637 0.237 25.331 / 60%);
+  --input-error-text: oklch(0.637 0.237 25.331);
+
+  /* =============================================================================
+     TOOLTIP TOKENS
+     ============================================================================= */
+
+  --tooltip-bg: var(--gray-1400);
+  --tooltip-text: var(--white);
+  --tooltip-radius: 8px;
+  --tooltip-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
+
+  /* =============================================================================
+     INPUT ADDON TOKENS
+     ============================================================================= */
+
+  --input-addon-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
+  --input-addon-divider: color-mix(in srgb, var(--gray-1300) 16%, transparent);
+  --input-addon-padding-x-xl: 12px;
+  --input-addon-padding-x-lg: 10px;
+  --input-addon-padding-x-md: 8px;
+
+  /* Input Hint Icon */
+  --input-hint-icon-xl: 14px;
+  --input-hint-icon-lg: 14px;
+  --input-hint-icon-md: 12px;
+
+  /* =============================================================================
+     SELECT POPUP TOKENS
+     ============================================================================= */
+
+  --select-popup-bg: var(--white);
+  --select-popup-border: color-mix(in srgb, var(--gray-1300) 16%, transparent);
+  --select-popup-shadow:
+    0px 8px 24px rgba(0, 0, 0, 0.08), 0px 2px 8px rgba(0, 0, 0, 0.04);
+  --select-popup-radius: 12px;
+  --select-popup-padding: 4px;
+  --select-item-radius: 8px;
+  --select-item-highlight-bg: color-mix(
+    in srgb,
+    var(--gray-1400) 6%,
+    transparent
+  );
+  --select-indicator-size: 16px;
+
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
@@ -812,6 +858,25 @@ body {
   --input-bg-idle: color-mix(in srgb, var(--white) 4%, transparent);
   --input-bg-hover: color-mix(in srgb, var(--white) 2%, transparent);
   --input-focus-ring: color-mix(in srgb, var(--white) 16%, transparent);
+
+  /* Input Error - dark mode */
+  --input-border-error: oklch(0.637 0.237 25.331 / 60%);
+  --input-error-text: oklch(0.637 0.237 25.331);
+
+  /* Tooltip - dark mode overrides */
+  --tooltip-bg: var(--gray-200);
+  --tooltip-shadow: 0px 4px 12px rgba(0, 0, 0, 0.32);
+
+  /* Input Addon - dark mode overrides */
+  --input-addon-bg: color-mix(in srgb, var(--white) 4%, transparent);
+  --input-addon-divider: color-mix(in srgb, var(--white) 16%, transparent);
+
+  /* Select popup - dark mode overrides */
+  --select-popup-bg: var(--gray-200);
+  --select-popup-border: color-mix(in srgb, var(--white) 12%, transparent);
+  --select-popup-shadow:
+    0px 8px 24px rgba(0, 0, 0, 0.32), 0px 2px 8px rgba(0, 0, 0, 0.24);
+  --select-item-highlight-bg: color-mix(in srgb, var(--white) 8%, transparent);
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
