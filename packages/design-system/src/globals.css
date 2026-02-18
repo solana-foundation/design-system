@@ -429,12 +429,12 @@
   /* Input Icon Sizes */
   --input-icon-xl: 20px;
   --input-icon-lg: 16px;
-  --input-icon-md: 12px;
+  --input-icon-md: 16px;
 
   /* Input Gaps */
   --input-gap-xl: 8px;
   --input-gap-lg: 8px;
-  --input-gap-md: 6px;
+  --input-gap-md: 8px;
 
   /* Input Border */
   --input-border-width: 1.5px;

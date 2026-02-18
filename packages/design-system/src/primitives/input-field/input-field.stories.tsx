@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Eye, Mail, Search } from "lucide-react";
+import { CopyButton } from "../copy-button";
 import { Input } from "./index";
 
 /**
@@ -66,6 +67,15 @@ const meta: Meta<typeof Input> = {
       description: "Placeholder text.",
       table: { category: "Content" },
     },
+    showIcon: {
+      control: "boolean",
+      description: "Toggle an icon inside the input.",
+      table: {
+        category: "Content",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
+    },
   },
 };
 
@@ -84,10 +94,11 @@ export const Playground: Story = {
     description: "",
     error: "",
     disabled: false,
+    showIcon: false,
   },
-  render: (args) => (
+  render: ({ showIcon, ...args }) => (
     <div className="w-[320px]">
-      <Input {...args} />
+      <Input {...args} iconLeft={showIcon ? <Search /> : undefined} />
     </div>
   ),
 };
@@ -202,6 +213,44 @@ export const Overview: Story = {
             label="Email"
             placeholder="you@example.com"
           />
+        </div>
+      </section>
+
+      {/* Copy to Clipboard */}
+      <section className="flex flex-col gap-4">
+        <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
+          Copy to Clipboard
+        </h4>
+        <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
+          <div className="flex flex-col gap-1">
+            <Input
+              action={
+                <CopyButton
+                  size="md"
+                  value="sk_live_abc123def456ghi789jkl012mno345"
+                />
+              }
+              className="font-mono"
+              defaultValue="sk_live_abc123def456ghi789jkl012mno345"
+              label="API Key"
+              readOnly
+            />
+            <span className="text-text-low text-xs">
+              Readonly + monospace + CopyButton action
+            </span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <Input
+              action={<CopyButton size="md" value="s3cur3-p@ssw0rd!" />}
+              defaultValue="s3cur3-p@ssw0rd!"
+              label="Password"
+              readOnly
+              type="password"
+            />
+            <span className="text-text-low text-xs">
+              Password field with CopyButton action
+            </span>
+          </div>
         </div>
       </section>
     </div>

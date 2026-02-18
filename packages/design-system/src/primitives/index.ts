@@ -1,5 +1,6 @@
 // Primitive components (atoms)
 export { Button, type ButtonProps } from "./button";
+export { CopyButton, type CopyButtonProps } from "./copy-button";
 export { Input, type InputProps } from "./input-field";
 export {
   SegmentControl,

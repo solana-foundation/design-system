@@ -39,6 +39,17 @@
       ]
     },
     {
+      "name": "copy-button",
+      "type": "registry:ui",
+      "title": "Copy Button",
+      "description": "Icon button that copies text to clipboard with animated check feedback.",
+      "dependencies": ["lucide-react", "motion"],
+      "registryDependencies": ["cn", "animated-icon", "use-copy-to-clipboard"],
+      "files": [
+        { "path": "registry/solana/copy-button.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",

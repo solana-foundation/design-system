@@ -20,6 +20,8 @@ export interface InputProps
   iconLeft?: ReactNode;
   /** Icon element displayed after the input */
   iconRight?: ReactNode;
+  /** Interactive element (e.g., copy button) displayed at the trailing edge */
+  action?: ReactNode;
 }
 
 const sizeStyles: Record<
@@ -61,7 +63,12 @@ const sizeStyles: Record<
 
 const IconWrapper = ({ children }: { children: ReactNode }) => (
   <span
-    className="pointer-events-none inline-flex shrink-0 items-center justify-center text-text-medium"
+    className={cn(
+      "pointer-events-none inline-flex shrink-0 items-center justify-center text-text-extra-high [&_svg]:size-full",
+      "opacity-44 transition-opacity duration-150 ease-out",
+      "group-[:not(:focus-within)]/input:group-hover/input:opacity-56",
+      "group-focus-within/input:opacity-72"
+    )}
     style={{
       width: "var(--icon-size)",
       height: "var(--icon-size)",
@@ -80,6 +87,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       error,
       iconLeft,
       iconRight,
+      action,
       disabled,
       className,
       ...props
@@ -150,6 +158,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         />
 
         {iconRight && <IconWrapper>{iconRight}</IconWrapper>}
+
+        {action && (
+          <span className="relative z-10 inline-flex shrink-0 items-center justify-center">
+            {action}
+          </span>
+        )}
       </div>
     );
 
