@@ -8,26 +8,6 @@ import { CopyButton } from "../copy-button";
 import { NumberField } from "../number-field";
 import { Input, InputAddonSelect } from "./index";
 
-/**
- * # Input Field
- *
- * Accessible text input with label, description, error, icon slots,
- * hint tooltip, and leading/trailing addon extensions.
- * Built on Base UI Field + Input for automatic ARIA association.
- *
- * ## Quick Reference
- * - **Sizes**: XL (48px) / LG (40px) / MD (36px)
- * - **States**: Idle / Hover / Focused / Disabled
- * - **Clickability**: Entire non-interactive field surface focuses input
- * - **Copy pattern**: Use the `action` slot with `<CopyButton>` for inline copy (no divider)
- * - **Slots**: Label / Description / Error / Icon Left / Icon Right / Action
- * - **Addons**: Leading / Trailing (with dividers) for text/select-style extensions
- * - **Hint**: Tooltip trigger enforces a 24x24 minimum target
- * - **Target guidance**: Injected addon controls should be at least 24x24 (40-44+ preferred for touch-first surfaces)
- * - **Dropdown guidance**: Use `InputAddonSelect` for short lists (uses native `<select>` for best mobile UX)
- * - **Large list guidance**: Switch to a combobox pattern when options become long/search-heavy
- * - **Numeric guidance**: Use `NumberField` for numeric values that need spinbutton semantics and keyboard stepping
- */
 const meta: Meta<typeof Input> = {
   title: "Primitives/Input Field",
   component: Input,

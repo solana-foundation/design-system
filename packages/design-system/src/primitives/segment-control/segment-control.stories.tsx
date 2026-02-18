@@ -8,18 +8,18 @@ import {
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SegmentControl } from "./index";
 
-/**
- * # SegmentControl
- *
- * A segmented control for switching between related options. Features a smooth
- * sliding indicator animation using Motion's shared layout system.
- */
 const meta: Meta<typeof SegmentControl> = {
   title: "Primitives/SegmentControl",
   component: SegmentControl,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
+    docs: {
+      description: {
+        component:
+          "Segmented control with a smooth sliding indicator animation using Motion's shared layout system.",
+      },
+    },
   },
 };
 

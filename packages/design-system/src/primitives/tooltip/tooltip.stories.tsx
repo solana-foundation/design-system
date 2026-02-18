@@ -1,19 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Tooltip, TooltipProvider } from "./index";
 
-/**
- * # Tooltip
- *
- * Accessible tooltip with skip-delay grouping, animated entrance, arrow, and dark theme.
- * Built on Base UI Tooltip with CSS transition animations.
- *
- * ## Quick Reference
- * - **Sides**: Top / Bottom / Left / Right
- * - **Alignment**: Start / Center / End
- * - **Arrow**: On by default
- * - **Delay**: 0ms default (near-instant), 150ms close delay
- * - **Skip Delay**: Wrap multiple tooltips in `TooltipProvider` for instant open when moving between triggers
- */
 const meta: Meta<typeof Tooltip> = {
   title: "Primitives/Tooltip",
   component: Tooltip,
@@ -132,8 +119,7 @@ export const SkipDelay: Story = {
   render: () => (
     <div className="flex flex-col items-center gap-6">
       <p className="max-w-sm text-center text-sm text-text-medium">
-        Hover one button, then quickly move to the next. The second tooltip
-        opens instantly (no delay).
+        Hover between buttons — second tooltip opens instantly.
       </p>
       <TooltipProvider>
         <div className="flex items-center gap-3">

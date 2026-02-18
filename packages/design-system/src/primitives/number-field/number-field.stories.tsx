@@ -1,13 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { NumberField } from "./index";
 
-/**
- * # Number Field
- *
- * Accessible numeric input with locale-aware parsing/formatting, keyboard stepping,
- * and optional min/max bounds.
- * Built on Base UI NumberField for robust spinbutton semantics.
- */
 const meta: Meta<typeof NumberField> = {
   title: "Primitives/Number Field",
   component: NumberField,

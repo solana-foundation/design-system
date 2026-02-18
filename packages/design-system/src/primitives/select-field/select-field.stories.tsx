@@ -19,18 +19,6 @@ import {
   SelectSeparator,
 } from "./index";
 
-/**
- * # Select Field
- *
- * Accessible dropdown select with icon sync, groups, separators,
- * descriptions, disabled items, and multi-select.
- * Built on Base UI Select with CSS transition animations.
- *
- * ## Quick Reference
- * - **Sizes**: XL (48px) / LG (40px) / MD (36px)
- * - **States**: Idle / Hover / Open / Disabled
- * - **Features**: Icon sync / Groups / Separators / Descriptions / Multi-select
- */
 const meta: Meta<typeof SelectField> = {
   title: "Primitives/Select Field",
   component: SelectField,

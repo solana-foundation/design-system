@@ -10,19 +10,6 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { Button } from "./index";
 
-/**
- * # Button
- *
- * Buttons trigger actions or navigation. They communicate what happens when
- * users interact with them.
- *
- * ## Quick Reference
- * - **Variants**: Primary (main action) / Secondary (supporting)
- * - **Sizes**: XL (48px) / LG (40px) / MD (36px) / SM (28px)
- * - **Shapes**: Default radius / Round (pill)
- * - **States**: Default / Disabled / Loading
- * - **Icons**: Leading / Trailing / Icon-only
- */
 const meta: Meta<typeof Button> = {
   title: "Primitives/Button",
   component: Button,
