@@ -81,17 +81,6 @@
       ]
     },
     {
-      "name": "number-input",
-      "type": "registry:ui",
-      "title": "Number Input",
-      "description": "Accessible numeric input with stepped keyboard controls, min/max bounds, leading/trailing addon support, and label/description/error. Built on Base UI NumberField.",
-      "dependencies": ["@base-ui/react", "motion", "@heroicons/react"],
-      "registryDependencies": ["cn", "tooltip"],
-      "files": [
-        { "path": "registry/solana/number-input.tsx", "type": "registry:ui" }
-      ]
-    },
-    {
       "name": "select",
       "type": "registry:ui",
       "title": "Select",

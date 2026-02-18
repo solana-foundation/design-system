@@ -5,7 +5,6 @@ import {
 } from "@heroicons/react/24/outline";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CopyButton } from "../copy-button";
-import { NumberInput } from "../number-input";
 import { AddonSelect, TextInput } from "./index";
 
 const meta: Meta<typeof TextInput> = {
@@ -378,8 +377,9 @@ export const LeadingText: Story = {
             placeholder="example.com"
             size="xl"
           />
-          <NumberInput
-            defaultValue={34}
+          <TextInput
+            defaultValue="34.00"
+            inputMode="decimal"
             label="Price"
             leadingAddon={<span className={addonTextClass}>$</span>}
             placeholder="0.00"

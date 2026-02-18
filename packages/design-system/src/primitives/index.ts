@@ -2,11 +2,6 @@
 export { Button, type ButtonProps } from "./button";
 export { CopyButton, type CopyButtonProps } from "./copy-button";
 export {
-  NumberInput,
-  type NumberInputProps,
-  type NumberInputSize,
-} from "./number-input";
-export {
   SegmentedControl,
   type SegmentedControlItem,
   type SegmentedControlProps,
