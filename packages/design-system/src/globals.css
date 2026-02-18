@@ -488,6 +488,29 @@
   --tooltip-radius: 8px;
   --tooltip-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
 
+  /* =============================================================================
+     TABS TOKENS
+     ============================================================================= */
+
+  --tab-text-idle: var(--text-medium);
+  --tab-text-hover: var(--text-high);
+  --tab-text-active: var(--text-extra-high);
+  --tab-text-disabled: var(--text-extra-low);
+  --tab-weight-idle: var(--font-weight-regular);
+  --tab-weight-active: var(--font-weight-medium);
+  --tab-indicator-height: 2px;
+  --tab-indicator-color: var(--text-extra-high);
+  --tab-badge-bg: color-mix(in srgb, var(--gray-1400) 8%, transparent);
+  --tab-badge-text: var(--text-medium);
+  --tab-padding-x-sm: 12px;
+  --tab-padding-x-md: 16px;
+  --tab-padding-y-sm: 8px;
+  --tab-padding-y-md: 10px;
+  --tab-gap-sm: 6px;
+  --tab-gap-md: 8px;
+  --tab-icon-sm: 14px;
+  --tab-icon-md: 16px;
+
   /* Input Hint Icon */
   --input-hint-icon-xl: 14px;
   --input-hint-icon-lg: 14px;
@@ -904,6 +927,9 @@ body {
   /* Tooltip - dark mode overrides */
   --tooltip-bg: var(--gray-200);
   --tooltip-shadow: 0px 4px 12px rgba(0, 0, 0, 0.32);
+
+  /* Tabs - dark mode overrides */
+  --tab-badge-bg: color-mix(in srgb, var(--white) 10%, transparent);
 
   /* Select popup - dark mode overrides */
   --select-popup-bg: var(--gray-200);

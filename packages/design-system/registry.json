@@ -120,7 +120,7 @@
       "name": "tabs",
       "type": "registry:ui",
       "title": "Tabs",
-      "description": "Tab navigation with animated indicator. Three variants (underline, pill, enclosed), two sizes, horizontal/vertical orientation. Built on Base UI Tabs.",
+      "description": "Underline tab navigation with animated indicator. Two sizes, horizontal/vertical orientation, optional border. Built on Base UI Tabs.",
       "dependencies": ["@base-ui/react"],
       "registryDependencies": ["cn"],
       "files": [{ "path": "registry/solana/tabs.tsx", "type": "registry:ui" }]
