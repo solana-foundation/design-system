@@ -416,10 +416,28 @@
   --input-height-lg: 40px;
   --input-height-md: 36px;
 
+  /* Input Typography */
+  --input-text-size-xl: 16px;
+  --input-text-size-lg: 14px;
+  --input-text-size-md: 14px;
+  --input-label-size-xl: 14px;
+  --input-label-size-lg: 14px;
+  --input-label-size-md: 14px;
+  --input-description-size-xl: 14px;
+  --input-description-size-lg: 12px;
+  --input-description-size-md: 12px;
+  --input-text-line-height: 1.25;
+  --input-placeholder-color: var(--text-low);
+
   /* Input Padding Horizontal */
   --input-padding-x-xl: 14px;
-  --input-padding-x-lg: 10px;
-  --input-padding-x-md: 12px;
+  --input-padding-x-lg: 12px;
+  --input-padding-x-md: 10px;
+
+  /* Input Addon Inner Padding (divider side) */
+  --input-addon-inner-xl: 10px;
+  --input-addon-inner-lg: 8px;
+  --input-addon-inner-md: 6px;
 
   /* Input Radii (matches button) */
   --input-radius-xl: 12px;
@@ -433,8 +451,13 @@
 
   /* Input Gaps */
   --input-gap-xl: 8px;
-  --input-gap-lg: 8px;
-  --input-gap-md: 8px;
+  --input-gap-lg: 6px;
+  --input-gap-md: 6px;
+
+  /* Input Action Gaps */
+  --input-action-gap-xl: 8px;
+  --input-action-gap-lg: 6px;
+  --input-action-gap-md: 6px;
 
   /* Input Border */
   --input-border-width: 1.5px;
@@ -445,6 +468,9 @@
   /* Input Background */
   --input-bg-idle: color-mix(in srgb, var(--gray-1400) 1.5%, transparent);
   --input-bg-hover: color-mix(in srgb, var(--gray-1400) 2%, transparent);
+
+  /* Input Addon Hover (interactive segments like InputAddonSelect) */
+  --input-addon-hover-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
 
   /* Input Focus Ring */
   --input-focus-ring: color-mix(in srgb, var(--gray-1200) 16%, transparent);
@@ -461,16 +487,6 @@
   --tooltip-text: var(--white);
   --tooltip-radius: 8px;
   --tooltip-shadow: 0px 4px 12px rgba(0, 0, 0, 0.12);
-
-  /* =============================================================================
-     INPUT ADDON TOKENS
-     ============================================================================= */
-
-  --input-addon-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
-  --input-addon-divider: color-mix(in srgb, var(--gray-1300) 16%, transparent);
-  --input-addon-padding-x-xl: 12px;
-  --input-addon-padding-x-lg: 10px;
-  --input-addon-padding-x-md: 8px;
 
   /* Input Hint Icon */
   --input-hint-icon-xl: 14px;
@@ -493,7 +509,18 @@
     var(--gray-1400) 6%,
     transparent
   );
-  --select-indicator-size: 16px;
+  --select-item-indicator-slot: 16px;
+  --select-item-indicator-gap: 8px;
+  --select-trigger-icon-xl: 16px;
+  --select-trigger-icon-lg: 14px;
+  --select-trigger-icon-md: 14px;
+  --select-item-icon-xl: 16px;
+  --select-item-icon-lg: 14px;
+  --select-item-icon-md: 14px;
+  --select-indicator-size-xl: 16px;
+  --select-indicator-size-md: 14px;
+  --select-indicator-size-lg: 14px;
+  --select-indicator-size: var(--select-indicator-size-lg);
 
   --radius: 0.625rem;
 
@@ -857,6 +884,7 @@ body {
   --input-border-focus: color-mix(in srgb, var(--white) 48%, transparent);
   --input-bg-idle: color-mix(in srgb, var(--white) 4%, transparent);
   --input-bg-hover: color-mix(in srgb, var(--white) 2%, transparent);
+  --input-addon-hover-bg: color-mix(in srgb, var(--white) 8%, transparent);
   --input-focus-ring: color-mix(in srgb, var(--white) 16%, transparent);
 
   /* Input Error - dark mode */
@@ -866,10 +894,6 @@ body {
   /* Tooltip - dark mode overrides */
   --tooltip-bg: var(--gray-200);
   --tooltip-shadow: 0px 4px 12px rgba(0, 0, 0, 0.32);
-
-  /* Input Addon - dark mode overrides */
-  --input-addon-bg: color-mix(in srgb, var(--white) 4%, transparent);
-  --input-addon-divider: color-mix(in srgb, var(--white) 16%, transparent);
 
   /* Select popup - dark mode overrides */
   --select-popup-bg: var(--gray-200);
@@ -909,6 +933,14 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* Coarse pointer overrides — upscale interactive targets for touch contexts */
+@media (pointer: coarse) {
+  :root {
+    --input-height-lg: 44px;
+    --input-height-md: 44px;
+  }
 }
 
 @layer base {

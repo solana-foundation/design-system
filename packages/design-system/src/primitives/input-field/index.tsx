@@ -1,7 +1,6 @@
 import { Field } from "@base-ui/react/field";
 import { Input as BaseInput } from "@base-ui/react/input";
-import { Select } from "@base-ui/react/select";
-import { Check, ChevronDown, CircleHelp } from "lucide-react";
+import { ChevronDownIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "motion/react";
 import {
   cloneElement,
@@ -12,6 +11,7 @@ import {
   type ReactNode,
   useCallback,
   useRef,
+  useState,
 } from "react";
 import { cn } from "../../utils";
 import {
@@ -179,12 +179,22 @@ const AddonWrapper = ({
     className={cn(
       "relative z-10 flex shrink-0 items-center self-stretch leading-[var(--input-text-line-height)]",
       textClass,
-      "text-text-high"
+      kind === "static" ? "text-text-low" : "text-text-high"
     )}
     data-input-addon-interactive={kind === "interactive" ? "true" : undefined}
     style={{
-      paddingLeft: position === "leading" ? outerPaddingX : innerPaddingX,
-      paddingRight: position === "leading" ? innerPaddingX : outerPaddingX,
+      paddingLeft:
+        position === "leading"
+          ? outerPaddingX
+          : kind === "static"
+            ? "0"
+            : innerPaddingX,
+      paddingRight:
+        position === "leading"
+          ? kind === "static"
+            ? "0"
+            : innerPaddingX
+          : outerPaddingX,
     }}
   >
     {children}
@@ -245,6 +255,33 @@ const resolveTrailingSlot = ({
   };
 };
 
+function addonSidePadding(
+  hasAddon: boolean,
+  kind: AddonKind,
+  config: ReturnType<typeof getInputConfig>
+) {
+  if (!hasAddon) return config.contentPaddingX;
+  return kind === "static"
+    ? `calc(${config.contentGap} / 2)`
+    : config.addonInnerPadding;
+}
+
+function getContentStyle(
+  config: ReturnType<typeof getInputConfig>,
+  opts: {
+    hasLeading: boolean;
+    leadingKind: AddonKind;
+    hasTrailing: boolean;
+    trailingKind: AddonKind;
+  }
+): React.CSSProperties {
+  return {
+    gap: config.contentGap,
+    paddingLeft: addonSidePadding(opts.hasLeading, opts.leadingKind, config),
+    paddingRight: addonSidePadding(opts.hasTrailing, opts.trailingKind, config),
+  };
+}
+
 const warnTrailingActionConflict = ({
   trailingAction,
   trailingAddon,
@@ -275,7 +312,7 @@ export interface InputAddonSelectOption {
 }
 
 export interface InputAddonSelectProps {
-  /** ARIA label for the trigger button */
+  /** ARIA label for the select */
   ariaLabel: string;
   /** Dropdown options for the addon select */
   options: InputAddonSelectOption[];
@@ -291,11 +328,9 @@ export interface InputAddonSelectProps {
   onValueChange?: (value: string | null) => void;
   /** Optional form name */
   name?: string;
-  /** Popup offset from trigger */
-  sideOffset?: number;
   /** Disabled state */
   disabled?: boolean;
-  /** Optional className for the trigger */
+  /** Optional className for the wrapper */
   className?: string;
 }
 
@@ -308,131 +343,96 @@ export function InputAddonSelect({
   onValueChange,
   options,
   position = "leading",
-  sideOffset = 8,
   size = "md",
   value,
 }: InputAddonSelectProps) {
   const config = getInputConfig(size);
-  const selectActionsRef = useRef<{ unmount: () => void } | null>(null);
-  const indicatorSizeBySize: Record<FieldSize, string> = {
-    xl: "var(--select-indicator-size-xl)",
-    lg: "var(--select-indicator-size-lg)",
-    md: "var(--select-indicator-size-md)",
-  };
-  const indicatorSize = indicatorSizeBySize[size];
-  const triggerStyle: React.CSSProperties = {
-    gap: config.contentGap,
-  };
+
+  // Track internal value for label display in uncontrolled mode
+  const isControlled = value !== undefined && value !== null;
+  const [internalValue, setInternalValue] = useState(
+    () => defaultValue ?? options[0]?.value ?? ""
+  );
+  const currentValue = isControlled ? value : internalValue;
+  const selectedLabel =
+    options.find((o) => o.value === currentValue)?.label ??
+    String(currentValue ?? "");
+
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const newValue = e.target.value;
+      if (!isControlled) {
+        setInternalValue(newValue);
+      }
+      onValueChange?.(newValue);
+    },
+    [isControlled, onValueChange]
+  );
+
+  // Extend into AddonWrapper's padding so overlay covers the full addon segment
+  const padLeft =
+    position === "leading" ? config.contentPaddingX : config.addonInnerPadding;
+  const padRight =
+    position === "leading" ? config.addonInnerPadding : config.contentPaddingX;
+  const innerRadius = `calc(${config.radius} - var(--input-border-width))`;
 
   return (
-    <Select.Root
-      actionsRef={selectActionsRef}
-      defaultValue={defaultValue ?? undefined}
-      disabled={disabled}
-      modal={false}
-      name={name}
-      onValueChange={onValueChange}
-      value={value}
+    <span
+      className={cn(
+        "group/addon relative flex items-center self-stretch",
+        "cursor-pointer",
+        "ease transition-[background-color] duration-150",
+        "motion-reduce:transition-none",
+        "has-[select:hover]:bg-[var(--input-addon-hover-bg)]",
+        "has-[select:focus-visible]:bg-[var(--input-addon-hover-bg)]",
+        className
+      )}
+      data-input-addon-interactive="true"
+      style={{
+        gap: config.contentGap,
+        marginLeft: `calc(-1 * ${padLeft})`,
+        marginRight: `calc(-1 * ${padRight})`,
+        paddingLeft: padLeft,
+        paddingRight: padRight,
+        borderRadius:
+          position === "leading"
+            ? `${innerRadius} 0 0 ${innerRadius}`
+            : `0 ${innerRadius} ${innerRadius} 0`,
+      }}
     >
-      <Select.Trigger
-        aria-label={ariaLabel}
+      {/* Display label — pointer-events-none, clicks pass through to select */}
+      <span
         className={cn(
-          "group/input-addon relative flex h-full min-w-0 items-center text-left outline-none",
-          config.textClass,
-          className
+          "pointer-events-none select-none text-text-high",
+          config.textClass
         )}
-        data-input-addon-interactive="true"
-        style={triggerStyle}
       >
-        <Select.Value className="truncate text-text-high" />
-        <Select.Icon
-          className={cn(
-            "inline-flex shrink-0 items-center justify-center text-text-medium",
-            "transition-transform duration-150 ease-out motion-reduce:transition-none",
-            "group-[[data-popup-open]]/input-addon:rotate-180"
-          )}
-        >
-          <ChevronDown
-            absoluteStrokeWidth
-            style={config.addonSelectIconStyle}
-          />
-        </Select.Icon>
-      </Select.Trigger>
+        {selectedLabel}
+      </span>
 
-      <Select.Portal>
-        <Select.Positioner
-          alignItemWithTrigger={false}
-          className="z-50"
-          disableAnchorTracking
-          side="bottom"
-          sideOffset={sideOffset}
-        >
-          <Select.Popup
-            className={cn(
-              "origin-[var(--transform-origin)]",
-              "rounded-[var(--select-popup-radius)]",
-              "border border-[var(--select-popup-border)]",
-              "bg-[var(--select-popup-bg)]",
-              "shadow-[var(--select-popup-shadow)]",
-              "p-[var(--select-popup-padding)]",
-              "min-w-[var(--anchor-width)]",
-              "max-h-[var(--available-height)]",
-              "overflow-y-auto outline-none",
-              "transform-gpu will-change-[transform,opacity]",
-              "transition-[transform,opacity] duration-[140ms] ease-[cubic-bezier(0.23,1,0.32,1)]",
-              "data-[starting-style]:scale-[0.985] data-[starting-style]:opacity-0",
-              "data-[ending-style]:scale-[0.985] data-[ending-style]:opacity-0",
-              "motion-reduce:transition-none"
-            )}
-          >
-            <Select.List>
-              {options.map((option) => (
-                <Select.Item
-                  className={cn(
-                    "relative flex min-h-9 cursor-pointer select-none items-center rounded-[var(--select-item-radius)] px-2 py-1.5 outline-none",
-                    "data-[highlighted]:bg-[var(--select-item-highlight-bg)]",
-                    "data-[disabled]:pointer-events-none data-[disabled]:opacity-40",
-                    "[@media(pointer:coarse)]:min-h-11",
-                    config.textClass
-                  )}
-                  disabled={option.disabled}
-                  key={option.value}
-                  style={{
-                    paddingRight:
-                      "calc(0.5rem + var(--select-item-indicator-slot) + var(--select-item-indicator-gap))",
-                  }}
-                  value={option.value}
-                >
-                  <Select.ItemText className="block min-w-0 truncate text-text-extra-high">
-                    {option.label}
-                  </Select.ItemText>
+      {/* Chevron indicator */}
+      <ChevronDownIcon
+        className="pointer-events-none shrink-0 text-text-medium"
+        style={config.addonSelectIconStyle}
+      />
 
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute top-1/2 right-2 inline-flex -translate-y-1/2 items-center justify-center"
-                    style={{
-                      width: "var(--select-item-indicator-slot)",
-                      height: "var(--select-item-indicator-slot)",
-                    }}
-                  >
-                    <Select.ItemIndicator className="inline-flex items-center justify-center">
-                      <Check
-                        absoluteStrokeWidth
-                        className="text-text-extra-high"
-                        style={{
-                          width: indicatorSize,
-                          height: indicatorSize,
-                        }}
-                      />
-                    </Select.ItemIndicator>
-                  </span>
-                </Select.Item>
-              ))}
-            </Select.List>
-          </Select.Popup>
-        </Select.Positioner>
-      </Select.Portal>
-    </Select.Root>
+      {/* Invisible native select — covers full addon area for click/touch */}
+      <select
+        aria-label={ariaLabel}
+        className="absolute inset-0 h-full w-full cursor-pointer appearance-none border-0 bg-transparent opacity-0 outline-none"
+        defaultValue={isControlled ? undefined : (defaultValue ?? undefined)}
+        disabled={disabled}
+        name={name}
+        onChange={handleChange}
+        value={isControlled ? (value ?? undefined) : undefined}
+      >
+        {options.map((opt) => (
+          <option disabled={opt.disabled} key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+    </span>
   );
 }
 
@@ -508,15 +508,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       [disabled]
     );
 
-    const contentStyle: React.CSSProperties = {
-      gap: config.contentGap,
-      paddingLeft: leadingAddon
-        ? config.addonInnerPadding
-        : config.contentPaddingX,
-      paddingRight: resolvedTrailingAddon
-        ? config.addonInnerPadding
-        : config.contentPaddingX,
-    };
+    const contentStyle = getContentStyle(config, {
+      hasLeading: !!leadingAddon,
+      leadingKind: leadingAddonKind,
+      hasTrailing: !!resolvedTrailingAddon,
+      trailingKind: resolvedTrailingAddonKind,
+    });
 
     const inputWrapper = (
       <div
@@ -569,7 +566,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                 ? normalizeInteractiveAddonControl(leadingAddon)
                 : leadingAddon}
             </AddonWrapper>
-            <AddonDivider />
+            {leadingAddonKind === "interactive" && <AddonDivider />}
           </>
         )}
 
@@ -584,7 +581,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
           <BaseInput
             className={cn(
-              "m-0 h-full w-full min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 leading-[var(--input-text-line-height)] outline-none",
+              "m-0 w-full min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 leading-[var(--input-text-line-height)] outline-none",
               "text-text-extra-high placeholder:text-[var(--input-placeholder-color)]",
               "autofill-transparent",
               config.textClass,
@@ -608,7 +605,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         {resolvedTrailingAddonContent && (
           <>
-            <AddonDivider />
+            {resolvedTrailingAddonKind === "interactive" && <AddonDivider />}
             <AddonWrapper
               innerPaddingX={config.addonInnerPadding}
               kind={resolvedTrailingAddonKind}
@@ -642,10 +639,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               <Tooltip content={hint}>
                 <button
                   aria-label="More information"
-                  className="inline-flex min-h-6 min-w-6 items-center justify-center rounded-sm text-text-low transition-colors hover:text-text-medium motion-reduce:transition-none"
+                  className="inline-flex items-center justify-center rounded-sm text-text-low transition-colors hover:text-text-medium motion-reduce:transition-none"
+                  style={{
+                    padding: `calc((1.5rem - ${config.hintIconSize}) / 2)`,
+                    margin: `calc(-1 * (1.5rem - ${config.hintIconSize}) / 2)`,
+                  }}
                   type="button"
                 >
-                  <CircleHelp
+                  <QuestionMarkCircleIcon
                     style={{
                       width: config.hintIconSize,
                       height: config.hintIconSize,

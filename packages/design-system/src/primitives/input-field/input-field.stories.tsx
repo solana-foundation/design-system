@@ -1,18 +1,28 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Eye, Mail, Search } from "lucide-react";
+import { Eye, Mail, Search, Send } from "lucide-react";
 import { CopyButton } from "../copy-button";
-import { Input } from "./index";
+import { NumberField } from "../number-field";
+import { Input, InputAddonSelect } from "./index";
 
 /**
  * # Input Field
  *
- * Accessible text input with label, description, error, and icon slots.
+ * Accessible text input with label, description, error, icon slots,
+ * hint tooltip, and leading/trailing addon extensions.
  * Built on Base UI Field + Input for automatic ARIA association.
  *
  * ## Quick Reference
  * - **Sizes**: XL (48px) / LG (40px) / MD (36px)
  * - **States**: Idle / Hover / Focused / Disabled
- * - **Slots**: Label / Description / Error / Icon Left / Icon Right
+ * - **Clickability**: Entire non-interactive field surface focuses input
+ * - **Addon behavior**: `trailingAction` is preferred for trailing interactive controls
+ * - **Slots**: Label / Description / Error / Icon Left / Icon Right / Action / TrailingAction
+ * - **Addons**: Leading / Trailing (with dividers) for text/select-style extensions
+ * - **Hint**: Tooltip trigger enforces a 24x24 minimum target
+ * - **Target guidance**: Injected addon controls should be at least 24x24 (40-44+ preferred for touch-first surfaces)
+ * - **Dropdown guidance**: Use `InputAddonSelect` for short lists (uses native `<select>` for best mobile UX)
+ * - **Large list guidance**: Switch to a combobox pattern when options become long/search-heavy
+ * - **Numeric guidance**: Use `NumberField` for numeric values that need spinbutton semantics and keyboard stepping
  */
 const meta: Meta<typeof Input> = {
   title: "Primitives/Input Field",
@@ -23,7 +33,7 @@ const meta: Meta<typeof Input> = {
     docs: {
       description: {
         component:
-          "Text input with focus ring animation, icon slots, and Base UI Field integration for accessible labels and validation.",
+          "Text input with full-surface click-to-focus (excluding interactive addons), focus ring animation, and Base UI Field integration for accessible labels and validation.",
       },
     },
   },
@@ -82,6 +92,32 @@ const meta: Meta<typeof Input> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const addonTextClass = "whitespace-nowrap";
+const addonButtonClass =
+  "inline-flex h-full min-h-full items-center gap-1.5 whitespace-nowrap px-3 font-medium text-text-high transition-colors duration-150 ease-out hover:text-text-extra-high focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--input-focus-ring)] focus-visible:ring-inset motion-reduce:transition-none";
+
+const countryCodeOptions = [
+  { value: "+1", label: "+1" },
+  { value: "+44", label: "+44" },
+  { value: "+49", label: "+49" },
+  { value: "+81", label: "+81" },
+  { value: "+33", label: "+33" },
+  { value: "+61", label: "+61" },
+];
+
+const currencyOptions = [
+  { value: "USD", label: "USD" },
+  { value: "EUR", label: "EUR" },
+  { value: "GBP", label: "GBP" },
+  { value: "SOL", label: "SOL" },
+];
+
+const methodOptions = [
+  { value: "GET", label: "GET" },
+  { value: "POST", label: "POST" },
+  { value: "PUT", label: "PUT" },
+];
+
 // =============================================================================
 // 1. PLAYGROUND
 // =============================================================================
@@ -116,9 +152,7 @@ export const Overview: Story = {
     <div className="flex w-[720px] flex-col gap-10 p-8">
       {/* Sizes */}
       <section className="flex flex-col gap-4">
-        <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
-          Sizes
-        </h4>
+        <h4 className="font-medium text-text-low text-xs">Sizes</h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
             <Input placeholder="XL — 48px" size="xl" />
@@ -137,9 +171,7 @@ export const Overview: Story = {
 
       {/* With Labels */}
       <section className="flex flex-col gap-4">
-        <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
-          Labels
-        </h4>
+        <h4 className="font-medium text-text-low text-xs">Labels</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
           <Input label="Email" placeholder="you@example.com" size="xl" />
           <Input
@@ -155,9 +187,7 @@ export const Overview: Story = {
 
       {/* States */}
       <section className="flex flex-col gap-4">
-        <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
-          States
-        </h4>
+        <h4 className="font-medium text-text-low text-xs">States</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
             <Input placeholder="Idle" />
@@ -178,9 +208,7 @@ export const Overview: Story = {
 
       {/* Icons */}
       <section className="flex flex-col gap-4">
-        <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
-          Icons
-        </h4>
+        <h4 className="font-medium text-text-low text-xs">Icons</h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
             <Input
@@ -210,9 +238,7 @@ export const Overview: Story = {
 
       {/* Validation */}
       <section className="flex flex-col gap-4">
-        <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
-          Validation
-        </h4>
+        <h4 className="font-medium text-text-low text-xs">Validation</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
           <Input
             description="Letters, numbers, and underscores only"
@@ -230,9 +256,7 @@ export const Overview: Story = {
 
       {/* Copy to Clipboard */}
       <section className="flex flex-col gap-4">
-        <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
-          Copy to Clipboard
-        </h4>
+        <h4 className="font-medium text-text-low text-xs">Copy to Clipboard</h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
             <Input
@@ -242,8 +266,8 @@ export const Overview: Story = {
                   value="sk_live_abc123def456ghi789jkl012mno345"
                 />
               }
-              className="font-mono"
               defaultValue="sk_live_abc123def456ghi789jkl012mno345"
+              inputClassName="font-mono"
               label="API Key"
               readOnly
             />
@@ -262,6 +286,307 @@ export const Overview: Story = {
             <span className="text-text-low text-xs">
               Password field with CopyButton action
             </span>
+          </div>
+        </div>
+      </section>
+    </div>
+  ),
+};
+
+// =============================================================================
+// 3. HINT TOOLTIP
+// =============================================================================
+
+export const HintTooltip: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex w-[720px] flex-col gap-10 p-8">
+      <section className="flex flex-col gap-4">
+        <h4 className="font-medium text-text-low text-xs">Hint Tooltip</h4>
+        <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
+          <Input
+            hint="Your email will be used for account recovery and notifications."
+            label="Email"
+            placeholder="you@example.com"
+            size="xl"
+          />
+          <Input
+            hint="Must be at least 8 characters with a number and special character."
+            label="Password"
+            placeholder="Enter password"
+            size="lg"
+            type="password"
+          />
+          <Input
+            hint="3-20 characters. Letters, numbers, and underscores only."
+            label="Username"
+            placeholder="Choose a username"
+            size="md"
+          />
+        </div>
+      </section>
+    </div>
+  ),
+};
+
+// =============================================================================
+// 4. LEADING TEXT
+// =============================================================================
+
+export const LeadingText: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex w-[720px] flex-col gap-10 p-8">
+      <section className="flex flex-col gap-4">
+        <h4 className="font-medium text-text-low text-xs">
+          Leading Text Addon
+        </h4>
+        <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
+          <Input
+            label="Website"
+            leadingAddon={<span className={addonTextClass}>https://</span>}
+            placeholder="example.com"
+            size="xl"
+          />
+          <NumberField
+            defaultValue={34}
+            label="Price"
+            leadingAddon={<span className={addonTextClass}>$</span>}
+            placeholder="0.00"
+            size="lg"
+          />
+          <Input
+            label="Handle"
+            leadingAddon={<span className={addonTextClass}>@</span>}
+            placeholder="username"
+            size="md"
+          />
+        </div>
+      </section>
+    </div>
+  ),
+};
+
+// =============================================================================
+// 5. TRAILING BUTTON
+// =============================================================================
+
+export const TrailingButton: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex w-[720px] flex-col gap-10 p-8">
+      <section className="flex flex-col gap-4">
+        <h4 className="font-medium text-text-low text-xs">Trailing Actions</h4>
+        <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
+          <Input
+            defaultValue="Fh8W2J1Y3n6K9pQ4rT7uV2xZ5mA8cD3eF6hJ9kL2pN4q"
+            inputClassName="font-mono"
+            label="Wallet Address"
+            readOnly
+            size="lg"
+            trailingAction={
+              <CopyButton
+                copiedLabel="Copied"
+                label="Copy address"
+                size="lg"
+                value="Fh8W2J1Y3n6K9pQ4rT7uV2xZ5mA8cD3eF6hJ9kL2pN4q"
+                variant="inline"
+              />
+            }
+          />
+          <Input
+            label="Subscribe"
+            placeholder="you@example.com"
+            size="lg"
+            trailingAction={
+              <button className={addonButtonClass} type="button">
+                <Send className="size-3.5" />
+                Send
+              </button>
+            }
+          />
+        </div>
+      </section>
+    </div>
+  ),
+};
+
+// =============================================================================
+// 6. LEADING DROPDOWN
+// =============================================================================
+
+export const LeadingDropdown: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex w-[720px] flex-col gap-10 p-8">
+      <section className="flex flex-col gap-4">
+        <h4 className="font-medium text-text-low text-xs">
+          Leading Dropdown Addon
+        </h4>
+        <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
+          <Input
+            autoComplete="tel-national"
+            label="Phone Number"
+            leadingAddon={
+              <InputAddonSelect
+                ariaLabel="Country calling code"
+                defaultValue="+1"
+                options={countryCodeOptions}
+                position="leading"
+                size="lg"
+              />
+            }
+            leadingAddonKind="interactive"
+            placeholder="(555) 000-0000"
+            size="lg"
+            type="tel"
+          />
+        </div>
+      </section>
+    </div>
+  ),
+};
+
+// =============================================================================
+// 7. TRAILING DROPDOWN
+// =============================================================================
+
+export const TrailingDropdown: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex w-[720px] flex-col gap-10 p-8">
+      <section className="flex flex-col gap-4">
+        <h4 className="font-medium text-text-low text-xs">
+          Trailing Dropdown Addon
+        </h4>
+        <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
+          <Input
+            inputMode="decimal"
+            label="Amount"
+            placeholder="0.00"
+            size="lg"
+            trailingAddon={
+              <InputAddonSelect
+                ariaLabel="Currency"
+                defaultValue="USD"
+                options={currencyOptions}
+                position="trailing"
+                size="lg"
+              />
+            }
+            trailingAddonKind="interactive"
+          />
+        </div>
+      </section>
+    </div>
+  ),
+};
+
+// =============================================================================
+// 8. COMBINED ADDONS
+// =============================================================================
+
+export const CombinedAddons: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex w-[720px] flex-col gap-10 p-8">
+      <section className="flex flex-col gap-4">
+        <h4 className="font-medium text-text-low text-xs">Combined Addons</h4>
+        <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
+          <Input
+            inputMode="decimal"
+            label="Transfer Amount"
+            leadingAddon={<span className={addonTextClass}>$</span>}
+            placeholder="0.00"
+            size="lg"
+            trailingAddon={
+              <InputAddonSelect
+                ariaLabel="Transfer currency"
+                defaultValue="USD"
+                options={currencyOptions}
+                position="trailing"
+                size="lg"
+              />
+            }
+            trailingAddonKind="interactive"
+          />
+          <Input
+            description="Include protocol (e.g. https://)"
+            label="API Endpoint"
+            leadingAddon={
+              <InputAddonSelect
+                ariaLabel="HTTP method"
+                defaultValue="GET"
+                options={methodOptions}
+                position="leading"
+                size="lg"
+              />
+            }
+            leadingAddonKind="interactive"
+            placeholder="https://api.example.com/v1"
+            size="lg"
+            trailingAction={
+              <button className={addonButtonClass} type="button">
+                <Send className="size-3.5" />
+                Send
+              </button>
+            }
+          />
+        </div>
+      </section>
+    </div>
+  ),
+};
+
+// =============================================================================
+// 9. ADDON SIZES
+// =============================================================================
+
+export const AddonSizes: Story = {
+  parameters: { controls: { disable: true } },
+  render: () => (
+    <div className="flex w-[720px] flex-col gap-10 p-8">
+      <section className="flex flex-col gap-4">
+        <h4 className="font-medium text-text-low text-xs">Addon Sizes</h4>
+        <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
+          <div className="flex flex-col gap-1">
+            <Input
+              leadingAddon={<span className={addonTextClass}>https://</span>}
+              placeholder="example.com"
+              size="xl"
+              trailingAction={
+                <button className={addonButtonClass} type="button">
+                  Go
+                </button>
+              }
+            />
+            <span className="text-text-low text-xs">XL / 48px</span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <Input
+              leadingAddon={<span className={addonTextClass}>https://</span>}
+              placeholder="example.com"
+              size="lg"
+              trailingAction={
+                <button className={addonButtonClass} type="button">
+                  Go
+                </button>
+              }
+            />
+            <span className="text-text-low text-xs">LG / 40px</span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <Input
+              leadingAddon={<span className={addonTextClass}>https://</span>}
+              placeholder="example.com"
+              size="md"
+              trailingAction={
+                <button className={addonButtonClass} type="button">
+                  Go
+                </button>
+              }
+            />
+            <span className="text-text-low text-xs">MD / 36px</span>
           </div>
         </div>
       </section>
