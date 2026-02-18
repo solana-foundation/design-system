@@ -108,11 +108,6 @@ const addonSelectIconSizes: Record<FieldSize, React.CSSProperties> = {
   },
 };
 
-const addonSelectStrokeWidths: Record<FieldSize, string> = {
-  xl: "var(--icon-stroke-16)",
-  lg: "var(--icon-stroke-14)",
-  md: "var(--icon-stroke-14)",
-};
 
 function getInputConfig(size: FieldSize) {
   const fc = getFieldSizeConfig(size);
@@ -125,11 +120,9 @@ function getInputConfig(size: FieldSize) {
     iconStyle: {
       width: fc.iconSize,
       height: fc.iconSize,
-      "--icon-stroke-width": fc.iconStrokeWidth,
     } as React.CSSProperties,
     addonSelectIconStyle: {
       ...addonSelectIconSizes[size],
-      "--icon-stroke-width": addonSelectStrokeWidths[size],
     } as React.CSSProperties,
   };
 }
@@ -566,7 +559,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     const inputWrapper = (
       <div
         className={cn(
-          "group/text-input relative flex items-center",
+          "group/input relative flex items-center",
           !disabled && "cursor-text",
           disabled && "pointer-events-none opacity-40",
           className
@@ -709,7 +702,6 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
                       {
                         width: config.hintIconSize,
                         height: config.hintIconSize,
-                        "--icon-stroke-width": config.hintIconStrokeWidth,
                       } as React.CSSProperties
                     }
                   />

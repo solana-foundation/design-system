@@ -62,12 +62,10 @@ interface FieldSizeConfig {
   addonInnerPadding: string;
   actionGap: string;
   iconSize: string;
-  iconStrokeWidth: string;
   textClass: string;
   labelClass: string;
   descriptionClass: string;
   hintIconSize: string;
-  hintIconStrokeWidth: string;
 }
 
 const fieldSizeConfigs: Record<FieldSize, FieldSizeConfig> = {
@@ -79,12 +77,10 @@ const fieldSizeConfigs: Record<FieldSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-xl)",
     actionGap: "var(--input-action-gap-xl)",
     iconSize: "var(--input-icon-xl)",
-    iconStrokeWidth: "var(--icon-stroke-20)",
     textClass: "text-[length:var(--input-text-size-xl)]",
     labelClass: "text-[length:var(--input-label-size-xl)]",
     descriptionClass: "text-[length:var(--input-description-size-xl)]",
     hintIconSize: "var(--input-hint-icon-xl)",
-    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   lg: {
     height: "var(--input-height-lg)",
@@ -94,12 +90,10 @@ const fieldSizeConfigs: Record<FieldSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-lg)",
     actionGap: "var(--input-action-gap-lg)",
     iconSize: "var(--input-icon-lg)",
-    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-lg)]",
     labelClass: "text-[length:var(--input-label-size-lg)]",
     descriptionClass: "text-[length:var(--input-description-size-lg)]",
     hintIconSize: "var(--input-hint-icon-lg)",
-    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   md: {
     height: "var(--input-height-md)",
@@ -109,12 +103,10 @@ const fieldSizeConfigs: Record<FieldSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-md)",
     actionGap: "var(--input-action-gap-md)",
     iconSize: "var(--input-icon-md)",
-    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-md)]",
     labelClass: "text-[length:var(--input-label-size-md)]",
     descriptionClass: "text-[length:var(--input-description-size-md)]",
     hintIconSize: "var(--input-hint-icon-md)",
-    hintIconStrokeWidth: "var(--icon-stroke-12)",
   },
 };
 
@@ -169,11 +161,6 @@ const addonSelectIconSizes: Record<FieldSize, React.CSSProperties> = {
   },
 };
 
-const addonSelectStrokeWidths: Record<FieldSize, string> = {
-  xl: "var(--icon-stroke-16)",
-  lg: "var(--icon-stroke-14)",
-  md: "var(--icon-stroke-14)",
-};
 
 function getInputConfig(size: FieldSize) {
   const fc = fieldSizeConfigs[size];
@@ -186,11 +173,9 @@ function getInputConfig(size: FieldSize) {
     iconStyle: {
       width: fc.iconSize,
       height: fc.iconSize,
-      "--icon-stroke-width": fc.iconStrokeWidth,
     } as React.CSSProperties,
     addonSelectIconStyle: {
       ...addonSelectIconSizes[size],
-      "--icon-stroke-width": addonSelectStrokeWidths[size],
     } as React.CSSProperties,
   };
 }
@@ -627,7 +612,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     const inputWrapper = (
       <div
         className={cn(
-          "group/text-input relative flex items-center",
+          "group/input relative flex items-center",
           !disabled && "cursor-text",
           disabled && "pointer-events-none opacity-40",
           className
@@ -770,7 +755,6 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
                       {
                         width: config.hintIconSize,
                         height: config.hintIconSize,
-                        "--icon-stroke-width": config.hintIconStrokeWidth,
                       } as React.CSSProperties
                     }
                   />

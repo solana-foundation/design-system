@@ -1,7 +1,11 @@
 import { Field } from "@base-ui/react/field";
 import { Select as BaseSelect } from "@base-ui/react/select";
 import { CheckIcon } from "@heroicons/react/20/solid";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  ChevronDownIcon,
+  QuestionMarkCircleIcon,
+} from "@heroicons/react/24/outline";
+import { AnimatePresence, motion } from "motion/react";
 import {
   Children,
   createContext,
@@ -13,6 +17,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { Tooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/cn";
 
 // =============================================================================
@@ -29,12 +34,10 @@ interface FieldSizeConfig {
   addonInnerPadding: string;
   actionGap: string;
   iconSize: string;
-  iconStrokeWidth: string;
   textClass: string;
   labelClass: string;
   descriptionClass: string;
   hintIconSize: string;
-  hintIconStrokeWidth: string;
 }
 
 const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
@@ -46,12 +49,10 @@ const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-xl)",
     actionGap: "var(--input-action-gap-xl)",
     iconSize: "var(--input-icon-xl)",
-    iconStrokeWidth: "var(--icon-stroke-20)",
     textClass: "text-[length:var(--input-text-size-xl)]",
     labelClass: "text-[length:var(--input-label-size-xl)]",
     descriptionClass: "text-[length:var(--input-description-size-xl)]",
     hintIconSize: "var(--input-hint-icon-xl)",
-    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   lg: {
     height: "var(--input-height-lg)",
@@ -61,12 +62,10 @@ const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-lg)",
     actionGap: "var(--input-action-gap-lg)",
     iconSize: "var(--input-icon-lg)",
-    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-lg)]",
     labelClass: "text-[length:var(--input-label-size-lg)]",
     descriptionClass: "text-[length:var(--input-description-size-lg)]",
     hintIconSize: "var(--input-hint-icon-lg)",
-    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   md: {
     height: "var(--input-height-md)",
@@ -76,12 +75,10 @@ const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-md)",
     actionGap: "var(--input-action-gap-md)",
     iconSize: "var(--input-icon-md)",
-    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-md)]",
     labelClass: "text-[length:var(--input-label-size-md)]",
     descriptionClass: "text-[length:var(--input-description-size-md)]",
     hintIconSize: "var(--input-hint-icon-md)",
-    hintIconStrokeWidth: "var(--icon-stroke-12)",
   },
 };
 
@@ -140,6 +137,8 @@ function collectItemRegistry(
   return registry;
 }
 
+const messageTransition = { duration: 0.15, ease: "easeOut" as const };
+
 // =============================================================================
 // Size config (mirrors TextInput)
 // =============================================================================
@@ -180,12 +179,6 @@ const selectIndicatorSizes: Record<SelectSize, string> = {
   md: "var(--select-indicator-size-md)",
 };
 
-const selectIconStrokeWidths: Record<SelectSize, string> = {
-  xl: "var(--icon-stroke-16)",
-  lg: "var(--icon-stroke-14)",
-  md: "var(--icon-stroke-14)",
-};
-
 function getSelectConfig(size: SelectSize) {
   const fc = fieldSizeConfigs[size];
   return {
@@ -199,11 +192,9 @@ function getSelectConfig(size: SelectSize) {
     } as React.CSSProperties,
     triggerIconStyle: {
       ...selectTriggerIconSizes[size],
-      "--icon-stroke-width": selectIconStrokeWidths[size],
     } as React.CSSProperties,
     itemIconStyle: {
       ...selectItemIconSizes[size],
-      "--icon-stroke-width": selectIconStrokeWidths[size],
     } as React.CSSProperties,
     indicatorSize: selectIndicatorSizes[size],
   };
@@ -261,6 +252,8 @@ interface SelectBaseProps {
   label?: string;
   description?: string;
   error?: string;
+  /** Tooltip hint shown via info icon next to the label */
+  hint?: string;
   placeholder?: string;
   disabled?: boolean;
   required?: boolean;
@@ -280,6 +273,7 @@ export function Select({
   label,
   description,
   error,
+  hint,
   placeholder,
   disabled,
   required,
@@ -358,7 +352,7 @@ export function Select({
           "group-[:not([data-popup-open])]/select:group-hover/select:border-[var(--input-border-hover)]",
           "group-[:not([data-popup-open])]/select:group-hover/select:bg-[var(--input-bg-hover)]",
           "group-[[data-popup-open]]/select:border-[var(--input-border-focus)]",
-          error && "border-red-500/60"
+          error && "border-[var(--input-border-error)]"
         )}
       />
 
@@ -457,11 +451,6 @@ export function Select({
                 "sticky top-0 z-10 flex h-6 items-center justify-center",
                 "bg-gradient-to-b from-[var(--select-popup-bg)] to-transparent"
               )}
-              style={
-                {
-                  "--icon-stroke-width": "var(--icon-stroke-14)",
-                } as React.CSSProperties
-              }
             >
               <ChevronDownIcon className="size-3.5 rotate-180 text-text-medium" />
             </BaseSelect.ScrollUpArrow>
@@ -473,11 +462,6 @@ export function Select({
                 "sticky bottom-0 z-10 flex h-6 items-center justify-center",
                 "bg-gradient-to-t from-[var(--select-popup-bg)] to-transparent"
               )}
-              style={
-                {
-                  "--icon-stroke-width": "var(--icon-stroke-14)",
-                } as React.CSSProperties
-              }
             >
               <ChevronDownIcon className="size-3.5 text-text-medium" />
             </BaseSelect.ScrollDownArrow>
@@ -521,27 +505,70 @@ export function Select({
       invalid={!!error}
     >
       {label && (
-        <Field.Label
-          className={cn("font-medium text-text-high", config.labelClass)}
-        >
-          {label}
-        </Field.Label>
+        <div className="flex items-center gap-1">
+          <Field.Label
+            className={cn("font-medium text-text-high", config.labelClass)}
+          >
+            {label}
+          </Field.Label>
+          {hint && (
+            <Tooltip content={hint}>
+              <button
+                aria-label="More information"
+                className="inline-flex items-center justify-center rounded-sm text-text-low transition-colors hover:text-text-medium motion-reduce:transition-none"
+                style={{
+                  padding: `calc((1.5rem - ${config.hintIconSize}) / 2)`,
+                  margin: `calc(-1 * (1.5rem - ${config.hintIconSize}) / 2)`,
+                }}
+                type="button"
+              >
+                <QuestionMarkCircleIcon
+                  style={{
+                    width: config.hintIconSize,
+                    height: config.hintIconSize,
+                  }}
+                />
+              </button>
+            </Tooltip>
+          )}
+        </div>
       )}
       {selectContent}
-      {error ? (
-        <Field.Error
-          className={cn("text-red-500", config.descriptionClass)}
-          match
-        >
-          {error}
-        </Field.Error>
-      ) : description ? (
-        <Field.Description
-          className={cn("text-text-low", config.descriptionClass)}
-        >
-          {description}
-        </Field.Description>
-      ) : null}
+      <AnimatePresence initial={false} mode="wait">
+        {error ? (
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            initial={{ opacity: 0, y: -4 }}
+            key="error"
+            transition={messageTransition}
+          >
+            <Field.Error
+              className={cn(
+                "text-[var(--input-error-text)]",
+                config.descriptionClass
+              )}
+              match
+            >
+              {error}
+            </Field.Error>
+          </motion.div>
+        ) : description ? (
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4 }}
+            initial={{ opacity: 0, y: -4 }}
+            key="description"
+            transition={messageTransition}
+          >
+            <Field.Description
+              className={cn("text-text-low", config.descriptionClass)}
+            >
+              {description}
+            </Field.Description>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </Field.Root>
   );
 }

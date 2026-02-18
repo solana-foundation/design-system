@@ -3,7 +3,6 @@ import {
   Square2StackIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
@@ -120,7 +119,6 @@ export const CopyButton = ({
 }: CopyButtonProps) => {
   const { copied, copy } = useCopyToClipboard();
   const [failed, setFailed] = useState(false);
-  const reduceMotion = useReducedMotion();
   const iconSize = iconSizes[size];
   const targetSize = Math.max(iconSize + 8, 24);
   const hasLabel = variant === "inline" || variant === "addon";
@@ -179,13 +177,7 @@ export const CopyButton = ({
     >
       <span
         className="inline-flex shrink-0 items-center justify-center"
-        style={
-          {
-            width: iconSize,
-            height: iconSize,
-            "--icon-stroke-width": `var(--icon-stroke-${iconSize})`,
-          } as React.CSSProperties
-        }
+        style={{ width: iconSize, height: iconSize }}
       >
         <AnimatedIcon
           icon={
@@ -201,41 +193,7 @@ export const CopyButton = ({
           preset="micro"
         />
       </span>
-      {hasLabel && (
-        <span
-          aria-hidden
-          className="inline-grid items-center"
-          style={{ minWidth: "max-content" }}
-        >
-          <span className="invisible col-start-1 row-start-1 select-none">
-            {label}
-          </span>
-          <span className="invisible col-start-1 row-start-1 select-none">
-            {copiedLabel}
-          </span>
-          <span className="invisible col-start-1 row-start-1 select-none">
-            {failedLabel}
-          </span>
-          <AnimatePresence initial={false} mode="popLayout">
-            <motion.span
-              animate={{ opacity: 1, y: 0 }}
-              className="col-start-1 row-start-1"
-              exit={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -2 }}
-              initial={
-                reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 2 }
-              }
-              key={state}
-              transition={
-                reduceMotion
-                  ? { duration: 0 }
-                  : { duration: 0.12, ease: "easeOut" }
-              }
-            >
-              {statusLabel}
-            </motion.span>
-          </AnimatePresence>
-        </span>
-      )}
+      {hasLabel && <span aria-hidden>{statusLabel}</span>}
       <span className="sr-only" role="status">
         {state === "copied"
           ? "Copied to clipboard"
