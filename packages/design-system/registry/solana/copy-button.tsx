@@ -14,15 +14,9 @@ type CopyButtonVariant = "icon" | "inline" | "addon";
 type CopyButtonState = "idle" | "copied" | "failed";
 
 const iconSizes: Record<CopyButtonSize, number> = {
-  xl: 18,
+  xl: 20,
   lg: 16,
-  md: 14,
-};
-
-const iconStrokeWidths: Record<CopyButtonSize, string> = {
-  xl: "var(--icon-stroke-18)",
-  lg: "var(--icon-stroke-16)",
-  md: "var(--icon-stroke-14)",
+  md: 16,
 };
 
 const inlineTextClassBySize: Record<CopyButtonSize, string> = {
@@ -189,7 +183,7 @@ export const CopyButton = ({
           {
             width: iconSize,
             height: iconSize,
-            "--icon-stroke-width": iconStrokeWidths[size],
+            "--icon-stroke-width": `var(--icon-stroke-${iconSize})`,
           } as React.CSSProperties
         }
       >
