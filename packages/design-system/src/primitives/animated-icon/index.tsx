@@ -13,7 +13,7 @@ const transitions: Record<
 > = {
   default: { type: "spring" as const, duration: 0.3, bounce: 0 },
   micro: {
-    duration: 0.14,
+    duration: 0.18,
     ease: [0.23, 1, 0.32, 1],
   },
 };
@@ -31,7 +31,7 @@ const variantByPreset: Record<
   },
   micro: {
     animate: { opacity: 1, scale: 1 },
-    enterExit: { opacity: 0, scale: 0.96 },
+    enterExit: { opacity: 0, scale: 0.88 },
   },
 };
 

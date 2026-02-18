@@ -70,6 +70,15 @@ const meta: Meta<typeof Input> = {
         defaultValue: { summary: "false" },
       },
     },
+    showCopyButton: {
+      control: "boolean",
+      description: "Toggle an inline CopyButton in the trailing action slot.",
+      table: {
+        category: "Content",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
+    },
   },
 };
 
@@ -113,12 +122,27 @@ export const Playground: Story = {
     error: "",
     disabled: false,
     showIcon: false,
+    showCopyButton: false,
   },
-  render: ({ showIcon, ...args }) => (
+  render: ({ showIcon, showCopyButton, size, ...args }) => (
     <div className="w-[320px]">
       <Input
         {...args}
         iconLeft={showIcon ? <MagnifyingGlassIcon /> : undefined}
+        size={size}
+        trailingAction={
+          showCopyButton ? (
+            <CopyButton
+              copiedLabel="Copied"
+              label="Copy"
+              size={size}
+              value={
+                typeof args.placeholder === "string" ? args.placeholder : ""
+              }
+              variant="inline"
+            />
+          ) : undefined
+        }
       />
     </div>
   ),

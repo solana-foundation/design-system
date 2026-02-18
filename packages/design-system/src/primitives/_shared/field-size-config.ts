@@ -8,10 +8,12 @@ export interface FieldSizeConfig {
   addonInnerPadding: string;
   actionGap: string;
   iconSize: string;
+  iconStrokeWidth: string;
   textClass: string;
   labelClass: string;
   descriptionClass: string;
   hintIconSize: string;
+  hintIconStrokeWidth: string;
 }
 
 const configs: Record<FieldSize, FieldSizeConfig> = {
@@ -23,10 +25,12 @@ const configs: Record<FieldSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-xl)",
     actionGap: "var(--input-action-gap-xl)",
     iconSize: "var(--input-icon-xl)",
+    iconStrokeWidth: "var(--icon-stroke-20)",
     textClass: "text-[length:var(--input-text-size-xl)]",
     labelClass: "text-[length:var(--input-label-size-xl)]",
     descriptionClass: "text-[length:var(--input-description-size-xl)]",
     hintIconSize: "var(--input-hint-icon-xl)",
+    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   lg: {
     height: "var(--input-height-lg)",
@@ -36,10 +40,12 @@ const configs: Record<FieldSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-lg)",
     actionGap: "var(--input-action-gap-lg)",
     iconSize: "var(--input-icon-lg)",
+    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-lg)]",
     labelClass: "text-[length:var(--input-label-size-lg)]",
     descriptionClass: "text-[length:var(--input-description-size-lg)]",
     hintIconSize: "var(--input-hint-icon-lg)",
+    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   md: {
     height: "var(--input-height-md)",
@@ -49,10 +55,12 @@ const configs: Record<FieldSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-md)",
     actionGap: "var(--input-action-gap-md)",
     iconSize: "var(--input-icon-md)",
+    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-md)]",
     labelClass: "text-[length:var(--input-label-size-md)]",
     descriptionClass: "text-[length:var(--input-description-size-md)]",
     hintIconSize: "var(--input-hint-icon-md)",
+    hintIconStrokeWidth: "var(--icon-stroke-12)",
   },
 };
 

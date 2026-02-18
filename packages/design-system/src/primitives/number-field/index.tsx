@@ -464,10 +464,13 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
                   type="button"
                 >
                   <QuestionMarkCircleIcon
-                    style={{
-                      width: config.hintIconSize,
-                      height: config.hintIconSize,
-                    }}
+                    style={
+                      {
+                        width: config.hintIconSize,
+                        height: config.hintIconSize,
+                        "--icon-stroke-width": config.hintIconStrokeWidth,
+                      } as React.CSSProperties
+                    }
                   />
                 </button>
               </Tooltip>

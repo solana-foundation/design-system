@@ -1,8 +1,9 @@
 import {
   CheckIcon,
-  ClipboardDocumentIcon,
+  Square2StackIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { AnimatedIcon } from "@/components/ui/animated-icon";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
@@ -16,6 +17,12 @@ const iconSizes: Record<CopyButtonSize, number> = {
   xl: 18,
   lg: 16,
   md: 14,
+};
+
+const iconStrokeWidths: Record<CopyButtonSize, string> = {
+  xl: "var(--icon-stroke-18)",
+  lg: "var(--icon-stroke-16)",
+  md: "var(--icon-stroke-14)",
 };
 
 const inlineTextClassBySize: Record<CopyButtonSize, string> = {
@@ -119,6 +126,7 @@ export const CopyButton = ({
 }: CopyButtonProps) => {
   const { copied, copy } = useCopyToClipboard();
   const [failed, setFailed] = useState(false);
+  const reduceMotion = useReducedMotion();
   const iconSize = iconSizes[size];
   const targetSize = Math.max(iconSize + 8, 24);
   const hasLabel = variant === "inline" || variant === "addon";
@@ -177,20 +185,22 @@ export const CopyButton = ({
     >
       <span
         className="inline-flex shrink-0 items-center justify-center"
-        style={{ width: iconSize, height: iconSize }}
+        style={
+          {
+            width: iconSize,
+            height: iconSize,
+            "--icon-stroke-width": iconStrokeWidths[size],
+          } as React.CSSProperties
+        }
       >
         <AnimatedIcon
           icon={
             state === "copied" ? (
-              <CheckIcon height={iconSize} strokeWidth={2} width={iconSize} />
+              <CheckIcon height={iconSize} width={iconSize} />
             ) : state === "failed" ? (
-              <XMarkIcon height={iconSize} strokeWidth={2} width={iconSize} />
+              <XMarkIcon height={iconSize} width={iconSize} />
             ) : (
-              <ClipboardDocumentIcon
-                height={iconSize}
-                strokeWidth={2}
-                width={iconSize}
-              />
+              <Square2StackIcon height={iconSize} width={iconSize} />
             )
           }
           iconKey={state}
@@ -212,7 +222,24 @@ export const CopyButton = ({
           <span className="invisible col-start-1 row-start-1 select-none">
             {failedLabel}
           </span>
-          <span className="col-start-1 row-start-1">{statusLabel}</span>
+          <AnimatePresence initial={false} mode="popLayout">
+            <motion.span
+              animate={{ opacity: 1, y: 0 }}
+              className="col-start-1 row-start-1"
+              exit={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -2 }}
+              initial={
+                reduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 2 }
+              }
+              key={state}
+              transition={
+                reduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.12, ease: "easeOut" }
+              }
+            >
+              {statusLabel}
+            </motion.span>
+          </AnimatePresence>
         </span>
       )}
       <span className="sr-only" role="status">

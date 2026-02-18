@@ -96,6 +96,7 @@ const sizeStyles: Record<
     paddingXRound: string;
     radius: string;
     iconSize: string;
+    iconStrokeWidth: string;
     gap: string;
     textClass: string;
   }
@@ -106,6 +107,7 @@ const sizeStyles: Record<
     paddingXRound: "var(--button-padding-x-round-xl)",
     radius: "var(--button-radius-xl)",
     iconSize: "var(--button-icon-xl)",
+    iconStrokeWidth: "var(--icon-stroke-20)",
     gap: "var(--button-gap-xl)",
     textClass: "text-button-xl",
   },
@@ -115,6 +117,7 @@ const sizeStyles: Record<
     paddingXRound: "var(--button-padding-x-round-lg)",
     radius: "var(--button-radius-lg)",
     iconSize: "var(--button-icon-lg)",
+    iconStrokeWidth: "var(--icon-stroke-18)",
     gap: "var(--button-gap-lg)",
     textClass: "text-button-lg",
   },
@@ -124,6 +127,7 @@ const sizeStyles: Record<
     paddingXRound: "var(--button-padding-x-round-md)",
     radius: "var(--button-radius-md)",
     iconSize: "var(--button-icon-md)",
+    iconStrokeWidth: "var(--icon-stroke-16)",
     gap: "var(--button-gap-md)",
     textClass: "text-button-md",
   },
@@ -133,6 +137,7 @@ const sizeStyles: Record<
     paddingXRound: "var(--button-padding-x-round-sm)",
     radius: "var(--button-radius-sm)",
     iconSize: "var(--button-icon-sm)",
+    iconStrokeWidth: "var(--icon-stroke-14)",
     gap: "var(--button-gap-sm)",
     textClass: "text-button-sm",
   },
@@ -219,8 +224,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       padding: buttonPadding,
       borderRadius,
       gap: sizeConfig.gap,
-      // CSS variables for dynamic icon sizing
+      // CSS variables for dynamic icon sizing and stroke compensation
       "--icon-size": sizeConfig.iconSize,
+      "--icon-stroke-width": sizeConfig.iconStrokeWidth,
       ...style,
     } as React.CSSProperties;
 

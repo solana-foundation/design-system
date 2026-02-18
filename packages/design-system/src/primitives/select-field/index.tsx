@@ -122,6 +122,12 @@ const selectIndicatorSizes: Record<FieldSize, string> = {
   md: "var(--select-indicator-size-md)",
 };
 
+const selectIconStrokeWidths: Record<FieldSize, string> = {
+  xl: "var(--icon-stroke-16)",
+  lg: "var(--icon-stroke-14)",
+  md: "var(--icon-stroke-14)",
+};
+
 function getSelectConfig(size: FieldSize) {
   const fc = getFieldSizeConfig(size);
   return {
@@ -133,8 +139,14 @@ function getSelectConfig(size: FieldSize) {
       borderRadius: fc.radius,
       gap: fc.contentGap,
     } as React.CSSProperties,
-    triggerIconStyle: selectTriggerIconSizes[size],
-    itemIconStyle: selectItemIconSizes[size],
+    triggerIconStyle: {
+      ...selectTriggerIconSizes[size],
+      "--icon-stroke-width": selectIconStrokeWidths[size],
+    } as React.CSSProperties,
+    itemIconStyle: {
+      ...selectItemIconSizes[size],
+      "--icon-stroke-width": selectIconStrokeWidths[size],
+    } as React.CSSProperties,
     indicatorSize: selectIndicatorSizes[size],
   };
 }
@@ -387,6 +399,11 @@ export function SelectField({
                 "sticky top-0 z-10 flex h-6 items-center justify-center",
                 "bg-gradient-to-b from-[var(--select-popup-bg)] to-transparent"
               )}
+              style={
+                {
+                  "--icon-stroke-width": "var(--icon-stroke-14)",
+                } as React.CSSProperties
+              }
             >
               <ChevronDownIcon className="size-3.5 rotate-180 text-text-medium" />
             </Select.ScrollUpArrow>
@@ -398,6 +415,11 @@ export function SelectField({
                 "sticky bottom-0 z-10 flex h-6 items-center justify-center",
                 "bg-gradient-to-t from-[var(--select-popup-bg)] to-transparent"
               )}
+              style={
+                {
+                  "--icon-stroke-width": "var(--icon-stroke-14)",
+                } as React.CSSProperties
+              }
             >
               <ChevronDownIcon className="size-3.5 text-text-medium" />
             </Select.ScrollDownArrow>

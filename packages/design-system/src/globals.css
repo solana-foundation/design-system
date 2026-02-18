@@ -493,6 +493,16 @@
   --input-hint-icon-lg: 14px;
   --input-hint-icon-md: 12px;
 
+  /* Icon optical stroke compensation — Heroicons uses stroke-width="1.5" in a
+     24×24 viewBox. At rendered sizes <24px the screen-pixel stroke shrinks
+     proportionally. These tokens scale stroke-width inversely so icons maintain
+     ~1.5px screen stroke at every size. */
+  --icon-stroke-20: 1.8;
+  --icon-stroke-18: 2;
+  --icon-stroke-16: 2.15;
+  --icon-stroke-14: 2.35;
+  --icon-stroke-12: 2.5;
+
   /* =============================================================================
      SELECT POPUP TOKENS
      ============================================================================= */
@@ -965,6 +975,11 @@ body {
     /* Enable Inter's optical size axis for automatic size-based tuning */
     font-optical-sizing: auto;
   }
+}
+
+/* Icon optical stroke — override Heroicons' default 1.5 presentation attribute */
+[data-slot="icon"] {
+  stroke-width: var(--icon-stroke-width, 1.75);
 }
 
 /* Custom wide-spaced dashed borders using background gradients */

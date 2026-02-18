@@ -29,10 +29,12 @@ interface FieldSizeConfig {
   addonInnerPadding: string;
   actionGap: string;
   iconSize: string;
+  iconStrokeWidth: string;
   textClass: string;
   labelClass: string;
   descriptionClass: string;
   hintIconSize: string;
+  hintIconStrokeWidth: string;
 }
 
 const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
@@ -44,10 +46,12 @@ const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-xl)",
     actionGap: "var(--input-action-gap-xl)",
     iconSize: "var(--input-icon-xl)",
+    iconStrokeWidth: "var(--icon-stroke-20)",
     textClass: "text-[length:var(--input-text-size-xl)]",
     labelClass: "text-[length:var(--input-label-size-xl)]",
     descriptionClass: "text-[length:var(--input-description-size-xl)]",
     hintIconSize: "var(--input-hint-icon-xl)",
+    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   lg: {
     height: "var(--input-height-lg)",
@@ -57,10 +61,12 @@ const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-lg)",
     actionGap: "var(--input-action-gap-lg)",
     iconSize: "var(--input-icon-lg)",
+    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-lg)]",
     labelClass: "text-[length:var(--input-label-size-lg)]",
     descriptionClass: "text-[length:var(--input-description-size-lg)]",
     hintIconSize: "var(--input-hint-icon-lg)",
+    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   md: {
     height: "var(--input-height-md)",
@@ -70,10 +76,12 @@ const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-md)",
     actionGap: "var(--input-action-gap-md)",
     iconSize: "var(--input-icon-md)",
+    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-md)]",
     labelClass: "text-[length:var(--input-label-size-md)]",
     descriptionClass: "text-[length:var(--input-description-size-md)]",
     hintIconSize: "var(--input-hint-icon-md)",
+    hintIconStrokeWidth: "var(--icon-stroke-12)",
   },
 };
 
@@ -174,6 +182,12 @@ const selectIndicatorSizes: Record<SelectSize, string> = {
   md: "var(--select-indicator-size-md)",
 };
 
+const selectIconStrokeWidths: Record<SelectSize, string> = {
+  xl: "var(--icon-stroke-16)",
+  lg: "var(--icon-stroke-14)",
+  md: "var(--icon-stroke-14)",
+};
+
 function getSelectConfig(size: SelectSize) {
   const fc = fieldSizeConfigs[size];
   return {
@@ -185,8 +199,14 @@ function getSelectConfig(size: SelectSize) {
       borderRadius: fc.radius,
       gap: fc.contentGap,
     } as React.CSSProperties,
-    triggerIconStyle: selectTriggerIconSizes[size],
-    itemIconStyle: selectItemIconSizes[size],
+    triggerIconStyle: {
+      ...selectTriggerIconSizes[size],
+      "--icon-stroke-width": selectIconStrokeWidths[size],
+    } as React.CSSProperties,
+    itemIconStyle: {
+      ...selectItemIconSizes[size],
+      "--icon-stroke-width": selectIconStrokeWidths[size],
+    } as React.CSSProperties,
     indicatorSize: selectIndicatorSizes[size],
   };
 }
@@ -439,6 +459,11 @@ export function SelectField({
                 "sticky top-0 z-10 flex h-6 items-center justify-center",
                 "bg-gradient-to-b from-[var(--select-popup-bg)] to-transparent"
               )}
+              style={
+                {
+                  "--icon-stroke-width": "var(--icon-stroke-14)",
+                } as React.CSSProperties
+              }
             >
               <ChevronDownIcon className="size-3.5 rotate-180 text-text-medium" />
             </Select.ScrollUpArrow>
@@ -450,6 +475,11 @@ export function SelectField({
                 "sticky bottom-0 z-10 flex h-6 items-center justify-center",
                 "bg-gradient-to-t from-[var(--select-popup-bg)] to-transparent"
               )}
+              style={
+                {
+                  "--icon-stroke-width": "var(--icon-stroke-14)",
+                } as React.CSSProperties
+              }
             >
               <ChevronDownIcon className="size-3.5 text-text-medium" />
             </Select.ScrollDownArrow>

@@ -62,10 +62,12 @@ interface FieldSizeConfig {
   addonInnerPadding: string;
   actionGap: string;
   iconSize: string;
+  iconStrokeWidth: string;
   textClass: string;
   labelClass: string;
   descriptionClass: string;
   hintIconSize: string;
+  hintIconStrokeWidth: string;
 }
 
 const fieldSizeConfigs: Record<FieldSize, FieldSizeConfig> = {
@@ -77,10 +79,12 @@ const fieldSizeConfigs: Record<FieldSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-xl)",
     actionGap: "var(--input-action-gap-xl)",
     iconSize: "var(--input-icon-xl)",
+    iconStrokeWidth: "var(--icon-stroke-20)",
     textClass: "text-[length:var(--input-text-size-xl)]",
     labelClass: "text-[length:var(--input-label-size-xl)]",
     descriptionClass: "text-[length:var(--input-description-size-xl)]",
     hintIconSize: "var(--input-hint-icon-xl)",
+    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   lg: {
     height: "var(--input-height-lg)",
@@ -90,10 +94,12 @@ const fieldSizeConfigs: Record<FieldSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-lg)",
     actionGap: "var(--input-action-gap-lg)",
     iconSize: "var(--input-icon-lg)",
+    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-lg)]",
     labelClass: "text-[length:var(--input-label-size-lg)]",
     descriptionClass: "text-[length:var(--input-description-size-lg)]",
     hintIconSize: "var(--input-hint-icon-lg)",
+    hintIconStrokeWidth: "var(--icon-stroke-14)",
   },
   md: {
     height: "var(--input-height-md)",
@@ -103,10 +109,12 @@ const fieldSizeConfigs: Record<FieldSize, FieldSizeConfig> = {
     addonInnerPadding: "var(--input-addon-inner-md)",
     actionGap: "var(--input-action-gap-md)",
     iconSize: "var(--input-icon-md)",
+    iconStrokeWidth: "var(--icon-stroke-16)",
     textClass: "text-[length:var(--input-text-size-md)]",
     labelClass: "text-[length:var(--input-label-size-md)]",
     descriptionClass: "text-[length:var(--input-description-size-md)]",
     hintIconSize: "var(--input-hint-icon-md)",
+    hintIconStrokeWidth: "var(--icon-stroke-12)",
   },
 };
 
@@ -161,6 +169,12 @@ const addonSelectIconSizes: Record<FieldSize, React.CSSProperties> = {
   },
 };
 
+const addonSelectStrokeWidths: Record<FieldSize, string> = {
+  xl: "var(--icon-stroke-16)",
+  lg: "var(--icon-stroke-14)",
+  md: "var(--icon-stroke-14)",
+};
+
 function getInputConfig(size: FieldSize) {
   const fc = fieldSizeConfigs[size];
   return {
@@ -172,8 +186,12 @@ function getInputConfig(size: FieldSize) {
     iconStyle: {
       width: fc.iconSize,
       height: fc.iconSize,
+      "--icon-stroke-width": fc.iconStrokeWidth,
     } as React.CSSProperties,
-    addonSelectIconStyle: addonSelectIconSizes[size],
+    addonSelectIconStyle: {
+      ...addonSelectIconSizes[size],
+      "--icon-stroke-width": addonSelectStrokeWidths[size],
+    } as React.CSSProperties,
   };
 }
 
@@ -223,6 +241,8 @@ const AddonWrapper = ({
   innerPaddingX,
   kind,
   textClass,
+  isAction,
+  innerRadius,
 }: {
   children: ReactNode;
   position: AddonPosition;
@@ -230,12 +250,21 @@ const AddonWrapper = ({
   innerPaddingX: string;
   kind: AddonKind;
   textClass: string;
+  isAction?: boolean;
+  innerRadius?: string;
 }) => (
   <span
     className={cn(
       "relative z-10 flex shrink-0 items-center self-stretch leading-[var(--input-text-line-height)]",
       textClass,
-      kind === "static" ? "text-text-low" : "text-text-high"
+      kind === "static" ? "text-text-low" : "text-text-high",
+      isAction && [
+        "cursor-pointer",
+        "ease transition-[background-color] duration-150",
+        "motion-reduce:transition-none",
+        "hover:bg-[var(--input-addon-hover-bg)]",
+        "has-[:focus-visible]:bg-[var(--input-addon-hover-bg)]",
+      ]
     )}
     data-input-addon-interactive={kind === "interactive" ? "true" : undefined}
     style={{
@@ -251,6 +280,14 @@ const AddonWrapper = ({
             ? "0"
             : innerPaddingX
           : outerPaddingX,
+      ...(isAction && innerRadius
+        ? {
+            borderRadius:
+              position === "leading"
+                ? `${innerRadius} 0 0 ${innerRadius}`
+                : `0 ${innerRadius} ${innerRadius} 0`,
+          }
+        : {}),
     }}
   >
     {children}
@@ -298,6 +335,7 @@ const resolveTrailingSlot = ({
       addon: trailingAction,
       content: normalizeInteractiveAddonControl(trailingAction),
       kind: "interactive" as const,
+      isAction: true,
     };
   }
 
@@ -308,15 +346,18 @@ const resolveTrailingSlot = ({
         ? normalizeInteractiveAddonControl(trailingAddon)
         : trailingAddon,
     kind: trailingAddonKind,
+    isAction: false,
   };
 };
 
 function addonSidePadding(
   hasAddon: boolean,
   kind: AddonKind,
-  config: ReturnType<typeof getInputConfig>
+  config: ReturnType<typeof getInputConfig>,
+  isAction = false
 ) {
   if (!hasAddon) return config.contentPaddingX;
+  if (isAction) return config.contentGap;
   return kind === "static"
     ? `calc(${config.contentGap} / 2)`
     : config.addonInnerPadding;
@@ -329,12 +370,18 @@ function getContentStyle(
     leadingKind: AddonKind;
     hasTrailing: boolean;
     trailingKind: AddonKind;
+    trailingIsAction?: boolean;
   }
 ): React.CSSProperties {
   return {
     gap: config.contentGap,
     paddingLeft: addonSidePadding(opts.hasLeading, opts.leadingKind, config),
-    paddingRight: addonSidePadding(opts.hasTrailing, opts.trailingKind, config),
+    paddingRight: addonSidePadding(
+      opts.hasTrailing,
+      opts.trailingKind,
+      config,
+      opts.trailingIsAction
+    ),
   };
 }
 
@@ -530,6 +577,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       addon: resolvedTrailingAddon,
       content: resolvedTrailingAddonContent,
       kind: resolvedTrailingAddonKind,
+      isAction: resolvedTrailingIsAction,
     } = resolveTrailingSlot({
       trailingAction,
       trailingAddon,
@@ -569,6 +617,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       leadingKind: leadingAddonKind,
       hasTrailing: !!resolvedTrailingAddon,
       trailingKind: resolvedTrailingAddonKind,
+      trailingIsAction: resolvedTrailingIsAction,
     });
 
     const inputWrapper = (
@@ -663,7 +712,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <>
             {resolvedTrailingAddonKind === "interactive" && <AddonDivider />}
             <AddonWrapper
-              innerPaddingX={config.addonInnerPadding}
+              innerPaddingX={
+                resolvedTrailingIsAction
+                  ? config.contentGap
+                  : config.addonInnerPadding
+              }
+              innerRadius={
+                resolvedTrailingIsAction
+                  ? `calc(${config.radius} - var(--input-border-width))`
+                  : undefined
+              }
+              isAction={resolvedTrailingIsAction}
               kind={resolvedTrailingAddonKind}
               outerPaddingX={config.contentPaddingX}
               position="trailing"
@@ -703,10 +762,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   type="button"
                 >
                   <QuestionMarkCircleIcon
-                    style={{
-                      width: config.hintIconSize,
-                      height: config.hintIconSize,
-                    }}
+                    style={
+                      {
+                        width: config.hintIconSize,
+                        height: config.hintIconSize,
+                        "--icon-stroke-width": config.hintIconStrokeWidth,
+                      } as React.CSSProperties
+                    }
                   />
                 </button>
               </Tooltip>

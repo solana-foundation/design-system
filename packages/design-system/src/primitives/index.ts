@@ -32,6 +32,16 @@ export {
 } from "./select-field";
 export { Spinner, type SpinnerProps } from "./spinner";
 export {
+  Tab,
+  TabList,
+  type TabListProps,
+  TabPanel,
+  type TabPanelProps,
+  type TabProps,
+  Tabs,
+  type TabsProps,
+} from "./tabs";
+export {
   Tooltip,
   type TooltipProps,
   TooltipProvider,
