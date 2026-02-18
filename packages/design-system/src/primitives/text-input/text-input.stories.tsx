@@ -5,12 +5,12 @@ import {
 } from "@heroicons/react/24/outline";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CopyButton } from "../copy-button";
-import { NumberField } from "../number-field";
-import { Input, InputAddonSelect } from "./index";
+import { NumberInput } from "../number-input";
+import { InputAddonSelect, TextInput } from "./index";
 
-const meta: Meta<typeof Input> = {
-  title: "Primitives/Input Field",
-  component: Input,
+const meta: Meta<typeof TextInput> = {
+  title: "Primitives/Text Input",
+  component: TextInput,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
@@ -126,7 +126,7 @@ export const Playground: Story = {
   },
   render: ({ showIcon, showCopyButton, size, ...args }) => (
     <div className="w-[320px]">
-      <Input
+      <TextInput
         {...args}
         iconLeft={showIcon ? <MagnifyingGlassIcon /> : undefined}
         size={size}
@@ -161,15 +161,15 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs">Sizes</h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <Input placeholder="XL — 48px" size="xl" />
+            <TextInput placeholder="XL — 48px" size="xl" />
             <span className="text-text-low text-xs">XL / 48px</span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input placeholder="LG — 40px" size="lg" />
+            <TextInput placeholder="LG — 40px" size="lg" />
             <span className="text-text-low text-xs">LG / 40px</span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input placeholder="MD — 36px" size="md" />
+            <TextInput placeholder="MD — 36px" size="md" />
             <span className="text-text-low text-xs">MD / 36px</span>
           </div>
         </div>
@@ -179,15 +179,19 @@ export const Overview: Story = {
       <section className="flex flex-col gap-4">
         <h4 className="font-medium text-text-low text-xs">Labels</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <Input label="Email" placeholder="you@example.com" size="xl" />
-          <Input
+          <TextInput label="Email" placeholder="you@example.com" size="xl" />
+          <TextInput
             description="Must be at least 8 characters"
             label="Password"
             placeholder="Enter password"
             size="lg"
             type="password"
           />
-          <Input label="Username" placeholder="Choose a username" size="md" />
+          <TextInput
+            label="Username"
+            placeholder="Choose a username"
+            size="md"
+          />
         </div>
       </section>
 
@@ -196,15 +200,15 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs">States</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <Input placeholder="Idle" />
+            <TextInput placeholder="Idle" />
             <span className="text-text-low text-xs">Idle — click to focus</span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input defaultValue="Filled value" />
+            <TextInput defaultValue="Filled value" />
             <span className="text-text-low text-xs">Filled</span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input disabled placeholder="Disabled" />
+            <TextInput disabled placeholder="Disabled" />
             <span className="text-text-low text-xs">
               Disabled — 40% opacity
             </span>
@@ -217,11 +221,14 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs">Icons</h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <Input iconLeft={<MagnifyingGlassIcon />} placeholder="Search..." />
+            <TextInput
+              iconLeft={<MagnifyingGlassIcon />}
+              placeholder="Search..."
+            />
             <span className="text-text-low text-xs">Icon left</span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input
+            <TextInput
               iconRight={<EyeIcon />}
               placeholder="Password"
               type="password"
@@ -229,7 +236,7 @@ export const Overview: Story = {
             <span className="text-text-low text-xs">Icon right</span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input
+            <TextInput
               iconLeft={<EnvelopeIcon />}
               iconRight={<MagnifyingGlassIcon />}
               placeholder="Both icons"
@@ -243,12 +250,12 @@ export const Overview: Story = {
       <section className="flex flex-col gap-4">
         <h4 className="font-medium text-text-low text-xs">Validation</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <Input
+          <TextInput
             description="Letters, numbers, and underscores only"
             label="Username"
             placeholder="Choose a username"
           />
-          <Input
+          <TextInput
             defaultValue="invalid-email"
             error="Please enter a valid email address"
             label="Email"
@@ -262,7 +269,7 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs">Copy to Clipboard</h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <Input
+            <TextInput
               action={
                 <CopyButton
                   size="md"
@@ -279,7 +286,7 @@ export const Overview: Story = {
             </span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input
+            <TextInput
               action={<CopyButton size="md" value="s3cur3-p@ssw0rd!" />}
               defaultValue="s3cur3-p@ssw0rd!"
               label="Password"
@@ -291,7 +298,7 @@ export const Overview: Story = {
             </span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input
+            <TextInput
               defaultValue="Fh8W2J1Y3n6K9pQ4rT7uV2xZ5mA8cD3eF6hJ9kL2pN4q"
               inputClassName="font-mono"
               label="Wallet Address"
@@ -327,20 +334,20 @@ export const HintTooltip: Story = {
       <section className="flex flex-col gap-4">
         <h4 className="font-medium text-text-low text-xs">Hint Tooltip</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <Input
+          <TextInput
             hint="Your email will be used for account recovery and notifications."
             label="Email"
             placeholder="you@example.com"
             size="xl"
           />
-          <Input
+          <TextInput
             hint="Must be at least 8 characters with a number and special character."
             label="Password"
             placeholder="Enter password"
             size="lg"
             type="password"
           />
-          <Input
+          <TextInput
             hint="3-20 characters. Letters, numbers, and underscores only."
             label="Username"
             placeholder="Choose a username"
@@ -365,20 +372,20 @@ export const LeadingText: Story = {
           Leading Text Addon
         </h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <Input
+          <TextInput
             label="Website"
             leadingAddon={<span className={addonTextClass}>https://</span>}
             placeholder="example.com"
             size="xl"
           />
-          <NumberField
+          <NumberInput
             defaultValue={34}
             label="Price"
             leadingAddon={<span className={addonTextClass}>$</span>}
             placeholder="0.00"
             size="lg"
           />
-          <Input
+          <TextInput
             label="Handle"
             leadingAddon={<span className={addonTextClass}>@</span>}
             placeholder="username"
@@ -403,7 +410,7 @@ export const LeadingDropdown: Story = {
           Leading Dropdown Addon
         </h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <Input
+          <TextInput
             autoComplete="tel-national"
             label="Phone Number"
             leadingAddon={
@@ -439,7 +446,7 @@ export const TrailingDropdown: Story = {
           Trailing Dropdown Addon
         </h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <Input
+          <TextInput
             inputMode="decimal"
             label="Amount"
             placeholder="0.00"
@@ -472,7 +479,7 @@ export const CombinedAddons: Story = {
       <section className="flex flex-col gap-4">
         <h4 className="font-medium text-text-low text-xs">Combined Addons</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <Input
+          <TextInput
             inputMode="decimal"
             label="Transfer Amount"
             leadingAddon={<span className={addonTextClass}>$</span>}
@@ -507,7 +514,7 @@ export const AddonSizes: Story = {
         <h4 className="font-medium text-text-low text-xs">Addon Sizes</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <Input
+            <TextInput
               leadingAddon={<span className={addonTextClass}>https://</span>}
               placeholder="example"
               size="xl"
@@ -525,7 +532,7 @@ export const AddonSizes: Story = {
             <span className="text-text-low text-xs">XL / 48px</span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input
+            <TextInput
               leadingAddon={<span className={addonTextClass}>https://</span>}
               placeholder="example"
               size="lg"
@@ -543,7 +550,7 @@ export const AddonSizes: Story = {
             <span className="text-text-low text-xs">LG / 40px</span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input
+            <TextInput
               leadingAddon={<span className={addonTextClass}>https://</span>}
               placeholder="example"
               size="md"

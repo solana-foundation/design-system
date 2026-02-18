@@ -58,10 +58,10 @@ type AddonKind = "static" | "interactive";
 type AddonPosition = "leading" | "trailing";
 
 /**
- * Use `NumberField` for numeric inputs that require spinbutton semantics,
+ * Use `NumberInput` for numeric inputs that require spinbutton semantics,
  * and stepped keyboard interactions.
  */
-export interface InputProps
+export interface TextInputProps
   extends Omit<React.ComponentPropsWithoutRef<"input">, "size"> {
   /** Size preset: XL=48px, LG=40px, MD=36px */
   size?: InputSize;
@@ -341,7 +341,7 @@ const warnTrailingActionConflict = ({
   ) {
     // trailingAction is the preferred API for interactive trailing controls.
     console.warn(
-      "Input: received both `trailingAction` and `trailingAddon`; `trailingAction` takes precedence."
+      "TextInput: received both `trailingAction` and `trailingAddon`; `trailingAction` takes precedence."
     );
     hasWarnedRef.current = true;
   }
@@ -478,7 +478,7 @@ export function InputAddonSelect({
   );
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       size = "md",
@@ -559,10 +559,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       trailingIsAction: resolvedTrailingIsAction,
     });
 
+    const trailingOuterPaddingX = resolvedTrailingIsAction
+      ? config.addonInnerPadding
+      : config.contentPaddingX;
+
     const inputWrapper = (
       <div
         className={cn(
-          "group/input relative flex items-center",
+          "group/text-input relative flex items-center",
           !disabled && "cursor-text",
           disabled && "pointer-events-none opacity-40",
           className
@@ -663,11 +667,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               }
               isAction={resolvedTrailingIsAction}
               kind={resolvedTrailingAddonKind}
-              outerPaddingX={
-                resolvedTrailingIsAction
-                  ? config.addonInnerPadding
-                  : config.contentPaddingX
-              }
+              outerPaddingX={trailingOuterPaddingX}
               position="trailing"
               textClass={config.textClass}
             >
@@ -759,4 +759,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+TextInput.displayName = "TextInput";

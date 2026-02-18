@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { NumberField } from "./index";
+import { NumberInput } from "./index";
 
-const meta: Meta<typeof NumberField> = {
-  title: "Primitives/Number Field",
-  component: NumberField,
+const meta: Meta<typeof NumberInput> = {
+  title: "Primitives/Number Input",
+  component: NumberInput,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
@@ -77,7 +77,7 @@ export const Playground: Story = {
   },
   render: (args) => (
     <div className="w-[320px]">
-      <NumberField {...args} />
+      <NumberInput {...args} />
     </div>
   ),
 };
@@ -90,15 +90,15 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs">Sizes</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <NumberField defaultValue={120.5} placeholder="0.00" size="xl" />
+            <NumberInput defaultValue={120.5} placeholder="0.00" size="xl" />
             <span className="text-text-low text-xs">XL / 48px</span>
           </div>
           <div className="flex flex-col gap-1">
-            <NumberField defaultValue={34} placeholder="0.00" size="lg" />
+            <NumberInput defaultValue={34} placeholder="0.00" size="lg" />
             <span className="text-text-low text-xs">LG / 40px</span>
           </div>
           <div className="flex flex-col gap-1">
-            <NumberField defaultValue={7.5} placeholder="0.00" size="md" />
+            <NumberInput defaultValue={7.5} placeholder="0.00" size="md" />
             <span className="text-text-low text-xs">MD / 36px</span>
           </div>
         </div>
@@ -107,14 +107,14 @@ export const Overview: Story = {
       <section className="flex flex-col gap-4">
         <h4 className="font-medium text-text-low text-xs">Decimal Defaults</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <NumberField
+          <NumberInput
             defaultValue={34}
             description="Default step=0.01, smallStep=0.01, largeStep=1."
             label="Token Amount"
             placeholder="0.00"
             size="lg"
           />
-          <NumberField
+          <NumberInput
             defaultValue={1.234}
             label="Precision Input"
             placeholder="0.000"
@@ -127,7 +127,7 @@ export const Overview: Story = {
       <section className="flex flex-col gap-4">
         <h4 className="font-medium text-text-low text-xs">Min / Max Bounds</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <NumberField
+          <NumberInput
             defaultValue={5}
             label="Allocation (0-10)"
             max={10}
@@ -135,7 +135,7 @@ export const Overview: Story = {
             size="lg"
             step={0.25}
           />
-          <NumberField
+          <NumberInput
             defaultValue={0}
             description="Home jumps to min, End jumps to max."
             label="Priority (-5 to 5)"
@@ -150,20 +150,20 @@ export const Overview: Story = {
       <section className="flex flex-col gap-4">
         <h4 className="font-medium text-text-low text-xs">States</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <NumberField
+          <NumberInput
             defaultValue={12.5}
             description="Helper text when valid."
             label="With Description"
             size="lg"
           />
-          <NumberField
+          <NumberInput
             defaultValue={-2}
             error="Value must be greater than or equal to 0."
             label="Error State"
             min={0}
             size="lg"
           />
-          <NumberField defaultValue={20} disabled label="Disabled" size="lg" />
+          <NumberInput defaultValue={20} disabled label="Disabled" size="lg" />
         </div>
       </section>
 

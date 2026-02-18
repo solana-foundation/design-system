@@ -12,16 +12,16 @@ import {
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import {
-  SelectField,
+  Select,
   SelectGroup,
   SelectGroupLabel,
   SelectItem,
   SelectSeparator,
 } from "./index";
 
-const meta: Meta<typeof SelectField> = {
-  title: "Primitives/Select Field",
-  component: SelectField,
+const meta: Meta<typeof Select> = {
+  title: "Primitives/Select",
+  component: Select,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
@@ -102,7 +102,7 @@ export const Playground: Story = {
   },
   render: (args) => (
     <div className="w-[320px]">
-      <SelectField {...args}>
+      <Select {...args}>
         <SelectItem icon={<GlobeAltIcon />} value="mainnet">
           Mainnet
         </SelectItem>
@@ -112,7 +112,7 @@ export const Playground: Story = {
         <SelectItem icon={<BeakerIcon />} value="testnet">
           Testnet
         </SelectItem>
-      </SelectField>
+      </Select>
     </div>
   ),
 };
@@ -130,24 +130,24 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs">Sizes</h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <SelectField placeholder="XL — 48px" size="xl">
+            <Select placeholder="XL — 48px" size="xl">
               <SelectItem value="a">Option A</SelectItem>
               <SelectItem value="b">Option B</SelectItem>
-            </SelectField>
+            </Select>
             <span className="text-text-low text-xs">XL / 48px</span>
           </div>
           <div className="flex flex-col gap-1">
-            <SelectField placeholder="LG — 40px" size="lg">
+            <Select placeholder="LG — 40px" size="lg">
               <SelectItem value="a">Option A</SelectItem>
               <SelectItem value="b">Option B</SelectItem>
-            </SelectField>
+            </Select>
             <span className="text-text-low text-xs">LG / 40px</span>
           </div>
           <div className="flex flex-col gap-1">
-            <SelectField placeholder="MD — 36px" size="md">
+            <Select placeholder="MD — 36px" size="md">
               <SelectItem value="a">Option A</SelectItem>
               <SelectItem value="b">Option B</SelectItem>
-            </SelectField>
+            </Select>
             <span className="text-text-low text-xs">MD / 36px</span>
           </div>
         </div>
@@ -159,15 +159,15 @@ export const Overview: Story = {
           Labels & Descriptions
         </h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <SelectField label="Network" placeholder="Choose a network" size="xl">
+          <Select label="Network" placeholder="Choose a network" size="xl">
             <SelectItem icon={<GlobeAltIcon />} value="mainnet">
               Mainnet
             </SelectItem>
             <SelectItem icon={<CodeBracketIcon />} value="devnet">
               Devnet
             </SelectItem>
-          </SelectField>
-          <SelectField
+          </Select>
+          <Select
             description="Select the wallet you want to use"
             label="Wallet"
             placeholder="Choose wallet"
@@ -179,12 +179,12 @@ export const Overview: Story = {
             <SelectItem icon={<BoltIcon />} value="solflare">
               Solflare
             </SelectItem>
-          </SelectField>
-          <SelectField label="Priority" placeholder="Set priority" size="md">
+          </Select>
+          <Select label="Priority" placeholder="Set priority" size="md">
             <SelectItem value="low">Low</SelectItem>
             <SelectItem value="medium">Medium</SelectItem>
             <SelectItem value="high">High</SelectItem>
-          </SelectField>
+          </Select>
         </div>
       </section>
 
@@ -193,23 +193,23 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs">States</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <SelectField placeholder="Idle">
+            <Select placeholder="Idle">
               <SelectItem value="a">Option A</SelectItem>
               <SelectItem value="b">Option B</SelectItem>
-            </SelectField>
+            </Select>
             <span className="text-text-low text-xs">Idle — click to open</span>
           </div>
           <div className="flex flex-col gap-1">
-            <SelectField defaultValue="filled">
+            <Select defaultValue="filled">
               <SelectItem value="filled">Filled value</SelectItem>
               <SelectItem value="other">Other</SelectItem>
-            </SelectField>
+            </Select>
             <span className="text-text-low text-xs">Filled</span>
           </div>
           <div className="flex flex-col gap-1">
-            <SelectField disabled placeholder="Disabled">
+            <Select disabled placeholder="Disabled">
               <SelectItem value="a">Option A</SelectItem>
-            </SelectField>
+            </Select>
             <span className="text-text-low text-xs">
               Disabled — 40% opacity
             </span>
@@ -222,7 +222,7 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs">Icon Sync</h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <SelectField
+            <Select
               defaultValue="mainnet"
               label="Network"
               placeholder="Select network"
@@ -236,7 +236,7 @@ export const Overview: Story = {
               <SelectItem icon={<BeakerIcon />} value="testnet">
                 Testnet
               </SelectItem>
-            </SelectField>
+            </Select>
             <span className="text-text-low text-xs">
               Icon in trigger syncs with selected item
             </span>
@@ -248,22 +248,22 @@ export const Overview: Story = {
       <section className="flex flex-col gap-4">
         <h4 className="font-medium text-text-low text-xs">Validation</h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <SelectField
+          <Select
             description="Choose the network for deployment"
             label="Network"
             placeholder="Select..."
           >
             <SelectItem value="mainnet">Mainnet</SelectItem>
             <SelectItem value="devnet">Devnet</SelectItem>
-          </SelectField>
-          <SelectField
+          </Select>
+          <Select
             error="Please select a network"
             label="Network"
             placeholder="Select..."
           >
             <SelectItem value="mainnet">Mainnet</SelectItem>
             <SelectItem value="devnet">Devnet</SelectItem>
-          </SelectField>
+          </Select>
         </div>
       </section>
 
@@ -273,7 +273,7 @@ export const Overview: Story = {
           Groups & Separators
         </h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
-          <SelectField label="Device" placeholder="Select device" size="lg">
+          <Select label="Device" placeholder="Select device" size="lg">
             <SelectGroup>
               <SelectGroupLabel>Mobile</SelectGroupLabel>
               <SelectItem icon={<DevicePhoneMobileIcon />} value="iphone">
@@ -293,7 +293,7 @@ export const Overview: Story = {
                 Tablet
               </SelectItem>
             </SelectGroup>
-          </SelectField>
+          </Select>
         </div>
       </section>
 
@@ -303,7 +303,7 @@ export const Overview: Story = {
           Item Descriptions & Disabled
         </h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
-          <SelectField
+          <Select
             label="Environment"
             placeholder="Select environment"
             size="lg"
@@ -330,7 +330,7 @@ export const Overview: Story = {
             >
               Testnet
             </SelectItem>
-          </SelectField>
+          </Select>
         </div>
       </section>
 
@@ -349,7 +349,7 @@ function MultiSelectDemo() {
   const [selected, setSelected] = useState<string[]>([]);
   return (
     <div className="flex flex-col gap-1">
-      <SelectField
+      <Select
         label="Features"
         multiple
         onValueChange={setSelected}
@@ -369,7 +369,7 @@ function MultiSelectDemo() {
         <SelectItem icon={<ComputerDesktopIcon />} value="nft">
           NFTs
         </SelectItem>
-      </SelectField>
+      </Select>
       <span className="text-text-low text-xs">
         Selected: {selected.length > 0 ? selected.join(", ") : "none"}
       </span>

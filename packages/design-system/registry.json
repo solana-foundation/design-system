@@ -70,37 +70,35 @@
       ]
     },
     {
-      "name": "input-field",
+      "name": "text-input",
       "type": "registry:ui",
-      "title": "Input Field",
+      "title": "Text Input",
       "description": "Accessible text input with label, description, error, icon slots, hint tooltip, leading/trailing addons, and first-class trailingAction support. Built on Base UI Field.",
       "dependencies": ["@base-ui/react", "motion", "@heroicons/react"],
       "registryDependencies": ["cn", "tooltip"],
       "files": [
-        { "path": "registry/solana/input-field.tsx", "type": "registry:ui" }
+        { "path": "registry/solana/text-input.tsx", "type": "registry:ui" }
       ]
     },
     {
-      "name": "number-field",
+      "name": "number-input",
       "type": "registry:ui",
-      "title": "Number Field",
+      "title": "Number Input",
       "description": "Accessible numeric input with stepped keyboard controls, min/max bounds, leading/trailing addon support, and label/description/error. Built on Base UI NumberField.",
       "dependencies": ["@base-ui/react", "motion", "@heroicons/react"],
       "registryDependencies": ["cn", "tooltip"],
       "files": [
-        { "path": "registry/solana/number-field.tsx", "type": "registry:ui" }
+        { "path": "registry/solana/number-input.tsx", "type": "registry:ui" }
       ]
     },
     {
-      "name": "select-field",
+      "name": "select",
       "type": "registry:ui",
-      "title": "Select Field",
+      "title": "Select",
       "description": "Accessible dropdown select with icon sync, groups, separators, descriptions, and multi-select. Built on Base UI Select.",
       "dependencies": ["@base-ui/react", "@heroicons/react"],
       "registryDependencies": ["cn"],
-      "files": [
-        { "path": "registry/solana/select-field.tsx", "type": "registry:ui" }
-      ]
+      "files": [{ "path": "registry/solana/select.tsx", "type": "registry:ui" }]
     },
     {
       "name": "segment-control",

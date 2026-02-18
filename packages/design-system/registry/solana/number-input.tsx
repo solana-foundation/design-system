@@ -48,7 +48,7 @@ const setForwardedRef = <T,>(
   }
 };
 
-export type NumberFieldSize = "xl" | "lg" | "md";
+export type NumberInputSize = "xl" | "lg" | "md";
 
 type AddonKind = "static" | "interactive";
 type AddonPosition = "leading" | "trailing";
@@ -69,7 +69,7 @@ interface FieldSizeConfig {
   hintIconStrokeWidth: string;
 }
 
-const fieldSizeConfigs: Record<NumberFieldSize, FieldSizeConfig> = {
+const fieldSizeConfigs: Record<NumberInputSize, FieldSizeConfig> = {
   xl: {
     height: "var(--input-height-xl)",
     radius: "var(--input-radius-xl)",
@@ -122,9 +122,9 @@ type BaseNumberFieldRootProps = Omit<
   "children" | "className" | "style" | "disabled" | "onPointerDown" | "inputRef"
 >;
 
-export interface NumberFieldProps extends BaseNumberFieldRootProps {
+export interface NumberInputProps extends BaseNumberFieldRootProps {
   /** Size preset: XL=48px, LG=40px, MD=36px */
-  size?: NumberFieldSize;
+  size?: NumberInputSize;
   /** Label text rendered above the number field */
   label?: string;
   /** Helper text rendered below the number field */
@@ -153,7 +153,7 @@ export interface NumberFieldProps extends BaseNumberFieldRootProps {
   trailingAddonKind?: AddonKind;
 }
 
-function getNumberFieldConfig(size: NumberFieldSize) {
+function getNumberFieldConfig(size: NumberInputSize) {
   const fc = fieldSizeConfigs[size];
   return {
     ...fc,
@@ -320,13 +320,13 @@ const warnTrailingActionConflict = ({
     !hasWarnedRef.current
   ) {
     console.warn(
-      "NumberField: received both `trailingAction` and `trailingAddon`; `trailingAction` takes precedence."
+      "NumberInput: received both `trailingAction` and `trailingAddon`; `trailingAction` takes precedence."
     );
     hasWarnedRef.current = true;
   }
 };
 
-export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
+export const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
   (
     {
       size = "md",
@@ -412,7 +412,7 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
       <BaseNumberField.Root
         allowWheelScrub={allowWheelScrub}
         className={cn(
-          "group/number-field relative flex items-center",
+          "group/number-input relative flex items-center",
           !disabled && "cursor-text",
           disabled && "pointer-events-none opacity-40",
           className
@@ -578,4 +578,4 @@ export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
   }
 );
 
-NumberField.displayName = "NumberField";
+NumberInput.displayName = "NumberInput";

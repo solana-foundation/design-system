@@ -1,5 +1,5 @@
 import { Field } from "@base-ui/react/field";
-import { Select } from "@base-ui/react/select";
+import { Select as BaseSelect } from "@base-ui/react/select";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import {
@@ -31,19 +31,17 @@ interface ItemRegistryEntry {
   label?: string;
 }
 
-interface SelectFieldContextValue {
+interface SelectContextValue {
   size: SelectSize;
   multiple: boolean;
 }
 
-const SelectFieldContext = createContext<SelectFieldContextValue | null>(null);
+const SelectContext = createContext<SelectContextValue | null>(null);
 
-function useSelectFieldContext() {
-  const ctx = useContext(SelectFieldContext);
+function useSelectContext() {
+  const ctx = useContext(SelectContext);
   if (!ctx)
-    throw new Error(
-      "SelectField compound components must be used within <SelectField>"
-    );
+    throw new Error("Select compound components must be used within <Select>");
   return ctx;
 }
 
@@ -83,7 +81,7 @@ function collectItemRegistry(
 }
 
 // =============================================================================
-// Size config (mirrors InputField)
+// Size config (mirrors TextInput)
 // =============================================================================
 
 const selectTriggerIconSizes: Record<FieldSize, React.CSSProperties> = {
@@ -152,7 +150,7 @@ function getSelectConfig(size: FieldSize) {
 }
 
 // =============================================================================
-// Trigger icon wrapper (mirrors InputField's IconWrapper, uses select group)
+// Trigger icon wrapper (mirrors TextInput's IconWrapper, uses select group)
 // =============================================================================
 
 function TriggerIconWrapper({
@@ -179,11 +177,11 @@ function TriggerIconWrapper({
 }
 
 // =============================================================================
-// SelectField (root)
+// Select (root)
 // =============================================================================
 
 // Single-select props
-interface SelectFieldSingleProps {
+interface SelectSingleProps {
   multiple?: false;
   value?: string | null;
   defaultValue?: string | null;
@@ -191,14 +189,14 @@ interface SelectFieldSingleProps {
 }
 
 // Multi-select props
-interface SelectFieldMultipleProps {
+interface SelectMultipleProps {
   multiple: true;
   value?: string[];
   defaultValue?: string[];
   onValueChange?: (value: string[]) => void;
 }
 
-interface SelectFieldBaseProps {
+interface SelectBaseProps {
   size?: SelectSize;
   label?: string;
   description?: string;
@@ -214,10 +212,10 @@ interface SelectFieldBaseProps {
   className?: string;
 }
 
-export type SelectFieldProps = SelectFieldBaseProps &
-  (SelectFieldSingleProps | SelectFieldMultipleProps);
+export type SelectProps = SelectBaseProps &
+  (SelectSingleProps | SelectMultipleProps);
 
-export function SelectField({
+export function Select({
   size = "md",
   label,
   description,
@@ -235,7 +233,7 @@ export function SelectField({
   onValueChange,
   children,
   className,
-}: SelectFieldProps) {
+}: SelectProps) {
   const config = getSelectConfig(size);
   const hasField = label || description || error;
   const selectActionsRef = useRef<{ unmount: () => void } | null>(null);
@@ -279,7 +277,7 @@ export function SelectField({
 
   // Build the trigger
   const trigger = (
-    <Select.Trigger
+    <BaseSelect.Trigger
       className={cn(
         "group/select relative flex cursor-pointer items-center",
         disabled && "pointer-events-none opacity-40",
@@ -324,7 +322,7 @@ export function SelectField({
       )}
 
       {/* Value text */}
-      <Select.Value
+      <BaseSelect.Value
         className={cn(
           "min-w-0 flex-1 truncate text-left leading-[var(--input-text-line-height)]",
           "text-text-extra-high",
@@ -338,7 +336,7 @@ export function SelectField({
       />
 
       {/* Chevron */}
-      <Select.Icon
+      <BaseSelect.Icon
         className={cn(
           "inline-flex shrink-0 items-center justify-center text-text-medium",
           "transition-transform duration-150 ease-out",
@@ -347,8 +345,8 @@ export function SelectField({
         )}
       >
         <ChevronDownIcon style={config.triggerIconStyle} />
-      </Select.Icon>
-    </Select.Trigger>
+      </BaseSelect.Icon>
+    </BaseSelect.Trigger>
   );
 
   // Shared root props
@@ -366,15 +364,15 @@ export function SelectField({
   const rootChildren = (
     <>
       {trigger}
-      <Select.Portal>
-        <Select.Positioner
+      <BaseSelect.Portal>
+        <BaseSelect.Positioner
           alignItemWithTrigger={false}
           className="z-50"
           disableAnchorTracking
           side="bottom"
           sideOffset={4}
         >
-          <Select.Popup
+          <BaseSelect.Popup
             className={cn(
               "origin-[var(--transform-origin)]",
               "rounded-[var(--select-popup-radius)]",
@@ -394,7 +392,7 @@ export function SelectField({
               "motion-reduce:transition-none"
             )}
           >
-            <Select.ScrollUpArrow
+            <BaseSelect.ScrollUpArrow
               className={cn(
                 "sticky top-0 z-10 flex h-6 items-center justify-center",
                 "bg-gradient-to-b from-[var(--select-popup-bg)] to-transparent"
@@ -406,11 +404,11 @@ export function SelectField({
               }
             >
               <ChevronDownIcon className="size-3.5 rotate-180 text-text-medium" />
-            </Select.ScrollUpArrow>
+            </BaseSelect.ScrollUpArrow>
 
-            <Select.List>{children}</Select.List>
+            <BaseSelect.List>{children}</BaseSelect.List>
 
-            <Select.ScrollDownArrow
+            <BaseSelect.ScrollDownArrow
               className={cn(
                 "sticky bottom-0 z-10 flex h-6 items-center justify-center",
                 "bg-gradient-to-t from-[var(--select-popup-bg)] to-transparent"
@@ -422,17 +420,17 @@ export function SelectField({
               }
             >
               <ChevronDownIcon className="size-3.5 text-text-medium" />
-            </Select.ScrollDownArrow>
-          </Select.Popup>
-        </Select.Positioner>
-      </Select.Portal>
+            </BaseSelect.ScrollDownArrow>
+          </BaseSelect.Popup>
+        </BaseSelect.Positioner>
+      </BaseSelect.Portal>
     </>
   );
 
   const selectContent = (
-    <SelectFieldContext.Provider value={ctxValue}>
+    <SelectContext.Provider value={ctxValue}>
       {multiple ? (
-        <Select.Root
+        <BaseSelect.Root
           defaultValue={defaultValue as string[] | undefined}
           multiple
           onValueChange={handleMultipleChange}
@@ -440,18 +438,18 @@ export function SelectField({
           {...sharedRootProps}
         >
           {rootChildren}
-        </Select.Root>
+        </BaseSelect.Root>
       ) : (
-        <Select.Root
+        <BaseSelect.Root
           defaultValue={defaultValue as string | null | undefined}
           onValueChange={handleSingleChange}
           value={value as string | null | undefined}
           {...sharedRootProps}
         >
           {rootChildren}
-        </Select.Root>
+        </BaseSelect.Root>
       )}
-    </SelectFieldContext.Provider>
+    </SelectContext.Provider>
   );
 
   if (!hasField) return selectContent;
@@ -488,7 +486,7 @@ export function SelectField({
   );
 }
 
-SelectField.displayName = "SelectField";
+Select.displayName = "Select";
 
 // =============================================================================
 // SelectItem
@@ -511,11 +509,11 @@ export function SelectItem({
   children,
   className,
 }: SelectItemProps) {
-  const { size } = useSelectFieldContext();
+  const { size } = useSelectContext();
   const config = getSelectConfig(size);
 
   return (
-    <Select.Item
+    <BaseSelect.Item
       className={cn(
         "relative flex cursor-pointer select-none items-center gap-2 outline-none",
         "rounded-[var(--select-item-radius)]",
@@ -529,7 +527,7 @@ export function SelectItem({
       value={value}
     >
       {/* Check indicator */}
-      <Select.ItemIndicator
+      <BaseSelect.ItemIndicator
         className="inline-flex shrink-0 items-center justify-center"
         style={{
           width: config.indicatorSize,
@@ -543,7 +541,7 @@ export function SelectItem({
             height: config.indicatorSize,
           }}
         />
-      </Select.ItemIndicator>
+      </BaseSelect.ItemIndicator>
 
       {/* Optional leading icon */}
       {icon && (
@@ -557,16 +555,16 @@ export function SelectItem({
 
       {/* Text column */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <Select.ItemText className="truncate text-text-extra-high">
+        <BaseSelect.ItemText className="truncate text-text-extra-high">
           {children}
-        </Select.ItemText>
+        </BaseSelect.ItemText>
         {itemDescription && (
           <span className="truncate text-[12px] text-text-low">
             {itemDescription}
           </span>
         )}
       </div>
-    </Select.Item>
+    </BaseSelect.Item>
   );
 }
 
@@ -582,7 +580,7 @@ export interface SelectGroupProps {
 }
 
 export function SelectGroup({ children, className }: SelectGroupProps) {
-  return <Select.Group className={className}>{children}</Select.Group>;
+  return <BaseSelect.Group className={className}>{children}</BaseSelect.Group>;
 }
 
 SelectGroup.displayName = "SelectGroup";
@@ -601,14 +599,14 @@ export function SelectGroupLabel({
   className,
 }: SelectGroupLabelProps) {
   return (
-    <Select.GroupLabel
+    <BaseSelect.GroupLabel
       className={cn(
         "px-2 py-1.5 font-medium text-[12px] text-text-low",
         className
       )}
     >
       {children}
-    </Select.GroupLabel>
+    </BaseSelect.GroupLabel>
   );
 }
 
@@ -624,7 +622,9 @@ export interface SelectSeparatorProps {
 
 export function SelectSeparator({ className }: SelectSeparatorProps) {
   return (
-    <Select.Separator className={cn("my-1 h-px bg-border-light", className)} />
+    <BaseSelect.Separator
+      className={cn("my-1 h-px bg-border-light", className)}
+    />
   );
 }
 

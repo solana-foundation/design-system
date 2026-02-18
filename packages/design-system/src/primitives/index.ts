@@ -2,34 +2,27 @@
 export { Button, type ButtonProps } from "./button";
 export { CopyButton, type CopyButtonProps } from "./copy-button";
 export {
-  Input,
-  InputAddonSelect,
-  type InputAddonSelectOption,
-  type InputAddonSelectProps,
-  type InputProps,
-} from "./input-field";
-export {
-  NumberField,
-  type NumberFieldProps,
-  type NumberFieldSize,
-} from "./number-field";
+  NumberInput,
+  type NumberInputProps,
+  type NumberInputSize,
+} from "./number-input";
 export {
   SegmentControl,
   type SegmentControlProps,
   type SegmentItem,
 } from "./segment-control";
 export {
-  SelectField,
-  type SelectFieldProps,
+  Select,
   SelectGroup,
   SelectGroupLabel,
   type SelectGroupLabelProps,
   type SelectGroupProps,
   SelectItem,
   type SelectItemProps,
+  type SelectProps,
   SelectSeparator,
   type SelectSeparatorProps,
-} from "./select-field";
+} from "./select";
 export { Spinner, type SpinnerProps } from "./spinner";
 export {
   Tab,
@@ -41,6 +34,13 @@ export {
   Tabs,
   type TabsProps,
 } from "./tabs";
+export {
+  InputAddonSelect,
+  type InputAddonSelectOption,
+  type InputAddonSelectProps,
+  TextInput,
+  type TextInputProps,
+} from "./text-input";
 export {
   Tooltip,
   type TooltipProps,
