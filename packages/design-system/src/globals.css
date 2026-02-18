@@ -435,9 +435,9 @@
   --input-padding-x-md: 10px;
 
   /* Input Addon Inner Padding (divider side) */
-  --input-addon-inner-xl: 10px;
-  --input-addon-inner-lg: 8px;
-  --input-addon-inner-md: 6px;
+  --input-addon-inner-xl: 12px;
+  --input-addon-inner-lg: 10px;
+  --input-addon-inner-md: 8px;
 
   /* Input Radii (matches button) */
   --input-radius-xl: 12px;
