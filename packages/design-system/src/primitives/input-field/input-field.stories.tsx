@@ -98,7 +98,10 @@ export const Playground: Story = {
   },
   render: ({ showIcon, ...args }) => (
     <div className="w-[320px]">
-      <Input {...args} iconLeft={showIcon ? <Search /> : undefined} />
+      <Input
+        {...args}
+        iconLeft={showIcon ? <Search absoluteStrokeWidth /> : undefined}
+      />
     </div>
   ),
 };
@@ -138,13 +141,15 @@ export const Overview: Story = {
           Labels
         </h4>
         <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <Input label="Email" placeholder="you@example.com" />
+          <Input label="Email" placeholder="you@example.com" size="xl" />
           <Input
             description="Must be at least 8 characters"
             label="Password"
             placeholder="Enter password"
+            size="lg"
             type="password"
           />
+          <Input label="Username" placeholder="Choose a username" size="md" />
         </div>
       </section>
 
@@ -178,17 +183,24 @@ export const Overview: Story = {
         </h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <Input iconLeft={<Search />} placeholder="Search..." />
+            <Input
+              iconLeft={<Search absoluteStrokeWidth />}
+              placeholder="Search..."
+            />
             <span className="text-text-low text-xs">Icon left</span>
           </div>
           <div className="flex flex-col gap-1">
-            <Input iconRight={<Eye />} placeholder="Password" type="password" />
+            <Input
+              iconRight={<Eye absoluteStrokeWidth />}
+              placeholder="Password"
+              type="password"
+            />
             <span className="text-text-low text-xs">Icon right</span>
           </div>
           <div className="flex flex-col gap-1">
             <Input
-              iconLeft={<Mail />}
-              iconRight={<Search />}
+              iconLeft={<Mail absoluteStrokeWidth />}
+              iconRight={<Search absoluteStrokeWidth />}
               placeholder="Both icons"
             />
             <span className="text-text-low text-xs">Both icons</span>

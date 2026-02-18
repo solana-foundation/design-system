@@ -33,6 +33,7 @@ const sizeStyles: Record<
     iconSize: string;
     gap: string;
     textClass: string;
+    labelClass: string;
   }
 > = {
   xl: {
@@ -42,6 +43,7 @@ const sizeStyles: Record<
     iconSize: "var(--input-icon-xl)",
     gap: "var(--input-gap-xl)",
     textClass: "text-[16px]",
+    labelClass: "text-[14px]",
   },
   lg: {
     height: "var(--input-height-lg)",
@@ -50,6 +52,7 @@ const sizeStyles: Record<
     iconSize: "var(--input-icon-lg)",
     gap: "var(--input-gap-lg)",
     textClass: "text-[14px]",
+    labelClass: "text-[14px]",
   },
   md: {
     height: "var(--input-height-md)",
@@ -58,6 +61,7 @@ const sizeStyles: Record<
     iconSize: "var(--input-icon-md)",
     gap: "var(--input-gap-md)",
     textClass: "text-[12px]",
+    labelClass: "text-[12px]",
   },
 };
 
@@ -147,7 +151,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <BaseInput
           className={cn(
-            "h-full w-full min-w-0 flex-1 bg-transparent outline-none",
+            "h-full w-full min-w-0 flex-1 bg-transparent leading-none outline-none",
             "text-text-extra-high placeholder:text-text-extra-low",
             "autofill-transparent",
             config.textClass
@@ -176,7 +180,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         invalid={!!error}
       >
         {label && (
-          <Field.Label className="font-medium text-[14px] text-text-high">
+          <Field.Label
+            className={cn("font-medium text-text-high", config.labelClass)}
+          >
             {label}
           </Field.Label>
         )}
