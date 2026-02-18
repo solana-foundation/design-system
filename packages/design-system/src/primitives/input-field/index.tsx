@@ -126,6 +126,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             "pointer-events-none absolute inset-0 rounded-[inherit]",
             "border-[length:var(--input-border-width)]",
             "border-[var(--input-border-idle)]",
+            "bg-[var(--input-bg-idle)]",
             "transition-[border-color,background-color] duration-150 ease-out",
             "group-[:not(:focus-within)]/input:group-hover/input:border-[var(--input-border-hover)]",
             "group-[:not(:focus-within)]/input:group-hover/input:bg-[var(--input-bg-hover)]",

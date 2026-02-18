@@ -443,6 +443,7 @@
   --input-border-focus: color-mix(in srgb, var(--gray-1300) 48%, transparent);
 
   /* Input Background */
+  --input-bg-idle: color-mix(in srgb, var(--gray-1400) 1.5%, transparent);
   --input-bg-hover: color-mix(in srgb, var(--gray-1400) 2%, transparent);
 
   /* Input Focus Ring */
@@ -808,6 +809,7 @@ body {
   --input-border-idle: color-mix(in srgb, var(--white) 20%, transparent);
   --input-border-hover: color-mix(in srgb, var(--white) 24%, transparent);
   --input-border-focus: color-mix(in srgb, var(--white) 48%, transparent);
+  --input-bg-idle: color-mix(in srgb, var(--white) 4%, transparent);
   --input-bg-hover: color-mix(in srgb, var(--white) 2%, transparent);
   --input-focus-ring: color-mix(in srgb, var(--white) 16%, transparent);
 
