@@ -162,7 +162,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         invalid={!!error}
       >
         {label && (
-          <Field.Label className="font-medium text-[13px] text-text-high">
+          <Field.Label className="font-medium text-[14px] text-text-high">
             {label}
           </Field.Label>
         )}
