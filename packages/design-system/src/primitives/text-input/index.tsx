@@ -347,17 +347,17 @@ const warnTrailingActionConflict = ({
   }
 };
 
-export interface InputAddonSelectOption {
+export interface AddonSelectOption {
   value: string;
   label: string;
   disabled?: boolean;
 }
 
-export interface InputAddonSelectProps {
+export interface AddonSelectProps {
   /** ARIA label for the select */
   ariaLabel: string;
   /** Dropdown options for the addon select */
-  options: InputAddonSelectOption[];
+  options: AddonSelectOption[];
   /** Input size token to keep spacing/icon rhythm aligned with parent Input */
   size?: InputSize;
   /** Addon placement to map outer/inner paddings correctly */
@@ -376,7 +376,7 @@ export interface InputAddonSelectProps {
   className?: string;
 }
 
-export function InputAddonSelect({
+export function AddonSelect({
   ariaLabel,
   className,
   defaultValue,
@@ -387,7 +387,7 @@ export function InputAddonSelect({
   position = "leading",
   size = "md",
   value,
-}: InputAddonSelectProps) {
+}: AddonSelectProps) {
   const config = getInputConfig(size);
 
   // Track internal value for label display in uncontrolled mode

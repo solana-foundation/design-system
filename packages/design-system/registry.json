@@ -101,15 +101,15 @@
       "files": [{ "path": "registry/solana/select.tsx", "type": "registry:ui" }]
     },
     {
-      "name": "segment-control",
+      "name": "segmented-control",
       "type": "registry:ui",
-      "title": "Segment Control",
+      "title": "Segmented Control",
       "description": "Segmented control with smooth sliding indicator animation. Built on Base UI ToggleGroup.",
       "dependencies": ["@base-ui/react", "motion"],
       "registryDependencies": ["cn"],
       "files": [
         {
-          "path": "registry/solana/segment-control.tsx",
+          "path": "registry/solana/segmented-control.tsx",
           "type": "registry:ui"
         }
       ]

@@ -16,7 +16,7 @@ import { cn } from "../../utils";
 /**
  * Individual segment item configuration.
  */
-export interface SegmentItem {
+export interface SegmentedControlItem {
   /** Unique value for this segment */
   value: string;
   /** Display label */
@@ -27,9 +27,9 @@ export interface SegmentItem {
   disabled?: boolean;
 }
 
-export interface SegmentControlProps {
+export interface SegmentedControlProps {
   /** Array of segment items */
-  items: SegmentItem[];
+  items: SegmentedControlItem[];
   /** Currently selected value (controlled) */
   value?: string;
   /** Default selected value (uncontrolled) */
@@ -47,7 +47,9 @@ export interface SegmentControlProps {
 /**
  * Context to share layoutId across segments for shared layout animation.
  */
-const SegmentControlContext = createContext<{ layoutId: string } | null>(null);
+const SegmentedControlContext = createContext<{ layoutId: string } | null>(
+  null
+);
 
 /**
  * Spring animation configuration for the sliding indicator.
@@ -66,13 +68,13 @@ const indicatorSpring = {
 const SegmentButton = forwardRef<
   HTMLButtonElement,
   {
-    item: SegmentItem;
+    item: SegmentedControlItem;
     isSelected: boolean;
   }
 >(({ item, isSelected }, ref) => {
-  const context = useContext(SegmentControlContext);
+  const context = useContext(SegmentedControlContext);
   if (!context) {
-    throw new Error("SegmentButton must be used within SegmentControl");
+    throw new Error("SegmentButton must be used within SegmentedControl");
   }
 
   const { layoutId } = context;
@@ -129,7 +131,7 @@ const SegmentButton = forwardRef<
 SegmentButton.displayName = "SegmentButton";
 
 /**
- * SegmentControl component with smooth sliding indicator animation.
+ * SegmentedControl component with smooth sliding indicator animation.
  *
  * Uses Motion's layoutId for shared layout animations, creating a fluid
  * sliding pill effect when switching between segments.
@@ -141,7 +143,7 @@ SegmentButton.displayName = "SegmentButton";
  *
  * @example
  * ```tsx
- * <SegmentControl
+ * <SegmentedControl
  *   items={[
  *     { value: "all", label: "All" },
  *     { value: "active", label: "Active" },
@@ -151,7 +153,10 @@ SegmentButton.displayName = "SegmentButton";
  * />
  * ```
  */
-export const SegmentControl = forwardRef<HTMLDivElement, SegmentControlProps>(
+export const SegmentedControl = forwardRef<
+  HTMLDivElement,
+  SegmentedControlProps
+>(
   (
     {
       items,
@@ -202,7 +207,7 @@ export const SegmentControl = forwardRef<HTMLDivElement, SegmentControlProps>(
     );
 
     return (
-      <SegmentControlContext.Provider value={contextValue}>
+      <SegmentedControlContext.Provider value={contextValue}>
         <ToggleGroup
           aria-label={ariaLabel}
           className={cn(
@@ -227,9 +232,9 @@ export const SegmentControl = forwardRef<HTMLDivElement, SegmentControlProps>(
             />
           ))}
         </ToggleGroup>
-      </SegmentControlContext.Provider>
+      </SegmentedControlContext.Provider>
     );
   }
 );
 
-SegmentControl.displayName = "SegmentControl";
+SegmentedControl.displayName = "SegmentedControl";

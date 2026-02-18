@@ -7,10 +7,10 @@ export {
   type NumberInputSize,
 } from "./number-input";
 export {
-  SegmentControl,
-  type SegmentControlProps,
-  type SegmentItem,
-} from "./segment-control";
+  SegmentedControl,
+  type SegmentedControlItem,
+  type SegmentedControlProps,
+} from "./segmented-control";
 export {
   Select,
   SelectGroup,
@@ -35,9 +35,9 @@ export {
   type TabsProps,
 } from "./tabs";
 export {
-  InputAddonSelect,
-  type InputAddonSelectOption,
-  type InputAddonSelectProps,
+  AddonSelect,
+  type AddonSelectOption,
+  type AddonSelectProps,
   TextInput,
   type TextInputProps,
 } from "./text-input";

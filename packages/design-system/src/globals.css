@@ -455,9 +455,9 @@
   --input-gap-md: 6px;
 
   /* Input Action Gaps */
-  --input-action-gap-xl: 8px;
-  --input-action-gap-lg: 6px;
-  --input-action-gap-md: 6px;
+  --input-action-gap-xl: 6px;
+  --input-action-gap-lg: 4px;
+  --input-action-gap-md: 4px;
 
   /* Input Border */
   --input-border-width: 1.5px;
@@ -469,7 +469,7 @@
   --input-bg-idle: color-mix(in srgb, var(--gray-1400) 1.5%, transparent);
   --input-bg-hover: color-mix(in srgb, var(--gray-1400) 2%, transparent);
 
-  /* Input Addon Hover (interactive segments like InputAddonSelect) */
+  /* Input Addon Hover (interactive segments like AddonSelect) */
   --input-addon-hover-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
 
   /* Input Focus Ring */

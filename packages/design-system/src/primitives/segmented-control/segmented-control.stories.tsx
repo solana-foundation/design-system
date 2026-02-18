@@ -6,11 +6,11 @@ import {
   SunIcon,
 } from "@heroicons/react/24/outline";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { SegmentControl } from "./index";
+import { SegmentedControl } from "./index";
 
-const meta: Meta<typeof SegmentControl> = {
-  title: "Primitives/SegmentControl",
-  component: SegmentControl,
+const meta: Meta<typeof SegmentedControl> = {
+  title: "Primitives/Segmented Control",
+  component: SegmentedControl,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
@@ -46,14 +46,14 @@ export const Playground: Story = {
 export const WithIcons: Story = {
   render: () => (
     <div className="flex flex-col items-start gap-6">
-      <SegmentControl
+      <SegmentedControl
         defaultValue="grid"
         items={[
           { value: "grid", label: "Grid", icon: <Squares2X2Icon /> },
           { value: "list", label: "List", icon: <ListBulletIcon /> },
         ]}
       />
-      <SegmentControl
+      <SegmentedControl
         defaultValue="system"
         items={[
           { value: "light", label: "Light", icon: <SunIcon /> },

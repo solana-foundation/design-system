@@ -6,7 +6,7 @@ import {
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CopyButton } from "../copy-button";
 import { NumberInput } from "../number-input";
-import { InputAddonSelect, TextInput } from "./index";
+import { AddonSelect, TextInput } from "./index";
 
 const meta: Meta<typeof TextInput> = {
   title: "Primitives/Text Input",
@@ -414,7 +414,7 @@ export const LeadingDropdown: Story = {
             autoComplete="tel-national"
             label="Phone Number"
             leadingAddon={
-              <InputAddonSelect
+              <AddonSelect
                 ariaLabel="Country calling code"
                 defaultValue="+1"
                 options={countryCodeOptions}
@@ -452,7 +452,7 @@ export const TrailingDropdown: Story = {
             placeholder="0.00"
             size="lg"
             trailingAddon={
-              <InputAddonSelect
+              <AddonSelect
                 ariaLabel="Currency"
                 defaultValue="USD"
                 options={currencyOptions}
@@ -486,7 +486,7 @@ export const CombinedAddons: Story = {
             placeholder="0.00"
             size="lg"
             trailingAddon={
-              <InputAddonSelect
+              <AddonSelect
                 ariaLabel="Transfer currency"
                 defaultValue="USD"
                 options={currencyOptions}
@@ -519,7 +519,7 @@ export const AddonSizes: Story = {
               placeholder="example"
               size="xl"
               trailingAddon={
-                <InputAddonSelect
+                <AddonSelect
                   ariaLabel="Domain suffix"
                   defaultValue=".com"
                   options={domainOptions}
@@ -537,7 +537,7 @@ export const AddonSizes: Story = {
               placeholder="example"
               size="lg"
               trailingAddon={
-                <InputAddonSelect
+                <AddonSelect
                   ariaLabel="Domain suffix"
                   defaultValue=".com"
                   options={domainOptions}
@@ -555,7 +555,7 @@ export const AddonSizes: Story = {
               placeholder="example"
               size="md"
               trailingAddon={
-                <InputAddonSelect
+                <AddonSelect
                   ariaLabel="Domain suffix"
                   defaultValue=".com"
                   options={domainOptions}

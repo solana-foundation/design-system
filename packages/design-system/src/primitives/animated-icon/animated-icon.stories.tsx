@@ -5,7 +5,7 @@ import { Button } from "../button";
 import { AnimatedIcon } from "./index";
 
 const meta: Meta<typeof AnimatedIcon> = {
-  title: "Primitives/AnimatedIcon",
+  title: "Primitives/Animated Icon",
   component: AnimatedIcon,
   tags: ["autodocs"],
   parameters: {
