@@ -124,63 +124,7 @@ export const Playground: Story = {
 };
 
 // =============================================================================
-// 2. SIDES
-// =============================================================================
-
-export const Top: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex min-h-[200px] items-center justify-center">
-      <Tooltip content="Tooltip on top" side="top">
-        <button className={triggerButton} type="button">
-          Hover me
-        </button>
-      </Tooltip>
-    </div>
-  ),
-};
-
-export const Right: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex min-h-[200px] items-center justify-center">
-      <Tooltip content="Tooltip on right" side="right">
-        <button className={triggerButton} type="button">
-          Hover me
-        </button>
-      </Tooltip>
-    </div>
-  ),
-};
-
-export const Bottom: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex min-h-[200px] items-center justify-center">
-      <Tooltip content="Tooltip on bottom" side="bottom">
-        <button className={triggerButton} type="button">
-          Hover me
-        </button>
-      </Tooltip>
-    </div>
-  ),
-};
-
-export const Left: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex min-h-[200px] items-center justify-center">
-      <Tooltip content="Tooltip on left" side="left">
-        <button className={triggerButton} type="button">
-          Hover me
-        </button>
-      </Tooltip>
-    </div>
-  ),
-};
-
-// =============================================================================
-// 3. SKIP DELAY
+// 2. SKIP DELAY
 // =============================================================================
 
 export const SkipDelay: Story = {
@@ -209,24 +153,7 @@ export const SkipDelay: Story = {
 };
 
 // =============================================================================
-// 4. MAX WIDTH
-// =============================================================================
-
-export const MaxWidth: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex min-h-[200px] items-center justify-center">
-      <Tooltip content="This is a tooltip with a much longer content string that demonstrates the max-width constraint of 320px. The text wraps nicely with text-pretty for balanced line breaks.">
-        <button className={triggerButton} type="button">
-          Long tooltip
-        </button>
-      </Tooltip>
-    </div>
-  ),
-};
-
-// =============================================================================
-// 5. OVERVIEW
+// 3. OVERVIEW
 // =============================================================================
 
 export const Overview: Story = {
@@ -284,6 +211,20 @@ export const Overview: Story = {
           >
             <button className={triggerButton} type="button">
               Rich content
+            </button>
+          </Tooltip>
+        </div>
+      </section>
+
+      {/* Max Width */}
+      <section className="flex flex-col gap-4">
+        <h4 className="font-medium text-text-low text-xs uppercase tracking-wide">
+          Max Width
+        </h4>
+        <div className="flex items-center justify-center gap-8 rounded-xl border border-border-medium p-10">
+          <Tooltip content="This is a tooltip with a much longer content string that demonstrates the max-width constraint of 320px. The text wraps nicely with text-pretty for balanced line breaks.">
+            <button className={triggerButton} type="button">
+              Long tooltip
             </button>
           </Tooltip>
         </div>
