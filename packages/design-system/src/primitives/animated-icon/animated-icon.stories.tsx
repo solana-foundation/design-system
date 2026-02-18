@@ -1,5 +1,5 @@
+import { PauseIcon, PlayIcon } from "@heroicons/react/24/outline";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Pause, Play } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../button";
 import { AnimatedIcon } from "./index";
@@ -34,9 +34,9 @@ export const Default: Story = {
           <AnimatedIcon
             icon={
               playing ? (
-                <Pause fill="currentColor" size={16} />
+                <PauseIcon fill="currentColor" height={16} width={16} />
               ) : (
-                <Play fill="currentColor" size={16} />
+                <PlayIcon fill="currentColor" height={16} width={16} />
               )
             }
             iconKey={playing ? "pause" : "play"}

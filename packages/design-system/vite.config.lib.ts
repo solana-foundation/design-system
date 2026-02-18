@@ -28,7 +28,7 @@ export default defineConfig({
         /^react-dom\//,
         /^@base-ui\//,
         /^motion\//,
-        /^lucide-react/,
+        /^@heroicons\/react/,
       ],
     },
     outDir: "dist",

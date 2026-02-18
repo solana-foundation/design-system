@@ -1,5 +1,5 @@
+import { PauseIcon, PlayIcon } from "@heroicons/react/24/outline";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Pause, Play } from "lucide-react";
 import { useRef, useState } from "react";
 import { Spinner } from "./index";
 
@@ -53,7 +53,11 @@ const SpinnerDemo = () => {
         onClick={handleToggle}
         type="button"
       >
-        {playing ? <Pause size={14} /> : <Play size={14} />}
+        {playing ? (
+          <PauseIcon height={14} width={14} />
+        ) : (
+          <PlayIcon height={14} width={14} />
+        )}
         {playing ? "Pause" : "Play"}
       </button>
     </div>

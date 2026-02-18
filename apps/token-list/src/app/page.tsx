@@ -1,7 +1,7 @@
 "use client";
 
 import { useCopyToClipboard } from "@solana/design-system";
-import { Check, Copy } from "lucide-react";
+import { CheckIcon, ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
   return (
@@ -78,9 +78,9 @@ function CodeBlock({ label, code }: { label: string; code: string }) {
           type="button"
         >
           {copied ? (
-            <Check className="text-text-medium" size={14} />
+            <CheckIcon className="text-text-medium" width={14} height={14} />
           ) : (
-            <Copy className="text-text-low" size={14} />
+            <ClipboardDocumentIcon className="text-text-low" width={14} height={14} />
           )}
         </button>
       </div>

@@ -32,7 +32,7 @@
       "name": "animated-icon",
       "type": "registry:ui",
       "title": "Animated Icon",
-      "description": "Animates icon transitions with blur and scale using AnimatePresence.",
+      "description": "Animates icon transitions with preset motion profiles (default and micro) using AnimatePresence.",
       "dependencies": ["motion"],
       "files": [
         { "path": "registry/solana/animated-icon.tsx", "type": "registry:ui" }
@@ -42,8 +42,8 @@
       "name": "copy-button",
       "type": "registry:ui",
       "title": "Copy Button",
-      "description": "Icon button that copies text to clipboard with animated check feedback.",
-      "dependencies": ["lucide-react", "motion"],
+      "description": "Copy control with icon, inline, or addon variants, animated success/failure feedback, and clipboard fallback support.",
+      "dependencies": ["@heroicons/react", "motion"],
       "registryDependencies": ["cn", "animated-icon", "use-copy-to-clipboard"],
       "files": [
         { "path": "registry/solana/copy-button.tsx", "type": "registry:ui" }
@@ -54,19 +54,41 @@
       "type": "registry:ui",
       "title": "Button",
       "description": "Accessible button with primary/secondary variants, four sizes, icon support, and loading state.",
-      "dependencies": ["@base-ui/react", "motion", "lucide-react"],
+      "dependencies": ["@base-ui/react", "motion", "@heroicons/react"],
       "registryDependencies": ["spinner", "cn"],
       "files": [{ "path": "registry/solana/button.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Accessible tooltip with skip-delay grouping, arrow, animated entrance, and dark theme. Built on Base UI Tooltip.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": ["cn"],
+      "files": [
+        { "path": "registry/solana/tooltip.tsx", "type": "registry:ui" }
+      ]
     },
     {
       "name": "input-field",
       "type": "registry:ui",
       "title": "Input Field",
-      "description": "Accessible text input with label, description, error, and icon slots. Built on Base UI Field.",
-      "dependencies": ["@base-ui/react", "motion"],
-      "registryDependencies": ["cn"],
+      "description": "Accessible text input with label, description, error, icon slots, hint tooltip, leading/trailing addons, and first-class trailingAction support. Built on Base UI Field.",
+      "dependencies": ["@base-ui/react", "motion", "@heroicons/react"],
+      "registryDependencies": ["cn", "tooltip"],
       "files": [
         { "path": "registry/solana/input-field.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "number-field",
+      "type": "registry:ui",
+      "title": "Number Field",
+      "description": "Accessible numeric input with stepped keyboard controls, min/max bounds, leading/trailing addon support, and label/description/error. Built on Base UI NumberField.",
+      "dependencies": ["@base-ui/react", "motion", "@heroicons/react"],
+      "registryDependencies": ["cn", "tooltip"],
+      "files": [
+        { "path": "registry/solana/number-field.tsx", "type": "registry:ui" }
       ]
     },
     {
@@ -74,7 +96,7 @@
       "type": "registry:ui",
       "title": "Select Field",
       "description": "Accessible dropdown select with icon sync, groups, separators, descriptions, and multi-select. Built on Base UI Select.",
-      "dependencies": ["@base-ui/react", "lucide-react"],
+      "dependencies": ["@base-ui/react", "@heroicons/react"],
       "registryDependencies": ["cn"],
       "files": [
         { "path": "registry/solana/select-field.tsx", "type": "registry:ui" }
@@ -98,7 +120,7 @@
       "name": "use-copy-to-clipboard",
       "type": "registry:hook",
       "title": "useCopyToClipboard",
-      "description": "Hook for copying text to clipboard with automatic reset timer.",
+      "description": "Hook for copying text with clipboard API + fallback and automatic reset timer.",
       "files": [
         {
           "path": "registry/solana/use-copy-to-clipboard.ts",

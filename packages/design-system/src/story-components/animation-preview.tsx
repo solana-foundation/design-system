@@ -1,4 +1,4 @@
-import { Pause, Play } from "lucide-react";
+import { PauseIcon, PlayIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { Button } from "@/primitives/button";
@@ -50,7 +50,7 @@ export function AnimationPreview({ children, label }: AnimationPreviewProps) {
                 key={isPlaying ? "pause" : "play"}
                 transition={{ type: "spring", duration: 0.2, bounce: 0 }}
               >
-                {isPlaying ? <Pause /> : <Play />}
+                {isPlaying ? <PauseIcon /> : <PlayIcon />}
               </motion.div>
             </AnimatePresence>
           }

@@ -1,9 +1,6 @@
 import { Field } from "@base-ui/react/field";
-import { Input as BaseInput } from "@base-ui/react/input";
-import {
-  ChevronDownIcon,
-  QuestionMarkCircleIcon,
-} from "@heroicons/react/24/outline";
+import { NumberField as BaseNumberField } from "@base-ui/react/number-field";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "motion/react";
 import {
   cloneElement,
@@ -14,10 +11,13 @@ import {
   type ReactNode,
   useCallback,
   useRef,
-  useState,
 } from "react";
-import { Tooltip } from "@/components/ui/tooltip";
-import { cn } from "@/lib/cn";
+import { cn } from "../../utils";
+import {
+  type FieldSize,
+  getFieldSizeConfig,
+} from "../_shared/field-size-config";
+import { Tooltip } from "../tooltip";
 
 const messageTransition = { duration: 0.15, ease: "easeOut" as const };
 const INTERACTIVE_TARGET_SELECTOR = [
@@ -39,174 +39,80 @@ const INTERACTIVE_TARGET_SELECTOR = [
   "[data-input-addon-interactive='true']",
 ].join(", ");
 
-const setForwardedRef = <T,>(ref: React.ForwardedRef<T>, value: T | null) => {
+const setForwardedRef = <T,>(
+  ref: React.Ref<T> | undefined,
+  value: T | null
+) => {
   if (typeof ref === "function") {
     ref(value);
     return;
   }
-  if (ref) {
+  if (ref && "current" in ref) {
     ref.current = value;
   }
 };
 
-type FieldSize = "xl" | "lg" | "md";
-type InputSize = FieldSize;
+export type NumberFieldSize = FieldSize;
+
 type AddonKind = "static" | "interactive";
 type AddonPosition = "leading" | "trailing";
 
-interface FieldSizeConfig {
-  height: string;
-  radius: string;
-  contentGap: string;
-  contentPaddingX: string;
-  addonInnerPadding: string;
-  actionGap: string;
-  iconSize: string;
-  textClass: string;
-  labelClass: string;
-  descriptionClass: string;
-  hintIconSize: string;
-}
+type BaseNumberFieldRootProps = Omit<
+  React.ComponentPropsWithoutRef<typeof BaseNumberField.Root>,
+  "children" | "className" | "style" | "disabled" | "onPointerDown" | "inputRef"
+>;
 
-const fieldSizeConfigs: Record<FieldSize, FieldSizeConfig> = {
-  xl: {
-    height: "var(--input-height-xl)",
-    radius: "var(--input-radius-xl)",
-    contentGap: "var(--input-gap-xl)",
-    contentPaddingX: "var(--input-padding-x-xl)",
-    addonInnerPadding: "var(--input-addon-inner-xl)",
-    actionGap: "var(--input-action-gap-xl)",
-    iconSize: "var(--input-icon-xl)",
-    textClass: "text-[length:var(--input-text-size-xl)]",
-    labelClass: "text-[length:var(--input-label-size-xl)]",
-    descriptionClass: "text-[length:var(--input-description-size-xl)]",
-    hintIconSize: "var(--input-hint-icon-xl)",
-  },
-  lg: {
-    height: "var(--input-height-lg)",
-    radius: "var(--input-radius-lg)",
-    contentGap: "var(--input-gap-lg)",
-    contentPaddingX: "var(--input-padding-x-lg)",
-    addonInnerPadding: "var(--input-addon-inner-lg)",
-    actionGap: "var(--input-action-gap-lg)",
-    iconSize: "var(--input-icon-lg)",
-    textClass: "text-[length:var(--input-text-size-lg)]",
-    labelClass: "text-[length:var(--input-label-size-lg)]",
-    descriptionClass: "text-[length:var(--input-description-size-lg)]",
-    hintIconSize: "var(--input-hint-icon-lg)",
-  },
-  md: {
-    height: "var(--input-height-md)",
-    radius: "var(--input-radius-md)",
-    contentGap: "var(--input-gap-md)",
-    contentPaddingX: "var(--input-padding-x-md)",
-    addonInnerPadding: "var(--input-addon-inner-md)",
-    actionGap: "var(--input-action-gap-md)",
-    iconSize: "var(--input-icon-md)",
-    textClass: "text-[length:var(--input-text-size-md)]",
-    labelClass: "text-[length:var(--input-label-size-md)]",
-    descriptionClass: "text-[length:var(--input-description-size-md)]",
-    hintIconSize: "var(--input-hint-icon-md)",
-  },
-};
-
-/**
- * Use `NumberField` for numeric inputs that require spinbutton semantics,
- * and stepped keyboard interactions.
- */
-export interface InputProps
-  extends Omit<React.ComponentPropsWithoutRef<"input">, "size"> {
+export interface NumberFieldProps extends BaseNumberFieldRootProps {
   /** Size preset: XL=48px, LG=40px, MD=36px */
-  size?: InputSize;
-  /** Label text rendered above the input */
+  size?: NumberFieldSize;
+  /** Label text rendered above the number field */
   label?: string;
-  /** Helper text rendered below the input */
+  /** Helper text rendered below the number field */
   description?: string;
   /** Error message — replaces description when present */
   error?: string;
-  /** Icon element displayed before the input */
-  iconLeft?: ReactNode;
-  /** Icon element displayed after the input */
-  iconRight?: ReactNode;
-  /** Interactive element (e.g., copy button) displayed at the trailing edge */
-  action?: ReactNode;
   /** Tooltip hint shown via info icon next to the label */
   hint?: string;
+  /** Placeholder text rendered in the number input */
+  placeholder?: string;
+  /** Disables interaction and reduces opacity */
+  disabled?: boolean;
+  /** Forwarded className applied to the outer wrapper */
+  className?: string;
+  /** Ref to the interactive text input element */
+  inputRef?: React.Ref<HTMLInputElement>;
   /** Leading addon with divider (dropdown, static text, etc.) */
   leadingAddon?: ReactNode;
   /** Trailing addon with divider (dropdown, button, etc.) */
   trailingAddon?: ReactNode;
-  /** First-class trailing interactive control (e.g., "Copy address"). Wins over trailingAddon when both are provided. */
+  /** First-class trailing interactive control. Wins over trailingAddon when both are provided. */
   trailingAction?: ReactNode;
   /** Leading addon behavior mode. Interactive mode makes the full segment clickable. */
   leadingAddonKind?: AddonKind;
   /** Trailing addon behavior mode. Interactive mode makes the full segment clickable. */
   trailingAddonKind?: AddonKind;
-  /** Additional class names applied directly to the native input element. */
-  inputClassName?: string;
 }
 
-const addonSelectIconSizes: Record<FieldSize, React.CSSProperties> = {
-  xl: {
-    width: "var(--select-trigger-icon-xl)",
-    height: "var(--select-trigger-icon-xl)",
-  },
-  lg: {
-    width: "var(--select-trigger-icon-lg)",
-    height: "var(--select-trigger-icon-lg)",
-  },
-  md: {
-    width: "var(--select-trigger-icon-md)",
-    height: "var(--select-trigger-icon-md)",
-  },
-};
-
-function getInputConfig(size: FieldSize) {
-  const fc = fieldSizeConfigs[size];
+function getNumberFieldConfig(size: FieldSize) {
+  const fc = getFieldSizeConfig(size);
   return {
     ...fc,
     wrapperStyle: {
       height: fc.height,
       borderRadius: fc.radius,
     } as React.CSSProperties,
-    iconStyle: {
-      width: fc.iconSize,
-      height: fc.iconSize,
-    } as React.CSSProperties,
-    addonSelectIconStyle: addonSelectIconSizes[size],
   };
 }
-
-const IconWrapper = ({
-  children,
-  style,
-}: {
-  children: ReactNode;
-  style: React.CSSProperties;
-}) => (
-  <span
-    className={cn(
-      "pointer-events-none inline-flex shrink-0 items-center justify-center text-text-extra-high [&_svg]:size-full",
-      "ease opacity-44 transition-opacity duration-150",
-      "motion-reduce:transition-none",
-      "group-[:not(:focus-within)]/input:group-hover/input:opacity-56",
-      "group-focus-within/input:opacity-72"
-    )}
-    style={style}
-  >
-    {children}
-  </span>
-);
 
 const AddonDivider = () => (
   <span
     className={cn(
       "shrink-0 self-stretch",
       "bg-[var(--input-border-idle)]",
-      "ease transition-[background-color] duration-150",
+      "transition-[background-color] duration-150 ease-out",
       "motion-reduce:transition-none",
-      "group-[:not(:focus-within)]/input:group-hover/input:bg-[var(--input-border-hover)]",
-      "group-focus-within/input:bg-[var(--input-border-focus)]"
+      "group-[:not(:focus-within)]/number-field:group-hover/number-field:bg-[var(--input-border-hover)]",
+      "group-focus-within/number-field:bg-[var(--input-border-focus)]"
     )}
     style={{
       width: "var(--input-border-width)",
@@ -314,7 +220,7 @@ const resolveTrailingSlot = ({
 function addonSidePadding(
   hasAddon: boolean,
   kind: AddonKind,
-  config: ReturnType<typeof getInputConfig>
+  config: ReturnType<typeof getNumberFieldConfig>
 ) {
   if (!hasAddon) return config.contentPaddingX;
   return kind === "static"
@@ -323,7 +229,7 @@ function addonSidePadding(
 }
 
 function getContentStyle(
-  config: ReturnType<typeof getInputConfig>,
+  config: ReturnType<typeof getNumberFieldConfig>,
   opts: {
     hasLeading: boolean;
     leadingKind: AddonKind;
@@ -353,171 +259,41 @@ const warnTrailingActionConflict = ({
     trailingAddon &&
     !hasWarnedRef.current
   ) {
-    // trailingAction is the preferred API for interactive trailing controls.
     console.warn(
-      "Input: received both `trailingAction` and `trailingAddon`; `trailingAction` takes precedence."
+      "NumberField: received both `trailingAction` and `trailingAddon`; `trailingAction` takes precedence."
     );
     hasWarnedRef.current = true;
   }
 };
 
-export interface InputAddonSelectOption {
-  value: string;
-  label: string;
-  disabled?: boolean;
-}
-
-export interface InputAddonSelectProps {
-  /** ARIA label for the select */
-  ariaLabel: string;
-  /** Dropdown options for the addon select */
-  options: InputAddonSelectOption[];
-  /** Input size token to keep spacing/icon rhythm aligned with parent Input */
-  size?: InputSize;
-  /** Addon placement to map outer/inner paddings correctly */
-  position?: AddonPosition;
-  /** Controlled selected value */
-  value?: string | null;
-  /** Uncontrolled default value */
-  defaultValue?: string | null;
-  /** Called when selection changes */
-  onValueChange?: (value: string | null) => void;
-  /** Optional form name */
-  name?: string;
-  /** Disabled state */
-  disabled?: boolean;
-  /** Optional className for the wrapper */
-  className?: string;
-}
-
-export function InputAddonSelect({
-  ariaLabel,
-  className,
-  defaultValue,
-  disabled,
-  name,
-  onValueChange,
-  options,
-  position = "leading",
-  size = "md",
-  value,
-}: InputAddonSelectProps) {
-  const config = getInputConfig(size);
-
-  // Track internal value for label display in uncontrolled mode
-  const isControlled = value !== undefined && value !== null;
-  const [internalValue, setInternalValue] = useState(
-    () => defaultValue ?? options[0]?.value ?? ""
-  );
-  const currentValue = isControlled ? value : internalValue;
-  const selectedLabel =
-    options.find((o) => o.value === currentValue)?.label ??
-    String(currentValue ?? "");
-
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const newValue = e.target.value;
-      if (!isControlled) {
-        setInternalValue(newValue);
-      }
-      onValueChange?.(newValue);
-    },
-    [isControlled, onValueChange]
-  );
-
-  // Extend into AddonWrapper's padding so overlay covers the full addon segment
-  const padLeft =
-    position === "leading" ? config.contentPaddingX : config.addonInnerPadding;
-  const padRight =
-    position === "leading" ? config.addonInnerPadding : config.contentPaddingX;
-  const innerRadius = `calc(${config.radius} - var(--input-border-width))`;
-
-  return (
-    <span
-      className={cn(
-        "group/addon relative flex items-center self-stretch",
-        "cursor-pointer",
-        "ease transition-[background-color] duration-150",
-        "motion-reduce:transition-none",
-        "has-[select:hover]:bg-[var(--input-addon-hover-bg)]",
-        "has-[select:focus-visible]:bg-[var(--input-addon-hover-bg)]",
-        className
-      )}
-      data-input-addon-interactive="true"
-      style={{
-        gap: config.contentGap,
-        marginLeft: `calc(-1 * ${padLeft})`,
-        marginRight: `calc(-1 * ${padRight})`,
-        paddingLeft: padLeft,
-        paddingRight: padRight,
-        borderRadius:
-          position === "leading"
-            ? `${innerRadius} 0 0 ${innerRadius}`
-            : `0 ${innerRadius} ${innerRadius} 0`,
-      }}
-    >
-      {/* Display label — pointer-events-none, clicks pass through to select */}
-      <span
-        className={cn(
-          "pointer-events-none select-none text-text-high",
-          config.textClass
-        )}
-      >
-        {selectedLabel}
-      </span>
-
-      {/* Chevron indicator */}
-      <ChevronDownIcon
-        className="pointer-events-none shrink-0 text-text-medium"
-        style={config.addonSelectIconStyle}
-      />
-
-      {/* Invisible native select — covers full addon area for click/touch */}
-      <select
-        aria-label={ariaLabel}
-        className="absolute inset-0 h-full w-full cursor-pointer appearance-none border-0 bg-transparent opacity-0 outline-none"
-        defaultValue={isControlled ? undefined : (defaultValue ?? undefined)}
-        disabled={disabled}
-        name={name}
-        onChange={handleChange}
-        value={isControlled ? (value ?? undefined) : undefined}
-      >
-        {options.map((opt) => (
-          <option disabled={opt.disabled} key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-    </span>
-  );
-}
-
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(
   (
     {
       size = "md",
       label,
       description,
       error,
-      iconLeft,
-      iconRight,
-      action,
       hint,
+      placeholder,
+      disabled,
+      className,
+      inputRef,
       leadingAddon,
       leadingAddonKind = "static",
       trailingAddon,
       trailingAction,
       trailingAddonKind = "static",
-      disabled,
-      inputClassName,
-      className,
-      ...props
+      step = 0.01,
+      smallStep = 0.01,
+      largeStep = 1,
+      allowWheelScrub = false,
+      ...rootProps
     },
     ref
   ) => {
-    const config = getInputConfig(size);
+    const config = getNumberFieldConfig(size);
     const hasField = label || description || error;
-    const inputRef = useRef<HTMLInputElement | null>(null);
+    const numberInputRef = useRef<HTMLInputElement | null>(null);
     const hasWarnedTrailingActionRef = useRef(false);
 
     warnTrailingActionConflict({
@@ -538,10 +314,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const handleInputRef = useCallback(
       (node: HTMLInputElement | null) => {
-        inputRef.current = node;
+        numberInputRef.current = node;
         setForwardedRef(ref, node);
+        setForwardedRef(inputRef, node);
       },
-      [ref]
+      [inputRef, ref]
     );
 
     const handleWrapperPointerDown = useCallback(
@@ -559,7 +336,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         }
 
         event.preventDefault();
-        inputRef.current?.focus();
+        numberInputRef.current?.focus();
       },
       [disabled]
     );
@@ -571,16 +348,23 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       trailingKind: resolvedTrailingAddonKind,
     });
 
-    const inputWrapper = (
-      <div
+    const numberFieldWrapper = (
+      <BaseNumberField.Root
+        allowWheelScrub={allowWheelScrub}
         className={cn(
-          "group/input relative flex items-center",
+          "group/number-field relative flex items-center",
           !disabled && "cursor-text",
           disabled && "pointer-events-none opacity-40",
           className
         )}
+        disabled={disabled}
+        inputRef={handleInputRef}
+        largeStep={largeStep}
         onPointerDown={handleWrapperPointerDown}
+        smallStep={smallStep}
+        step={step}
         style={config.wrapperStyle}
+        {...rootProps}
       >
         {/* Border layer */}
         <span
@@ -589,11 +373,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             "border-[length:var(--input-border-width)]",
             "border-[var(--input-border-idle)]",
             "bg-[var(--input-bg-idle)]",
-            "ease transition-[border-color,background-color] duration-150",
+            "transition-[border-color,background-color] duration-150 ease-out",
             "motion-reduce:transition-none",
-            "group-[:not(:focus-within)]/input:group-hover/input:border-[var(--input-border-hover)]",
-            "group-[:not(:focus-within)]/input:group-hover/input:bg-[var(--input-bg-hover)]",
-            "group-focus-within/input:border-[var(--input-border-focus)]",
+            "group-[:not(:focus-within)]/number-field:group-hover/number-field:border-[var(--input-border-hover)]",
+            "group-[:not(:focus-within)]/number-field:group-hover/number-field:bg-[var(--input-bg-hover)]",
+            "group-focus-within/number-field:border-[var(--input-border-focus)]",
             error && "border-[var(--input-border-error)]"
           )}
         />
@@ -604,7 +388,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             "pointer-events-none absolute inset-0 rounded-[inherit]",
             "shadow-[0_0_0_2px_var(--input-focus-ring)]",
             "opacity-0 transition-opacity duration-150 ease-out",
-            "group-focus-within/input:opacity-100 group-focus-within/input:duration-0",
+            "group-focus-within/number-field:opacity-100 group-focus-within/number-field:duration-0",
             "motion-reduce:transition-none"
           )}
         />
@@ -626,37 +410,18 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           </>
         )}
 
-        {/* Inner content area controls text/icon rhythm and divider-side inset */}
         <span
           className="flex min-w-0 flex-1 items-center self-stretch"
           style={contentStyle}
         >
-          {iconLeft && (
-            <IconWrapper style={config.iconStyle}>{iconLeft}</IconWrapper>
-          )}
-
-          <BaseInput
+          <BaseNumberField.Input
             className={cn(
               "m-0 w-full min-w-0 flex-1 appearance-none border-0 bg-transparent p-0 leading-[var(--input-text-line-height)] outline-none",
               "text-text-extra-high placeholder:text-[var(--input-placeholder-color)]",
-              "autofill-transparent",
-              config.textClass,
-              inputClassName
+              config.textClass
             )}
-            disabled={disabled}
-            ref={handleInputRef}
-            {...props}
+            placeholder={placeholder}
           />
-
-          {iconRight && (
-            <IconWrapper style={config.iconStyle}>{iconRight}</IconWrapper>
-          )}
-
-          {action && (
-            <span className="relative z-10 inline-flex shrink-0 items-center justify-center">
-              {action}
-            </span>
-          )}
         </span>
 
         {resolvedTrailingAddonContent && (
@@ -673,10 +438,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </AddonWrapper>
           </>
         )}
-      </div>
+      </BaseNumberField.Root>
     );
 
-    if (!hasField) return inputWrapper;
+    if (!hasField) return numberFieldWrapper;
 
     return (
       <Field.Root
@@ -695,11 +460,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               <Tooltip content={hint}>
                 <button
                   aria-label="More information"
-                  className="inline-flex items-center justify-center rounded-sm text-text-low transition-colors hover:text-text-medium motion-reduce:transition-none"
-                  style={{
-                    padding: `calc((1.5rem - ${config.hintIconSize}) / 2)`,
-                    margin: `calc(-1 * (1.5rem - ${config.hintIconSize}) / 2)`,
-                  }}
+                  className="inline-flex min-h-6 min-w-6 items-center justify-center rounded-sm text-text-low transition-colors hover:text-text-medium"
                   type="button"
                 >
                   <QuestionMarkCircleIcon
@@ -713,7 +474,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             )}
           </div>
         )}
-        {inputWrapper}
+        {numberFieldWrapper}
         <AnimatePresence initial={false} mode="wait">
           {error ? (
             <motion.div
@@ -754,4 +515,4 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = "Input";
+NumberField.displayName = "NumberField";

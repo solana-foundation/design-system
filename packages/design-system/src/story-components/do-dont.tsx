@@ -1,4 +1,4 @@
-import { Check, X } from "lucide-react";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import type { ReactNode } from "react";
 
 export interface DoExampleProps {
@@ -17,7 +17,7 @@ export function DoExample({ description, children }: DoExampleProps) {
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
         <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500/15">
-          <Check className="h-3 w-3 text-green-600" strokeWidth={3} />
+          <CheckIcon className="h-3 w-3 text-green-600" />
         </div>
         <span className="font-semibold text-green-700 text-xs uppercase tracking-wide">
           Do
@@ -47,7 +47,7 @@ export function DontExample({ description, children }: DontExampleProps) {
     <div className="flex flex-col gap-4">
       <div className="flex items-center gap-2">
         <div className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500/15">
-          <X className="h-3 w-3 text-red-600" strokeWidth={3} />
+          <XMarkIcon className="h-3 w-3 text-red-600" />
         </div>
         <span className="font-semibold text-red-700 text-xs uppercase tracking-wide">
           Don't

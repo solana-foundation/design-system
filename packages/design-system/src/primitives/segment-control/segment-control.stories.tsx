@@ -1,5 +1,11 @@
+import {
+  ComputerDesktopIcon,
+  ListBulletIcon,
+  MoonIcon,
+  Squares2X2Icon,
+  SunIcon,
+} from "@heroicons/react/24/outline";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Grid3X3, LayoutList, Monitor, Moon, Sun } from "lucide-react";
 import { SegmentControl } from "./index";
 
 /**
@@ -43,16 +49,16 @@ export const WithIcons: Story = {
       <SegmentControl
         defaultValue="grid"
         items={[
-          { value: "grid", label: "Grid", icon: <Grid3X3 /> },
-          { value: "list", label: "List", icon: <LayoutList /> },
+          { value: "grid", label: "Grid", icon: <Squares2X2Icon /> },
+          { value: "list", label: "List", icon: <ListBulletIcon /> },
         ]}
       />
       <SegmentControl
         defaultValue="system"
         items={[
-          { value: "light", label: "Light", icon: <Sun /> },
-          { value: "dark", label: "Dark", icon: <Moon /> },
-          { value: "system", label: "System", icon: <Monitor /> },
+          { value: "light", label: "Light", icon: <SunIcon /> },
+          { value: "dark", label: "Dark", icon: <MoonIcon /> },
+          { value: "system", label: "System", icon: <ComputerDesktopIcon /> },
         ]}
       />
     </div>

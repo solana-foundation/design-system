@@ -1,5 +1,11 @@
+import {
+  ArrowRightIcon,
+  CheckIcon,
+  ClipboardDocumentIcon,
+  MagnifyingGlassIcon,
+  PlusIcon,
+} from "@heroicons/react/24/outline";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ArrowRight, Check, Copy, Plus, Search } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { Button } from "./index";
@@ -69,13 +75,13 @@ const meta: Meta<typeof Button> = {
     iconLeft: {
       control: "boolean",
       description: "Icon element displayed before the button text.",
-      mapping: { true: <Plus />, false: undefined },
+      mapping: { true: <PlusIcon />, false: undefined },
       table: { category: "Icons", type: { summary: "ReactNode" } },
     },
     iconRight: {
       control: "boolean",
       description: "Icon element displayed after the button text.",
-      mapping: { true: <ArrowRight />, false: undefined },
+      mapping: { true: <ArrowRightIcon />, false: undefined },
       table: { category: "Icons", type: { summary: "ReactNode" } },
     },
     iconOnly: {
@@ -145,7 +151,11 @@ const AnimatedCopyIcon = ({ copied }: { copied: boolean }) => (
       key={copied ? "check" : "copy"}
       transition={{ type: "spring", duration: 0.3, bounce: 0 }}
     >
-      {copied ? <Check size={16} /> : <Copy size={16} />}
+      {copied ? (
+        <CheckIcon height={16} width={16} />
+      ) : (
+        <ClipboardDocumentIcon height={16} width={16} />
+      )}
     </motion.span>
   </AnimatePresence>
 );
@@ -197,7 +207,9 @@ export const Playground: Story = {
     return (
       <Button
         {...args}
-        iconLeft={args.iconLeft || (needsDefaultIcon ? <Plus /> : undefined)}
+        iconLeft={
+          args.iconLeft || (needsDefaultIcon ? <PlusIcon /> : undefined)
+        }
       />
     );
   },
@@ -317,13 +329,13 @@ export const Overview: Story = {
         </h4>
         <div className="flex items-center gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col items-center gap-2">
-            <Button iconLeft={<Plus />} size="md" variant="primary">
+            <Button iconLeft={<PlusIcon />} size="md" variant="primary">
               Leading
             </Button>
             <span className="text-text-low text-xs">Before label</span>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <Button iconRight={<ArrowRight />} size="md" variant="primary">
+            <Button iconRight={<ArrowRightIcon />} size="md" variant="primary">
               Trailing
             </Button>
             <span className="text-text-low text-xs">After label</span>
@@ -331,7 +343,7 @@ export const Overview: Story = {
           <div className="flex flex-col items-center gap-2">
             <Button
               aria-label="Search"
-              iconLeft={<Search />}
+              iconLeft={<MagnifyingGlassIcon />}
               iconOnly
               size="md"
               variant="primary"

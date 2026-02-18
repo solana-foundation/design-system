@@ -1,5 +1,9 @@
+import {
+  EnvelopeIcon,
+  EyeIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { Eye, Mail, Search, Send } from "lucide-react";
 import { CopyButton } from "../copy-button";
 import { NumberField } from "../number-field";
 import { Input, InputAddonSelect } from "./index";
@@ -15,8 +19,8 @@ import { Input, InputAddonSelect } from "./index";
  * - **Sizes**: XL (48px) / LG (40px) / MD (36px)
  * - **States**: Idle / Hover / Focused / Disabled
  * - **Clickability**: Entire non-interactive field surface focuses input
- * - **Addon behavior**: `trailingAction` is preferred for trailing interactive controls
- * - **Slots**: Label / Description / Error / Icon Left / Icon Right / Action / TrailingAction
+ * - **Copy pattern**: Use the `action` slot with `<CopyButton>` for inline copy (no divider)
+ * - **Slots**: Label / Description / Error / Icon Left / Icon Right / Action
  * - **Addons**: Leading / Trailing (with dividers) for text/select-style extensions
  * - **Hint**: Tooltip trigger enforces a 24x24 minimum target
  * - **Target guidance**: Injected addon controls should be at least 24x24 (40-44+ preferred for touch-first surfaces)
@@ -93,9 +97,6 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const addonTextClass = "whitespace-nowrap";
-const addonButtonClass =
-  "inline-flex h-full min-h-full items-center gap-1.5 whitespace-nowrap px-3 font-medium text-text-high transition-colors duration-150 ease-out hover:text-text-extra-high focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--input-focus-ring)] focus-visible:ring-inset motion-reduce:transition-none";
-
 const countryCodeOptions = [
   { value: "+1", label: "+1" },
   { value: "+44", label: "+44" },
@@ -112,10 +113,11 @@ const currencyOptions = [
   { value: "SOL", label: "SOL" },
 ];
 
-const methodOptions = [
-  { value: "GET", label: "GET" },
-  { value: "POST", label: "POST" },
-  { value: "PUT", label: "PUT" },
+const domainOptions = [
+  { value: ".com", label: ".com" },
+  { value: ".org", label: ".org" },
+  { value: ".io", label: ".io" },
+  { value: ".dev", label: ".dev" },
 ];
 
 // =============================================================================
@@ -136,7 +138,7 @@ export const Playground: Story = {
     <div className="w-[320px]">
       <Input
         {...args}
-        iconLeft={showIcon ? <Search absoluteStrokeWidth /> : undefined}
+        iconLeft={showIcon ? <MagnifyingGlassIcon /> : undefined}
       />
     </div>
   ),
@@ -211,15 +213,12 @@ export const Overview: Story = {
         <h4 className="font-medium text-text-low text-xs">Icons</h4>
         <div className="flex flex-col gap-4 rounded-xl border border-border-medium p-6">
           <div className="flex flex-col gap-1">
-            <Input
-              iconLeft={<Search absoluteStrokeWidth />}
-              placeholder="Search..."
-            />
+            <Input iconLeft={<MagnifyingGlassIcon />} placeholder="Search..." />
             <span className="text-text-low text-xs">Icon left</span>
           </div>
           <div className="flex flex-col gap-1">
             <Input
-              iconRight={<Eye absoluteStrokeWidth />}
+              iconRight={<EyeIcon />}
               placeholder="Password"
               type="password"
             />
@@ -227,8 +226,8 @@ export const Overview: Story = {
           </div>
           <div className="flex flex-col gap-1">
             <Input
-              iconLeft={<Mail absoluteStrokeWidth />}
-              iconRight={<Search absoluteStrokeWidth />}
+              iconLeft={<EnvelopeIcon />}
+              iconRight={<MagnifyingGlassIcon />}
               placeholder="Both icons"
             />
             <span className="text-text-low text-xs">Both icons</span>
@@ -285,6 +284,27 @@ export const Overview: Story = {
             />
             <span className="text-text-low text-xs">
               Password field with CopyButton action
+            </span>
+          </div>
+          <div className="flex flex-col gap-1">
+            <Input
+              defaultValue="Fh8W2J1Y3n6K9pQ4rT7uV2xZ5mA8cD3eF6hJ9kL2pN4q"
+              inputClassName="font-mono"
+              label="Wallet Address"
+              readOnly
+              size="lg"
+              trailingAction={
+                <CopyButton
+                  copiedLabel="Copied"
+                  label="Copy address"
+                  size="lg"
+                  value="Fh8W2J1Y3n6K9pQ4rT7uV2xZ5mA8cD3eF6hJ9kL2pN4q"
+                  variant="inline"
+                />
+              }
+            />
+            <span className="text-text-low text-xs">
+              Trailing action with inline CopyButton
             </span>
           </div>
         </div>
@@ -368,51 +388,7 @@ export const LeadingText: Story = {
 };
 
 // =============================================================================
-// 5. TRAILING BUTTON
-// =============================================================================
-
-export const TrailingButton: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex w-[720px] flex-col gap-10 p-8">
-      <section className="flex flex-col gap-4">
-        <h4 className="font-medium text-text-low text-xs">Trailing Actions</h4>
-        <div className="flex flex-col gap-6 rounded-xl border border-border-medium p-6">
-          <Input
-            defaultValue="Fh8W2J1Y3n6K9pQ4rT7uV2xZ5mA8cD3eF6hJ9kL2pN4q"
-            inputClassName="font-mono"
-            label="Wallet Address"
-            readOnly
-            size="lg"
-            trailingAction={
-              <CopyButton
-                copiedLabel="Copied"
-                label="Copy address"
-                size="lg"
-                value="Fh8W2J1Y3n6K9pQ4rT7uV2xZ5mA8cD3eF6hJ9kL2pN4q"
-                variant="inline"
-              />
-            }
-          />
-          <Input
-            label="Subscribe"
-            placeholder="you@example.com"
-            size="lg"
-            trailingAction={
-              <button className={addonButtonClass} type="button">
-                <Send className="size-3.5" />
-                Send
-              </button>
-            }
-          />
-        </div>
-      </section>
-    </div>
-  ),
-};
-
-// =============================================================================
-// 6. LEADING DROPDOWN
+// 5. LEADING DROPDOWN
 // =============================================================================
 
 export const LeadingDropdown: Story = {
@@ -448,7 +424,7 @@ export const LeadingDropdown: Story = {
 };
 
 // =============================================================================
-// 7. TRAILING DROPDOWN
+// 6. TRAILING DROPDOWN
 // =============================================================================
 
 export const TrailingDropdown: Story = {
@@ -483,7 +459,7 @@ export const TrailingDropdown: Story = {
 };
 
 // =============================================================================
-// 8. COMBINED ADDONS
+// 7. COMBINED ADDONS
 // =============================================================================
 
 export const CombinedAddons: Story = {
@@ -510,28 +486,6 @@ export const CombinedAddons: Story = {
             }
             trailingAddonKind="interactive"
           />
-          <Input
-            description="Include protocol (e.g. https://)"
-            label="API Endpoint"
-            leadingAddon={
-              <InputAddonSelect
-                ariaLabel="HTTP method"
-                defaultValue="GET"
-                options={methodOptions}
-                position="leading"
-                size="lg"
-              />
-            }
-            leadingAddonKind="interactive"
-            placeholder="https://api.example.com/v1"
-            size="lg"
-            trailingAction={
-              <button className={addonButtonClass} type="button">
-                <Send className="size-3.5" />
-                Send
-              </button>
-            }
-          />
         </div>
       </section>
     </div>
@@ -539,7 +493,7 @@ export const CombinedAddons: Story = {
 };
 
 // =============================================================================
-// 9. ADDON SIZES
+// 8. ADDON SIZES
 // =============================================================================
 
 export const AddonSizes: Story = {
@@ -552,39 +506,54 @@ export const AddonSizes: Story = {
           <div className="flex flex-col gap-1">
             <Input
               leadingAddon={<span className={addonTextClass}>https://</span>}
-              placeholder="example.com"
+              placeholder="example"
               size="xl"
-              trailingAction={
-                <button className={addonButtonClass} type="button">
-                  Go
-                </button>
+              trailingAddon={
+                <InputAddonSelect
+                  ariaLabel="Domain suffix"
+                  defaultValue=".com"
+                  options={domainOptions}
+                  position="trailing"
+                  size="xl"
+                />
               }
+              trailingAddonKind="interactive"
             />
             <span className="text-text-low text-xs">XL / 48px</span>
           </div>
           <div className="flex flex-col gap-1">
             <Input
               leadingAddon={<span className={addonTextClass}>https://</span>}
-              placeholder="example.com"
+              placeholder="example"
               size="lg"
-              trailingAction={
-                <button className={addonButtonClass} type="button">
-                  Go
-                </button>
+              trailingAddon={
+                <InputAddonSelect
+                  ariaLabel="Domain suffix"
+                  defaultValue=".com"
+                  options={domainOptions}
+                  position="trailing"
+                  size="lg"
+                />
               }
+              trailingAddonKind="interactive"
             />
             <span className="text-text-low text-xs">LG / 40px</span>
           </div>
           <div className="flex flex-col gap-1">
             <Input
               leadingAddon={<span className={addonTextClass}>https://</span>}
-              placeholder="example.com"
+              placeholder="example"
               size="md"
-              trailingAction={
-                <button className={addonButtonClass} type="button">
-                  Go
-                </button>
+              trailingAddon={
+                <InputAddonSelect
+                  ariaLabel="Domain suffix"
+                  defaultValue=".com"
+                  options={domainOptions}
+                  position="trailing"
+                  size="md"
+                />
               }
+              trailingAddonKind="interactive"
             />
             <span className="text-text-low text-xs">MD / 36px</span>
           </div>

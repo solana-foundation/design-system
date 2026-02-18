@@ -7,6 +7,7 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "storybook": "turbo run storybook",
+    "storybook:local": "pnpm --filter @solana/design-system storybook",
     "storybook:build": "turbo run storybook:build",
     "registry:build": "turbo run registry:build",
     "example:token-list": "turbo run dev --filter token-list-example"

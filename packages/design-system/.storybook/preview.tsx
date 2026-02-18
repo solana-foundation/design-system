@@ -33,7 +33,7 @@ const preview: Preview = {
       defaultTheme: "light",
     }),
     (Story) => (
-      <div className="bg-background text-foreground min-h-[100px] w-full grid place-items-center p-8">
+      <div className="grid min-h-[100px] w-full place-items-center bg-background p-8 text-foreground">
         <Story />
       </div>
     ),

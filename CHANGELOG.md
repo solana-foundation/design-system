@@ -4,6 +4,43 @@ All changes to the Solana Design System with explanations.
 
 ---
 
+## 2026-02-18 (Seamless Static Addons)
+
+### Seamless static addons in InputField and NumberField
+**What:** Static text addons ("https://", "$", "@") now render seamlessly inside both `InputField` and `NumberField` with no separator line, lower emphasis (`text-text-low` / 56%), and tighter spacing (`contentGap / 2` ≈ 3–4px). Interactive addons (dropdowns, buttons) keep their divider and `text-text-high` color. Story addon text no longer applies `font-medium`, letting prefixes recede below the input value.
+
+**Why:** Stripe, Geist, Radix, and Material all render text prefixes as embedded, de-emphasized text with no separator. The previous implementation only covered `InputField` and used `text-text-medium` (72%) with full `contentGap` (6–8px) — still too prominent. Halving the gap approximates a natural word space, and `text-text-low` places the prefix below the input value but above the placeholder in the visual hierarchy.
+
+---
+
+## 2026-02-18 (Tooltip Redesign)
+
+### Added TooltipProvider for skip-delay grouping
+**What:** Added `TooltipProvider` component that wraps multiple `Tooltip` instances in a shared `BaseTooltip.Provider`. When a tooltip closes, any other tooltip in the same provider opens instantly (within 300ms) instead of waiting for the full delay.
+
+**Why:** Previously every `<Tooltip>` created its own provider, so the skip-delay pattern never worked — hovering between nearby triggers always incurred the full 200ms wait. Wrapping a toolbar or nav in `<TooltipProvider>` now gives the expected instant-open behavior.
+
+### Added closeDelay (150ms grace period)
+**What:** Tooltips now wait 150ms before hiding on mouse-out, both standalone and inside `TooltipProvider`.
+
+**Why:** Instant vanish on mouse-out made tooltips feel twitchy. A 150ms grace period lets users move between nearby triggers without the tooltip flickering away.
+
+### Tuned animation for a satisfying pop
+**What:** Changed scale from `0.985` to `0.96` and duration from `140ms` to `125ms`. Added `max-w-[320px]` with `text-pretty` for balanced wrapping.
+
+**Why:** The old 1.5% scale change was barely perceptible — the tooltip just "appeared." A 4% scale change creates a visible, satisfying pop without being distracting. Faster duration makes it feel snappier.
+
+---
+
+## 2026-02-18 (Field Typography Calibration)
+
+### Calibrated placeholder hierarchy for Input, Select, and Number Field
+**What:** Added input typography tokens (`--input-text-size-*`, `--input-label-size-*`, `--input-description-size-*`, `--input-text-line-height`, `--input-placeholder-color`) and updated field primitives so placeholder text uses the same size/line-height rhythm as entered value text.
+
+**Why:** Placeholder hierarchy now comes from emphasis color and weight, not reduced type size. This removes the “placeholder feels smaller than label/value” optical mismatch while preserving 48/40/36 control heights.
+
+**Rule:** Placeholder and value share typography; hierarchy is expressed through emphasis (`--input-placeholder-color`), not by shrinking the placeholder.
+
 ## 2026-01-19 (Typography System)
 
 ### Added Inter Variable typography system
