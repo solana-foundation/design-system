@@ -117,6 +117,16 @@
   --tw-exit-translate-x: 0.5rem;
 }
 
+@utility autofill-transparent {
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: inherit !important;
+    transition: background-color 9999s ease-in-out 0s;
+  }
+}
+
 /* Inline code styling - sand background for code wrapped in `` */
 .prose :not(pre) > code,
 .prose p code,
@@ -396,6 +406,47 @@
   --button-gap-lg: 8px;
   --button-gap-md: 6px;
   --button-gap-sm: 4px;
+
+  /* =============================================================================
+     INPUT TOKENS
+     ============================================================================= */
+
+  /* Input Heights (matches button) */
+  --input-height-xl: 48px;
+  --input-height-lg: 40px;
+  --input-height-md: 36px;
+
+  /* Input Padding Horizontal */
+  --input-padding-x-xl: 14px;
+  --input-padding-x-lg: 10px;
+  --input-padding-x-md: 12px;
+
+  /* Input Radii (matches button) */
+  --input-radius-xl: 12px;
+  --input-radius-lg: 10px;
+  --input-radius-md: 8px;
+
+  /* Input Icon Sizes */
+  --input-icon-xl: 20px;
+  --input-icon-lg: 16px;
+  --input-icon-md: 12px;
+
+  /* Input Gaps */
+  --input-gap-xl: 8px;
+  --input-gap-lg: 8px;
+  --input-gap-md: 6px;
+
+  /* Input Border */
+  --input-border-width: 1.5px;
+  --input-border-idle: color-mix(in srgb, var(--gray-1300) 20%, transparent);
+  --input-border-hover: color-mix(in srgb, var(--gray-1300) 36%, transparent);
+  --input-border-focus: color-mix(in srgb, var(--gray-1300) 48%, transparent);
+
+  /* Input Background */
+  --input-bg-hover: color-mix(in srgb, var(--gray-1400) 2%, transparent);
+
+  /* Input Focus Ring */
+  --input-focus-ring: color-mix(in srgb, var(--gray-1200) 16%, transparent);
 
   --radius: 0.625rem;
 
@@ -752,6 +803,13 @@ body {
 
   /* Button Focus Ring - solid white for WCAG 2.4.13 compliance (≥3:1 contrast) */
   --button-focus-ring: var(--white);
+
+  /* Input - dark mode overrides */
+  --input-border-idle: color-mix(in srgb, var(--white) 20%, transparent);
+  --input-border-hover: color-mix(in srgb, var(--white) 24%, transparent);
+  --input-border-focus: color-mix(in srgb, var(--white) 48%, transparent);
+  --input-bg-hover: color-mix(in srgb, var(--white) 2%, transparent);
+  --input-focus-ring: color-mix(in srgb, var(--white) 16%, transparent);
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);

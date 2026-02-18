@@ -48,6 +48,17 @@
       "files": [{ "path": "registry/solana/button.tsx", "type": "registry:ui" }]
     },
     {
+      "name": "input-field",
+      "type": "registry:ui",
+      "title": "Input Field",
+      "description": "Accessible text input with label, description, error, and icon slots. Built on Base UI Field.",
+      "dependencies": ["@base-ui/react", "motion"],
+      "registryDependencies": ["cn"],
+      "files": [
+        { "path": "registry/solana/input-field.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
       "name": "segment-control",
       "type": "registry:ui",
       "title": "Segment Control",
