@@ -18,6 +18,7 @@ Use these skills proactively during your work:
 
 - **`/react-best-practices`** — Run this skill when implementing component logic, hooks, or performance-sensitive patterns. Use it to validate your React patterns follow current best practices.
 - **`/vercel-design-guidelines`** — Run this skill when reviewing the visual design, accessibility, or UX of components. Use it to audit components against Vercel's design standards.
+- **`/storybook`** — Run this skill when writing Storybook stories. It provides the exact template and patterns for this design system.
 
 ## Mandatory Pre-Implementation Research
 
@@ -151,9 +152,7 @@ Structure every response as:
   - Accessibility considerations
 
 ### 4. Story
-- Complete Storybook file
-- Default story with controls for all variations (icon position, size, variant, etc.)
-- MotionPlayground story (for animated components only)
+- Run `/storybook` to generate the complete story file following the project template
 
 ## Quality Checklist
 
