@@ -108,7 +108,6 @@ const addonSelectIconSizes: Record<FieldSize, React.CSSProperties> = {
   },
 };
 
-
 function getInputConfig(size: FieldSize) {
   const fc = getFieldSizeConfig(size);
   return {

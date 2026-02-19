@@ -516,7 +516,6 @@
   --input-hint-icon-lg: 14px;
   --input-hint-icon-md: 12px;
 
-
   /* =============================================================================
      SELECT POPUP TOKENS
      ============================================================================= */
@@ -993,7 +992,6 @@ body {
     font-optical-sizing: auto;
   }
 }
-
 
 /* Custom wide-spaced dashed borders using background gradients */
 .border-l-dashed-wide {
