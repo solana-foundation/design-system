@@ -31,9 +31,9 @@ const inlineSpacingClassBySize: Record<CopyButtonSize, string> = {
 };
 
 const addonSpacingClassBySize: Record<CopyButtonSize, string> = {
-  xl: "gap-[var(--input-action-gap-xl)]",
-  lg: "gap-[var(--input-action-gap-lg)]",
-  md: "gap-[var(--input-action-gap-md)]",
+  xl: "gap-1.5", // 6px — snug for 20px icon (30% of icon size)
+  lg: "gap-1", // 4px — tight for 16px icon (25% of icon size)
+  md: "gap-1", // 4px — tight for 16px icon (25% of icon size)
 };
 
 const COPY_FAILURE_RESET_DELAY = 1200;
@@ -193,7 +193,23 @@ export const CopyButton = ({
           preset="micro"
         />
       </span>
-      {hasLabel && <span aria-hidden>{statusLabel}</span>}
+      {variant === "addon" && <span aria-hidden>{statusLabel}</span>}
+      {variant === "inline" && (
+        <span
+          aria-hidden
+          className="grid text-left [&>span]:col-start-1 [&>span]:row-start-1 [&>span]:transition-opacity [&>span]:duration-150 [&>span]:ease-out motion-reduce:[&>span]:transition-none"
+        >
+          <span className={state !== "idle" ? "opacity-0" : undefined}>
+            {label}
+          </span>
+          <span className={state !== "copied" ? "opacity-0" : undefined}>
+            {copiedLabel}
+          </span>
+          <span className={state !== "failed" ? "opacity-0" : undefined}>
+            {failedLabel}
+          </span>
+        </span>
+      )}
       <span className="sr-only" role="status">
         {state === "copied"
           ? "Copied to clipboard"
