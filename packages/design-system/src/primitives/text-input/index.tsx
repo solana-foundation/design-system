@@ -147,24 +147,6 @@ const IconWrapper = ({
   </span>
 );
 
-const AddonDivider = () => (
-  <span
-    className={cn(
-      "shrink-0 self-stretch",
-      "bg-[var(--input-border-idle)]",
-      "ease transition-[background-color] duration-150",
-      "motion-reduce:transition-none",
-      "group-[:not(:focus-within)]/input:group-hover/input:bg-[var(--input-border-hover)]",
-      "group-focus-within/input:bg-[var(--input-border-focus)]"
-    )}
-    style={{
-      width: "var(--input-border-width)",
-      marginTop: "var(--input-border-width)",
-      marginBottom: "var(--input-border-width)",
-    }}
-  />
-);
-
 const AddonWrapper = ({
   children,
   position,
@@ -594,20 +576,17 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         />
 
         {leadingAddon && (
-          <>
-            <AddonWrapper
-              innerPaddingX={config.addonInnerPadding}
-              kind={leadingAddonKind}
-              outerPaddingX={config.contentPaddingX}
-              position="leading"
-              textClass={config.textClass}
-            >
-              {leadingAddonKind === "interactive"
-                ? normalizeInteractiveAddonControl(leadingAddon)
-                : leadingAddon}
-            </AddonWrapper>
-            {leadingAddonKind === "interactive" && <AddonDivider />}
-          </>
+          <AddonWrapper
+            innerPaddingX={config.addonInnerPadding}
+            kind={leadingAddonKind}
+            outerPaddingX={config.contentPaddingX}
+            position="leading"
+            textClass={config.textClass}
+          >
+            {leadingAddonKind === "interactive"
+              ? normalizeInteractiveAddonControl(leadingAddon)
+              : leadingAddon}
+          </AddonWrapper>
         )}
 
         {/* Inner content area controls text/icon rhythm and divider-side inset */}
@@ -644,28 +623,25 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
         </span>
 
         {resolvedTrailingAddonContent && (
-          <>
-            {resolvedTrailingAddonKind === "interactive" && <AddonDivider />}
-            <AddonWrapper
-              innerPaddingX={
-                resolvedTrailingIsAction
-                  ? config.contentGap
-                  : config.addonInnerPadding
-              }
-              innerRadius={
-                resolvedTrailingIsAction
-                  ? `calc(${config.radius} - var(--input-border-width))`
-                  : undefined
-              }
-              isAction={resolvedTrailingIsAction}
-              kind={resolvedTrailingAddonKind}
-              outerPaddingX={trailingOuterPaddingX}
-              position="trailing"
-              textClass={config.textClass}
-            >
-              {resolvedTrailingAddonContent}
-            </AddonWrapper>
-          </>
+          <AddonWrapper
+            innerPaddingX={
+              resolvedTrailingIsAction
+                ? config.contentGap
+                : config.addonInnerPadding
+            }
+            innerRadius={
+              resolvedTrailingIsAction
+                ? `calc(${config.radius} - var(--input-border-width))`
+                : undefined
+            }
+            isAction={resolvedTrailingIsAction}
+            kind={resolvedTrailingAddonKind}
+            outerPaddingX={trailingOuterPaddingX}
+            position="trailing"
+            textClass={config.textClass}
+          >
+            {resolvedTrailingAddonContent}
+          </AddonWrapper>
         )}
       </div>
     );

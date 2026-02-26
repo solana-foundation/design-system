@@ -31,9 +31,9 @@ const inlineSpacingClassBySize: Record<CopyButtonSize, string> = {
 };
 
 const addonSpacingClassBySize: Record<CopyButtonSize, string> = {
-  xl: "gap-1.5", // 6px — snug for 20px icon (30% of icon size)
-  lg: "gap-1", // 4px — tight for 16px icon (25% of icon size)
-  md: "gap-1", // 4px — tight for 16px icon (25% of icon size)
+  xl: "gap-2", // 8px — balanced for 20px icon (40% of icon size)
+  lg: "gap-1.5", // 6px — balanced for 16px icon (38% of icon size)
+  md: "gap-1.5", // 6px — balanced for 16px icon (38% of icon size)
 };
 
 const COPY_FAILURE_RESET_DELAY = 1200;
