@@ -545,6 +545,39 @@
   --select-indicator-size-lg: 14px;
   --select-indicator-size: var(--select-indicator-size-lg);
 
+  /* =============================================================================
+     CODE BLOCK TOKENS - Default Light
+     ============================================================================= */
+
+  /* Shell tokens */
+  --code-block-bg: var(--gray-50);
+  --code-block-border: var(--border-medium);
+  --code-block-header-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
+  --code-block-header-text: var(--text-medium);
+  --code-block-header-border: var(--border-medium);
+  --code-block-line-number: var(--text-extra-low);
+  --code-block-line-highlight: color-mix(
+    in srgb,
+    var(--gray-1400) 5%,
+    transparent
+  );
+  --code-block-scrollbar-thumb: var(--gray-300);
+
+  /* Shiki syntax tokens - Default Light (OKLCh, purple→teal axis) */
+  --shiki-foreground: var(--gray-1400);
+  --shiki-background: transparent;
+  --shiki-token-keyword: oklch(0.47 0.11 295);
+  --shiki-token-string: oklch(0.52 0.1 165);
+  --shiki-token-comment: var(--gray-700);
+  --shiki-token-function: oklch(0.48 0.1 255);
+  --shiki-token-constant: oklch(0.52 0.11 25);
+  --shiki-token-parameter: oklch(0.5 0.08 55);
+  --shiki-token-punctuation: var(--gray-900);
+  --shiki-token-type: oklch(0.5 0.09 200);
+  --shiki-token-attribute: oklch(0.52 0.08 130);
+  --shiki-token-escape: oklch(0.55 0.1 45);
+  --shiki-token-variable-lang: oklch(0.47 0.09 310);
+
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
@@ -928,6 +961,31 @@ body {
     0px 8px 24px rgba(0, 0, 0, 0.32), 0px 2px 8px rgba(0, 0, 0, 0.24);
   --select-item-highlight-bg: color-mix(in srgb, var(--white) 8%, transparent);
 
+  /* Code Block - dark mode overrides */
+  --code-block-bg: var(--gray-100);
+  --code-block-border: color-mix(in srgb, var(--white) 10%, transparent);
+  --code-block-header-bg: color-mix(in srgb, var(--white) 4%, transparent);
+  --code-block-header-text: var(--text-medium);
+  --code-block-header-border: color-mix(in srgb, var(--white) 10%, transparent);
+  --code-block-line-number: var(--text-extra-low);
+  --code-block-line-highlight: color-mix(in srgb, var(--white) 5%, transparent);
+  --code-block-scrollbar-thumb: var(--gray-400);
+
+  /* Shiki syntax tokens - Default Dark (OKLCh, soft purple→teal axis) */
+  --shiki-foreground: var(--gray-1400);
+  --shiki-background: transparent;
+  --shiki-token-keyword: oklch(0.76 0.1 295);
+  --shiki-token-string: oklch(0.74 0.09 168);
+  --shiki-token-comment: var(--gray-700);
+  --shiki-token-function: oklch(0.75 0.08 250);
+  --shiki-token-constant: oklch(0.74 0.1 30);
+  --shiki-token-parameter: oklch(0.72 0.07 60);
+  --shiki-token-punctuation: var(--gray-900);
+  --shiki-token-type: oklch(0.74 0.08 200);
+  --shiki-token-attribute: oklch(0.73 0.07 135);
+  --shiki-token-escape: oklch(0.73 0.09 50);
+  --shiki-token-variable-lang: oklch(0.75 0.08 310);
+
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -959,6 +1017,210 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/* =============================================================================
+   CODE BLOCK - Sand Light Theme
+   Warm editorial: 6 accent colors in the warm hue arc (18-200)
+   ============================================================================= */
+
+[data-code-theme="sand"] {
+  --code-block-bg: oklch(0.9665 0.0067 97.35);
+  --code-block-border: oklch(0.839 0.0187 78.23);
+  --code-block-header-bg: oklch(0.927 0.0122 96.43);
+  --code-block-header-text: oklch(0.442 0.0111 34.3);
+  --code-block-header-border: oklch(0.839 0.0187 78.23);
+  --code-block-line-number: oklch(0.6938 0.0247 56.8);
+  --code-block-line-highlight: oklch(0.927 0.0122 96.43);
+  --code-block-scrollbar-thumb: oklch(0.839 0.0187 78.23);
+
+  /* Sand Light syntax: warm editorial, 6 accent colors in warm arc */
+  --shiki-foreground: oklch(0.3356 0.0046 39.42);
+  --shiki-background: transparent;
+  --shiki-token-keyword: oklch(0.42 0.06 30);
+  --shiki-token-string: oklch(0.48 0.09 40);
+  --shiki-token-comment: oklch(0.62 0.025 65);
+  --shiki-token-function: oklch(0.44 0.07 155);
+  --shiki-token-constant: oklch(0.46 0.08 18);
+  --shiki-token-parameter: oklch(0.44 0.04 50);
+  --shiki-token-punctuation: oklch(0.56 0.02 45);
+  --shiki-token-type: oklch(0.42 0.06 200);
+  --shiki-token-attribute: oklch(0.46 0.06 130);
+  --shiki-token-escape: oklch(0.5 0.08 55);
+  --shiki-token-variable-lang: oklch(0.42 0.05 350);
+}
+
+/* =============================================================================
+   CODE BLOCK - Sand Dark Theme
+   Warm charcoal background, 6 soft accent colors
+   ============================================================================= */
+
+.dark [data-code-theme="sand"],
+[data-code-theme="sand"].dark,
+[data-code-theme="sand"] .dark {
+  --code-block-bg: #1c1a18;
+  --code-block-border: #3a3632;
+  --code-block-header-bg: #242120;
+  --code-block-header-text: #a09890;
+  --code-block-header-border: #3a3632;
+  --code-block-line-number: #6b6360;
+  --code-block-line-highlight: #2a2725;
+  --code-block-scrollbar-thumb: #3a3632;
+
+  /* Sand Dark syntax: warm editorial, soft lifted accents */
+  --shiki-foreground: oklch(0.82 0.01 55);
+  --shiki-background: transparent;
+  --shiki-token-keyword: oklch(0.7 0.05 35);
+  --shiki-token-string: oklch(0.72 0.08 42);
+  --shiki-token-comment: oklch(0.5 0.02 55);
+  --shiki-token-function: oklch(0.71 0.06 155);
+  --shiki-token-constant: oklch(0.7 0.07 22);
+  --shiki-token-parameter: oklch(0.68 0.03 55);
+  --shiki-token-punctuation: oklch(0.58 0.015 50);
+  --shiki-token-type: oklch(0.7 0.05 200);
+  --shiki-token-attribute: oklch(0.7 0.05 135);
+  --shiki-token-escape: oklch(0.71 0.07 55);
+  --shiki-token-variable-lang: oklch(0.7 0.04 350);
+}
+
+/* =============================================================================
+   CODE BLOCK - Mono Light (pure grayscale syntax)
+   7 perceptual lightness levels, C=0 for clinical gray
+   ============================================================================= */
+
+[data-code-mono] {
+  --shiki-token-keyword: oklch(0.30 0 0);
+  --shiki-token-string: oklch(0.44 0 0);
+  --shiki-token-comment: oklch(0.65 0 0);
+  --shiki-token-function: oklch(0.38 0 0);
+  --shiki-token-constant: oklch(0.44 0 0);
+  --shiki-token-parameter: oklch(0.50 0 0);
+  --shiki-token-punctuation: oklch(0.58 0 0);
+  --shiki-token-type: oklch(0.50 0 0);
+  --shiki-token-attribute: oklch(0.50 0 0);
+  --shiki-token-escape: oklch(0.38 0 0);
+  --shiki-token-variable-lang: oklch(0.30 0 0);
+}
+
+/* =============================================================================
+   CODE BLOCK - Mono Dark (pure grayscale syntax, inverted)
+   ============================================================================= */
+
+.dark [data-code-mono],
+[data-code-mono].dark,
+[data-code-mono] .dark {
+  --shiki-token-keyword: oklch(0.80 0 0);
+  --shiki-token-string: oklch(0.66 0 0);
+  --shiki-token-comment: oklch(0.45 0 0);
+  --shiki-token-function: oklch(0.72 0 0);
+  --shiki-token-constant: oklch(0.66 0 0);
+  --shiki-token-parameter: oklch(0.60 0 0);
+  --shiki-token-punctuation: oklch(0.52 0 0);
+  --shiki-token-type: oklch(0.60 0 0);
+  --shiki-token-attribute: oklch(0.60 0 0);
+  --shiki-token-escape: oklch(0.72 0 0);
+  --shiki-token-variable-lang: oklch(0.80 0 0);
+}
+
+/* =============================================================================
+   CODE BLOCK - Sand + Mono Light (warm micro-chroma)
+   Same L values as default mono, C=0.008 H=55 for warm gray
+   ============================================================================= */
+
+[data-code-theme="sand"][data-code-mono] {
+  --shiki-token-keyword: oklch(0.30 0.008 55);
+  --shiki-token-string: oklch(0.44 0.008 55);
+  --shiki-token-comment: oklch(0.65 0.008 55);
+  --shiki-token-function: oklch(0.38 0.008 55);
+  --shiki-token-constant: oklch(0.44 0.008 55);
+  --shiki-token-parameter: oklch(0.50 0.008 55);
+  --shiki-token-punctuation: oklch(0.58 0.008 55);
+  --shiki-token-type: oklch(0.50 0.008 55);
+  --shiki-token-attribute: oklch(0.50 0.008 55);
+  --shiki-token-escape: oklch(0.38 0.008 55);
+  --shiki-token-variable-lang: oklch(0.30 0.008 55);
+}
+
+/* =============================================================================
+   CODE BLOCK - Sand + Mono Dark (warm micro-chroma, inverted)
+   ============================================================================= */
+
+.dark [data-code-theme="sand"][data-code-mono],
+[data-code-theme="sand"][data-code-mono].dark,
+[data-code-theme="sand"][data-code-mono] .dark {
+  --shiki-token-keyword: oklch(0.80 0.008 55);
+  --shiki-token-string: oklch(0.66 0.008 55);
+  --shiki-token-comment: oklch(0.45 0.008 55);
+  --shiki-token-function: oklch(0.72 0.008 55);
+  --shiki-token-constant: oklch(0.66 0.008 55);
+  --shiki-token-parameter: oklch(0.60 0.008 55);
+  --shiki-token-punctuation: oklch(0.52 0.008 55);
+  --shiki-token-type: oklch(0.60 0.008 55);
+  --shiki-token-attribute: oklch(0.60 0.008 55);
+  --shiki-token-escape: oklch(0.72 0.008 55);
+  --shiki-token-variable-lang: oklch(0.80 0.008 55);
+}
+
+/* =============================================================================
+   CODE BLOCK - Line Numbers
+   Uses CSS counters on Shiki's .line spans
+   ============================================================================= */
+
+.code-block-line-numbers code {
+  counter-reset: line;
+}
+
+.code-block-line-numbers code .line {
+  counter-increment: line;
+}
+
+.code-block-line-numbers code .line::before {
+  content: counter(line);
+  display: inline-block;
+  width: 2rem;
+  margin-right: 0.75rem;
+  text-align: right;
+  color: var(--code-block-line-number);
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =============================================================================
+   CODE BLOCK - Copy Button
+   Derived from --shiki-foreground × --code-block-bg so it matches any theme.
+   ============================================================================= */
+
+.code-block-copy-btn {
+  color: color-mix(in srgb, var(--shiki-foreground) 65%, var(--code-block-bg));
+  background: color-mix(
+    in srgb,
+    var(--shiki-foreground) 8%,
+    var(--code-block-bg)
+  );
+  border: 1px solid
+    color-mix(in srgb, var(--shiki-foreground) 15%, var(--code-block-bg));
+}
+
+.code-block-copy-btn:hover,
+.code-block-copy-btn[data-copied] {
+  color: var(--shiki-foreground);
+  background: color-mix(
+    in srgb,
+    var(--shiki-foreground) 13%,
+    var(--code-block-bg)
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--shiki-foreground) 22%,
+    var(--code-block-bg)
+  );
+}
+
+.code-block-copy-btn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--code-block-bg),
+    0 0 0 4px var(--shiki-foreground);
 }
 
 /* Coarse pointer overrides — upscale interactive targets for touch contexts */
