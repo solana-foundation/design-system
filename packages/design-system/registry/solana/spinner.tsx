@@ -42,10 +42,7 @@ export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(
       <svg
         aria-label={label}
         className={cn(
-          // Fast rotation with cubic easing
           "animate-spinner",
-          // Pause animation when reduced motion is preferred (paused, not removed)
-          // Can be overridden by parent [data-animation-playing="true"] for docs
           "motion-reduce:opacity-70 motion-reduce:[animation-play-state:paused]",
           className
         )}
@@ -68,10 +65,13 @@ export const Spinner = forwardRef<SVGSVGElement, SpinnerProps>(
           strokeOpacity="0.2"
           strokeWidth="3"
         />
-        {/* Progress arc - visible spinner portion */}
-        <path
-          d="M12 2C6.48 2 2 6.48 2 12"
+        {/* Progress arc - grows and shrinks as it rotates */}
+        <circle
+          className="animate-spinner-dash"
+          cx="12"
+          cy="12"
           fill="none"
+          r="10"
           stroke="currentColor"
           strokeLinecap="round"
           strokeWidth="3"
