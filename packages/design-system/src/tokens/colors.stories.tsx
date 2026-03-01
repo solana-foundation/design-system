@@ -12,7 +12,7 @@ const textTokens = [
   },
   { name: "text-high", desc: "Primary body text", opacity: "88%" },
   { name: "text-medium", desc: "Secondary text", opacity: "72%" },
-  { name: "text-low", desc: "Muted text, captions", opacity: "56%" },
+  { name: "text-low", desc: "Muted text, captions", opacity: "58%" },
   { name: "text-extra-low", desc: "Placeholders, disabled", opacity: "44%" },
 ];
 
@@ -143,6 +143,53 @@ function BaseColors() {
   );
 }
 
+const statusTokens = [
+  { name: "error", label: "Error" },
+  { name: "success", label: "Success" },
+  { name: "warning", label: "Warning" },
+  { name: "info", label: "Info" },
+];
+
+function StatusColors() {
+  return (
+    <div className="min-w-[550px] p-8">
+      <h2 className="mb-2 font-semibold text-text-extra-high text-xl">
+        Status Colors
+      </h2>
+      <p className="mb-6 text-sm text-text-medium">
+        bg + border + text tokens for badges and alerts
+      </p>
+      <div className="grid grid-cols-1 gap-4">
+        {statusTokens.map((status) => (
+          <div className="flex items-center gap-4" key={status.name}>
+            <div
+              className="flex h-8 items-center rounded-full px-3 font-medium text-sm"
+              style={{
+                backgroundColor: `var(--status-${status.name}-bg)`,
+                border: `1.5px solid var(--status-${status.name}-border)`,
+                color: `var(--status-${status.name}-text)`,
+              }}
+            >
+              {status.label}
+            </div>
+            <div className="flex gap-3">
+              <code className="font-mono text-text-medium text-xs">
+                status-{status.name}-bg
+              </code>
+              <code className="font-mono text-text-medium text-xs">
+                status-{status.name}-border
+              </code>
+              <code className="font-mono text-text-medium text-xs">
+                status-{status.name}-text
+              </code>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function AllColors() {
   return (
     <div className="flex flex-wrap gap-8">
@@ -151,6 +198,7 @@ function AllColors() {
         <BaseColors />
         <TextEmphasis />
         <BorderScale />
+        <StatusColors />
       </div>
     </div>
   );
@@ -183,4 +231,8 @@ export const Borders: Story = {
 
 export const Base: Story = {
   render: () => <BaseColors />,
+};
+
+export const Status: Story = {
+  render: () => <StatusColors />,
 };

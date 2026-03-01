@@ -229,6 +229,20 @@
   --color-black: var(--black);
   --color-white: var(--white);
 
+  /* Status colors */
+  --color-status-error-bg: var(--status-error-bg);
+  --color-status-error-border: var(--status-error-border);
+  --color-status-error-text: var(--status-error-text);
+  --color-status-success-bg: var(--status-success-bg);
+  --color-status-success-border: var(--status-success-border);
+  --color-status-success-text: var(--status-success-text);
+  --color-status-warning-bg: var(--status-warning-bg);
+  --color-status-warning-border: var(--status-warning-border);
+  --color-status-warning-text: var(--status-warning-text);
+  --color-status-info-bg: var(--status-info-bg);
+  --color-status-info-border: var(--status-info-border);
+  --color-status-info-text: var(--status-info-text);
+
   /* Solana brand colors */
   --color-solana-purple: var(--solana-purple);
   --color-solana-green: var(--solana-green);
@@ -237,22 +251,22 @@
 }
 
 :root {
-  /* Gray palette - Light mode */
-  --gray-50: #f6f6f9;
-  --gray-100: #ededf3;
-  --gray-200: #dbdae5;
-  --gray-300: #cbc9d7;
-  --gray-400: #bbb8c7;
-  --gray-500: #aca8b7;
-  --gray-600: #9d98a6;
-  --gray-700: #8e8a94;
-  --gray-800: #7b7782;
-  --gray-900: #69666f;
-  --gray-1000: #56555c;
-  --gray-1100: #444449;
-  --gray-1200: #323236;
-  --gray-1300: #212123;
-  --gray-1400: #0f0f10;
+  /* Gray palette - Light mode (OKLCH, Solana purple axis H=286→300→286) */
+  --gray-50:   oklch(0.970 0.004 286.0);
+  --gray-100:  oklch(0.930 0.008 289.4);
+  --gray-200:  oklch(0.887 0.012 292.6);
+  --gray-300:  oklch(0.842 0.016 295.6);
+  --gray-400:  oklch(0.794 0.019 298.0);
+  --gray-500:  oklch(0.743 0.021 299.7);
+  --gray-600:  oklch(0.690 0.022 300.0);
+  --gray-700:  oklch(0.633 0.021 299.7);
+  --gray-800:  oklch(0.575 0.019 298.0);
+  --gray-900:  oklch(0.513 0.016 295.6);
+  --gray-1000: oklch(0.449 0.012 292.6);
+  --gray-1100: oklch(0.382 0.008 289.4);
+  --gray-1200: oklch(0.312 0.004 286.6);
+  --gray-1300: oklch(0.240 0.003 286.0);
+  --gray-1400: oklch(0.165 0.002 286.0);
 
   /* Base colors */
   --black: #000000;
@@ -268,7 +282,7 @@
   --text-extra-high: var(--gray-1400);
   --text-high: color-mix(in srgb, var(--gray-1400) 88%, transparent);
   --text-medium: color-mix(in srgb, var(--gray-1400) 72%, transparent);
-  --text-low: color-mix(in srgb, var(--gray-1400) 56%, transparent);
+  --text-low: color-mix(in srgb, var(--gray-1400) 58%, transparent);
   --text-extra-low: color-mix(in srgb, var(--gray-1400) 44%, transparent);
 
   /* Semantic tokens - Borders (using gray-1300 with transparency) */
@@ -277,6 +291,20 @@
   --border-medium: color-mix(in srgb, var(--gray-1300) 20%, transparent);
   --border-light: color-mix(in srgb, var(--gray-1300) 12%, transparent);
   --border-extra-light: color-mix(in srgb, var(--gray-1300) 4%, transparent);
+
+  /* Status color tokens (OKLCH, contrast-verified) */
+  --status-error-bg: oklch(0.965 0.015 25);
+  --status-error-border: oklch(0.780 0.100 25);
+  --status-error-text: oklch(0.440 0.180 25);
+  --status-success-bg: oklch(0.965 0.020 155);
+  --status-success-border: oklch(0.750 0.100 155);
+  --status-success-text: oklch(0.380 0.100 155);
+  --status-warning-bg: oklch(0.970 0.025 85);
+  --status-warning-border: oklch(0.800 0.110 85);
+  --status-warning-text: oklch(0.420 0.120 85);
+  --status-info-bg: oklch(0.965 0.015 250);
+  --status-info-border: oklch(0.750 0.090 250);
+  --status-info-text: oklch(0.400 0.130 250);
 
   /* Typography - Font Family */
   --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
@@ -506,9 +534,9 @@
   /* Input Focus Ring */
   --input-focus-ring: color-mix(in srgb, var(--gray-1200) 16%, transparent);
 
-  /* Input Error */
-  --input-border-error: oklch(0.637 0.237 25.331 / 60%);
-  --input-error-text: oklch(0.637 0.237 25.331);
+  /* Input Error (wired to status tokens) */
+  --input-border-error: oklch(0.440 0.180 25 / 60%);
+  --input-error-text: var(--status-error-text);
 
   /* =============================================================================
      TOOLTIP TOKENS
@@ -625,7 +653,7 @@
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(0.440 0.180 25);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -910,28 +938,28 @@ body {
   --fw-mult: 0.9;
   --tracking-dark-offset: 0.01em;
 
-  /* Gray palette - Dark mode */
-  --gray-50: #000000;
-  --gray-100: #0f0f10;
-  --gray-200: #212123;
-  --gray-300: #323236;
-  --gray-400: #444449;
-  --gray-500: #56555c;
-  --gray-600: #69666f;
-  --gray-700: #7b7782;
-  --gray-800: #8e8a94;
-  --gray-900: #9b96a3;
-  --gray-1000: #a7a3b2;
-  --gray-1100: #b4b1c0;
-  --gray-1200: #c1bfce;
-  --gray-1300: #cfcedb;
-  --gray-1400: #dedde7;
+  /* Gray palette - Dark mode (reversed OKLCH light scale) */
+  --gray-50:   oklch(0 0 0);
+  --gray-100:  oklch(0.165 0.002 286.0);
+  --gray-200:  oklch(0.240 0.003 286.0);
+  --gray-300:  oklch(0.312 0.004 286.6);
+  --gray-400:  oklch(0.382 0.008 289.4);
+  --gray-500:  oklch(0.449 0.012 292.6);
+  --gray-600:  oklch(0.513 0.016 295.6);
+  --gray-700:  oklch(0.575 0.019 298.0);
+  --gray-800:  oklch(0.633 0.021 299.7);
+  --gray-900:  oklch(0.690 0.022 300.0);
+  --gray-1000: oklch(0.743 0.021 299.7);
+  --gray-1100: oklch(0.794 0.019 298.0);
+  --gray-1200: oklch(0.842 0.016 295.6);
+  --gray-1300: oklch(0.887 0.012 292.6);
+  --gray-1400: oklch(0.930 0.008 289.4);
 
   /* Text tokens use white with transparency in dark mode */
   --text-extra-high: var(--white);
   --text-high: color-mix(in srgb, var(--white) 88%, transparent);
   --text-medium: color-mix(in srgb, var(--white) 72%, transparent);
-  --text-low: color-mix(in srgb, var(--white) 56%, transparent);
+  --text-low: color-mix(in srgb, var(--white) 58%, transparent);
   --text-extra-low: color-mix(in srgb, var(--white) 44%, transparent);
 
   /* Border tokens use white with transparency in dark mode */
@@ -940,6 +968,20 @@ body {
   --border-medium: color-mix(in srgb, var(--white) 20%, transparent);
   --border-light: color-mix(in srgb, var(--white) 12%, transparent);
   --border-extra-light: color-mix(in srgb, var(--white) 4%, transparent);
+
+  /* Status color tokens - dark mode (OKLCH, contrast-verified) */
+  --status-error-bg: oklch(0.210 0.040 25);
+  --status-error-border: oklch(0.450 0.100 25);
+  --status-error-text: oklch(0.800 0.120 25);
+  --status-success-bg: oklch(0.210 0.030 155);
+  --status-success-border: oklch(0.420 0.080 155);
+  --status-success-text: oklch(0.780 0.100 155);
+  --status-warning-bg: oklch(0.220 0.035 85);
+  --status-warning-border: oklch(0.460 0.090 85);
+  --status-warning-text: oklch(0.800 0.110 85);
+  --status-info-bg: oklch(0.210 0.035 250);
+  --status-info-border: oklch(0.430 0.080 250);
+  --status-info-text: oklch(0.790 0.100 250);
 
   /* Button Primary - inverted for dark mode (white bg, dark text) */
   /* Hover uses subtle dim instead of gray to avoid contrast inversion */
@@ -974,9 +1016,9 @@ body {
   --input-addon-hover-bg: color-mix(in srgb, var(--white) 8%, transparent);
   --input-focus-ring: color-mix(in srgb, var(--white) 16%, transparent);
 
-  /* Input Error - dark mode */
-  --input-border-error: oklch(0.637 0.237 25.331 / 60%);
-  --input-error-text: oklch(0.637 0.237 25.331);
+  /* Input Error - dark mode (wired to status tokens) */
+  --input-border-error: oklch(0.800 0.120 25 / 60%);
+  --input-error-text: var(--status-error-text);
 
   /* Tooltip - dark mode overrides */
   --tooltip-bg: var(--gray-200);
@@ -1031,7 +1073,7 @@ body {
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: oklch(0.800 0.120 25);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
@@ -1432,7 +1474,7 @@ body {
    ============================================================================= */
 
 .code-block-copy-btn {
-  color: color-mix(in srgb, var(--shiki-foreground) 60%, var(--code-block-bg));
+  color: color-mix(in srgb, var(--shiki-foreground) 72%, var(--code-block-bg));
   background: color-mix(
     in srgb,
     var(--shiki-foreground) 5%,
@@ -1883,7 +1925,7 @@ body {
 }
 
 .dark .inline-code {
-  background: color-mix(in srgb, var(--white) 10%, transparent);
+  background: var(--gray-200);
 }
 
 /* Coarse pointer overrides — upscale interactive targets for touch contexts */
