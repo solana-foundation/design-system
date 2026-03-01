@@ -228,6 +228,12 @@
   /* Base colors */
   --color-black: var(--black);
   --color-white: var(--white);
+
+  /* Solana brand colors */
+  --color-solana-purple: var(--solana-purple);
+  --color-solana-green: var(--solana-green);
+  --color-solana-blue: var(--solana-blue);
+  --color-solana-purple-dino: var(--solana-purple-dino);
 }
 
 :root {
@@ -251,6 +257,12 @@
   /* Base colors */
   --black: #000000;
   --white: #ffffff;
+
+  /* Solana brand colors */
+  --solana-purple: #9945ff;
+  --solana-green: #14f195;
+  --solana-blue: #03e1ff;
+  --solana-purple-dino: #dc1fff;
 
   /* Semantic tokens - Text (emphasis scale using transparency) */
   --text-extra-high: var(--gray-1400);
@@ -511,7 +523,7 @@
      TABS TOKENS
      ============================================================================= */
 
-  --tab-text-idle: var(--text-medium);
+  --tab-text-idle: var(--text-high);
   --tab-text-hover: var(--text-high);
   --tab-text-active: var(--text-extra-high);
   --tab-text-disabled: var(--text-extra-low);
@@ -569,33 +581,33 @@
      ============================================================================= */
 
   /* Shell tokens */
-  --code-block-bg: var(--gray-50);
-  --code-block-border: var(--border-medium);
-  --code-block-header-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
+  --code-block-bg: color-mix(in srgb, var(--gray-50) 60%, white);
+  --code-block-border: color-mix(in srgb, var(--gray-1300) 8%, transparent);
+  --code-block-header-bg: color-mix(in srgb, var(--gray-1400) 4%, transparent);
   --code-block-header-text: var(--text-medium);
-  --code-block-header-border: var(--border-medium);
-  --code-block-line-number: var(--text-extra-low);
+  --code-block-header-border: var(--code-block-border);
+  --code-block-line-number: var(--text-low);
   --code-block-line-highlight: color-mix(
     in srgb,
     var(--gray-1400) 5%,
     transparent
   );
-  --code-block-scrollbar-thumb: var(--gray-300);
+  --code-block-scrollbar-thumb: var(--gray-200);
 
-  /* Shiki syntax tokens - Default Light (OKLCh, purple→teal axis) */
+  /* Shiki syntax tokens - Default Light (OKLCh, Solana purple→teal axis) */
   --shiki-foreground: var(--gray-1400);
   --shiki-background: transparent;
-  --shiki-token-keyword: oklch(0.47 0.11 295);
-  --shiki-token-string: oklch(0.52 0.1 165);
-  --shiki-token-comment: var(--gray-700);
-  --shiki-token-function: oklch(0.48 0.1 255);
-  --shiki-token-constant: oklch(0.52 0.11 25);
-  --shiki-token-parameter: oklch(0.5 0.08 55);
-  --shiki-token-punctuation: var(--gray-900);
-  --shiki-token-type: oklch(0.5 0.09 200);
-  --shiki-token-attribute: oklch(0.52 0.08 130);
-  --shiki-token-escape: oklch(0.55 0.1 45);
-  --shiki-token-variable-lang: oklch(0.47 0.09 310);
+  --shiki-token-keyword: oklch(0.44 0.16 301);
+  --shiki-token-string: oklch(0.44 0.12 160);
+  --shiki-token-comment: oklch(0.55 0.015 280);
+  --shiki-token-function: oklch(0.44 0.14 264);
+  --shiki-token-constant: oklch(0.47 0.14 25);
+  --shiki-token-parameter: oklch(0.47 0.1 55);
+  --shiki-token-punctuation: oklch(0.56 0.01 280);
+  --shiki-token-type: oklch(0.44 0.1 195);
+  --shiki-token-attribute: oklch(0.44 0.1 145);
+  --shiki-token-escape: oklch(0.47 0.12 40);
+  --shiki-token-variable-lang: oklch(0.44 0.14 310);
 
   --radius: 0.625rem;
 
@@ -982,28 +994,28 @@ body {
 
   /* Code Block - dark mode overrides */
   --code-block-bg: var(--gray-100);
-  --code-block-border: color-mix(in srgb, var(--white) 10%, transparent);
+  --code-block-border: color-mix(in srgb, var(--white) 8%, transparent);
   --code-block-header-bg: color-mix(in srgb, var(--white) 4%, transparent);
   --code-block-header-text: var(--text-medium);
-  --code-block-header-border: color-mix(in srgb, var(--white) 10%, transparent);
-  --code-block-line-number: var(--text-extra-low);
+  --code-block-header-border: var(--code-block-border);
+  --code-block-line-number: var(--text-low);
   --code-block-line-highlight: color-mix(in srgb, var(--white) 5%, transparent);
-  --code-block-scrollbar-thumb: var(--gray-400);
+  --code-block-scrollbar-thumb: var(--gray-300);
 
-  /* Shiki syntax tokens - Default Dark (OKLCh, soft purple→teal axis) */
+  /* Shiki syntax tokens - Default Dark (OKLCh, Solana purple→teal axis) */
   --shiki-foreground: var(--gray-1400);
   --shiki-background: transparent;
-  --shiki-token-keyword: oklch(0.76 0.1 295);
-  --shiki-token-string: oklch(0.74 0.09 168);
-  --shiki-token-comment: var(--gray-700);
-  --shiki-token-function: oklch(0.75 0.08 250);
-  --shiki-token-constant: oklch(0.74 0.1 30);
-  --shiki-token-parameter: oklch(0.72 0.07 60);
-  --shiki-token-punctuation: var(--gray-900);
-  --shiki-token-type: oklch(0.74 0.08 200);
-  --shiki-token-attribute: oklch(0.73 0.07 135);
-  --shiki-token-escape: oklch(0.73 0.09 50);
-  --shiki-token-variable-lang: oklch(0.75 0.08 310);
+  --shiki-token-keyword: oklch(0.76 0.14 301);
+  --shiki-token-string: oklch(0.76 0.1 160);
+  --shiki-token-comment: oklch(0.55 0.015 280);
+  --shiki-token-function: oklch(0.76 0.12 264);
+  --shiki-token-constant: oklch(0.78 0.12 25);
+  --shiki-token-parameter: oklch(0.76 0.08 55);
+  --shiki-token-punctuation: oklch(0.52 0.01 280);
+  --shiki-token-type: oklch(0.76 0.08 195);
+  --shiki-token-attribute: oklch(0.76 0.08 145);
+  --shiki-token-escape: oklch(0.78 0.1 40);
+  --shiki-token-variable-lang: oklch(0.76 0.12 310);
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -1044,25 +1056,29 @@ body {
    ============================================================================= */
 
 [data-code-theme="sand"] {
-  --code-block-bg: oklch(0.9665 0.0067 97.35);
-  --code-block-border: oklch(0.839 0.0187 78.23);
-  --code-block-header-bg: oklch(0.927 0.0122 96.43);
+  --code-block-bg: oklch(0.987 0.003 97);
+  --code-block-header-bg: oklch(0.967 0.006 97);
   --code-block-header-text: oklch(0.442 0.0111 34.3);
-  --code-block-header-border: oklch(0.839 0.0187 78.23);
-  --code-block-line-number: oklch(0.6938 0.0247 56.8);
-  --code-block-line-highlight: oklch(0.927 0.0122 96.43);
-  --code-block-scrollbar-thumb: oklch(0.839 0.0187 78.23);
+  --code-block-border: color-mix(
+    in srgb,
+    var(--code-block-header-text) 14%,
+    transparent
+  );
+  --code-block-header-border: var(--code-block-border);
+  --code-block-line-number: oklch(0.55 0.03 56.8);
+  --code-block-line-highlight: oklch(0.96 0.004 97);
+  --code-block-scrollbar-thumb: oklch(0.93 0.008 85);
 
   /* Sand Light syntax: warm editorial, 6 accent colors in warm arc */
   --shiki-foreground: oklch(0.3356 0.0046 39.42);
   --shiki-background: transparent;
   --shiki-token-keyword: oklch(0.42 0.06 30);
-  --shiki-token-string: oklch(0.48 0.09 40);
-  --shiki-token-comment: oklch(0.62 0.025 65);
+  --shiki-token-string: oklch(0.44 0.09 40);
+  --shiki-token-comment: oklch(0.52 0.025 65);
   --shiki-token-function: oklch(0.44 0.07 155);
   --shiki-token-constant: oklch(0.46 0.08 18);
   --shiki-token-parameter: oklch(0.44 0.04 50);
-  --shiki-token-punctuation: oklch(0.56 0.02 45);
+  --shiki-token-punctuation: oklch(0.5 0.02 45);
   --shiki-token-type: oklch(0.42 0.06 200);
   --shiki-token-attribute: oklch(0.46 0.06 130);
   --shiki-token-escape: oklch(0.5 0.08 55);
@@ -1077,14 +1093,18 @@ body {
 .dark [data-code-theme="sand"],
 [data-code-theme="sand"].dark,
 [data-code-theme="sand"] .dark {
-  --code-block-bg: #1c1a18;
-  --code-block-border: #3a3632;
-  --code-block-header-bg: #242120;
-  --code-block-header-text: #a09890;
-  --code-block-header-border: #3a3632;
-  --code-block-line-number: #6b6360;
-  --code-block-line-highlight: #2a2725;
-  --code-block-scrollbar-thumb: #3a3632;
+  --code-block-bg: oklch(0.17 0.007 55);
+  --code-block-header-bg: oklch(0.21 0.006 52);
+  --code-block-header-text: oklch(0.68 0.02 55);
+  --code-block-border: color-mix(
+    in srgb,
+    var(--code-block-header-text) 18%,
+    transparent
+  );
+  --code-block-header-border: var(--code-block-border);
+  --code-block-line-number: oklch(0.52 0.015 50);
+  --code-block-line-highlight: oklch(0.21 0.006 52);
+  --code-block-scrollbar-thumb: oklch(0.25 0.01 55);
 
   /* Sand Dark syntax: warm editorial, soft lifted accents */
   --shiki-foreground: oklch(0.82 0.01 55);
@@ -1103,22 +1123,154 @@ body {
 }
 
 /* =============================================================================
+   CODE BLOCK - Calm Light Theme
+   Serene, desaturated: Solana hue axis at whisper-level chroma (C=0.04-0.08)
+   ============================================================================= */
+
+[data-code-theme="calm"] {
+  --code-block-bg: oklch(0.985 0.004 303);
+  --code-block-header-bg: oklch(0.968 0.006 303);
+  --code-block-header-text: oklch(0.5 0.015 303);
+  --code-block-border: color-mix(
+    in srgb,
+    oklch(0.46 0.02 303) 10%,
+    transparent
+  );
+  --code-block-header-border: var(--code-block-border);
+  --code-block-line-number: oklch(0.58 0.01 303);
+  --code-block-line-highlight: oklch(0.97 0.003 303);
+  --code-block-scrollbar-thumb: oklch(0.94 0.005 303);
+
+  /* Calm Light syntax: desaturated Solana hues, serene readability */
+  --shiki-foreground: oklch(0.28 0.005 303);
+  --shiki-background: transparent;
+  --shiki-token-keyword: oklch(0.46 0.08 303);
+  --shiki-token-string: oklch(0.48 0.06 162);
+  --shiki-token-comment: oklch(0.6 0.012 303);
+  --shiki-token-function: oklch(0.46 0.07 264);
+  --shiki-token-constant: oklch(0.48 0.07 25);
+  --shiki-token-parameter: oklch(0.5 0.05 55);
+  --shiki-token-punctuation: oklch(0.62 0.006 303);
+  --shiki-token-type: oklch(0.46 0.06 206);
+  --shiki-token-attribute: oklch(0.48 0.06 145);
+  --shiki-token-escape: oklch(0.48 0.06 40);
+  --shiki-token-variable-lang: oklch(0.46 0.07 307);
+}
+
+/* =============================================================================
+   CODE BLOCK - Calm Dark Theme
+   Deep violet-black, soft lifted tokens
+   ============================================================================= */
+
+.dark [data-code-theme="calm"],
+[data-code-theme="calm"].dark,
+[data-code-theme="calm"] .dark {
+  --code-block-bg: oklch(0.155 0.008 303);
+  --code-block-header-bg: oklch(0.195 0.007 303);
+  --code-block-header-text: oklch(0.65 0.015 303);
+  --code-block-border: color-mix(in srgb, oklch(0.8 0.02 303) 10%, transparent);
+  --code-block-header-border: var(--code-block-border);
+  --code-block-line-number: oklch(0.5 0.01 303);
+  --code-block-line-highlight: oklch(0.19 0.006 303);
+  --code-block-scrollbar-thumb: oklch(0.24 0.008 303);
+
+  /* Calm Dark syntax: pale pastels, restful on dark violet */
+  --shiki-foreground: oklch(0.84 0.008 303);
+  --shiki-background: transparent;
+  --shiki-token-keyword: oklch(0.74 0.07 303);
+  --shiki-token-string: oklch(0.76 0.05 162);
+  --shiki-token-comment: oklch(0.5 0.012 303);
+  --shiki-token-function: oklch(0.74 0.06 264);
+  --shiki-token-constant: oklch(0.76 0.06 25);
+  --shiki-token-parameter: oklch(0.76 0.04 55);
+  --shiki-token-punctuation: oklch(0.48 0.006 303);
+  --shiki-token-type: oklch(0.74 0.05 206);
+  --shiki-token-attribute: oklch(0.76 0.05 145);
+  --shiki-token-escape: oklch(0.76 0.05 40);
+  --shiki-token-variable-lang: oklch(0.74 0.06 307);
+}
+
+/* =============================================================================
+   CODE BLOCK - Vivid Light Theme
+   Electric, high-chroma: Solana hue axis at brand-level saturation (C=0.15-0.22)
+   ============================================================================= */
+
+[data-code-theme="vivid"] {
+  --code-block-bg: oklch(0.98 0.005 264);
+  --code-block-header-bg: oklch(0.96 0.008 264);
+  --code-block-header-text: oklch(0.46 0.03 264);
+  --code-block-border: color-mix(in srgb, oklch(0.4 0.04 264) 12%, transparent);
+  --code-block-header-border: var(--code-block-border);
+  --code-block-line-number: oklch(0.56 0.02 264);
+  --code-block-line-highlight: oklch(0.96 0.004 264);
+  --code-block-scrollbar-thumb: oklch(0.92 0.006 264);
+
+  /* Vivid Light syntax: electric Solana colors, maximum distinction */
+  --shiki-foreground: oklch(0.22 0.01 264);
+  --shiki-background: transparent;
+  --shiki-token-keyword: oklch(0.4 0.22 303);
+  --shiki-token-string: oklch(0.44 0.15 162);
+  --shiki-token-comment: oklch(0.54 0.025 264);
+  --shiki-token-function: oklch(0.4 0.18 264);
+  --shiki-token-constant: oklch(0.44 0.17 25);
+  --shiki-token-parameter: oklch(0.44 0.13 55);
+  --shiki-token-punctuation: oklch(0.56 0.02 264);
+  --shiki-token-type: oklch(0.4 0.15 206);
+  --shiki-token-attribute: oklch(0.44 0.13 145);
+  --shiki-token-escape: oklch(0.44 0.15 40);
+  --shiki-token-variable-lang: oklch(0.4 0.2 307);
+}
+
+/* =============================================================================
+   CODE BLOCK - Vivid Dark Theme
+   Deep blue-black, electric neon tokens
+   ============================================================================= */
+
+.dark [data-code-theme="vivid"],
+[data-code-theme="vivid"].dark,
+[data-code-theme="vivid"] .dark {
+  --code-block-bg: oklch(0.14 0.015 264);
+  --code-block-header-bg: oklch(0.18 0.013 264);
+  --code-block-header-text: oklch(0.65 0.03 264);
+  --code-block-border: color-mix(in srgb, oklch(0.8 0.04 264) 12%, transparent);
+  --code-block-header-border: var(--code-block-border);
+  --code-block-line-number: oklch(0.48 0.02 264);
+  --code-block-line-highlight: oklch(0.18 0.012 264);
+  --code-block-scrollbar-thumb: oklch(0.22 0.015 264);
+
+  /* Vivid Dark syntax: electric neon on deep blue-black */
+  --shiki-foreground: oklch(0.88 0.01 264);
+  --shiki-background: transparent;
+  --shiki-token-keyword: oklch(0.74 0.18 303);
+  --shiki-token-string: oklch(0.76 0.12 162);
+  --shiki-token-comment: oklch(0.5 0.025 264);
+  --shiki-token-function: oklch(0.74 0.15 264);
+  --shiki-token-constant: oklch(0.78 0.14 25);
+  --shiki-token-parameter: oklch(0.76 0.1 55);
+  --shiki-token-punctuation: oklch(0.48 0.02 264);
+  --shiki-token-type: oklch(0.76 0.12 206);
+  --shiki-token-attribute: oklch(0.76 0.1 145);
+  --shiki-token-escape: oklch(0.78 0.12 40);
+  --shiki-token-variable-lang: oklch(0.74 0.16 307);
+}
+
+/* =============================================================================
    CODE BLOCK - Mono Light (pure grayscale syntax)
    7 perceptual lightness levels, C=0 for clinical gray
    ============================================================================= */
 
 [data-code-mono] {
-  --shiki-token-keyword: oklch(0.30 0 0);
+  --shiki-token-keyword: oklch(0.3 0 0);
   --shiki-token-string: oklch(0.44 0 0);
   --shiki-token-comment: oklch(0.65 0 0);
   --shiki-token-function: oklch(0.38 0 0);
   --shiki-token-constant: oklch(0.44 0 0);
-  --shiki-token-parameter: oklch(0.50 0 0);
+  --shiki-token-parameter: oklch(0.5 0 0);
   --shiki-token-punctuation: oklch(0.58 0 0);
-  --shiki-token-type: oklch(0.50 0 0);
-  --shiki-token-attribute: oklch(0.50 0 0);
+  --shiki-token-type: oklch(0.5 0 0);
+  --shiki-token-attribute: oklch(0.5 0 0);
   --shiki-token-escape: oklch(0.38 0 0);
-  --shiki-token-variable-lang: oklch(0.30 0 0);
+  --shiki-token-variable-lang: oklch(0.3 0 0);
 }
 
 /* =============================================================================
@@ -1128,17 +1280,17 @@ body {
 .dark [data-code-mono],
 [data-code-mono].dark,
 [data-code-mono] .dark {
-  --shiki-token-keyword: oklch(0.80 0 0);
+  --shiki-token-keyword: oklch(0.8 0 0);
   --shiki-token-string: oklch(0.66 0 0);
   --shiki-token-comment: oklch(0.45 0 0);
   --shiki-token-function: oklch(0.72 0 0);
   --shiki-token-constant: oklch(0.66 0 0);
-  --shiki-token-parameter: oklch(0.60 0 0);
+  --shiki-token-parameter: oklch(0.6 0 0);
   --shiki-token-punctuation: oklch(0.52 0 0);
-  --shiki-token-type: oklch(0.60 0 0);
-  --shiki-token-attribute: oklch(0.60 0 0);
+  --shiki-token-type: oklch(0.6 0 0);
+  --shiki-token-attribute: oklch(0.6 0 0);
   --shiki-token-escape: oklch(0.72 0 0);
-  --shiki-token-variable-lang: oklch(0.80 0 0);
+  --shiki-token-variable-lang: oklch(0.8 0 0);
 }
 
 /* =============================================================================
@@ -1147,17 +1299,17 @@ body {
    ============================================================================= */
 
 [data-code-theme="sand"][data-code-mono] {
-  --shiki-token-keyword: oklch(0.30 0.008 55);
+  --shiki-token-keyword: oklch(0.3 0.008 55);
   --shiki-token-string: oklch(0.44 0.008 55);
   --shiki-token-comment: oklch(0.65 0.008 55);
   --shiki-token-function: oklch(0.38 0.008 55);
   --shiki-token-constant: oklch(0.44 0.008 55);
-  --shiki-token-parameter: oklch(0.50 0.008 55);
+  --shiki-token-parameter: oklch(0.5 0.008 55);
   --shiki-token-punctuation: oklch(0.58 0.008 55);
-  --shiki-token-type: oklch(0.50 0.008 55);
-  --shiki-token-attribute: oklch(0.50 0.008 55);
+  --shiki-token-type: oklch(0.5 0.008 55);
+  --shiki-token-attribute: oklch(0.5 0.008 55);
   --shiki-token-escape: oklch(0.38 0.008 55);
-  --shiki-token-variable-lang: oklch(0.30 0.008 55);
+  --shiki-token-variable-lang: oklch(0.3 0.008 55);
 }
 
 /* =============================================================================
@@ -1167,17 +1319,81 @@ body {
 .dark [data-code-theme="sand"][data-code-mono],
 [data-code-theme="sand"][data-code-mono].dark,
 [data-code-theme="sand"][data-code-mono] .dark {
-  --shiki-token-keyword: oklch(0.80 0.008 55);
+  --shiki-token-keyword: oklch(0.8 0.008 55);
   --shiki-token-string: oklch(0.66 0.008 55);
   --shiki-token-comment: oklch(0.45 0.008 55);
   --shiki-token-function: oklch(0.72 0.008 55);
   --shiki-token-constant: oklch(0.66 0.008 55);
-  --shiki-token-parameter: oklch(0.60 0.008 55);
+  --shiki-token-parameter: oklch(0.6 0.008 55);
   --shiki-token-punctuation: oklch(0.52 0.008 55);
-  --shiki-token-type: oklch(0.60 0.008 55);
-  --shiki-token-attribute: oklch(0.60 0.008 55);
+  --shiki-token-type: oklch(0.6 0.008 55);
+  --shiki-token-attribute: oklch(0.6 0.008 55);
   --shiki-token-escape: oklch(0.72 0.008 55);
-  --shiki-token-variable-lang: oklch(0.80 0.008 55);
+  --shiki-token-variable-lang: oklch(0.8 0.008 55);
+}
+
+/* Calm + Mono Light — cool purple micro-chroma */
+[data-code-theme="calm"][data-code-mono] {
+  --shiki-token-keyword: oklch(0.3 0.008 303);
+  --shiki-token-string: oklch(0.44 0.008 303);
+  --shiki-token-comment: oklch(0.65 0.008 303);
+  --shiki-token-function: oklch(0.38 0.008 303);
+  --shiki-token-constant: oklch(0.44 0.008 303);
+  --shiki-token-parameter: oklch(0.5 0.008 303);
+  --shiki-token-punctuation: oklch(0.58 0.008 303);
+  --shiki-token-type: oklch(0.5 0.008 303);
+  --shiki-token-attribute: oklch(0.5 0.008 303);
+  --shiki-token-escape: oklch(0.38 0.008 303);
+  --shiki-token-variable-lang: oklch(0.3 0.008 303);
+}
+
+/* Calm + Mono Dark — inverted, cool purple micro-chroma */
+.dark [data-code-theme="calm"][data-code-mono],
+[data-code-theme="calm"][data-code-mono].dark,
+[data-code-theme="calm"][data-code-mono] .dark {
+  --shiki-token-keyword: oklch(0.8 0.008 303);
+  --shiki-token-string: oklch(0.66 0.008 303);
+  --shiki-token-comment: oklch(0.45 0.008 303);
+  --shiki-token-function: oklch(0.72 0.008 303);
+  --shiki-token-constant: oklch(0.66 0.008 303);
+  --shiki-token-parameter: oklch(0.6 0.008 303);
+  --shiki-token-punctuation: oklch(0.52 0.008 303);
+  --shiki-token-type: oklch(0.6 0.008 303);
+  --shiki-token-attribute: oklch(0.6 0.008 303);
+  --shiki-token-escape: oklch(0.72 0.008 303);
+  --shiki-token-variable-lang: oklch(0.8 0.008 303);
+}
+
+/* Vivid + Mono Light — cool blue micro-chroma */
+[data-code-theme="vivid"][data-code-mono] {
+  --shiki-token-keyword: oklch(0.3 0.01 264);
+  --shiki-token-string: oklch(0.44 0.01 264);
+  --shiki-token-comment: oklch(0.65 0.01 264);
+  --shiki-token-function: oklch(0.38 0.01 264);
+  --shiki-token-constant: oklch(0.44 0.01 264);
+  --shiki-token-parameter: oklch(0.5 0.01 264);
+  --shiki-token-punctuation: oklch(0.58 0.01 264);
+  --shiki-token-type: oklch(0.5 0.01 264);
+  --shiki-token-attribute: oklch(0.5 0.01 264);
+  --shiki-token-escape: oklch(0.38 0.01 264);
+  --shiki-token-variable-lang: oklch(0.3 0.01 264);
+}
+
+/* Vivid + Mono Dark — inverted, cool blue micro-chroma */
+.dark [data-code-theme="vivid"][data-code-mono],
+[data-code-theme="vivid"][data-code-mono].dark,
+[data-code-theme="vivid"][data-code-mono] .dark {
+  --shiki-token-keyword: oklch(0.8 0.01 264);
+  --shiki-token-string: oklch(0.66 0.01 264);
+  --shiki-token-comment: oklch(0.45 0.01 264);
+  --shiki-token-function: oklch(0.72 0.01 264);
+  --shiki-token-constant: oklch(0.66 0.01 264);
+  --shiki-token-parameter: oklch(0.6 0.01 264);
+  --shiki-token-punctuation: oklch(0.52 0.01 264);
+  --shiki-token-type: oklch(0.6 0.01 264);
+  --shiki-token-attribute: oklch(0.6 0.01 264);
+  --shiki-token-escape: oklch(0.72 0.01 264);
+  --shiki-token-variable-lang: oklch(0.8 0.01 264);
 }
 
 /* =============================================================================
@@ -1196,12 +1412,18 @@ body {
 .code-block-line-numbers code .line::before {
   content: counter(line);
   display: inline-block;
-  width: 2rem;
+  width: 1.5rem;
   margin-right: 0.75rem;
   text-align: right;
   color: var(--code-block-line-number);
   user-select: none;
   font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+}
+
+.code-block-line-numbers .overflow-x-auto,
+.code-block-interactive-lines .overflow-x-auto {
+  padding-left: 0.5rem;
 }
 
 /* =============================================================================
@@ -1210,27 +1432,54 @@ body {
    ============================================================================= */
 
 .code-block-copy-btn {
-  color: color-mix(in srgb, var(--shiki-foreground) 65%, var(--code-block-bg));
+  color: color-mix(in srgb, var(--shiki-foreground) 60%, var(--code-block-bg));
+  background: color-mix(
+    in srgb,
+    var(--shiki-foreground) 5%,
+    var(--code-block-bg)
+  );
+  border: 1px solid
+    color-mix(in srgb, var(--shiki-foreground) 18%, var(--code-block-bg));
+  opacity: 0;
+  transition:
+    opacity 150ms ease-out,
+    color 150ms ease-out,
+    background 150ms ease-out,
+    border-color 150ms ease-out;
+}
+
+.group:hover .code-block-copy-btn,
+.code-block-copy-btn:focus-visible,
+.code-block-copy-btn[data-copied] {
+  opacity: 1;
+}
+
+.code-block-copy-btn:hover,
+.code-block-copy-btn[data-copied] {
+  opacity: 1;
+  color: var(--shiki-foreground);
   background: color-mix(
     in srgb,
     var(--shiki-foreground) 8%,
     var(--code-block-bg)
   );
-  border: 1px solid
-    color-mix(in srgb, var(--shiki-foreground) 15%, var(--code-block-bg));
+  border-color: color-mix(
+    in srgb,
+    var(--shiki-foreground) 16%,
+    var(--code-block-bg)
+  );
 }
 
-.code-block-copy-btn:hover,
-.code-block-copy-btn[data-copied] {
+.code-block-copy-btn:active {
   color: var(--shiki-foreground);
   background: color-mix(
     in srgb,
-    var(--shiki-foreground) 13%,
+    var(--shiki-foreground) 12%,
     var(--code-block-bg)
   );
   border-color: color-mix(
     in srgb,
-    var(--shiki-foreground) 22%,
+    var(--shiki-foreground) 20%,
     var(--code-block-bg)
   );
 }
@@ -1242,11 +1491,412 @@ body {
     0 0 0 4px var(--shiki-foreground);
 }
 
+@keyframes code-block-fade-in {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =============================================================================
+   CODE BLOCK - Line Highlight (data-attribute based)
+   ============================================================================= */
+
+.line[data-highlight] {
+  background: var(--code-block-line-highlight);
+  display: block;
+  margin: 0 -1rem;
+  padding: 0 1rem;
+}
+
+/* =============================================================================
+   CODE BLOCK - Diff Mode
+   Added/removed line markers with colored accents
+   ============================================================================= */
+
+:root {
+  --code-block-diff-added-bg: color-mix(
+    in srgb,
+    oklch(0.72 0.19 142) 10%,
+    transparent
+  );
+  --code-block-diff-added-border: oklch(0.72 0.19 142 / 50%);
+  --code-block-diff-added-marker: oklch(0.45 0.16 142);
+  --code-block-diff-removed-bg: color-mix(
+    in srgb,
+    oklch(0.63 0.24 25) 10%,
+    transparent
+  );
+  --code-block-diff-removed-border: oklch(0.63 0.24 25 / 50%);
+  --code-block-diff-removed-marker: oklch(0.48 0.2 25);
+}
+
+.dark {
+  --code-block-diff-added-bg: color-mix(
+    in srgb,
+    oklch(0.72 0.19 142) 12%,
+    transparent
+  );
+  --code-block-diff-added-border: oklch(0.72 0.19 142 / 40%);
+  --code-block-diff-added-marker: oklch(0.72 0.19 142);
+  --code-block-diff-removed-bg: color-mix(
+    in srgb,
+    oklch(0.63 0.24 25) 12%,
+    transparent
+  );
+  --code-block-diff-removed-border: oklch(0.63 0.24 25 / 40%);
+  --code-block-diff-removed-marker: oklch(0.68 0.22 25);
+}
+
+[data-code-theme="sand"] {
+  --code-block-diff-added-bg: color-mix(
+    in srgb,
+    oklch(0.65 0.15 145) 10%,
+    transparent
+  );
+  --code-block-diff-added-border: oklch(0.65 0.15 145 / 45%);
+  --code-block-diff-added-marker: oklch(0.45 0.12 145);
+  --code-block-diff-removed-bg: color-mix(
+    in srgb,
+    oklch(0.58 0.18 25) 10%,
+    transparent
+  );
+  --code-block-diff-removed-border: oklch(0.58 0.18 25 / 45%);
+  --code-block-diff-removed-marker: oklch(0.45 0.15 25);
+}
+
+.dark [data-code-theme="sand"],
+[data-code-theme="sand"].dark,
+[data-code-theme="sand"] .dark {
+  --code-block-diff-added-bg: color-mix(
+    in srgb,
+    oklch(0.65 0.15 145) 12%,
+    transparent
+  );
+  --code-block-diff-added-border: oklch(0.65 0.15 145 / 35%);
+  --code-block-diff-added-marker: oklch(0.7 0.15 145);
+  --code-block-diff-removed-bg: color-mix(
+    in srgb,
+    oklch(0.58 0.18 25) 12%,
+    transparent
+  );
+  --code-block-diff-removed-border: oklch(0.58 0.18 25 / 35%);
+  --code-block-diff-removed-marker: oklch(0.65 0.18 25);
+}
+
+/* Calm diff — softer markers */
+[data-code-theme="calm"] {
+  --code-block-diff-added-bg: color-mix(
+    in srgb,
+    oklch(0.68 0.14 145) 8%,
+    transparent
+  );
+  --code-block-diff-added-border: oklch(0.68 0.14 145 / 40%);
+  --code-block-diff-added-marker: oklch(0.48 0.11 145);
+  --code-block-diff-removed-bg: color-mix(
+    in srgb,
+    oklch(0.6 0.18 25) 8%,
+    transparent
+  );
+  --code-block-diff-removed-border: oklch(0.6 0.18 25 / 40%);
+  --code-block-diff-removed-marker: oklch(0.48 0.15 25);
+}
+
+.dark [data-code-theme="calm"],
+[data-code-theme="calm"].dark,
+[data-code-theme="calm"] .dark {
+  --code-block-diff-added-bg: color-mix(
+    in srgb,
+    oklch(0.68 0.14 145) 10%,
+    transparent
+  );
+  --code-block-diff-added-border: oklch(0.68 0.14 145 / 35%);
+  --code-block-diff-added-marker: oklch(0.72 0.14 145);
+  --code-block-diff-removed-bg: color-mix(
+    in srgb,
+    oklch(0.6 0.18 25) 10%,
+    transparent
+  );
+  --code-block-diff-removed-border: oklch(0.6 0.18 25 / 35%);
+  --code-block-diff-removed-marker: oklch(0.65 0.18 25);
+}
+
+/* Vivid diff — stronger markers */
+[data-code-theme="vivid"] {
+  --code-block-diff-added-bg: color-mix(
+    in srgb,
+    oklch(0.72 0.22 142) 12%,
+    transparent
+  );
+  --code-block-diff-added-border: oklch(0.72 0.22 142 / 55%);
+  --code-block-diff-added-marker: oklch(0.42 0.18 142);
+  --code-block-diff-removed-bg: color-mix(
+    in srgb,
+    oklch(0.63 0.26 25) 12%,
+    transparent
+  );
+  --code-block-diff-removed-border: oklch(0.63 0.26 25 / 55%);
+  --code-block-diff-removed-marker: oklch(0.45 0.22 25);
+}
+
+.dark [data-code-theme="vivid"],
+[data-code-theme="vivid"].dark,
+[data-code-theme="vivid"] .dark {
+  --code-block-diff-added-bg: color-mix(
+    in srgb,
+    oklch(0.72 0.22 142) 14%,
+    transparent
+  );
+  --code-block-diff-added-border: oklch(0.72 0.22 142 / 45%);
+  --code-block-diff-added-marker: oklch(0.75 0.22 142);
+  --code-block-diff-removed-bg: color-mix(
+    in srgb,
+    oklch(0.63 0.26 25) 14%,
+    transparent
+  );
+  --code-block-diff-removed-border: oklch(0.63 0.26 25 / 45%);
+  --code-block-diff-removed-marker: oklch(0.7 0.24 25);
+}
+
+/* Diff mode: uniform gutter layout for all lines */
+.code-block-diff code {
+  white-space: normal;
+}
+
+.code-block-diff code .line {
+  display: block;
+  white-space: pre;
+  margin: 0 -1rem;
+  padding: 0 1rem 0 1.75rem;
+  border-left: 3px solid transparent;
+}
+
+/* Added lines */
+.line[data-diff-added] {
+  position: relative;
+  background: var(--code-block-diff-added-bg);
+  border-left-color: var(--code-block-diff-added-border);
+}
+
+/* Removed lines */
+.line[data-diff-removed] {
+  position: relative;
+  background: var(--code-block-diff-removed-bg);
+  border-left-color: var(--code-block-diff-removed-border);
+}
+
+/* Shared marker styles */
+.line[data-diff-added]::after,
+.line[data-diff-removed]::after {
+  position: absolute;
+  left: 0.625rem;
+  top: 0;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: inherit;
+  user-select: none;
+  pointer-events: none;
+}
+
+.line[data-diff-added]::after {
+  content: "+";
+  color: var(--code-block-diff-added-marker);
+}
+
+.line[data-diff-removed]::after {
+  content: "\2212";
+  color: var(--code-block-diff-removed-marker);
+}
+
+/* =============================================================================
+   CODE BLOCK - Horizontal Scroll Fade
+   ============================================================================= */
+
+.code-block-scroll-fade {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2rem;
+  background: linear-gradient(to right, transparent, var(--code-block-bg));
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+}
+
+/* =============================================================================
+   CODE BLOCK - Expand/Collapse
+   ============================================================================= */
+
+.code-block-fade-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  background: linear-gradient(to bottom, transparent, var(--code-block-bg));
+  pointer-events: none;
+  border-radius: 0 0 inherit inherit;
+}
+
+.code-block-expand-btn {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--shiki-foreground) 70%, var(--code-block-bg));
+  background: color-mix(
+    in srgb,
+    var(--shiki-foreground) 4%,
+    var(--code-block-bg)
+  );
+  border: 1px solid
+    color-mix(in srgb, var(--shiki-foreground) 14%, var(--code-block-bg));
+  border-radius: 6px;
+  transition:
+    color 150ms ease-out,
+    background 150ms ease-out,
+    border-color 150ms ease-out;
+}
+
+.code-block-expand-btn:hover {
+  color: var(--shiki-foreground);
+  background: color-mix(
+    in srgb,
+    var(--shiki-foreground) 8%,
+    var(--code-block-bg)
+  );
+  border-color: color-mix(
+    in srgb,
+    var(--shiki-foreground) 18%,
+    var(--code-block-bg)
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-block-collapsible {
+    transition: none !important;
+  }
+}
+
+/* =============================================================================
+   CODE BLOCK - Interactive Line Numbers
+   Used when onLineClick or lineAnchorPrefix is set (DOM-based line numbers)
+   ============================================================================= */
+
+.code-block-interactive-lines .line-number {
+  display: inline-block;
+  width: 1.5rem;
+  margin-right: 0.75rem;
+  text-align: right;
+  color: var(--code-block-line-number);
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: color 150ms ease-out;
+}
+
+.code-block-interactive-lines .line-number:hover {
+  color: var(--shiki-foreground);
+}
+
+/* =============================================================================
+   CODE BLOCK - Word Highlighting
+   ============================================================================= */
+
+.highlighted-word {
+  background: color-mix(in srgb, var(--shiki-token-keyword) 18%, transparent);
+  border-radius: 3px;
+  padding: 1px 3px;
+  margin: -1px -3px;
+}
+
+/* =============================================================================
+   CODE BLOCK GROUP - Tabbed multi-language
+   ============================================================================= */
+
+.code-block-group-tablist {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0 0.75rem;
+  font-family: var(--font-berkeley-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  background: var(--code-block-header-bg);
+  border-bottom: 1px solid var(--code-block-header-border);
+  min-height: 2.5rem;
+}
+
+.code-block-group-tablist [role="tab"] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0 0.75rem;
+  color: var(--code-block-header-text);
+  text-align: center;
+  line-height: 1.15;
+  cursor: pointer;
+  border: none;
+  transition: color 150ms ease-out;
+  white-space: nowrap;
+  background: transparent;
+}
+
+.code-block-group-tablist [role="tab"]:hover {
+  color: var(--shiki-foreground);
+}
+
+.code-block-group-tablist [role="tab"]:focus-visible {
+  outline: 1px solid var(--code-block-header-border);
+  outline-offset: -1px;
+}
+
+.code-block-group-tablist [role="tab"][data-selected] {
+  color: var(--shiki-foreground);
+}
+
+/* =============================================================================
+   INLINE CODE
+   ============================================================================= */
+
+.inline-code {
+  font-family: var(--font-berkeley-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-extra-high);
+  background: color-mix(in srgb, var(--gray-50) 60%, white);
+  border-radius: 5px;
+  padding: 0.15em 0.4em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.dark .inline-code {
+  background: color-mix(in srgb, var(--white) 10%, transparent);
+}
+
 /* Coarse pointer overrides — upscale interactive targets for touch contexts */
 @media (pointer: coarse) {
   :root {
     --input-height-lg: 44px;
     --input-height-md: 44px;
+  }
+
+  .code-block-copy-btn {
+    opacity: 1;
+    width: 44px;
+    height: 44px;
   }
 }
 
