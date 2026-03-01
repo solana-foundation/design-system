@@ -403,6 +403,24 @@
   --text-button-sm: 13px;
 
   /* =============================================================================
+     TABLE TOKENS
+     ============================================================================= */
+
+  --table-row-height: 44px;
+  --table-header-height: 44px;
+  --table-cell-padding-x: 16px;
+  --table-cell-padding-x-edge: 20px;
+  --table-cell-padding-y: 12px;
+  --table-header-padding-y: 12px;
+  --table-header-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
+  --table-header-text: var(--text-medium);
+  --table-row-bg-hover: color-mix(in srgb, var(--gray-1400) 5%, transparent);
+  --table-row-bg-selected: color-mix(in srgb, var(--gray-1400) 6%, transparent);
+  --table-border: var(--border-light);
+  --table-caption-text: var(--text-low);
+  --table-radius: 12px;
+
+  /* =============================================================================
      BUTTON TOKENS
      ============================================================================= */
 
@@ -1006,6 +1024,11 @@ body {
 
   /* Button Focus Ring - solid white for WCAG 2.4.13 compliance (≥3:1 contrast) */
   --button-focus-ring: var(--white);
+
+  /* Table - dark mode: white-based transparency */
+  --table-header-bg: color-mix(in srgb, var(--white) 4%, transparent);
+  --table-row-bg-hover: color-mix(in srgb, var(--white) 6%, transparent);
+  --table-row-bg-selected: color-mix(in srgb, var(--white) 8%, transparent);
 
   /* Input - dark mode overrides */
   --input-border-idle: color-mix(in srgb, var(--white) 20%, transparent);
@@ -1915,15 +1938,17 @@ body {
 .inline-code {
   font-family: var(--font-berkeley-mono), ui-monospace, monospace;
   font-size: 0.875em;
-  background: color-mix(in srgb, var(--gray-1400) 6%, transparent);
-  border: 1px solid color-mix(in srgb, var(--gray-1400) 12%, transparent);
-  border-radius: 4px;
-  padding: 0.125em 0.375em;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-extra-high);
+  background: color-mix(in srgb, var(--gray-50) 60%, white);
+  border-radius: 5px;
+  padding: 0.15em 0.4em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 .dark .inline-code {
-  background: color-mix(in srgb, var(--white) 8%, transparent);
-  border-color: color-mix(in srgb, var(--white) 14%, transparent);
+  background: var(--gray-200);
 }
 
 /* Coarse pointer overrides — upscale interactive targets for touch contexts */
