@@ -4,6 +4,8 @@ import {
   type HTMLAttributes,
   type TdHTMLAttributes,
   type ThHTMLAttributes,
+  useLayoutEffect,
+  useRef,
   useState,
 } from "react";
 import { cn } from "../../utils";
@@ -16,24 +18,59 @@ import { cn } from "../../utils";
 export interface TableProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const Table = forwardRef<HTMLDivElement, TableProps>(
-  ({ className, children, ...props }, ref) => (
-    <div
-      className={cn(
-        "overflow-x-auto",
-        "rounded-[var(--table-radius)] border border-[var(--table-border)]",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-strong)] focus-visible:ring-inset",
-        className
-      )}
-      ref={ref}
-      role="region"
-      tabIndex={0}
-      {...props}
-    >
-      <table className="w-full caption-bottom border-collapse text-body-md">
-        {children}
-      </table>
-    </div>
-  )
+  ({ className, children, ...props }, ref) => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const shadowStartRef = useRef<HTMLDivElement>(null);
+    const shadowEndRef = useRef<HTMLDivElement>(null);
+
+    useLayoutEffect(() => {
+      const scrollEl = scrollRef.current;
+      const startEl = shadowStartRef.current;
+      const endEl = shadowEndRef.current;
+      if (!(scrollEl && startEl && endEl)) return;
+
+      function update() {
+        if (!(scrollEl && startEl && endEl)) return;
+        const hasOverflow = scrollEl.scrollWidth > scrollEl.clientWidth;
+        const atStart = scrollEl.scrollLeft <= 0;
+        const atEnd =
+          scrollEl.scrollLeft + scrollEl.clientWidth >=
+          scrollEl.scrollWidth - 1;
+        startEl.style.opacity = hasOverflow && !atStart ? "1" : "0";
+        endEl.style.opacity = hasOverflow && !atEnd ? "1" : "0";
+      }
+
+      update();
+      scrollEl.addEventListener("scroll", update, { passive: true });
+      const ro = new ResizeObserver(update);
+      ro.observe(scrollEl);
+      return () => {
+        scrollEl.removeEventListener("scroll", update);
+        ro.disconnect();
+      };
+    }, []);
+
+    return (
+      <div className={cn("relative", className)} ref={ref} {...props}>
+        <div
+          className={cn(
+            "table-scroll-container overflow-x-auto",
+            "rounded-[var(--table-radius)] border border-[var(--table-border)]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-strong)] focus-visible:ring-inset"
+          )}
+          ref={scrollRef}
+          role="region"
+          tabIndex={0}
+        >
+          <table className="w-full caption-bottom border-collapse text-body-md">
+            {children}
+          </table>
+        </div>
+        <div className="table-scroll-shadow-start" ref={shadowStartRef} />
+        <div className="table-scroll-shadow-end" ref={shadowEndRef} />
+      </div>
+    );
+  }
 );
 Table.displayName = "Table";
 

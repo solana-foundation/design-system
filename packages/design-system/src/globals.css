@@ -419,6 +419,8 @@
   --table-border: var(--border-light);
   --table-caption-text: var(--text-low);
   --table-radius: 12px;
+  --table-scrollbar-thumb: var(--gray-300);
+  --table-scrollbar-thumb-hover: var(--gray-400);
 
   /* =============================================================================
      BUTTON TOKENS
@@ -1029,6 +1031,8 @@ body {
   --table-header-bg: color-mix(in srgb, var(--white) 4%, transparent);
   --table-row-bg-hover: color-mix(in srgb, var(--white) 6%, transparent);
   --table-row-bg-selected: color-mix(in srgb, var(--white) 8%, transparent);
+  --table-scrollbar-thumb: var(--gray-500);
+  --table-scrollbar-thumb-hover: var(--gray-400);
 
   /* Input - dark mode overrides */
   --input-border-idle: color-mix(in srgb, var(--white) 20%, transparent);
@@ -1790,6 +1794,69 @@ body {
   z-index: 1;
   opacity: 0;
   transition: opacity 150ms ease-out;
+}
+
+/* =============================================================================
+   TABLE - Scrollbar & Scroll Shadows
+   ============================================================================= */
+
+/* Always-visible thin scrollbar for WebKit/Blink (converts overlay → classic) */
+.table-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-scroll-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+  background: var(--table-scrollbar-thumb);
+  border-radius: 9999px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: var(--table-scrollbar-thumb-hover);
+}
+
+/* Firefox fallback: thin native scrollbar */
+@supports not selector(::-webkit-scrollbar) {
+  .table-scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: var(--table-scrollbar-thumb) transparent;
+  }
+}
+
+/* Edge shadow indicators */
+.table-scroll-shadow-start,
+.table-scroll-shadow-end {
+  position: absolute;
+  top: 0;
+  bottom: 8px; /* clear the scrollbar track */
+  width: 16px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 150ms ease-out;
+}
+
+.table-scroll-shadow-start {
+  left: 0;
+  background: linear-gradient(to right, color-mix(in srgb, var(--gray-1400) 8%, transparent), transparent);
+  border-radius: var(--table-radius) 0 0 0;
+}
+
+.table-scroll-shadow-end {
+  right: 0;
+  background: linear-gradient(to left, color-mix(in srgb, var(--gray-1400) 8%, transparent), transparent);
+  border-radius: 0 var(--table-radius) 0 0;
+}
+
+:is(.dark, [data-theme="dark"]) .table-scroll-shadow-start {
+  background: linear-gradient(to right, color-mix(in srgb, black 20%, transparent), transparent);
+}
+
+:is(.dark, [data-theme="dark"]) .table-scroll-shadow-end {
+  background: linear-gradient(to left, color-mix(in srgb, black 20%, transparent), transparent);
 }
 
 /* =============================================================================
