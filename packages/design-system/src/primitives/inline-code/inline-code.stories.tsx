@@ -34,10 +34,28 @@ export const MultipleInline: Story = {
 export const DarkMode: Story = {
   name: "Dark Mode",
   render: () => (
-    <div className="dark rounded-lg bg-gray-100 p-6">
+    <div className="dark">
+      <div className="rounded-lg bg-gray-100 p-6">
+        <p className="text-body-md text-text-high">
+          Run <InlineCode>solana airdrop 2</InlineCode> to get devnet SOL for
+          testing.
+        </p>
+      </div>
+    </div>
+  ),
+};
+
+export const MultilineWrapping: Story = {
+  name: "Multiline Wrapping",
+  render: () => (
+    <div className="max-w-sm">
       <p className="text-body-md text-text-high">
-        Run <InlineCode>solana airdrop 2</InlineCode> to get devnet SOL for
-        testing.
+        Configure your validator with{" "}
+        <InlineCode>
+          solana-validator --identity ~/validator-keypair.json --vote-account
+          ~/vote-account-keypair.json --ledger ~/validator-ledger
+        </InlineCode>{" "}
+        to start participating in consensus.
       </p>
     </div>
   ),

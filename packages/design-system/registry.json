@@ -104,6 +104,15 @@
       ]
     },
     {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Composable table primitives with hover transitions, selected row state, edge cell padding, monospace and copyable columns.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["cn"],
+      "files": [{ "path": "registry/solana/table.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "tabs",
       "type": "registry:ui",
       "title": "Tabs",

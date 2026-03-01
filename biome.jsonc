@@ -20,7 +20,8 @@
         "noArrayIndexKey": "off"
       },
       "a11y": {
-        "useSemanticElements": "off"
+        "useSemanticElements": "off",
+        "noNoninteractiveTabindex": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"

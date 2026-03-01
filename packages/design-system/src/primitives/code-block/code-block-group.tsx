@@ -172,19 +172,17 @@ export const CodeBlockGroup = forwardRef<HTMLDivElement, CodeBlockGroupProps>(
                 key={item.label}
                 ref={isActive ? activePanelRef : undefined}
                 role="tabpanel"
+                {...(!isActive && { inert: true })}
                 style={{
-                  ...(isActive
-                    ? {}
-                    : {
-                        position: "absolute" as const,
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        visibility: "hidden" as const,
-                        pointerEvents: "none" as const,
-                      }),
+                  position: "absolute" as const,
+                  top: 0,
+                  left: 0,
+                  right: 0,
                   opacity: isActive ? 1 : 0,
-                  transition: "opacity 0.15s ease-out",
+                  transition: "opacity 0.2s ease-out",
+                  pointerEvents: isActive
+                    ? ("auto" as const)
+                    : ("none" as const),
                 }}
               >
                 <CodeBlockInner
