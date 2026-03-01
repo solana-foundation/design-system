@@ -29,9 +29,11 @@ export const Table = forwardRef<HTMLDivElement, TableProps>(
 
     const updateScrollState = useCallback((el: HTMLDivElement) => {
       const { scrollLeft, scrollWidth, clientWidth } = el;
-      setScrollState({
-        left: scrollLeft > 0,
-        right: scrollLeft < scrollWidth - clientWidth - 1,
+      const left = scrollLeft > 0;
+      const right = scrollLeft < scrollWidth - clientWidth - 1;
+      setScrollState((prev) => {
+        if (prev.left === left && prev.right === right) return prev;
+        return { left, right };
       });
     }, []);
 
