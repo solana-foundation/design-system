@@ -1,5 +1,6 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react-vite";
+import { Agentation } from "agentation";
 import "../src/globals.css";
 
 const preview: Preview = {
@@ -33,9 +34,12 @@ const preview: Preview = {
       defaultTheme: "light",
     }),
     (Story) => (
-      <div className="grid min-h-[100px] w-full place-items-center bg-background p-8 text-foreground">
-        <Story />
-      </div>
+      <>
+        <div className="grid min-h-[100px] w-full place-items-center bg-background p-8 text-foreground">
+          <Story />
+        </div>
+        {import.meta.env.DEV ? <Agentation /> : null}
+      </>
     ),
   ],
 };

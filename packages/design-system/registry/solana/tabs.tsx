@@ -71,16 +71,17 @@ export function Tabs({
   size = "md",
   orientation = "horizontal",
   fullWidth = false,
-  bordered = false,
+  bordered,
   value,
   defaultValue,
   onValueChange,
   children,
   className,
 }: TabsProps) {
+  const effectiveBordered = bordered ?? orientation === "horizontal";
   const ctxValue = useMemo(
-    () => ({ size, orientation, fullWidth, bordered }),
-    [size, orientation, fullWidth, bordered]
+    () => ({ size, orientation, fullWidth, bordered: effectiveBordered }),
+    [size, orientation, fullWidth, effectiveBordered]
   );
 
   return (
@@ -130,8 +131,8 @@ export function TabList({ children, className }: TabListProps) {
         isHorizontal ? "flex-row" : "flex-col",
         bordered &&
           (isHorizontal
-            ? "shadow-[inset_0_-1px_0_0_var(--color-border-light)]"
-            : "shadow-[inset_-1px_0_0_0_var(--color-border-light)]"),
+            ? "shadow-[inset_0_-1px_0_var(--color-border-light)]"
+            : "shadow-[inset_-1px_0_0_var(--color-border-light)]"),
         fullWidth && "w-full",
         className
       )}
@@ -149,25 +150,26 @@ TabList.displayName = "TabList";
 // =============================================================================
 
 function TabIndicator() {
-  const { orientation } = useTabsContext();
+  const { orientation, size } = useTabsContext();
   const isHorizontal = orientation === "horizontal";
+  const config = tabsSizeConfig[size];
 
   const style: React.CSSProperties = isHorizontal
     ? {
         left: 0,
-        translate: "var(--active-tab-left) 0",
-        width: "var(--active-tab-width)",
+        translate: `calc(var(--active-tab-left) + ${config.paddingX}) 0`,
+        width: `calc(var(--active-tab-width) - 2 * ${config.paddingX})`,
       }
     : {
         top: 0,
-        translate: "0 var(--active-tab-top)",
-        height: "var(--active-tab-height)",
+        translate: `0 calc(var(--active-tab-top) + ${config.paddingY})`,
+        height: `calc(var(--active-tab-height) - 2 * ${config.paddingY})`,
       };
 
   return (
     <BaseTabs.Indicator
       className={cn(
-        "absolute rounded-full bg-[var(--tab-indicator-color)]",
+        "absolute bg-[var(--tab-indicator-color)]",
         "transition-[translate,width,height] duration-200 ease-out",
         "motion-reduce:transition-none",
         isHorizontal

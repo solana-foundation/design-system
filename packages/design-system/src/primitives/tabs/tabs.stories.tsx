@@ -42,7 +42,6 @@ export const Playground: Story = {
     size: "md",
     orientation: "horizontal",
     fullWidth: false,
-    bordered: false,
     defaultValue: "overview",
   },
   render: (args) => (
@@ -85,7 +84,9 @@ export const Bordered: Story = {
   render: () => (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-2">
-        <span className="text-body-sm text-text-low">Default (no border)</span>
+        <span className="text-body-sm text-text-low">
+          Default (bordered for horizontal)
+        </span>
         <Tabs defaultValue="overview">
           <TabList>
             <Tab value="overview">Overview</Tab>
@@ -95,8 +96,10 @@ export const Bordered: Story = {
         </Tabs>
       </div>
       <div className="flex flex-col gap-2">
-        <span className="text-body-sm text-text-low">Bordered</span>
-        <Tabs bordered defaultValue="overview">
+        <span className="text-body-sm text-text-low">
+          Explicit bordered=false
+        </span>
+        <Tabs bordered={false} defaultValue="overview">
           <TabList>
             <Tab value="overview">Overview</Tab>
             <Tab value="analytics">Analytics</Tab>

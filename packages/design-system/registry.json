@@ -123,6 +123,83 @@
           "type": "registry:hook"
         }
       ]
+    },
+    {
+      "name": "code-block",
+      "type": "registry:ui",
+      "title": "Code Block",
+      "description": "Syntax-highlighted code block with Shiki, copy button, line numbers, filename header, theme variants (default/sand), and optional monochrome mode via `mono` prop.",
+      "dependencies": [
+        "@shikijs/core",
+        "@shikijs/engine-oniguruma",
+        "shiki",
+        "@heroicons/react"
+      ],
+      "registryDependencies": [
+        "cn",
+        "use-copy-to-clipboard",
+        "use-shiki",
+        "code-block-themes"
+      ],
+      "files": [
+        { "path": "registry/solana/code-block.tsx", "type": "registry:ui" }
+      ]
+    },
+    {
+      "name": "use-shiki",
+      "type": "registry:hook",
+      "title": "useShiki",
+      "description": "Lazy-loading Shiki syntax highlighter hook with singleton instance and dynamic language loading.",
+      "dependencies": ["@shikijs/core", "@shikijs/engine-oniguruma", "shiki"],
+      "registryDependencies": ["code-block-themes"],
+      "files": [
+        { "path": "registry/solana/use-shiki.ts", "type": "registry:hook" }
+      ]
+    },
+    {
+      "name": "code-block-themes",
+      "type": "registry:lib",
+      "title": "Code Block Themes",
+      "description": "Shiki CSS-variables theme definition that maps token colors to CSS custom properties.",
+      "dependencies": ["@shikijs/core"],
+      "files": [
+        {
+          "path": "registry/solana/code-block-themes.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "code-block-group",
+      "type": "registry:ui",
+      "title": "Code Block Group",
+      "description": "Tabbed multi-language code block group with tab switching, shared copy button, and theme support.",
+      "dependencies": [
+        "@shikijs/core",
+        "@shikijs/engine-oniguruma",
+        "shiki",
+        "@heroicons/react"
+      ],
+      "registryDependencies": ["cn", "code-block"],
+      "files": [
+        {
+          "path": "registry/solana/code-block-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "inline-code",
+      "type": "registry:ui",
+      "title": "Inline Code",
+      "description": "Inline code element with monospace font, subtle background, and border styling for use within body text.",
+      "registryDependencies": ["cn"],
+      "files": [
+        {
+          "path": "registry/solana/inline-code.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

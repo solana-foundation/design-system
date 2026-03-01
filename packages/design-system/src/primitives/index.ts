@@ -1,6 +1,20 @@
 // Primitive components (atoms)
 export { Button, type ButtonProps } from "./button";
+export {
+  CodeBlock,
+  CodeBlockInner,
+  type CodeBlockInnerProps,
+  type CodeBlockProps,
+  CodeBlockProvider,
+  type CodeBlockTheme,
+} from "./code-block";
+export {
+  CodeBlockGroup,
+  type CodeBlockGroupItem,
+  type CodeBlockGroupProps,
+} from "./code-block/code-block-group";
 export { CopyButton, type CopyButtonProps } from "./copy-button";
+export { InlineCode, type InlineCodeProps } from "./inline-code";
 export {
   SegmentedControl,
   type SegmentedControlItem,

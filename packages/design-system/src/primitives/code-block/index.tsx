@@ -1,5 +1,6 @@
 import { CheckIcon, Square2StackIcon } from "@heroicons/react/24/outline";
 import type { DecorationItem } from "@shikijs/core/types";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   type CSSProperties,
   createContext,
@@ -20,7 +21,7 @@ import { useShiki } from "./use-shiki";
 const FONT_MONO = "var(--font-berkeley-mono), ui-monospace, monospace";
 
 /** Available code block theme variants */
-export type CodeBlockTheme = "default" | "sand";
+export type CodeBlockTheme = "default" | "sand" | "calm" | "vivid";
 
 export interface CodeBlockProps {
   /** The source code to display */
@@ -129,11 +130,39 @@ function CodeAreaContent({
   onLineClick?: (line: number) => void;
   maxHeight?: number;
 }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const fadeRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const scrollEl = scrollRef.current;
+    const fadeEl = fadeRef.current;
+    if (!scrollEl || !fadeEl) return;
+
+    function update() {
+      if (!scrollEl || !fadeEl) return;
+      const hasOverflow = scrollEl.scrollWidth > scrollEl.clientWidth;
+      const atEnd =
+        scrollEl.scrollLeft + scrollEl.clientWidth >= scrollEl.scrollWidth - 1;
+      fadeEl.style.opacity = hasOverflow && !atEnd ? "1" : "0";
+    }
+
+    update();
+    scrollEl.addEventListener("scroll", update, { passive: true });
+    const ro = new ResizeObserver(update);
+    ro.observe(scrollEl);
+
+    return () => {
+      scrollEl.removeEventListener("scroll", update);
+      ro.disconnect();
+    };
+  }, [processedHtml]);
+
   return (
     <>
       {!hideCopyButton && <CopyBtn copied={copied} onCopy={onCopy} />}
       <div
         className="overflow-x-auto p-4 text-sm"
+        ref={scrollRef}
         {...(hasInteractiveLines && {
           role: "grid",
           onClick: (e: React.MouseEvent) => handleLineClick(e, onLineClick),
@@ -159,6 +188,7 @@ function CodeAreaContent({
           />
         )}
       </div>
+      <div ref={fadeRef} className="code-block-scroll-fade" />
     </>
   );
 }
@@ -235,6 +265,9 @@ export const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(
 
     const hasHeader = !!filename;
     const hasInteractiveLines = !!(onLineClick || lineAnchorPrefix);
+    const hasDiff =
+      (addedLines && addedLines.length > 0) ||
+      (removedLines && removedLines.length > 0);
 
     const processedHtml = html
       ? processHtml(html, {
@@ -263,9 +296,10 @@ export const CodeBlock = forwardRef<HTMLDivElement, CodeBlockProps>(
     return (
       <div
         className={cn(
-          "group relative",
+          "group relative overflow-hidden",
           showLineNumbers && !hasInteractiveLines && "code-block-line-numbers",
           hasInteractiveLines && "code-block-interactive-lines",
+          hasDiff && "code-block-diff",
           className
         )}
         data-code-mono={resolvedMono || undefined}
@@ -355,6 +389,9 @@ export function CodeBlockInner({
   const { copied, copy } = useCopyToClipboard(2000);
 
   const hasInteractiveLines = !!(onLineClick || lineAnchorPrefix);
+  const hasDiff =
+    (addedLines && addedLines.length > 0) ||
+    (removedLines && removedLines.length > 0);
 
   const processedHtml = html
     ? processHtml(html, {
@@ -371,7 +408,8 @@ export function CodeBlockInner({
       className={cn(
         "relative",
         showLineNumbers && !hasInteractiveLines && "code-block-line-numbers",
-        hasInteractiveLines && "code-block-interactive-lines"
+        hasInteractiveLines && "code-block-interactive-lines",
+        hasDiff && "code-block-diff"
       )}
     >
       <CodeAreaContent
@@ -409,6 +447,7 @@ function CollapsibleCodeArea({
   const contentRef = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
   const [naturalHeight, setNaturalHeight] = useState(0);
+  const reduceMotion = useReducedMotion();
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: html triggers re-measure after Shiki async load
   useLayoutEffect(() => {
@@ -421,20 +460,32 @@ function CollapsibleCodeArea({
 
   return (
     <div className="relative">
-      <div
-        className="code-block-collapsible"
-        ref={contentRef}
-        style={{
-          maxHeight: !expanded && needsCollapse ? collapsedHeight : undefined,
-          overflow: !expanded && needsCollapse ? "hidden" : undefined,
-          transition: "max-height 0.3s ease-out",
+      <motion.div
+        animate={{
+          height: !expanded && needsCollapse ? collapsedHeight : "auto",
         }}
+        className="code-block-collapsible overflow-hidden"
+        initial={false}
+        ref={contentRef}
+        transition={
+          reduceMotion
+            ? { duration: 0 }
+            : { type: "spring", duration: 0.4, bounce: 0 }
+        }
       >
         {children}
-      </div>
-      {needsCollapse && !expanded && (
-        <div className="code-block-fade-overlay" />
-      )}
+      </motion.div>
+      <AnimatePresence>
+        {needsCollapse && !expanded && (
+          <motion.div
+            animate={{ opacity: 1 }}
+            className="code-block-fade-overlay"
+            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }}
+            transition={reduceMotion ? { duration: 0 } : { duration: 0.2 }}
+          />
+        )}
+      </AnimatePresence>
       {needsCollapse && (
         <button
           className="code-block-expand-btn"

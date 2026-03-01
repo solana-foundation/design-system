@@ -17,11 +17,11 @@ const meta: Meta<typeof CodeBlock> = {
   argTypes: {
     theme: {
       control: "select",
-      options: ["default", "sand"],
+      options: ["default", "sand", "calm", "vivid"],
       description: "Theme variant",
       table: {
         category: "Appearance",
-        type: { summary: '"default" | "sand"' },
+        type: { summary: '"default" | "sand" | "calm" | "vivid"' },
         defaultValue: { summary: "default" },
       },
     },
@@ -286,7 +286,7 @@ export const Playground: Story = {
 };
 
 export const Themes: Story = {
-  name: "All 8 Variants",
+  name: "All 16 Variants",
   parameters: { controls: { disable: true } },
   render: () => (
     <div className="flex flex-col gap-8">
@@ -347,6 +347,76 @@ export const Themes: Story = {
           <div>
             <p className="mb-2 text-sm text-text-medium">Mono</p>
             <CodeBlock code={shortTs} language="typescript" mono theme="sand" />
+          </div>
+        </div>
+      </div>
+      <div>
+        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
+          Calm — Light
+        </p>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p className="mb-2 text-sm text-text-medium">Color</p>
+            <CodeBlock code={shortTs} language="typescript" theme="calm" />
+          </div>
+          <div>
+            <p className="mb-2 text-sm text-text-medium">Mono</p>
+            <CodeBlock code={shortTs} language="typescript" mono theme="calm" />
+          </div>
+        </div>
+      </div>
+      <div>
+        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
+          Calm — Dark
+        </p>
+        <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
+          <div>
+            <p className="mb-2 text-sm text-text-medium">Color</p>
+            <CodeBlock code={shortTs} language="typescript" theme="calm" />
+          </div>
+          <div>
+            <p className="mb-2 text-sm text-text-medium">Mono</p>
+            <CodeBlock code={shortTs} language="typescript" mono theme="calm" />
+          </div>
+        </div>
+      </div>
+      <div>
+        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
+          Vivid — Light
+        </p>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <p className="mb-2 text-sm text-text-medium">Color</p>
+            <CodeBlock code={shortTs} language="typescript" theme="vivid" />
+          </div>
+          <div>
+            <p className="mb-2 text-sm text-text-medium">Mono</p>
+            <CodeBlock
+              code={shortTs}
+              language="typescript"
+              mono
+              theme="vivid"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
+          Vivid — Dark
+        </p>
+        <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
+          <div>
+            <p className="mb-2 text-sm text-text-medium">Color</p>
+            <CodeBlock code={shortTs} language="typescript" theme="vivid" />
+          </div>
+          <div>
+            <p className="mb-2 text-sm text-text-medium">Mono</p>
+            <CodeBlock
+              code={shortTs}
+              language="typescript"
+              mono
+              theme="vivid"
+            />
           </div>
         </div>
       </div>
