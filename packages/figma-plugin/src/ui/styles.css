@@ -1,0 +1,243 @@
+/* Figma plugin UI — matches Figma's dark chrome */
+
+:root {
+  --figma-bg: #2c2c2c;
+  --figma-surface: #383838;
+  --figma-input: #1e1e1e;
+  --figma-border: rgba(255, 255, 255, 0.1);
+  --figma-text: rgba(255, 255, 255, 0.9);
+  --figma-text-secondary: rgba(255, 255, 255, 0.5);
+  --figma-primary: #0d99ff;
+  --figma-primary-hover: #0b85e0;
+  --figma-radius: 4px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  font-size: 11px;
+  color: var(--figma-text);
+  background: var(--figma-bg);
+  line-height: 1.4;
+  overflow-y: auto;
+}
+
+.plugin {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--figma-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Code textarea */
+.code-input {
+  font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  background: var(--figma-input);
+  color: var(--figma-text);
+  border: 1px solid var(--figma-border);
+  border-radius: var(--figma-radius);
+  padding: 8px;
+  resize: vertical;
+  tab-size: 2;
+  outline: none;
+}
+
+.code-input:focus {
+  border-color: var(--figma-primary);
+}
+
+/* Select */
+.select {
+  background: var(--figma-input);
+  color: var(--figma-text);
+  border: 1px solid var(--figma-border);
+  border-radius: var(--figma-radius);
+  padding: 6px 8px;
+  font-size: 11px;
+  outline: none;
+  cursor: pointer;
+}
+
+.select:focus {
+  border-color: var(--figma-primary);
+}
+
+/* Radio group */
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+.radio-label input[type="radio"] {
+  accent-color: var(--figma-primary);
+}
+
+/* Checkbox */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  accent-color: var(--figma-primary);
+}
+
+/* Number input */
+.number-input {
+  background: var(--figma-input);
+  color: var(--figma-text);
+  border: 1px solid var(--figma-border);
+  border-radius: var(--figma-radius);
+  padding: 6px 8px;
+  font-size: 11px;
+  width: 100%;
+  outline: none;
+}
+
+.number-input:focus {
+  border-color: var(--figma-primary);
+}
+
+/* Text input */
+.text-input {
+  background: var(--figma-input);
+  color: var(--figma-text);
+  border: 1px solid var(--figma-border);
+  border-radius: var(--figma-radius);
+  padding: 6px 8px;
+  font-size: 11px;
+  width: 100%;
+  outline: none;
+}
+
+.text-input:focus {
+  border-color: var(--figma-primary);
+}
+
+/* Preview */
+.preview {
+  border: 1px solid var(--figma-border);
+  border-radius: 6px;
+  overflow: hidden;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.preview-code {
+  padding: 12px;
+  font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  tab-size: 2;
+  overflow-x: auto;
+}
+
+.preview-code pre {
+  margin: 0;
+}
+
+.preview-code code {
+  font-family: inherit;
+}
+
+/* Shiki output styling */
+.preview-code .shiki {
+  background: transparent !important;
+}
+
+.preview-code .shiki code {
+  display: block;
+}
+
+.preview-code .shiki .line {
+  display: block;
+}
+
+/* Target indicator */
+.target-indicator {
+  background: rgba(13, 153, 255, 0.1);
+  border: 1px solid rgba(13, 153, 255, 0.3);
+  border-radius: var(--figma-radius);
+  padding: 6px 8px;
+  font-size: 11px;
+  color: var(--figma-primary);
+}
+
+.target-dims {
+  color: var(--figma-text-secondary);
+  font-size: 10px;
+}
+
+/* Insert button */
+.insert-btn {
+  width: 100%;
+  padding: 10px 16px;
+  background: var(--figma-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--figma-radius);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.insert-btn:hover:not(:disabled) {
+  background: var(--figma-primary-hover);
+}
+
+.insert-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
