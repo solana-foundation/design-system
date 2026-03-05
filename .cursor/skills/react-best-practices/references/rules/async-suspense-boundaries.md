@@ -13,18 +13,18 @@ Instead of awaiting data in async components before returning JSX, use Suspense 
 
 ```tsx
 async function Page() {
-  const data = await fetchData() // Blocks entire page
-  
-  return (
-    <div>
-      <div>Sidebar</div>
-      <div>Header</div>
-      <div>
-        <DataDisplay data={data} />
-      </div>
-      <div>Footer</div>
-    </div>
-  )
+    const data = await fetchData(); // Blocks entire page
+
+    return (
+        <div>
+            <div>Sidebar</div>
+            <div>Header</div>
+            <div>
+                <DataDisplay data={data} />
+            </div>
+            <div>Footer</div>
+        </div>
+    );
 }
 ```
 
@@ -34,23 +34,23 @@ The entire layout waits for data even though only the middle section needs it.
 
 ```tsx
 function Page() {
-  return (
-    <div>
-      <div>Sidebar</div>
-      <div>Header</div>
-      <div>
-        <Suspense fallback={<Skeleton />}>
-          <DataDisplay />
-        </Suspense>
-      </div>
-      <div>Footer</div>
-    </div>
-  )
+    return (
+        <div>
+            <div>Sidebar</div>
+            <div>Header</div>
+            <div>
+                <Suspense fallback={<Skeleton />}>
+                    <DataDisplay />
+                </Suspense>
+            </div>
+            <div>Footer</div>
+        </div>
+    );
 }
 
 async function DataDisplay() {
-  const data = await fetchData() // Only blocks this component
-  return <div>{data.content}</div>
+    const data = await fetchData(); // Only blocks this component
+    return <div>{data.content}</div>;
 }
 ```
 

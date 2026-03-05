@@ -90,10 +90,10 @@ pnpm build:code         # esbuild src/code.ts → dist/code.js (IIFE, es2020)
 pnpm build:ui           # vite build → dist/index.html (single-file, all assets inlined)
 ```
 
-| Step | Tool | Input | Output | Why |
-|------|------|-------|--------|-----|
-| `build:code` | esbuild | `src/code.ts` | `dist/code.js` (IIFE) | Figma sandbox needs a plain script, no modules |
-| `build:ui` | Vite + vite-plugin-singlefile | `src/ui/index.html` | `dist/index.html` | Figma requires a single HTML file, no external assets |
+| Step         | Tool                          | Input               | Output                | Why                                                   |
+| ------------ | ----------------------------- | ------------------- | --------------------- | ----------------------------------------------------- |
+| `build:code` | esbuild                       | `src/code.ts`       | `dist/code.js` (IIFE) | Figma sandbox needs a plain script, no modules        |
+| `build:ui`   | Vite + vite-plugin-singlefile | `src/ui/index.html` | `dist/index.html`     | Figma requires a single HTML file, no external assets |
 
 The Vite config sets `root: "src/ui"` and outputs to `../../dist`. The singlefile plugin inlines all JS and CSS into the HTML.
 
@@ -154,14 +154,15 @@ All theme colors are defined in `packages/design-system/src/globals.css` as CSS 
 
 3 dimensions: **theme** (4) × **mode** (2) × **mono** (2) = 16 syntax color sets + 8 shell color sets (shell colors are not affected by mono).
 
-| Theme | Personality | Hue Axis |
-|-------|------------|----------|
-| default | Neutral, Solana purple→teal | H=264–310 |
-| sand | Warm editorial | H=18–200 (warm arc) |
-| calm | Serene, desaturated | H=303 (purple whisper) |
-| vivid | Electric, high-chroma | H=264–307 (brand saturation) |
+| Theme   | Personality                 | Hue Axis                     |
+| ------- | --------------------------- | ---------------------------- |
+| default | Neutral, Solana purple→teal | H=264–310                    |
+| sand    | Warm editorial              | H=18–200 (warm arc)          |
+| calm    | Serene, desaturated         | H=303 (purple whisper)       |
+| vivid   | Electric, high-chroma       | H=264–307 (brand saturation) |
 
 **Mono variants** replace all syntax token chroma with near-zero values:
+
 - Default mono: `C=0` (pure grayscale)
 - Sand mono: `C=0.008, H=55` (warm micro-tint)
 - Calm mono: `C=0.008, H=303` (cool purple micro-tint)
@@ -258,15 +259,15 @@ CodeBlock (Frame)
 
 The main thread tries these fonts in order. First one that loads successfully is used for all text:
 
-| Priority | Family | Regular Style | Italic Style | Notes |
-|----------|--------|--------------|-------------|-------|
-| 1 | Berkeley Mono | Regular | Italic | Solana design system preferred font |
-| 2 | SF Mono | Regular | Regular Italic | macOS system monospace |
-| 3 | JetBrains Mono | Regular | Italic | Free, widely installed |
-| 4 | Fira Code | Regular | *(none)* | No italic variant — skips italic styling |
-| 5 | Source Code Pro | Regular | Italic | Google Fonts |
-| 6 | Roboto Mono | Regular | Italic | Google Fonts |
-| 7 | Courier New | Regular | Italic | System fallback |
+| Priority | Family          | Regular Style | Italic Style   | Notes                                    |
+| -------- | --------------- | ------------- | -------------- | ---------------------------------------- |
+| 1        | Berkeley Mono   | Regular       | Italic         | Solana design system preferred font      |
+| 2        | SF Mono         | Regular       | Regular Italic | macOS system monospace                   |
+| 3        | JetBrains Mono  | Regular       | Italic         | Free, widely installed                   |
+| 4        | Fira Code       | Regular       | _(none)_       | No italic variant — skips italic styling |
+| 5        | Source Code Pro | Regular       | Italic         | Google Fonts                             |
+| 6        | Roboto Mono     | Regular       | Italic         | Google Fonts                             |
+| 7        | Courier New     | Regular       | Italic         | System fallback                          |
 
 If no font loads, the plugin throws an error and notifies the user.
 
@@ -325,6 +326,7 @@ Languages are loaded lazily from `shiki/langs/*.mjs` to avoid bundling all gramm
 ```
 
 **ResizeMessage** — resize the plugin window:
+
 ```typescript
 { type: "resize", width: number, height: number }
 ```
@@ -333,17 +335,17 @@ Languages are loaded lazily from `shiki/langs/*.mjs` to avoid bundling all gramm
 
 ## Dependencies
 
-| Package | Purpose | Used By |
-|---------|---------|---------|
-| `shiki` | Language grammars (`shiki/langs/*.mjs`) | UI |
-| `@shikijs/core` | `createHighlighterCore`, `codeToTokens` | UI |
-| `@shikijs/engine-javascript` | JS regex engine (no WASM) | UI |
-| `react`, `react-dom` | Plugin UI | UI |
-| `@figma/plugin-typings` | Figma API types | code.ts |
-| `esbuild` | Bundles code.ts → IIFE | Build |
-| `vite` | Bundles UI → HTML | Build |
-| `vite-plugin-singlefile` | Inlines all assets into single HTML | Build |
-| `@vitejs/plugin-react` | JSX transform for Vite | Build |
+| Package                      | Purpose                                 | Used By |
+| ---------------------------- | --------------------------------------- | ------- |
+| `shiki`                      | Language grammars (`shiki/langs/*.mjs`) | UI      |
+| `@shikijs/core`              | `createHighlighterCore`, `codeToTokens` | UI      |
+| `@shikijs/engine-javascript` | JS regex engine (no WASM)               | UI      |
+| `react`, `react-dom`         | Plugin UI                               | UI      |
+| `@figma/plugin-typings`      | Figma API types                         | code.ts |
+| `esbuild`                    | Bundles code.ts → IIFE                  | Build   |
+| `vite`                       | Bundles UI → HTML                       | Build   |
+| `vite-plugin-singlefile`     | Inlines all assets into single HTML     | Build   |
+| `@vitejs/plugin-react`       | JSX transform for Vite                  | Build   |
 
 ---
 
@@ -351,16 +353,16 @@ Languages are loaded lazily from `shiki/langs/*.mjs` to avoid bundling all gramm
 
 The Figma plugin mirrors the web component but in a different rendering target:
 
-| Aspect | Web Component | Figma Plugin |
-|--------|--------------|-------------|
-| Theme definition | CSS custom properties in globals.css | Same values, pre-converted to hex |
-| Shiki theme | `cssVariablesTheme` → CSS vars | Same theme → CSS vars → resolved to hex |
-| Token styling | `dangerouslySetInnerHTML` with Shiki HTML | `setRangeFills()` per token on Figma Text |
-| Italic tokens | CSS `font-style: italic` | `setRangeFontName()` with italic font variant |
-| Background | CSS `background` property | Figma Frame `fills` |
-| Border | CSS `border` property | Figma Frame `strokes` with `opacity` |
-| Line numbers | CSS counters on `.line` spans | Separate Figma Text node |
-| Diff markers | CSS `::before` pseudo-elements | Separate Figma Text node with per-char fills |
+| Aspect           | Web Component                             | Figma Plugin                                  |
+| ---------------- | ----------------------------------------- | --------------------------------------------- |
+| Theme definition | CSS custom properties in globals.css      | Same values, pre-converted to hex             |
+| Shiki theme      | `cssVariablesTheme` → CSS vars            | Same theme → CSS vars → resolved to hex       |
+| Token styling    | `dangerouslySetInnerHTML` with Shiki HTML | `setRangeFills()` per token on Figma Text     |
+| Italic tokens    | CSS `font-style: italic`                  | `setRangeFontName()` with italic font variant |
+| Background       | CSS `background` property                 | Figma Frame `fills`                           |
+| Border           | CSS `border` property                     | Figma Frame `strokes` with `opacity`          |
+| Line numbers     | CSS counters on `.line` spans             | Separate Figma Text node                      |
+| Diff markers     | CSS `::before` pseudo-elements            | Separate Figma Text node with per-char fills  |
 
 ---
 
@@ -377,9 +379,9 @@ The Figma plugin mirrors the web component but in a different rendering target:
 
 1. Add the OKLCH color values to `globals.css` (web component)
 2. Add corresponding entries in `themes.ts`:
-   - New `SyntaxColors` objects for light/dark/mono variants
-   - New `ShellDef` entries in `SHELL_MAP`
-   - Add to `SYNTAX_MAP`
+    - New `SyntaxColors` objects for light/dark/mono variants
+    - New `ShellDef` entries in `SHELL_MAP`
+    - Add to `SYNTAX_MAP`
 3. Add the theme name to the `CodeBlockTheme` type in `types.ts`
 4. Add radio button in `App.tsx`
 
@@ -387,9 +389,9 @@ The Figma plugin mirrors the web component but in a different rendering target:
 
 1. Add to `SUPPORTED_LANGUAGES` array in `types.ts`
 2. Add dynamic import entry in `LANG_IMPORTS` in `App.tsx`:
-   ```typescript
-   newlang: () => import("shiki/langs/newlang.mjs"),
-   ```
+    ```typescript
+    newlang: () => import("shiki/langs/newlang.mjs"),
+    ```
 3. Rebuild
 
 ### Debugging

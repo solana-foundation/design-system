@@ -1,80 +1,80 @@
-import type { Meta, StoryObj } from "@storybook/react-vite";
-import { CodeBlockGroup } from "./code-block-group";
-import { CodeBlock, CodeBlockProvider } from "./index";
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { CodeBlockGroup } from './code-block-group';
+import { CodeBlock, CodeBlockProvider } from './index';
 
 const meta: Meta<typeof CodeBlock> = {
-  title: "Primitives/CodeBlock",
-  component: CodeBlock,
-  parameters: {
-    layout: "padded",
-    docs: {
-      description: {
-        component:
-          "Syntax-highlighted code block with themes, line numbers, diffs, collapsible sections, and word highlighting. Powered by Shiki.",
-      },
+    title: 'Primitives/CodeBlock',
+    component: CodeBlock,
+    parameters: {
+        layout: 'padded',
+        docs: {
+            description: {
+                component:
+                    'Syntax-highlighted code block with themes, line numbers, diffs, collapsible sections, and word highlighting. Powered by Shiki.',
+            },
+        },
     },
-  },
-  argTypes: {
-    theme: {
-      control: "select",
-      options: ["default", "sand", "calm", "vivid"],
-      description: "Theme variant",
-      table: {
-        category: "Appearance",
-        type: { summary: '"default" | "sand" | "calm" | "vivid"' },
-        defaultValue: { summary: "default" },
-      },
+    argTypes: {
+        theme: {
+            control: 'select',
+            options: ['default', 'sand', 'calm', 'vivid'],
+            description: 'Theme variant',
+            table: {
+                category: 'Appearance',
+                type: { summary: '"default" | "sand" | "calm" | "vivid"' },
+                defaultValue: { summary: 'default' },
+            },
+        },
+        mono: {
+            control: 'boolean',
+            description: 'Monochrome syntax — grayscale with lightness contrast',
+            table: {
+                category: 'Appearance',
+                defaultValue: { summary: 'false' },
+            },
+        },
+        borderRadius: {
+            control: { type: 'range', min: 0, max: 24 },
+            description: 'Border radius in pixels',
+            table: {
+                category: 'Appearance',
+                defaultValue: { summary: '8' },
+            },
+        },
+        hideCopyButton: {
+            control: 'boolean',
+            description: 'Hide the copy-to-clipboard button',
+            table: {
+                category: 'Appearance',
+                defaultValue: { summary: 'false' },
+            },
+        },
+        language: {
+            control: 'select',
+            options: ['typescript', 'rust', 'python', 'bash', 'json', 'text'],
+            description: 'Programming language for syntax highlighting',
+            table: {
+                category: 'Content',
+                type: { summary: 'string' },
+                defaultValue: { summary: 'text' },
+            },
+        },
+        filename: {
+            control: 'text',
+            description: 'Filename displayed in the header bar',
+            table: {
+                category: 'Content',
+            },
+        },
+        showLineNumbers: {
+            control: 'boolean',
+            description: 'Show line numbers in the gutter',
+            table: {
+                category: 'Display',
+                defaultValue: { summary: 'false' },
+            },
+        },
     },
-    mono: {
-      control: "boolean",
-      description: "Monochrome syntax — grayscale with lightness contrast",
-      table: {
-        category: "Appearance",
-        defaultValue: { summary: "false" },
-      },
-    },
-    borderRadius: {
-      control: { type: "range", min: 0, max: 24 },
-      description: "Border radius in pixels",
-      table: {
-        category: "Appearance",
-        defaultValue: { summary: "8" },
-      },
-    },
-    hideCopyButton: {
-      control: "boolean",
-      description: "Hide the copy-to-clipboard button",
-      table: {
-        category: "Appearance",
-        defaultValue: { summary: "false" },
-      },
-    },
-    language: {
-      control: "select",
-      options: ["typescript", "rust", "python", "bash", "json", "text"],
-      description: "Programming language for syntax highlighting",
-      table: {
-        category: "Content",
-        type: { summary: "string" },
-        defaultValue: { summary: "text" },
-      },
-    },
-    filename: {
-      control: "text",
-      description: "Filename displayed in the header bar",
-      table: {
-        category: "Content",
-      },
-    },
-    showLineNumbers: {
-      control: "boolean",
-      description: "Show line numbers in the gutter",
-      table: {
-        category: "Display",
-        defaultValue: { summary: "false" },
-      },
-    },
-  },
 };
 
 export default meta;
@@ -255,295 +255,241 @@ console.log(\`Balance: \${sol} SOL\`);`;
 // ---------- Code lookup for Playground ----------
 
 const codeByLanguage: Record<string, string> = {
-  typescript: tsCode,
-  rust: rustCode,
-  python: pythonCode,
-  bash: bashCode,
-  json: jsonCode,
-  text: tsCode,
+    typescript: tsCode,
+    rust: rustCode,
+    python: pythonCode,
+    bash: bashCode,
+    json: jsonCode,
+    text: tsCode,
 };
 
 // ---------- Stories ----------
 
 export const Playground: Story = {
-  args: {
-    code: tsCode,
-    language: "typescript",
-    theme: "default",
-    mono: false,
-    filename: "",
-    showLineNumbers: false,
-    borderRadius: 8,
-    hideCopyButton: false,
-  },
-  render: ({ language, ...args }) => (
-    <CodeBlock
-      {...args}
-      code={codeByLanguage[language ?? "typescript"] ?? tsCode}
-      language={language}
-    />
-  ),
+    args: {
+        code: tsCode,
+        language: 'typescript',
+        theme: 'default',
+        mono: false,
+        filename: '',
+        showLineNumbers: false,
+        borderRadius: 8,
+        hideCopyButton: false,
+    },
+    render: ({ language, ...args }) => (
+        <CodeBlock {...args} code={codeByLanguage[language ?? 'typescript'] ?? tsCode} language={language} />
+    ),
 };
 
 export const Themes: Story = {
-  name: "All 16 Variants",
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex flex-col gap-8">
-      <div>
-        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Default — Light
-        </p>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Color</p>
-            <CodeBlock code={shortTs} language="typescript" />
-          </div>
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Mono</p>
-            <CodeBlock code={shortTs} language="typescript" mono />
-          </div>
+    name: 'All 16 Variants',
+    parameters: { controls: { disable: true } },
+    render: () => (
+        <div className="flex flex-col gap-8">
+            <div>
+                <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">Default — Light</p>
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Color</p>
+                        <CodeBlock code={shortTs} language="typescript" />
+                    </div>
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Mono</p>
+                        <CodeBlock code={shortTs} language="typescript" mono />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">Default — Dark</p>
+                <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Color</p>
+                        <CodeBlock code={shortTs} language="typescript" />
+                    </div>
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Mono</p>
+                        <CodeBlock code={shortTs} language="typescript" mono />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">Sand — Light</p>
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Color</p>
+                        <CodeBlock code={shortTs} language="typescript" theme="sand" />
+                    </div>
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Mono</p>
+                        <CodeBlock code={shortTs} language="typescript" mono theme="sand" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">Sand — Dark</p>
+                <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Color</p>
+                        <CodeBlock code={shortTs} language="typescript" theme="sand" />
+                    </div>
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Mono</p>
+                        <CodeBlock code={shortTs} language="typescript" mono theme="sand" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">Calm — Light</p>
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Color</p>
+                        <CodeBlock code={shortTs} language="typescript" theme="calm" />
+                    </div>
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Mono</p>
+                        <CodeBlock code={shortTs} language="typescript" mono theme="calm" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">Calm — Dark</p>
+                <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Color</p>
+                        <CodeBlock code={shortTs} language="typescript" theme="calm" />
+                    </div>
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Mono</p>
+                        <CodeBlock code={shortTs} language="typescript" mono theme="calm" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">Vivid — Light</p>
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Color</p>
+                        <CodeBlock code={shortTs} language="typescript" theme="vivid" />
+                    </div>
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Mono</p>
+                        <CodeBlock code={shortTs} language="typescript" mono theme="vivid" />
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">Vivid — Dark</p>
+                <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Color</p>
+                        <CodeBlock code={shortTs} language="typescript" theme="vivid" />
+                    </div>
+                    <div>
+                        <p className="mb-2 text-sm text-text-medium">Mono</p>
+                        <CodeBlock code={shortTs} language="typescript" mono theme="vivid" />
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div>
-        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Default — Dark
-        </p>
-        <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Color</p>
-            <CodeBlock code={shortTs} language="typescript" />
-          </div>
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Mono</p>
-            <CodeBlock code={shortTs} language="typescript" mono />
-          </div>
-        </div>
-      </div>
-      <div>
-        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Sand — Light
-        </p>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Color</p>
-            <CodeBlock code={shortTs} language="typescript" theme="sand" />
-          </div>
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Mono</p>
-            <CodeBlock code={shortTs} language="typescript" mono theme="sand" />
-          </div>
-        </div>
-      </div>
-      <div>
-        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Sand — Dark
-        </p>
-        <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Color</p>
-            <CodeBlock code={shortTs} language="typescript" theme="sand" />
-          </div>
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Mono</p>
-            <CodeBlock code={shortTs} language="typescript" mono theme="sand" />
-          </div>
-        </div>
-      </div>
-      <div>
-        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Calm — Light
-        </p>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Color</p>
-            <CodeBlock code={shortTs} language="typescript" theme="calm" />
-          </div>
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Mono</p>
-            <CodeBlock code={shortTs} language="typescript" mono theme="calm" />
-          </div>
-        </div>
-      </div>
-      <div>
-        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Calm — Dark
-        </p>
-        <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Color</p>
-            <CodeBlock code={shortTs} language="typescript" theme="calm" />
-          </div>
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Mono</p>
-            <CodeBlock code={shortTs} language="typescript" mono theme="calm" />
-          </div>
-        </div>
-      </div>
-      <div>
-        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Vivid — Light
-        </p>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Color</p>
-            <CodeBlock code={shortTs} language="typescript" theme="vivid" />
-          </div>
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Mono</p>
-            <CodeBlock
-              code={shortTs}
-              language="typescript"
-              mono
-              theme="vivid"
-            />
-          </div>
-        </div>
-      </div>
-      <div>
-        <p className="mb-3 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Vivid — Dark
-        </p>
-        <div className="dark grid grid-cols-2 gap-4 rounded-lg bg-gray-100 p-4">
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Color</p>
-            <CodeBlock code={shortTs} language="typescript" theme="vivid" />
-          </div>
-          <div>
-            <p className="mb-2 text-sm text-text-medium">Mono</p>
-            <CodeBlock
-              code={shortTs}
-              language="typescript"
-              mono
-              theme="vivid"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-  ),
+    ),
 };
 
 export const HighlightedLines: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <CodeBlock
-      code={tsCode}
-      highlightLines={[4, 5, 6]}
-      language="typescript"
-      showLineNumbers
-    />
-  ),
+    parameters: { controls: { disable: true } },
+    render: () => <CodeBlock code={tsCode} highlightLines={[4, 5, 6]} language="typescript" showLineNumbers />,
 };
 
 export const Diff: Story = {
-  name: "Diff Mode",
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <CodeBlock
-      addedLines={[9, 10, 11, 12, 13, 14, 15, 16]}
-      code={diffCode}
-      language="typescript"
-      removedLines={[4]}
-      showLineNumbers
-    />
-  ),
+    name: 'Diff Mode',
+    parameters: { controls: { disable: true } },
+    render: () => (
+        <CodeBlock
+            addedLines={[9, 10, 11, 12, 13, 14, 15, 16]}
+            code={diffCode}
+            language="typescript"
+            removedLines={[4]}
+            showLineNumbers
+        />
+    ),
 };
 
 export const InteractiveLines: Story = {
-  name: "Interactive Lines",
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex flex-col gap-6">
-      <div>
-        <p className="mb-2 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Clickable line numbers
-        </p>
-        <CodeBlock
-          code={shortTs}
-          language="typescript"
-          onLineClick={() => undefined}
-        />
-      </div>
-      <div>
-        <p className="mb-2 font-medium text-text-medium text-xs uppercase tracking-wider">
-          Line anchors (L1, L2, ...)
-        </p>
-        <CodeBlock code={shortTs} language="typescript" lineAnchorPrefix="L" />
-      </div>
-    </div>
-  ),
+    name: 'Interactive Lines',
+    parameters: { controls: { disable: true } },
+    render: () => (
+        <div className="flex flex-col gap-6">
+            <div>
+                <p className="mb-2 font-medium text-text-medium text-xs uppercase tracking-wider">
+                    Clickable line numbers
+                </p>
+                <CodeBlock code={shortTs} language="typescript" onLineClick={() => undefined} />
+            </div>
+            <div>
+                <p className="mb-2 font-medium text-text-medium text-xs uppercase tracking-wider">
+                    Line anchors (L1, L2, ...)
+                </p>
+                <CodeBlock code={shortTs} language="typescript" lineAnchorPrefix="L" />
+            </div>
+        </div>
+    ),
 };
 
 export const WordHighlight: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <CodeBlock
-      code={tsCode}
-      highlightWords={[
-        { text: "Connection" },
-        { text: "PublicKey" },
-        { text: "getBalance" },
-      ]}
-      language="typescript"
-    />
-  ),
+    parameters: { controls: { disable: true } },
+    render: () => (
+        <CodeBlock
+            code={tsCode}
+            highlightWords={[{ text: 'Connection' }, { text: 'PublicKey' }, { text: 'getBalance' }]}
+            language="typescript"
+        />
+    ),
 };
 
 export const Collapsible: Story = {
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <div className="flex flex-col gap-6">
-      <div>
-        <p className="mb-2 font-medium text-text-medium text-xs uppercase tracking-wider">
-          maxLines=10 (expand/collapse)
-        </p>
-        <CodeBlock code={longCode} language="typescript" maxLines={10} />
-      </div>
-      <div>
-        <p className="mb-2 font-medium text-text-medium text-xs uppercase tracking-wider">
-          maxHeight=200 (scrollable)
-        </p>
-        <CodeBlock code={longCode} language="typescript" maxHeight={200} />
-      </div>
-    </div>
-  ),
+    parameters: { controls: { disable: true } },
+    render: () => (
+        <div className="flex flex-col gap-6">
+            <div>
+                <p className="mb-2 font-medium text-text-medium text-xs uppercase tracking-wider">
+                    maxLines=10 (expand/collapse)
+                </p>
+                <CodeBlock code={longCode} language="typescript" maxLines={10} />
+            </div>
+            <div>
+                <p className="mb-2 font-medium text-text-medium text-xs uppercase tracking-wider">
+                    maxHeight=200 (scrollable)
+                </p>
+                <CodeBlock code={longCode} language="typescript" maxHeight={200} />
+            </div>
+        </div>
+    ),
 };
 
 export const LanguageSwitcher: Story = {
-  name: "Language Switcher",
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <CodeBlockGroup
-      items={[
-        { label: "TypeScript", language: "typescript", code: tsCode },
-        { label: "Rust", language: "rust", code: rustCode },
-        { label: "Python", language: "python", code: pythonCode },
-        { label: "Bash", language: "bash", code: bashCode },
-      ]}
-    />
-  ),
+    name: 'Language Switcher',
+    parameters: { controls: { disable: true } },
+    render: () => (
+        <CodeBlockGroup
+            items={[
+                { label: 'TypeScript', language: 'typescript', code: tsCode },
+                { label: 'Rust', language: 'rust', code: rustCode },
+                { label: 'Python', language: 'python', code: pythonCode },
+                { label: 'Bash', language: 'bash', code: bashCode },
+            ]}
+        />
+    ),
 };
 
 export const ThemeProvider: Story = {
-  name: "Theme Provider",
-  parameters: { controls: { disable: true } },
-  render: () => (
-    <CodeBlockProvider theme="sand">
-      <div className="flex flex-col gap-4">
-        <CodeBlock
-          code={tsCode}
-          filename="via-provider.ts"
-          language="typescript"
-        />
-        <CodeBlock code={bashCode} language="bash" />
-        <CodeBlock
-          code={tsCode}
-          filename="override-to-default.ts"
-          language="typescript"
-          theme="default"
-        />
-      </div>
-    </CodeBlockProvider>
-  ),
+    name: 'Theme Provider',
+    parameters: { controls: { disable: true } },
+    render: () => (
+        <CodeBlockProvider theme="sand">
+            <div className="flex flex-col gap-4">
+                <CodeBlock code={tsCode} filename="via-provider.ts" language="typescript" />
+                <CodeBlock code={bashCode} language="bash" />
+                <CodeBlock code={tsCode} filename="override-to-default.ts" language="typescript" theme="default" />
+            </div>
+        </CodeBlockProvider>
+    ),
 };

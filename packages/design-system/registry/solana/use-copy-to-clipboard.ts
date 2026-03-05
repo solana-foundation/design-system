@@ -1,41 +1,38 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const DEFAULT_COPY_RESET_DELAY = 1600;
 
 export interface CopyToClipboardResult {
-  error?: Error;
-  success: boolean;
+    error?: Error;
+    success: boolean;
 }
 
-const toError = (error: unknown) =>
-  error instanceof Error ? error : new Error("Copy to clipboard failed");
+const toError = (error: unknown) => (error instanceof Error ? error : new Error('Copy to clipboard failed'));
 
 const fallbackCopyToClipboard = (text: string): CopyToClipboardResult => {
-  if (typeof document === "undefined") {
-    return { success: false, error: new Error("Document is not available") };
-  }
+    if (typeof document === 'undefined') {
+        return { success: false, error: new Error('Document is not available') };
+    }
 
-  try {
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    textarea.setAttribute("readonly", "true");
-    textarea.style.position = "fixed";
-    textarea.style.top = "0";
-    textarea.style.left = "-9999px";
-    textarea.style.opacity = "0";
+    try {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', 'true');
+        textarea.style.position = 'fixed';
+        textarea.style.top = '0';
+        textarea.style.left = '-9999px';
+        textarea.style.opacity = '0';
 
-    document.body.append(textarea);
-    textarea.focus();
-    textarea.select();
-    const success = document.execCommand("copy");
-    textarea.remove();
+        document.body.append(textarea);
+        textarea.focus();
+        textarea.select();
+        const success = document.execCommand('copy');
+        textarea.remove();
 
-    return success
-      ? { success: true }
-      : { success: false, error: new Error("Fallback clipboard copy failed") };
-  } catch (error) {
-    return { success: false, error: toError(error) };
-  }
+        return success ? { success: true } : { success: false, error: new Error('Fallback clipboard copy failed') };
+    } catch (error) {
+        return { success: false, error: toError(error) };
+    }
 };
 
 /**
@@ -66,55 +63,55 @@ const fallbackCopyToClipboard = (text: string): CopyToClipboardResult => {
  * ```
  */
 export function useCopyToClipboard(resetDelay = DEFAULT_COPY_RESET_DELAY) {
-  const [copied, setCopied] = useState(false);
-  const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const [copied, setCopied] = useState(false);
+    const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const clearResetTimeout = useCallback(() => {
-    if (!resetTimeoutRef.current) return;
-    clearTimeout(resetTimeoutRef.current);
-    resetTimeoutRef.current = null;
-  }, []);
+    const clearResetTimeout = useCallback(() => {
+        if (!resetTimeoutRef.current) return;
+        clearTimeout(resetTimeoutRef.current);
+        resetTimeoutRef.current = null;
+    }, []);
 
-  const scheduleReset = useCallback(() => {
-    clearResetTimeout();
-    resetTimeoutRef.current = setTimeout(() => {
-      setCopied(false);
-      resetTimeoutRef.current = null;
-    }, resetDelay);
-  }, [clearResetTimeout, resetDelay]);
+    const scheduleReset = useCallback(() => {
+        clearResetTimeout();
+        resetTimeoutRef.current = setTimeout(() => {
+            setCopied(false);
+            resetTimeoutRef.current = null;
+        }, resetDelay);
+    }, [clearResetTimeout, resetDelay]);
 
-  // Clean up timeout on unmount.
-  useEffect(() => {
-    return clearResetTimeout;
-  }, [clearResetTimeout]);
+    // Clean up timeout on unmount.
+    useEffect(() => {
+        return clearResetTimeout;
+    }, [clearResetTimeout]);
 
-  const copy = useCallback(
-    async (text: string): Promise<CopyToClipboardResult> => {
-      if (
-        typeof window !== "undefined" &&
-        window.isSecureContext &&
-        typeof navigator !== "undefined" &&
-        navigator.clipboard?.writeText
-      ) {
-        try {
-          await navigator.clipboard.writeText(text);
-          setCopied(true);
-          scheduleReset();
-          return { success: true };
-        } catch {
-          // Fall through to a compatibility fallback.
-        }
-      }
+    const copy = useCallback(
+        async (text: string): Promise<CopyToClipboardResult> => {
+            if (
+                typeof window !== 'undefined' &&
+                window.isSecureContext &&
+                typeof navigator !== 'undefined' &&
+                navigator.clipboard?.writeText
+            ) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    setCopied(true);
+                    scheduleReset();
+                    return { success: true };
+                } catch {
+                    // Fall through to a compatibility fallback.
+                }
+            }
 
-      const fallbackResult = fallbackCopyToClipboard(text);
-      if (fallbackResult.success) {
-        setCopied(true);
-        scheduleReset();
-      }
-      return fallbackResult;
-    },
-    [scheduleReset]
-  );
+            const fallbackResult = fallbackCopyToClipboard(text);
+            if (fallbackResult.success) {
+                setCopied(true);
+                scheduleReset();
+            }
+            return fallbackResult;
+        },
+        [scheduleReset],
+    );
 
-  return { copied, copy };
+    return { copied, copy };
 }

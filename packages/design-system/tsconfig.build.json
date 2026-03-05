@@ -1,19 +1,19 @@
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "noEmit": false,
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "./dist",
-    "rootDir": "./src"
-  },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "src/**/*.stories.tsx",
-    "src/story-components/**",
-    "src/tokens/**",
-    ".storybook/**"
-  ]
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "noEmit": false,
+        "declaration": true,
+        "declarationMap": true,
+        "outDir": "./dist",
+        "rootDir": "./src"
+    },
+    "include": ["src/**/*.ts", "src/**/*.tsx"],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "src/**/*.stories.tsx",
+        "src/story-components/**",
+        "src/tokens/**",
+        ".storybook/**"
+    ]
 }
