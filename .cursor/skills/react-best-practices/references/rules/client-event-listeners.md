@@ -13,15 +13,15 @@ Use `useSWRSubscription()` to share global event listeners across component inst
 
 ```tsx
 function useKeyboardShortcut(key: string, callback: () => void) {
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.metaKey && e.key === key) {
-        callback()
-      }
-    }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [key, callback])
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => {
+            if (e.metaKey && e.key === key) {
+                callback();
+            }
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, [key, callback]);
 }
 ```
 
@@ -67,7 +67,7 @@ function useKeyboardShortcut(key: string, callback: () => void) {
 
 function Profile() {
   // Multiple shortcuts will share the same listener
-  useKeyboardShortcut('p', () => { /* ... */ }) 
+  useKeyboardShortcut('p', () => { /* ... */ })
   useKeyboardShortcut('k', () => { /* ... */ })
   // ...
 }

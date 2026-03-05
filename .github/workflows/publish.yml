@@ -3,11 +3,11 @@ name: Publish Design System
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
   workflow_dispatch:
     inputs:
       package:
-        description: "Which package(s) to publish to npm"
+        description: 'Which package(s) to publish to npm'
         type: choice
         required: true
         default: all
@@ -33,8 +33,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           # npm trusted publishing requires Node >= 22.14.0
-          node-version: "22.14.0"
-          registry-url: "https://registry.npmjs.org"
+          node-version: '22.14.0'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -96,4 +96,3 @@ jobs:
             ```
           draft: false
           prerelease: ${{ contains(github.ref_name, '-') }}
-

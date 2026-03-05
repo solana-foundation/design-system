@@ -1,14 +1,14 @@
-# Ultracite Code Standards
+# Code Standards
 
-This project uses **Ultracite**, a zero-config preset that enforces strict code quality standards through automated formatting and linting.
+This project uses **Prettier** for formatting and **ESLint** for linting.
 
 ## Quick Reference
 
-- **Format code**: `pnpm dlx ultracite fix`
-- **Check for issues**: `pnpm dlx ultracite check`
-- **Diagnose setup**: `pnpm dlx ultracite doctor`
-
-Biome (the underlying engine) provides robust linting and formatting. Most issues are automatically fixable.
+- **Format code**: `pnpm format`
+- **Check formatting**: `pnpm format:check`
+- **Lint code**: `pnpm lint`
+- **Fix lint issues**: `pnpm --filter @solana/design-system lint:fix`
+- **Create a changeset**: `pnpm changeset`
 
 ---
 
@@ -49,11 +49,11 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 - Nest children between opening and closing tags instead of passing as props
 - Don't define components inside other components
 - Use semantic HTML and ARIA attributes for accessibility:
-  - Provide meaningful alt text for images
-  - Use proper heading hierarchy
-  - Add labels for form inputs
-  - Include keyboard event handlers alongside mouse events
-  - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
+    - Provide meaningful alt text for images
+    - Use proper heading hierarchy
+    - Add labels for form inputs
+    - Include keyboard event handlers alongside mouse events
+    - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
 
 ### Error Handling & Debugging
 
@@ -88,14 +88,17 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 ### Framework-Specific Guidance
 
 **Next.js:**
+
 - Use Next.js `<Image>` component for images
 - Use `next/head` or App Router metadata API for head elements
 - Use Server Components for async data fetching instead of async Client Components
 
 **React 19+:**
+
 - Use ref as a prop instead of `React.forwardRef`
 
 **Solid/Svelte/Vue/Qwik:**
+
 - Use `class` and `for` attributes (not `className` or `htmlFor`)
 
 ---
@@ -107,11 +110,11 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 - Don't use `.only` or `.skip` in committed code
 - Keep test suites reasonably flat - avoid excessive `describe` nesting
 
-## When Biome Can't Help
+## When ESLint Can't Help
 
-Biome's linter will catch most issues automatically. Focus your attention on:
+ESLint and TypeScript will catch many issues automatically. Focus your attention on:
 
-1. **Business logic correctness** - Biome can't validate your algorithms
+1. **Business logic correctness** - Linters can't validate your algorithms
 2. **Meaningful naming** - Use descriptive names for functions, variables, and types
 3. **Architecture decisions** - Component structure, data flow, and API design
 4. **Edge cases** - Handle boundary conditions and error states
@@ -120,4 +123,4 @@ Biome's linter will catch most issues automatically. Focus your attention on:
 
 ---
 
-Most formatting and common issues are automatically fixed by Biome. Run `pnpm dlx ultracite fix` before committing to ensure compliance.
+Most formatting issues are automatically fixed by Prettier. Run `pnpm format` and `pnpm lint` before committing to ensure compliance.

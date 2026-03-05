@@ -1,2 +1,2 @@
 // Shared React hooks
-export { useCopyToClipboard } from "./use-copy-to-clipboard";
+export { useCopyToClipboard } from './use-copy-to-clipboard';

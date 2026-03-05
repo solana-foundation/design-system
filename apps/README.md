@@ -9,6 +9,7 @@ This directory contains demo applications showing how to use the Solana Design S
 A full-featured example application showcasing the design system components in a realistic token listing interface inspired by the Solana tokens homepage.
 
 **Featured Components:**
+
 - Sortable data table with TanStack Table
 - Modal dialogs for transactions
 - Transaction success views
@@ -18,6 +19,7 @@ A full-featured example application showcasing the design system components in a
 - Solana logo component
 
 **To run:**
+
 ```bash
 cd apps/token-list
 pnpm dev
@@ -50,6 +52,7 @@ pnpm dev
 ## Structure
 
 Each app includes:
+
 - `package.json` - Dependencies and scripts
 - `src/app/` - Next.js app directory with pages and layouts
 - `src/app/globals.css` - Tailwind CSS v4 configuration
@@ -62,11 +65,11 @@ To create a new app:
 1. Create a new directory in `apps/`
 2. Set up a Next.js app structure
 3. Add `@solana/design-system` as a workspace dependency:
-   ```json
-   "dependencies": {
-     "@solana/design-system": "workspace:*"
-   }
-   ```
+    ```json
+    "dependencies": {
+      "@solana/design-system": "workspace:*"
+    }
+    ```
 4. Import components from `@solana/design-system`
 5. Add a README documenting the app
 
@@ -76,17 +79,17 @@ All apps import components from the design system:
 
 ```tsx
 import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-  Modal,
-  Button,
-  Card,
-  // ... and more
-} from "@solana/design-system";
+    Table,
+    TableHeader,
+    TableBody,
+    TableRow,
+    TableHead,
+    TableCell,
+    Modal,
+    Button,
+    Card,
+    // ... and more
+} from '@solana/design-system';
 ```
 
 See the [main README](../README.md) for full component documentation.

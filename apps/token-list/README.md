@@ -5,6 +5,7 @@ This is a demo application showcasing the **Solana Design System** components.
 ## Features
 
 This example demonstrates:
+
 - **Table component** with sortable columns using TanStack Table
 - **Modal component** for transaction dialogs
 - **TransactionSuccessView** for displaying successful transactions
@@ -17,22 +18,25 @@ This example demonstrates:
 ## Setup
 
 1. Install dependencies from the root of the design-system:
-   ```bash
-   pnpm install
-   ```
+
+    ```bash
+    pnpm install
+    ```
 
 2. Run the example (choose one method):
 
-   **From the root directory:**
-   ```bash
-   pnpm example:token-list
-   ```
+    **From the root directory:**
 
-   **Or from the app directory:**
-   ```bash
-   cd apps/token-list
-   pnpm dev
-   ```
+    ```bash
+    pnpm example:token-list
+    ```
+
+    **Or from the app directory:**
+
+    ```bash
+    cd apps/token-list
+    pnpm dev
+    ```
 
 3. Open [http://localhost:3001](http://localhost:3001) in your browser
 
@@ -45,6 +49,7 @@ This example demonstrates:
 ## Components Used
 
 All components are imported from `@solana/design-system`:
+
 - Table (with TableHeader, TableBody, TableRow, TableHead, TableCell)
 - Modal (with ModalHeader, ModalTitle, ModalDescription, ModalFooter)
 - TransactionSuccessView

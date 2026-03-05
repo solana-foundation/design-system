@@ -11,8 +11,8 @@ pnpm add @solana/design-system
 ## Usage
 
 ```tsx
-import { Button } from "@solana/design-system";
-import "@solana/design-system/styles";
+import { Button } from '@solana/design-system';
+import '@solana/design-system/styles';
 ```
 
 ## Development (monorepo)
@@ -23,4 +23,3 @@ From the repository root:
 pnpm --filter @solana/design-system storybook
 pnpm --filter @solana/design-system build
 ```
-

@@ -21,32 +21,32 @@ pnpm add @solana/design-system
 ```
 
 ```tsx
-import { Button, Spinner, SegmentControl } from "@solana/design-system";
-import "@solana/design-system/styles";
+import { Button, Spinner, SegmentControl } from '@solana/design-system';
+import '@solana/design-system/styles';
 ```
 
 ## Components
 
 ### Primitives
 
-| Component | Description |
-|---|---|
-| **Button** | Primary/secondary variants, four sizes (xl/lg/md/sm), icon support, loading state |
-| **Spinner** | SVG loading spinner with size variants, respects `prefers-reduced-motion` |
-| **Segment Control** | Segmented toggle with smooth sliding indicator animation |
-| **Animated Icon** | Icon transitions with blur and scale using AnimatePresence |
+| Component           | Description                                                                       |
+| ------------------- | --------------------------------------------------------------------------------- |
+| **Button**          | Primary/secondary variants, four sizes (xl/lg/md/sm), icon support, loading state |
+| **Spinner**         | SVG loading spinner with size variants, respects `prefers-reduced-motion`         |
+| **Segment Control** | Segmented toggle with smooth sliding indicator animation                          |
+| **Animated Icon**   | Icon transitions with blur and scale using AnimatePresence                        |
 
 ### Utilities
 
-| Name | Description |
-|---|---|
-| **cn** | Minimal class name joiner (no clsx/tailwind-merge) |
+| Name     | Description                                                    |
+| -------- | -------------------------------------------------------------- |
+| **cn**   | Minimal class name joiner (no clsx/tailwind-merge)             |
 | **Slot** | `asChild` pattern — merges props, classNames, styles, and refs |
 
 ### Hooks
 
-| Name | Description |
-|---|---|
+| Name                   | Description                                      |
+| ---------------------- | ------------------------------------------------ |
 | **useCopyToClipboard** | Clipboard API wrapper with automatic reset timer |
 
 ## Tech Stack
@@ -56,8 +56,9 @@ import "@solana/design-system/styles";
 - **Base UI** (`@base-ui/react`) for accessible headless primitives
 - **Motion** for animations
 - **Lucide React** for icons
-- **Biome** for linting/formatting
-- **Storybook 8** for component documentation
+- **ESLint** for linting
+- **Prettier** for formatting
+- **Storybook 10** for component documentation
 - **pnpm workspaces** + **Turborepo** for monorepo orchestration
 
 ## Development
@@ -65,9 +66,11 @@ import "@solana/design-system/styles";
 ```bash
 pnpm install
 pnpm storybook       # Component docs at localhost:6006
-pnpm lint             # Check code with Biome
+pnpm lint            # Lint code
+pnpm format          # Format code
 pnpm build            # Build npm package to dist/
 pnpm registry:build   # Build shadcn registry to packages/design-system/public/r/
+pnpm changeset        # Add a changeset for releases
 ```
 
 ## Project Structure
@@ -96,15 +99,18 @@ design-system/
 ## Color System
 
 ### Primitives
+
 - **Gray scale**: `gray-50` through `gray-1400` (15 steps)
 - **Base colors**: `black`, `white`
 
 ### Semantic Tokens (transparency-based)
 
 **Text** (uses gray-1400 in light, white in dark):
+
 - `text-extra-high` (100%), `text-high` (88%), `text-medium` (72%), `text-low` (56%), `text-extra-low` (44%)
 
 **Borders** (uses gray-1300 in light, white in dark):
+
 - `border-strongest` (100%), `border-strong` (48%), `border-medium` (20%), `border-light` (12%), `border-extra-light` (4%)
 
 ## Contributing
