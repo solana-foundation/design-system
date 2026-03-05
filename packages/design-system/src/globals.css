@@ -397,6 +397,72 @@
   --button-gap-md: 6px;
   --button-gap-sm: 4px;
 
+  /* =============================================================================
+     TABLE TOKENS
+     ============================================================================= */
+
+  --table-row-height: 44px;
+  --table-header-height: 40px;
+  --table-cell-padding-x: 16px;
+  --table-cell-padding-y: 12px;
+  --table-header-padding-y: 10px;
+  --table-header-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
+  --table-header-text: var(--text-medium);
+  --table-row-bg-hover: color-mix(in srgb, var(--gray-1400) 3%, transparent);
+  --table-border: var(--border-light);
+  --table-caption-text: var(--text-low);
+  --table-radius: 12px;
+
+  /* Solid equivalents for sticky/pinned cells (can't be transparent over scrolling content) */
+  --table-bg: var(--background);
+  --table-header-bg-solid: color-mix(
+    in srgb,
+    var(--gray-1400) 3%,
+    var(--background)
+  );
+  --table-row-bg-hover-solid: color-mix(
+    in srgb,
+    var(--gray-1400) 3%,
+    var(--background)
+  );
+
+  /* =============================================================================
+     BADGE TOKENS
+     ============================================================================= */
+
+  --badge-height: 20px;
+  --badge-padding-x: 8px;
+  --badge-radius: 9999px;
+  --badge-dot-size: 5px;
+  --badge-gap: 5px;
+  --badge-font-size: var(--text-body-sm-size);
+  --badge-font-weight: var(--font-weight-medium);
+
+  /* Badge - Default (gray) */
+  --badge-default-bg: color-mix(in srgb, var(--gray-1400) 8%, transparent);
+  --badge-default-text: var(--text-high);
+  --badge-default-dot: var(--gray-700);
+
+  /* Badge - Success (green) H=155 */
+  --badge-success-bg: oklch(0.955 0.045 155);
+  --badge-success-text: oklch(0.4 0.1 155);
+  --badge-success-dot: oklch(0.55 0.14 155);
+
+  /* Badge - Warning (amber) H=84 */
+  --badge-warning-bg: oklch(0.955 0.05 84);
+  --badge-warning-text: oklch(0.4 0.1 84);
+  --badge-warning-dot: oklch(0.55 0.14 84);
+
+  /* Badge - Danger (red) H=29 */
+  --badge-danger-bg: oklch(0.955 0.04 29);
+  --badge-danger-text: oklch(0.4 0.1 29);
+  --badge-danger-dot: oklch(0.55 0.14 29);
+
+  /* Badge - Info (blue) H=250 */
+  --badge-info-bg: oklch(0.955 0.04 250);
+  --badge-info-text: oklch(0.4 0.1 250);
+  --badge-info-dot: oklch(0.55 0.14 250);
+
   --radius: 0.625rem;
 
   --background: oklch(1 0 0);
@@ -752,6 +818,47 @@ body {
 
   /* Button Focus Ring - solid white for WCAG 2.4.13 compliance (≥3:1 contrast) */
   --button-focus-ring: var(--white);
+
+  /* Table - dark mode: white-based transparency */
+  --table-header-bg: color-mix(in srgb, var(--white) 4%, transparent);
+  --table-row-bg-hover: color-mix(in srgb, var(--white) 4%, transparent);
+
+  /* Solid equivalents for sticky/pinned cells - dark mode */
+  --table-bg: var(--background);
+  --table-header-bg-solid: color-mix(
+    in srgb,
+    var(--white) 4%,
+    var(--background)
+  );
+  --table-row-bg-hover-solid: color-mix(
+    in srgb,
+    var(--white) 4%,
+    var(--background)
+  );
+
+  /* Badge - Default (gray) dark */
+  --badge-default-bg: color-mix(in srgb, var(--white) 14%, transparent);
+  --badge-default-dot: var(--gray-600);
+
+  /* Badge - Success dark H=155 */
+  --badge-success-bg: oklch(0.26 0.06 155);
+  --badge-success-text: oklch(0.82 0.1 155);
+  --badge-success-dot: oklch(0.6 0.14 155);
+
+  /* Badge - Warning dark H=84 */
+  --badge-warning-bg: oklch(0.26 0.07 84);
+  --badge-warning-text: oklch(0.82 0.1 84);
+  --badge-warning-dot: oklch(0.6 0.14 84);
+
+  /* Badge - Danger dark H=29 */
+  --badge-danger-bg: oklch(0.26 0.06 29);
+  --badge-danger-text: oklch(0.82 0.1 29);
+  --badge-danger-dot: oklch(0.6 0.14 29);
+
+  /* Badge - Info dark H=250 */
+  --badge-info-bg: oklch(0.26 0.06 250);
+  --badge-info-text: oklch(0.82 0.1 250);
+  --badge-info-dot: oklch(0.6 0.14 250);
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -1326,4 +1433,47 @@ body {
 .illustration-animate {
   animation: illustration-entrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s
     both;
+}
+
+/* =============================================================================
+   TABLE SCROLL SHADOWS
+   Pseudo-elements on the scrollable wrapper to indicate overflow.
+   Controlled via data-scroll-left / data-scroll-right attributes.
+   ============================================================================= */
+
+.table-scroll-container {
+  position: relative;
+}
+
+.table-scroll-container::before,
+.table-scroll-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  pointer-events: none;
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.table-scroll-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--table-bg), transparent);
+  border-radius: var(--table-radius) 0 0 var(--table-radius);
+}
+
+.table-scroll-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--table-bg), transparent);
+  border-radius: 0 var(--table-radius) var(--table-radius) 0;
+}
+
+.table-scroll-container[data-scroll-left="true"]::before {
+  opacity: 1;
+}
+
+.table-scroll-container[data-scroll-right="true"]::after {
+  opacity: 1;
 }

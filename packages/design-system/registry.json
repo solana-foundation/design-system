@@ -72,6 +72,22 @@
           "type": "registry:hook"
         }
       ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Status badge with color variants and optional dot indicator.",
+      "registryDependencies": ["cn"],
+      "files": [{ "path": "registry/solana/badge.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Composable table primitives with premium spacing, hover transitions, and monospace support.",
+      "registryDependencies": ["cn"],
+      "files": [{ "path": "registry/solana/table.tsx", "type": "registry:ui" }]
     }
   ]
 }
