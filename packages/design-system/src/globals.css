@@ -48,25 +48,25 @@
 }
 
 @utility animate-in {
-  animation-name: enter;
-  animation-duration: 150ms;
-  animation-fill-mode: forwards;
   --tw-enter-opacity: initial;
   --tw-enter-scale: initial;
   --tw-enter-rotate: initial;
   --tw-enter-translate-x: initial;
   --tw-enter-translate-y: initial;
+  animation-name: enter;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
 }
 
 @utility animate-out {
-  animation-name: exit;
-  animation-duration: 150ms;
-  animation-fill-mode: forwards;
   --tw-exit-opacity: initial;
   --tw-exit-scale: initial;
   --tw-exit-rotate: initial;
   --tw-exit-translate-x: initial;
   --tw-exit-translate-y: initial;
+  animation-name: exit;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
 }
 
 @utility fade-in-0 {
@@ -133,13 +133,13 @@
 .prose li code,
 .prose td code,
 .prose th code {
-  background-color: oklch(0.927 0.005 286.25) !important; /* sand-200 */
-  color: oklch(0.2269 0.002 286.25) !important; /* sand-1500 */
   padding: 0.125rem 0.375rem !important;
-  border-radius: 0.375rem !important;
-  font-size: 0.75rem !important; /* text-xs */
-  border: 1px solid oklch(0.839 0.009 286.25) !important; /* sand-400 */
   font-family: var(--font-berkeley-mono), ui-monospace, monospace !important;
+  font-size: 0.75rem !important; /* text-xs */
+  color: oklch(0.2269 0.002 286.25) !important; /* sand-1500 */
+  background-color: oklch(0.927 0.005 286.25) !important; /* sand-200 */
+  border: 1px solid oklch(0.839 0.009 286.25) !important; /* sand-400 */
+  border-radius: 0.375rem !important;
 }
 
 /* Ensure code blocks stay clean - NO background or styling */
@@ -149,16 +149,16 @@
 .prose code[class*="shiki"],
 .prose code[class*="hljs"],
 .prose code[class*="prism"] {
+  padding: 0 !important;
   background: transparent !important;
   background-color: transparent !important;
   border: none !important;
-  padding: 0 !important;
 }
 
 /* Add padding to code blocks */
 .prose pre {
-  padding-left: 1rem !important;
   padding-right: 1.5rem !important;
+  padding-left: 1rem !important;
 }
 
 @keyframes spinner-rotate {
@@ -252,21 +252,21 @@
 
 :root {
   /* Gray palette - Light mode (OKLCH, Solana purple axis H=286→300→286) */
-  --gray-50:   oklch(0.970 0.004 286.0);
-  --gray-100:  oklch(0.930 0.008 289.4);
-  --gray-200:  oklch(0.887 0.012 292.6);
-  --gray-300:  oklch(0.842 0.016 295.6);
-  --gray-400:  oklch(0.794 0.019 298.0);
-  --gray-500:  oklch(0.743 0.021 299.7);
-  --gray-600:  oklch(0.690 0.022 300.0);
-  --gray-700:  oklch(0.633 0.021 299.7);
-  --gray-800:  oklch(0.575 0.019 298.0);
-  --gray-900:  oklch(0.513 0.016 295.6);
+  --gray-50: oklch(0.97 0.004 286);
+  --gray-100: oklch(0.93 0.008 289.4);
+  --gray-200: oklch(0.887 0.012 292.6);
+  --gray-300: oklch(0.842 0.016 295.6);
+  --gray-400: oklch(0.794 0.019 298);
+  --gray-500: oklch(0.743 0.021 299.7);
+  --gray-600: oklch(0.69 0.022 300);
+  --gray-700: oklch(0.633 0.021 299.7);
+  --gray-800: oklch(0.575 0.019 298);
+  --gray-900: oklch(0.513 0.016 295.6);
   --gray-1000: oklch(0.449 0.012 292.6);
   --gray-1100: oklch(0.382 0.008 289.4);
   --gray-1200: oklch(0.312 0.004 286.6);
-  --gray-1300: oklch(0.240 0.003 286.0);
-  --gray-1400: oklch(0.165 0.002 286.0);
+  --gray-1300: oklch(0.24 0.003 286);
+  --gray-1400: oklch(0.165 0.002 286);
 
   /* Base colors */
   --black: #000000;
@@ -294,17 +294,17 @@
 
   /* Status color tokens (OKLCH, contrast-verified) */
   --status-error-bg: oklch(0.965 0.015 25);
-  --status-error-border: oklch(0.780 0.100 25);
-  --status-error-text: oklch(0.440 0.180 25);
-  --status-success-bg: oklch(0.965 0.020 155);
-  --status-success-border: oklch(0.750 0.100 155);
-  --status-success-text: oklch(0.380 0.100 155);
-  --status-warning-bg: oklch(0.970 0.025 85);
-  --status-warning-border: oklch(0.800 0.110 85);
-  --status-warning-text: oklch(0.420 0.120 85);
+  --status-error-border: oklch(0.78 0.1 25);
+  --status-error-text: oklch(0.44 0.18 25);
+  --status-success-bg: oklch(0.965 0.02 155);
+  --status-success-border: oklch(0.75 0.1 155);
+  --status-success-text: oklch(0.38 0.1 155);
+  --status-warning-bg: oklch(0.97 0.025 85);
+  --status-warning-border: oklch(0.8 0.11 85);
+  --status-warning-text: oklch(0.42 0.12 85);
   --status-info-bg: oklch(0.965 0.015 250);
-  --status-info-border: oklch(0.750 0.090 250);
-  --status-info-text: oklch(0.400 0.130 250);
+  --status-info-border: oklch(0.75 0.09 250);
+  --status-info-text: oklch(0.4 0.13 250);
 
   /* Typography - Font Family */
   --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
@@ -407,20 +407,70 @@
      ============================================================================= */
 
   --table-row-height: 44px;
-  --table-header-height: 44px;
+  --table-header-height: 40px;
   --table-cell-padding-x: 16px;
   --table-cell-padding-x-edge: 20px;
   --table-cell-padding-y: 12px;
-  --table-header-padding-y: 12px;
+  --table-header-padding-y: 10px;
   --table-header-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
   --table-header-text: var(--text-medium);
-  --table-row-bg-hover: color-mix(in srgb, var(--gray-1400) 5%, transparent);
+  --table-row-bg-hover: color-mix(in srgb, var(--gray-1400) 3%, transparent);
   --table-row-bg-selected: color-mix(in srgb, var(--gray-1400) 6%, transparent);
   --table-border: var(--border-light);
   --table-caption-text: var(--text-low);
   --table-radius: 12px;
   --table-scrollbar-thumb: var(--gray-300);
   --table-scrollbar-thumb-hover: var(--gray-400);
+
+  /* Solid equivalents for sticky/pinned cells (can't be transparent over scrolling content) */
+  --table-bg: var(--background);
+  --table-header-bg-solid: color-mix(
+    in srgb,
+    var(--gray-1400) 3%,
+    var(--background)
+  );
+  --table-row-bg-hover-solid: color-mix(
+    in srgb,
+    var(--gray-1400) 3%,
+    var(--background)
+  );
+
+  /* =============================================================================
+     BADGE TOKENS
+     ============================================================================= */
+
+  --badge-height: 20px;
+  --badge-padding-x: 8px;
+  --badge-radius: 9999px;
+  --badge-dot-size: 5px;
+  --badge-gap: 5px;
+  --badge-font-size: var(--text-body-sm-size);
+  --badge-font-weight: var(--font-weight-medium);
+
+  /* Badge - Default (gray) */
+  --badge-default-bg: color-mix(in srgb, var(--gray-1400) 8%, transparent);
+  --badge-default-text: var(--text-high);
+  --badge-default-dot: var(--gray-700);
+
+  /* Badge - Success (green) H=155 */
+  --badge-success-bg: oklch(0.955 0.045 155);
+  --badge-success-text: oklch(0.4 0.1 155);
+  --badge-success-dot: oklch(0.55 0.14 155);
+
+  /* Badge - Warning (amber) H=84 */
+  --badge-warning-bg: oklch(0.955 0.05 84);
+  --badge-warning-text: oklch(0.4 0.1 84);
+  --badge-warning-dot: oklch(0.55 0.14 84);
+
+  /* Badge - Danger (red) H=29 */
+  --badge-danger-bg: oklch(0.955 0.04 29);
+  --badge-danger-text: oklch(0.4 0.1 29);
+  --badge-danger-dot: oklch(0.55 0.14 29);
+
+  /* Badge - Info (blue) H=250 */
+  --badge-info-bg: oklch(0.955 0.04 250);
+  --badge-info-text: oklch(0.4 0.1 250);
+  --badge-info-dot: oklch(0.55 0.14 250);
 
   /* =============================================================================
      BUTTON TOKENS
@@ -555,7 +605,7 @@
   --input-focus-ring: color-mix(in srgb, var(--gray-1200) 16%, transparent);
 
   /* Input Error (wired to status tokens) */
-  --input-border-error: oklch(0.440 0.180 25 / 60%);
+  --input-border-error: oklch(0.44 0.18 25 / 60%);
   --input-error-text: var(--status-error-text);
 
   /* =============================================================================
@@ -673,7 +723,7 @@
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.440 0.180 25);
+  --destructive: oklch(0.44 0.18 25);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -895,8 +945,8 @@
 }
 
 body {
-  background-color: var(--background);
   color: var(--foreground);
+  background-color: var(--background);
 }
 
 @theme inline {
@@ -959,21 +1009,21 @@ body {
   --tracking-dark-offset: 0.01em;
 
   /* Gray palette - Dark mode (reversed OKLCH light scale) */
-  --gray-50:   oklch(0 0 0);
-  --gray-100:  oklch(0.165 0.002 286.0);
-  --gray-200:  oklch(0.240 0.003 286.0);
-  --gray-300:  oklch(0.312 0.004 286.6);
-  --gray-400:  oklch(0.382 0.008 289.4);
-  --gray-500:  oklch(0.449 0.012 292.6);
-  --gray-600:  oklch(0.513 0.016 295.6);
-  --gray-700:  oklch(0.575 0.019 298.0);
-  --gray-800:  oklch(0.633 0.021 299.7);
-  --gray-900:  oklch(0.690 0.022 300.0);
+  --gray-50: oklch(0 0 0);
+  --gray-100: oklch(0.165 0.002 286);
+  --gray-200: oklch(0.24 0.003 286);
+  --gray-300: oklch(0.312 0.004 286.6);
+  --gray-400: oklch(0.382 0.008 289.4);
+  --gray-500: oklch(0.449 0.012 292.6);
+  --gray-600: oklch(0.513 0.016 295.6);
+  --gray-700: oklch(0.575 0.019 298);
+  --gray-800: oklch(0.633 0.021 299.7);
+  --gray-900: oklch(0.69 0.022 300);
   --gray-1000: oklch(0.743 0.021 299.7);
-  --gray-1100: oklch(0.794 0.019 298.0);
+  --gray-1100: oklch(0.794 0.019 298);
   --gray-1200: oklch(0.842 0.016 295.6);
   --gray-1300: oklch(0.887 0.012 292.6);
-  --gray-1400: oklch(0.930 0.008 289.4);
+  --gray-1400: oklch(0.93 0.008 289.4);
 
   /* Text tokens use white with transparency in dark mode */
   --text-extra-high: var(--white);
@@ -990,18 +1040,18 @@ body {
   --border-extra-light: color-mix(in srgb, var(--white) 4%, transparent);
 
   /* Status color tokens - dark mode (OKLCH, contrast-verified) */
-  --status-error-bg: oklch(0.210 0.040 25);
-  --status-error-border: oklch(0.450 0.100 25);
-  --status-error-text: oklch(0.800 0.120 25);
-  --status-success-bg: oklch(0.210 0.030 155);
-  --status-success-border: oklch(0.420 0.080 155);
-  --status-success-text: oklch(0.780 0.100 155);
-  --status-warning-bg: oklch(0.220 0.035 85);
-  --status-warning-border: oklch(0.460 0.090 85);
-  --status-warning-text: oklch(0.800 0.110 85);
-  --status-info-bg: oklch(0.210 0.035 250);
-  --status-info-border: oklch(0.430 0.080 250);
-  --status-info-text: oklch(0.790 0.100 250);
+  --status-error-bg: oklch(0.21 0.04 25);
+  --status-error-border: oklch(0.45 0.1 25);
+  --status-error-text: oklch(0.8 0.12 25);
+  --status-success-bg: oklch(0.21 0.03 155);
+  --status-success-border: oklch(0.42 0.08 155);
+  --status-success-text: oklch(0.78 0.1 155);
+  --status-warning-bg: oklch(0.22 0.035 85);
+  --status-warning-border: oklch(0.46 0.09 85);
+  --status-warning-text: oklch(0.8 0.11 85);
+  --status-info-bg: oklch(0.21 0.035 250);
+  --status-info-border: oklch(0.43 0.08 250);
+  --status-info-text: oklch(0.79 0.1 250);
 
   /* Button Primary - inverted for dark mode (white bg, dark text) */
   /* Hover uses subtle dim instead of gray to avoid contrast inversion */
@@ -1029,10 +1079,42 @@ body {
 
   /* Table - dark mode: white-based transparency */
   --table-header-bg: color-mix(in srgb, var(--white) 4%, transparent);
-  --table-row-bg-hover: color-mix(in srgb, var(--white) 6%, transparent);
+  --table-row-bg-hover: color-mix(in srgb, var(--white) 4%, transparent);
   --table-row-bg-selected: color-mix(in srgb, var(--white) 8%, transparent);
   --table-scrollbar-thumb: var(--gray-500);
   --table-scrollbar-thumb-hover: var(--gray-400);
+
+  /* Solid equivalents for sticky/pinned cells - dark mode */
+  --table-header-bg-solid: color-mix(
+    in srgb,
+    var(--white) 4%,
+    var(--background)
+  );
+  --table-row-bg-hover-solid: color-mix(
+    in srgb,
+    var(--white) 4%,
+    var(--background)
+  );
+
+  /* Badge - dark mode overrides */
+  --badge-default-bg: color-mix(in srgb, var(--white) 14%, transparent);
+  --badge-default-dot: var(--gray-600);
+
+  --badge-success-bg: oklch(0.26 0.06 155);
+  --badge-success-text: oklch(0.82 0.1 155);
+  --badge-success-dot: oklch(0.6 0.14 155);
+
+  --badge-warning-bg: oklch(0.26 0.07 84);
+  --badge-warning-text: oklch(0.82 0.1 84);
+  --badge-warning-dot: oklch(0.6 0.14 84);
+
+  --badge-danger-bg: oklch(0.26 0.06 29);
+  --badge-danger-text: oklch(0.82 0.1 29);
+  --badge-danger-dot: oklch(0.6 0.14 29);
+
+  --badge-info-bg: oklch(0.26 0.06 250);
+  --badge-info-text: oklch(0.82 0.1 250);
+  --badge-info-dot: oklch(0.6 0.14 250);
 
   /* Input - dark mode overrides */
   --input-border-idle: color-mix(in srgb, var(--white) 20%, transparent);
@@ -1044,7 +1126,7 @@ body {
   --input-focus-ring: color-mix(in srgb, var(--white) 16%, transparent);
 
   /* Input Error - dark mode (wired to status tokens) */
-  --input-border-error: oklch(0.800 0.120 25 / 60%);
+  --input-border-error: oklch(0.8 0.12 25 / 60%);
   --input-error-text: var(--status-error-text);
 
   /* Tooltip - dark mode overrides */
@@ -1100,7 +1182,7 @@ body {
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.800 0.120 25);
+  --destructive: oklch(0.8 0.12 25);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
@@ -1479,15 +1561,15 @@ body {
 }
 
 .code-block-line-numbers code .line::before {
-  content: counter(line);
   display: inline-block;
   width: 1.5rem;
   margin-right: 0.75rem;
-  text-align: right;
-  color: var(--code-block-line-number);
-  user-select: none;
-  font-variant-numeric: tabular-nums;
   font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--code-block-line-number);
+  text-align: right;
+  user-select: none;
+  content: counter(line);
 }
 
 .code-block-line-numbers .overflow-x-auto,
@@ -1525,7 +1607,6 @@ body {
 
 .code-block-copy-btn:hover,
 .code-block-copy-btn[data-copied] {
-  opacity: 1;
   color: var(--shiki-foreground);
   background: color-mix(
     in srgb,
@@ -1537,6 +1618,7 @@ body {
     var(--shiki-foreground) 16%,
     var(--code-block-bg)
   );
+  opacity: 1;
 }
 
 .code-block-copy-btn:active {
@@ -1574,10 +1656,10 @@ body {
    ============================================================================= */
 
 .line[data-highlight] {
-  background: var(--code-block-line-highlight);
   display: block;
-  margin: 0 -1rem;
   padding: 0 1rem;
+  margin: 0 -1rem;
+  background: var(--code-block-line-highlight);
 }
 
 /* =============================================================================
@@ -1736,9 +1818,9 @@ body {
 
 .code-block-diff code .line {
   display: block;
-  white-space: pre;
-  margin: 0 -1rem;
   padding: 0 1rem 0 1.75rem;
+  margin: 0 -1rem;
+  white-space: pre;
   border-left: 3px solid transparent;
 }
 
@@ -1760,23 +1842,23 @@ body {
 .line[data-diff-added]::after,
 .line[data-diff-removed]::after {
   position: absolute;
-  left: 0.625rem;
   top: 0;
+  left: 0.625rem;
   font-size: 0.8125rem;
   font-weight: 600;
   line-height: inherit;
-  user-select: none;
   pointer-events: none;
+  user-select: none;
 }
 
 .line[data-diff-added]::after {
-  content: "+";
   color: var(--code-block-diff-added-marker);
+  content: "+";
 }
 
 .line[data-diff-removed]::after {
-  content: "\2212";
   color: var(--code-block-diff-removed-marker);
+  content: "\2212";
 }
 
 /* =============================================================================
@@ -1788,10 +1870,10 @@ body {
   top: 0;
   right: 0;
   bottom: 0;
-  width: 2rem;
-  background: linear-gradient(to right, transparent, var(--code-block-bg));
-  pointer-events: none;
   z-index: 1;
+  width: 2rem;
+  pointer-events: none;
+  background: linear-gradient(to right, transparent, var(--code-block-bg));
   opacity: 0;
   transition: opacity 150ms ease-out;
 }
@@ -1821,8 +1903,8 @@ body {
 /* Firefox fallback: thin native scrollbar */
 @supports not selector(::-webkit-scrollbar) {
   .table-scroll-container {
-    scrollbar-width: thin;
     scrollbar-color: var(--table-scrollbar-thumb) transparent;
+    scrollbar-width: thin;
   }
 }
 
@@ -1832,31 +1914,47 @@ body {
   position: absolute;
   top: 0;
   bottom: 8px; /* clear the scrollbar track */
+  z-index: 1;
   width: 16px;
   pointer-events: none;
-  z-index: 1;
   opacity: 0;
   transition: opacity 150ms ease-out;
 }
 
 .table-scroll-shadow-start {
   left: 0;
-  background: linear-gradient(to right, color-mix(in srgb, var(--gray-1400) 8%, transparent), transparent);
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--gray-1400) 8%, transparent),
+    transparent
+  );
   border-radius: var(--table-radius) 0 0 0;
 }
 
 .table-scroll-shadow-end {
   right: 0;
-  background: linear-gradient(to left, color-mix(in srgb, var(--gray-1400) 8%, transparent), transparent);
+  background: linear-gradient(
+    to left,
+    color-mix(in srgb, var(--gray-1400) 8%, transparent),
+    transparent
+  );
   border-radius: 0 var(--table-radius) 0 0;
 }
 
 :is(.dark, [data-theme="dark"]) .table-scroll-shadow-start {
-  background: linear-gradient(to right, color-mix(in srgb, black 20%, transparent), transparent);
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, black 20%, transparent),
+    transparent
+  );
 }
 
 :is(.dark, [data-theme="dark"]) .table-scroll-shadow-end {
-  background: linear-gradient(to left, color-mix(in srgb, black 20%, transparent), transparent);
+  background: linear-gradient(
+    to left,
+    color-mix(in srgb, black 20%, transparent),
+    transparent
+  );
 }
 
 /* =============================================================================
@@ -1865,12 +1963,12 @@ body {
 
 .code-block-fade-overlay {
   position: absolute;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
   height: 4rem;
-  background: linear-gradient(to bottom, transparent, var(--code-block-bg));
   pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--code-block-bg));
   border-radius: 0 0 inherit inherit;
 }
 
@@ -1878,13 +1976,12 @@ body {
   position: absolute;
   bottom: 0.5rem;
   left: 50%;
-  transform: translateX(-50%);
   z-index: 2;
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
   font-weight: 500;
-  cursor: pointer;
   color: color-mix(in srgb, var(--shiki-foreground) 70%, var(--code-block-bg));
+  cursor: pointer;
   background: color-mix(
     in srgb,
     var(--shiki-foreground) 4%,
@@ -1893,6 +1990,7 @@ body {
   border: 1px solid
     color-mix(in srgb, var(--shiki-foreground) 14%, var(--code-block-bg));
   border-radius: 6px;
+  transform: translateX(-50%);
   transition:
     color 150ms ease-out,
     background 150ms ease-out,
@@ -1928,12 +2026,12 @@ body {
   display: inline-block;
   width: 1.5rem;
   margin-right: 0.75rem;
-  text-align: right;
-  color: var(--code-block-line-number);
-  user-select: none;
-  font-variant-numeric: tabular-nums;
   font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--code-block-line-number);
+  text-align: right;
   cursor: pointer;
+  user-select: none;
   transition: color 150ms ease-out;
 }
 
@@ -1946,10 +2044,10 @@ body {
    ============================================================================= */
 
 .highlighted-word {
-  background: color-mix(in srgb, var(--shiki-token-keyword) 18%, transparent);
-  border-radius: 3px;
   padding: 1px 3px;
   margin: -1px -3px;
+  background: color-mix(in srgb, var(--shiki-token-keyword) 18%, transparent);
+  border-radius: 3px;
 }
 
 /* =============================================================================
@@ -1958,14 +2056,14 @@ body {
 
 .code-block-group-tablist {
   display: flex;
-  align-items: center;
   gap: 0.125rem;
+  align-items: center;
+  min-height: 2.5rem;
   padding: 0 0.75rem;
   font-family: var(--font-berkeley-mono), ui-monospace, monospace;
   font-size: 0.75rem;
   background: var(--code-block-header-bg);
   border-bottom: 1px solid var(--code-block-header-border);
-  min-height: 2.5rem;
 }
 
 .code-block-group-tablist [role="tab"] {
@@ -1975,14 +2073,14 @@ body {
   justify-content: center;
   min-height: 2.5rem;
   padding: 0 0.75rem;
+  line-height: 1.15;
   color: var(--code-block-header-text);
   text-align: center;
-  line-height: 1.15;
+  white-space: nowrap;
   cursor: pointer;
+  background: transparent;
   border: none;
   transition: color 150ms ease-out;
-  white-space: nowrap;
-  background: transparent;
 }
 
 .code-block-group-tablist [role="tab"]:hover {
@@ -2029,9 +2127,9 @@ body {
   }
 
   .code-block-copy-btn {
-    opacity: 1;
     width: 44px;
     height: 44px;
+    opacity: 1;
   }
 }
 
@@ -2041,7 +2139,7 @@ body {
   }
 
   body {
-    @apply bg-background text-foreground;
+    font-optical-sizing: auto;
 
     /* ==========================================================================
        Font Smoothing
@@ -2053,9 +2151,7 @@ body {
        ========================================================================== */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
-    /* Enable Inter's optical size axis for automatic size-based tuning */
-    font-optical-sizing: auto;
+    @apply bg-background text-foreground;
   }
 }
 
@@ -2207,9 +2303,10 @@ body {
 }
 
 .product-card-diagonal::before {
-  content: "";
   position: absolute;
   inset: 0;
+  pointer-events: none;
+  content: "";
   background-image: repeating-linear-gradient(
     45deg,
     transparent,
@@ -2219,7 +2316,6 @@ body {
   );
   opacity: 0;
   transition: opacity 180ms ease-in-out;
-  pointer-events: none;
 }
 
 .group:hover .product-card-diagonal::before {
@@ -2508,18 +2604,18 @@ body {
 
 /* Apply animations to layers with staggered delays */
 .cta-layer-1 {
-  animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 1.8s infinite;
   transform-origin: center;
+  animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 1.8s infinite;
 }
 
 .cta-layer-2 {
-  animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 2.1s infinite;
   transform-origin: center;
+  animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 2.1s infinite;
 }
 
 .cta-layer-3 {
-  animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 2.3s infinite;
   transform-origin: center;
+  animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 2.3s infinite;
 }
 
 /* Product Hero Entrance Animations */
@@ -2575,4 +2671,47 @@ body {
 .illustration-animate {
   animation: illustration-entrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s
     both;
+}
+
+/* =============================================================================
+   TABLE SCROLL SHADOWS
+   Pseudo-elements on the scrollable wrapper to indicate overflow.
+   Controlled via data-scroll-left / data-scroll-right attributes.
+   ============================================================================= */
+
+.table-scroll-container {
+  position: relative;
+}
+
+.table-scroll-container::before,
+.table-scroll-container::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 30;
+  width: 24px;
+  pointer-events: none;
+  content: "";
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.table-scroll-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--table-bg), transparent);
+  border-radius: var(--table-radius) 0 0 var(--table-radius);
+}
+
+.table-scroll-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--table-bg), transparent);
+  border-radius: 0 var(--table-radius) var(--table-radius) 0;
+}
+
+.table-scroll-container[data-scroll-left="true"]::before {
+  opacity: 1;
+}
+
+.table-scroll-container[data-scroll-right="true"]::after {
+  opacity: 1;
 }

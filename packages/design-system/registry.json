@@ -134,6 +134,14 @@
       ]
     },
     {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Status badge with color variants and optional dot indicator.",
+      "registryDependencies": ["cn"],
+      "files": [{ "path": "registry/solana/badge.tsx", "type": "registry:ui" }]
+    },
+    {
       "name": "code-block",
       "type": "registry:ui",
       "title": "Code Block",

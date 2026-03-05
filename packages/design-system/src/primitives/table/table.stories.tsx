@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { MoreHorizontal } from "lucide-react";
+import { Badge } from "../badge";
 import { Button } from "../button";
 import {
   Table,
@@ -19,7 +20,7 @@ import {
  * and support for monospace, tabular-nums, and copyable columns.
  *
  * ## Quick Reference
- * - **Row height**: 44px, **Header height**: 44px
+ * - **Row height**: 44px, **Header height**: 40px
  * - **Cell padding**: 16px horizontal, 12px vertical
  * - **Header**: 14px medium weight, muted color (same size as body)
  * - **Hover**: Subtle 150ms ease-out background transition
@@ -129,6 +130,16 @@ const apiKeys = [
   },
 ];
 
+const statusVariant: Record<string, "success" | "warning" | "danger"> = {
+  Active: "success",
+  Expiring: "warning",
+  Revoked: "danger",
+};
+
+const envVariant: Record<string, "warning" | "info"> = {
+  Mainnet: "warning",
+  Devnet: "info",
+};
 export const APIKeysOverview: Story = {
   name: "API Keys Overview",
   render: () => (
@@ -145,10 +156,10 @@ export const APIKeysOverview: Story = {
         </Button>
       </div>
 
-      <Table>
+      <Table aria-label="API Keys">
         <TableHeader>
           <TableRow>
-            <TableHead>Name</TableHead>
+            <TableHead pinned="left">Name</TableHead>
             <TableHead>Key prefix</TableHead>
             <TableHead>Role</TableHead>
             <TableHead>Env</TableHead>
@@ -156,25 +167,36 @@ export const APIKeysOverview: Story = {
             <TableHead>Last used</TableHead>
             <TableHead>Expires</TableHead>
             <TableHead>Created</TableHead>
-            <TableHead align="right">Actions</TableHead>
+            <TableHead align="right" pinned="right">
+              Actions
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {apiKeys.map((key) => (
             <TableRow key={key.prefix}>
-              <TableCell className="font-[var(--font-weight-medium)]">
+              <TableCell
+                className="font-[var(--font-weight-medium)]"
+                pinned="left"
+              >
                 {key.name}
               </TableCell>
               <TableCellCopyable mono truncate={120} value={key.prefix}>
                 {key.prefix}
               </TableCellCopyable>
               <TableCell className="text-text-medium">{key.role}</TableCell>
-              <TableCell className="text-text-medium">{key.env}</TableCell>
-              <TableCell className="text-text-medium">{key.status}</TableCell>
+              <TableCell>
+                <Badge variant={envVariant[key.env]}>{key.env}</Badge>
+              </TableCell>
+              <TableCell>
+                <Badge dot variant={statusVariant[key.status]}>
+                  {key.status}
+                </Badge>
+              </TableCell>
               <TableCell className="text-text-medium">{key.lastUsed}</TableCell>
               <TableCell className="text-text-medium">{key.expires}</TableCell>
               <TableCell className="text-text-medium">{key.created}</TableCell>
-              <TableCell align="right">
+              <TableCell align="right" pinned="right">
                 <Button
                   aria-label="More actions"
                   iconLeft={<MoreHorizontal />}
