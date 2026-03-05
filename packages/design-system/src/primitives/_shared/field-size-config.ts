@@ -1,17 +1,17 @@
 export type FieldSize = "xl" | "lg" | "md";
 
 export interface FieldSizeConfig {
-  height: string;
-  radius: string;
+  actionGap: string;
+  addonInnerPadding: string;
   contentGap: string;
   contentPaddingX: string;
-  addonInnerPadding: string;
-  actionGap: string;
-  iconSize: string;
-  textClass: string;
-  labelClass: string;
   descriptionClass: string;
+  height: string;
   hintIconSize: string;
+  iconSize: string;
+  labelClass: string;
+  radius: string;
+  textClass: string;
 }
 
 const configs: Record<FieldSize, FieldSizeConfig> = {

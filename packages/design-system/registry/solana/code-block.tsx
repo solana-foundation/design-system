@@ -24,55 +24,55 @@ const FONT_MONO = "var(--font-berkeley-mono), ui-monospace, monospace";
 export type CodeBlockTheme = "default" | "sand" | "calm" | "vivid";
 
 export interface CodeBlockProps {
-  /** The source code to display */
-  code: string;
-  /** Programming language for syntax highlighting */
-  language?: string;
-  /** Theme variant — overrides provider context */
-  theme?: CodeBlockTheme;
-  /** Monochrome mode — grayscale syntax with lightness contrast */
-  mono?: boolean;
-  /** Filename to display in the header bar */
-  filename?: string;
-  /** Show line numbers */
-  showLineNumbers?: boolean;
+  /** Lines added (1-indexed) — shown with green diff marker */
+  addedLines?: number[];
+  /** Accessible label for the code block region */
+  ariaLabel?: string;
   /** Border radius in pixels (default: 8) */
   borderRadius?: number;
   /** Additional class names */
   className?: string;
-  /** Inline styles */
-  style?: CSSProperties;
+  /** The source code to display */
+  code: string;
+  /** Label for the collapse button (default: "Show less") */
+  collapseLabel?: string;
+  /** Label for the expand button (default: "Show more") */
+  expandLabel?: string;
+  /** Filename to display in the header bar */
+  filename?: string;
   /** Hide the copy button */
   hideCopyButton?: boolean;
   /** Line numbers to highlight (1-indexed) */
   highlightLines?: number[];
-  /** Accessible label for the code block region */
-  ariaLabel?: string;
-  /** Lines added (1-indexed) — shown with green diff marker */
-  addedLines?: number[];
-  /** Lines removed (1-indexed) — shown with red diff marker */
-  removedLines?: number[];
-  /** Maximum visible lines before collapsing (shows expand toggle) */
-  maxLines?: number;
-  /** Label for the expand button (default: "Show more") */
-  expandLabel?: string;
-  /** Label for the collapse button (default: "Show less") */
-  collapseLabel?: string;
-  /** Maximum height in pixels for the scrollable code area */
-  maxHeight?: number;
-  /** Callback when a line number is clicked */
-  onLineClick?: (line: number) => void;
-  /** Prefix for line anchor IDs (e.g. "L" → id="L1", id="L2") */
-  lineAnchorPrefix?: string;
   /** Words to highlight with a subtle background */
   highlightWords?: Array<{ text: string; className?: string }>;
+  /** Programming language for syntax highlighting */
+  language?: string;
+  /** Prefix for line anchor IDs (e.g. "L" → id="L1", id="L2") */
+  lineAnchorPrefix?: string;
+  /** Maximum height in pixels for the scrollable code area */
+  maxHeight?: number;
+  /** Maximum visible lines before collapsing (shows expand toggle) */
+  maxLines?: number;
+  /** Monochrome mode — grayscale syntax with lightness contrast */
+  mono?: boolean;
+  /** Callback when a line number is clicked */
+  onLineClick?: (line: number) => void;
+  /** Lines removed (1-indexed) — shown with red diff marker */
+  removedLines?: number[];
+  /** Show line numbers */
+  showLineNumbers?: boolean;
+  /** Inline styles */
+  style?: CSSProperties;
+  /** Theme variant — overrides provider context */
+  theme?: CodeBlockTheme;
 }
 
 // ---------- Context ----------
 
 interface CodeBlockContextValue {
-  theme?: CodeBlockTheme;
   mono?: boolean;
+  theme?: CodeBlockTheme;
 }
 
 const CodeBlockContext = createContext<CodeBlockContextValue>({});
@@ -136,10 +136,10 @@ function CodeAreaContent({
   useLayoutEffect(() => {
     const scrollEl = scrollRef.current;
     const fadeEl = fadeRef.current;
-    if (!scrollEl || !fadeEl) return;
+    if (!(scrollEl && fadeEl)) return;
 
     function update() {
-      if (!scrollEl || !fadeEl) return;
+      if (!(scrollEl && fadeEl)) return;
       const hasOverflow = scrollEl.scrollWidth > scrollEl.clientWidth;
       const atEnd =
         scrollEl.scrollLeft + scrollEl.clientWidth >= scrollEl.scrollWidth - 1;
@@ -188,7 +188,7 @@ function CodeAreaContent({
           />
         )}
       </div>
-      <div ref={fadeRef} className="code-block-scroll-fade" />
+      <div className="code-block-scroll-fade" ref={fadeRef} />
     </>
   );
 }
@@ -355,19 +355,19 @@ CodeBlock.displayName = "CodeBlock";
 // ---------- CodeBlockInner (for CodeBlockGroup) ----------
 
 export interface CodeBlockInnerProps {
-  code: string;
-  language?: string;
-  showLineNumbers?: boolean;
-  hideCopyButton?: boolean;
-  highlightLines?: number[];
   addedLines?: number[];
-  removedLines?: number[];
-  maxHeight?: number;
-  onLineClick?: (line: number) => void;
-  lineAnchorPrefix?: string;
-  highlightWords?: Array<{ text: string; className?: string }>;
+  code: string;
   /** Override the code used by the copy button (used by CodeBlockGroup) */
   copyCode?: string;
+  hideCopyButton?: boolean;
+  highlightLines?: number[];
+  highlightWords?: Array<{ text: string; className?: string }>;
+  language?: string;
+  lineAnchorPrefix?: string;
+  maxHeight?: number;
+  onLineClick?: (line: number) => void;
+  removedLines?: number[];
+  showLineNumbers?: boolean;
 }
 
 export function CodeBlockInner({
@@ -534,11 +534,11 @@ function useWordDecorations(
 }
 
 interface ProcessHtmlOptions {
-  highlightLines?: number[];
   addedLines?: number[];
-  removedLines?: number[];
-  onLineClick?: boolean;
+  highlightLines?: number[];
   lineAnchorPrefix?: string;
+  onLineClick?: boolean;
+  removedLines?: number[];
 }
 
 /**

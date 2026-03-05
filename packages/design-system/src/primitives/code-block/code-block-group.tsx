@@ -14,37 +14,37 @@ import { CodeBlockInner, type CodeBlockTheme } from "./index";
 const FONT_MONO = "var(--font-berkeley-mono), ui-monospace, monospace";
 
 export interface CodeBlockGroupItem {
-  /** Tab label */
-  label: string;
-  /** Shiki language for syntax highlighting */
-  language: string;
   /** Source code */
   code: string;
   /** Optional filename subtitle */
   filename?: string;
+  /** Tab label */
+  label: string;
+  /** Shiki language for syntax highlighting */
+  language: string;
 }
 
 export interface CodeBlockGroupProps {
-  /** Array of code items to display as tabs */
-  items: CodeBlockGroupItem[];
-  /** Default active tab (uncontrolled, matched by label) */
-  defaultValue?: string;
-  /** Active tab value (controlled) */
-  value?: string;
-  /** Callback when active tab changes */
-  onValueChange?: (value: string) => void;
-  /** Theme variant */
-  theme?: CodeBlockTheme;
-  /** Show line numbers */
-  showLineNumbers?: boolean;
   /** Border radius in pixels (default: 8) */
   borderRadius?: number;
   /** Additional class names */
   className?: string;
-  /** Inline styles */
-  style?: CSSProperties;
+  /** Default active tab (uncontrolled, matched by label) */
+  defaultValue?: string;
   /** Hide the copy button */
   hideCopyButton?: boolean;
+  /** Array of code items to display as tabs */
+  items: CodeBlockGroupItem[];
+  /** Callback when active tab changes */
+  onValueChange?: (value: string) => void;
+  /** Show line numbers */
+  showLineNumbers?: boolean;
+  /** Inline styles */
+  style?: CSSProperties;
+  /** Theme variant */
+  theme?: CodeBlockTheme;
+  /** Active tab value (controlled) */
+  value?: string;
 }
 
 export const CodeBlockGroup = forwardRef<HTMLDivElement, CodeBlockGroupProps>(

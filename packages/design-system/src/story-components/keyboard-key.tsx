@@ -18,10 +18,10 @@ export function KeyboardKey({ children }: KeyboardKeyProps) {
 }
 
 export interface KeyboardShortcutProps {
-  /** Array of keys in the shortcut */
-  keys: string[];
   /** Description of what the shortcut does */
   description: string;
+  /** Array of keys in the shortcut */
+  keys: string[];
 }
 
 /**

@@ -92,20 +92,20 @@ const getIconAriaLabel = ({
 };
 
 export interface CopyButtonProps {
-  /** The text to copy to the clipboard */
-  value: string;
-  /** Size variant — should match the parent Input size */
-  size?: CopyButtonSize;
-  /** Visual mode: compact icon button or inline text+icon action */
-  variant?: CopyButtonVariant;
-  /** Idle label (inline mode) */
-  label?: string;
+  /** Additional class names */
+  className?: string;
   /** Success label */
   copiedLabel?: string;
   /** Failure label */
   failedLabel?: string;
-  /** Additional class names */
-  className?: string;
+  /** Idle label (inline mode) */
+  label?: string;
+  /** Size variant — should match the parent Input size */
+  size?: CopyButtonSize;
+  /** The text to copy to the clipboard */
+  value: string;
+  /** Visual mode: compact icon button or inline text+icon action */
+  variant?: CopyButtonVariant;
 }
 
 export const CopyButton = ({

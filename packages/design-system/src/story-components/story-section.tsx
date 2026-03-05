@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 
 export interface StorySectionProps {
-  /** Section title displayed as a heading */
-  title?: string;
-  /** Optional description text below the title */
-  description?: string;
   /** Section content */
   children: ReactNode;
   /** Additional CSS classes */
   className?: string;
+  /** Optional description text below the title */
+  description?: string;
+  /** Section title displayed as a heading */
+  title?: string;
 }
 
 /**

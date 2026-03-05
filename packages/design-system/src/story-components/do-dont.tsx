@@ -2,10 +2,10 @@ import { CheckIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import type { ReactNode } from "react";
 
 export interface DoExampleProps {
-  /** Description of the correct usage */
-  description: string;
   /** Example content demonstrating correct usage */
   children: ReactNode;
+  /** Description of the correct usage */
+  description: string;
 }
 
 /**
@@ -32,10 +32,10 @@ export function DoExample({ description, children }: DoExampleProps) {
 }
 
 export interface DontExampleProps {
-  /** Description of the incorrect usage */
-  description: string;
   /** Example content demonstrating incorrect usage */
   children: ReactNode;
+  /** Description of the incorrect usage */
+  description: string;
 }
 
 /**

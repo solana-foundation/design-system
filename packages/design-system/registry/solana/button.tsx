@@ -41,26 +41,26 @@ type ButtonVariant = "primary" | "secondary";
 type ButtonRadius = "default" | "round";
 
 export interface ButtonProps extends BaseButtonProps {
-  /** Visual style variant */
-  variant?: ButtonVariant;
-  /** Size preset controlling height, padding, typography, and icon sizing */
-  size?: ButtonSize;
-  /** Disables the button */
-  disabled?: boolean;
-  /** Border radius style - default uses size-specific values, round is fully rounded */
-  radius?: ButtonRadius;
-  /** Icon element to display before the button text */
-  iconLeft?: ReactNode;
-  /** Icon element to display after the button text */
-  iconRight?: ReactNode;
-  /** When true, renders as a square icon-only button with no text */
-  iconOnly?: boolean;
-  /** Shows a loading spinner and disables the button */
-  loading?: boolean;
-  /** Button content - text label or custom elements */
-  children?: ReactNode;
   /** Renders the button's styles on the child element instead of a button element */
   asChild?: boolean;
+  /** Button content - text label or custom elements */
+  children?: ReactNode;
+  /** Disables the button */
+  disabled?: boolean;
+  /** Icon element to display before the button text */
+  iconLeft?: ReactNode;
+  /** When true, renders as a square icon-only button with no text */
+  iconOnly?: boolean;
+  /** Icon element to display after the button text */
+  iconRight?: ReactNode;
+  /** Shows a loading spinner and disables the button */
+  loading?: boolean;
+  /** Border radius style - default uses size-specific values, round is fully rounded */
+  radius?: ButtonRadius;
+  /** Size preset controlling height, padding, typography, and icon sizing */
+  size?: ButtonSize;
+  /** Visual style variant */
+  variant?: ButtonVariant;
 }
 
 /**

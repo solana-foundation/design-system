@@ -12,10 +12,10 @@ const TooltipProviderContext = createContext(false);
 
 export interface TooltipProviderProps {
   children: ReactNode;
-  /** Delay in ms before showing a tooltip (default 0) */
-  delay?: number;
   /** Delay in ms before hiding a tooltip (default 150) */
   closeDelay?: number;
+  /** Delay in ms before showing a tooltip (default 0) */
+  delay?: number;
   /** If another tooltip opens within this time (ms) after one closes, it opens instantly (default 300) */
   timeout?: number;
 }
@@ -40,22 +40,22 @@ export function TooltipProvider({
 }
 
 export interface TooltipProps {
-  /** Content displayed inside the tooltip popup */
-  content: ReactNode;
-  /** Trigger element — must accept a ref */
-  children: ReactElement;
-  /** Which side of the trigger to position the tooltip */
-  side?: "top" | "bottom" | "left" | "right";
   /** Alignment along the side axis */
   align?: "start" | "center" | "end";
-  /** Offset from the trigger in pixels */
-  sideOffset?: number;
   /** Show an arrow pointing at the trigger */
   arrow?: boolean;
-  /** Delay in ms before showing (default 0). Ignored when inside a TooltipProvider. */
-  delay?: number;
+  /** Trigger element — must accept a ref */
+  children: ReactElement;
   /** Delay in ms before hiding (default 150). Ignored when inside a TooltipProvider. */
   closeDelay?: number;
+  /** Content displayed inside the tooltip popup */
+  content: ReactNode;
+  /** Delay in ms before showing (default 0). Ignored when inside a TooltipProvider. */
+  delay?: number;
+  /** Which side of the trigger to position the tooltip */
+  side?: "top" | "bottom" | "left" | "right";
+  /** Offset from the trigger in pixels */
+  sideOffset?: number;
 }
 
 export function Tooltip({

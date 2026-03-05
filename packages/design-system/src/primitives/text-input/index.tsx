@@ -63,34 +63,34 @@ type AddonPosition = "leading" | "trailing";
  */
 export interface TextInputProps
   extends Omit<React.ComponentPropsWithoutRef<"input">, "size"> {
-  /** Size preset: XL=48px, LG=40px, MD=36px */
-  size?: InputSize;
-  /** Label text rendered above the input */
-  label?: string;
+  /** Interactive element (e.g., copy button) displayed at the trailing edge */
+  action?: ReactNode;
   /** Helper text rendered below the input */
   description?: string;
   /** Error message — replaces description when present */
   error?: string;
+  /** Tooltip hint shown via info icon next to the label */
+  hint?: string;
   /** Icon element displayed before the input */
   iconLeft?: ReactNode;
   /** Icon element displayed after the input */
   iconRight?: ReactNode;
-  /** Interactive element (e.g., copy button) displayed at the trailing edge */
-  action?: ReactNode;
-  /** Tooltip hint shown via info icon next to the label */
-  hint?: string;
-  /** Leading addon with divider (dropdown, static text, etc.) */
-  leadingAddon?: ReactNode;
-  /** Trailing addon with divider (dropdown, button, etc.) */
-  trailingAddon?: ReactNode;
-  /** First-class trailing interactive control (e.g., "Copy address"). Wins over trailingAddon when both are provided. */
-  trailingAction?: ReactNode;
-  /** Leading addon behavior mode. Interactive mode makes the full segment clickable. */
-  leadingAddonKind?: AddonKind;
-  /** Trailing addon behavior mode. Interactive mode makes the full segment clickable. */
-  trailingAddonKind?: AddonKind;
   /** Additional class names applied directly to the native input element. */
   inputClassName?: string;
+  /** Label text rendered above the input */
+  label?: string;
+  /** Leading addon with divider (dropdown, static text, etc.) */
+  leadingAddon?: ReactNode;
+  /** Leading addon behavior mode. Interactive mode makes the full segment clickable. */
+  leadingAddonKind?: AddonKind;
+  /** Size preset: XL=48px, LG=40px, MD=36px */
+  size?: InputSize;
+  /** First-class trailing interactive control (e.g., "Copy address"). Wins over trailingAddon when both are provided. */
+  trailingAction?: ReactNode;
+  /** Trailing addon with divider (dropdown, button, etc.) */
+  trailingAddon?: ReactNode;
+  /** Trailing addon behavior mode. Interactive mode makes the full segment clickable. */
+  trailingAddonKind?: AddonKind;
 }
 
 const addonSelectIconSizes: Record<FieldSize, React.CSSProperties> = {
@@ -322,32 +322,32 @@ const warnTrailingActionConflict = ({
 };
 
 export interface AddonSelectOption {
-  value: string;
-  label: string;
   disabled?: boolean;
+  label: string;
+  value: string;
 }
 
 export interface AddonSelectProps {
   /** ARIA label for the select */
   ariaLabel: string;
-  /** Dropdown options for the addon select */
-  options: AddonSelectOption[];
-  /** Input size token to keep spacing/icon rhythm aligned with parent Input */
-  size?: InputSize;
-  /** Addon placement to map outer/inner paddings correctly */
-  position?: AddonPosition;
-  /** Controlled selected value */
-  value?: string | null;
-  /** Uncontrolled default value */
-  defaultValue?: string | null;
-  /** Called when selection changes */
-  onValueChange?: (value: string | null) => void;
-  /** Optional form name */
-  name?: string;
-  /** Disabled state */
-  disabled?: boolean;
   /** Optional className for the wrapper */
   className?: string;
+  /** Uncontrolled default value */
+  defaultValue?: string | null;
+  /** Disabled state */
+  disabled?: boolean;
+  /** Optional form name */
+  name?: string;
+  /** Called when selection changes */
+  onValueChange?: (value: string | null) => void;
+  /** Dropdown options for the addon select */
+  options: AddonSelectOption[];
+  /** Addon placement to map outer/inner paddings correctly */
+  position?: AddonPosition;
+  /** Input size token to keep spacing/icon rhythm aligned with parent Input */
+  size?: InputSize;
+  /** Controlled selected value */
+  value?: string | null;
 }
 
 export function AddonSelect({

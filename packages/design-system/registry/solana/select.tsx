@@ -27,17 +27,17 @@ import { cn } from "@/lib/cn";
 type SelectSize = "xl" | "lg" | "md";
 
 interface FieldSizeConfig {
-  height: string;
-  radius: string;
+  actionGap: string;
+  addonInnerPadding: string;
   contentGap: string;
   contentPaddingX: string;
-  addonInnerPadding: string;
-  actionGap: string;
-  iconSize: string;
-  textClass: string;
-  labelClass: string;
   descriptionClass: string;
+  height: string;
   hintIconSize: string;
+  iconSize: string;
+  labelClass: string;
+  radius: string;
+  textClass: string;
 }
 
 const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
@@ -83,14 +83,14 @@ const fieldSizeConfigs: Record<SelectSize, FieldSizeConfig> = {
 };
 
 interface ItemRegistryEntry {
-  value: string;
   icon?: ReactNode;
   label?: string;
+  value: string;
 }
 
 interface SelectContextValue {
-  size: SelectSize;
   multiple: boolean;
+  size: SelectSize;
 }
 
 const SelectContext = createContext<SelectContextValue | null>(null);
@@ -233,36 +233,36 @@ function TriggerIconWrapper({
 
 // Single-select props
 interface SelectSingleProps {
-  multiple?: false;
-  value?: string | null;
   defaultValue?: string | null;
+  multiple?: false;
   onValueChange?: (value: string | null) => void;
+  value?: string | null;
 }
 
 // Multi-select props
 interface SelectMultipleProps {
-  multiple: true;
-  value?: string[];
   defaultValue?: string[];
+  multiple: true;
   onValueChange?: (value: string[]) => void;
+  value?: string[];
 }
 
 interface SelectBaseProps {
-  size?: SelectSize;
-  label?: string;
+  children: ReactNode;
+  className?: string;
+  defaultOpen?: boolean;
   description?: string;
+  disabled?: boolean;
   error?: string;
   /** Tooltip hint shown via info icon next to the label */
   hint?: string;
-  placeholder?: string;
-  disabled?: boolean;
-  required?: boolean;
+  label?: string;
   name?: string;
-  open?: boolean;
-  defaultOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
-  children: ReactNode;
-  className?: string;
+  open?: boolean;
+  placeholder?: string;
+  required?: boolean;
+  size?: SelectSize;
 }
 
 export type SelectProps = SelectBaseProps &
@@ -580,12 +580,12 @@ Select.displayName = "Select";
 // =============================================================================
 
 export interface SelectItemProps {
-  value: string;
-  icon?: ReactNode;
-  description?: string;
-  disabled?: boolean;
   children: ReactNode;
   className?: string;
+  description?: string;
+  disabled?: boolean;
+  icon?: ReactNode;
+  value: string;
 }
 
 export function SelectItem({

@@ -8,10 +8,10 @@ import { cn } from "../../utils";
 type SpinnerSize = "xl" | "lg" | "md" | "sm";
 
 export interface SpinnerProps extends Omit<SVGProps<SVGSVGElement>, "ref"> {
-  /** Size of the spinner - matches button icon sizes */
-  size?: SpinnerSize;
   /** Accessible label for screen readers */
   label?: string;
+  /** Size of the spinner - matches button icon sizes */
+  size?: SpinnerSize;
 }
 
 /**

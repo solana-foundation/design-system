@@ -3,8 +3,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const DEFAULT_COPY_RESET_DELAY = 1600;
 
 export interface CopyToClipboardResult {
-  success: boolean;
   error?: Error;
+  success: boolean;
 }
 
 const toError = (error: unknown) =>

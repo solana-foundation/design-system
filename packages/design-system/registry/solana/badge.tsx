@@ -4,10 +4,10 @@ import { cn } from "@/lib/cn";
 type BadgeVariant = "default" | "success" | "warning" | "danger" | "info";
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
-  /** Color variant */
-  variant?: BadgeVariant;
   /** Show a colored dot indicator before the label */
   dot?: boolean;
+  /** Color variant */
+  variant?: BadgeVariant;
 }
 
 const variantClasses: Record<BadgeVariant, string> = {

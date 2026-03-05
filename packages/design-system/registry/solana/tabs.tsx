@@ -9,10 +9,10 @@ import { cn } from "@/lib/cn";
 type TabsSize = "sm" | "md";
 
 interface TabsContextValue {
-  size: TabsSize;
-  orientation: "horizontal" | "vertical";
-  fullWidth: boolean;
   bordered: boolean;
+  fullWidth: boolean;
+  orientation: "horizontal" | "vertical";
+  size: TabsSize;
 }
 
 const TabsContext = createContext<TabsContextValue | null>(null);
@@ -49,22 +49,22 @@ const tabsSizeConfig = {
 // =============================================================================
 
 export interface TabsProps {
-  /** Size preset */
-  size?: TabsSize;
-  /** Tab layout direction */
-  orientation?: "horizontal" | "vertical";
-  /** Stretch tabs to fill container width */
-  fullWidth?: boolean;
   /** Add border along the list edge */
   bordered?: boolean;
-  /** Controlled active tab value */
-  value?: string;
-  /** Initial active tab value (uncontrolled) */
-  defaultValue?: string;
-  /** Callback when active tab changes */
-  onValueChange?: (value: string) => void;
   children: ReactNode;
   className?: string;
+  /** Initial active tab value (uncontrolled) */
+  defaultValue?: string;
+  /** Stretch tabs to fill container width */
+  fullWidth?: boolean;
+  /** Callback when active tab changes */
+  onValueChange?: (value: string) => void;
+  /** Tab layout direction */
+  orientation?: "horizontal" | "vertical";
+  /** Size preset */
+  size?: TabsSize;
+  /** Controlled active tab value */
+  value?: string;
 }
 
 export function Tabs({
@@ -186,17 +186,17 @@ function TabIndicator() {
 // =============================================================================
 
 export interface TabProps {
-  /** Unique value identifying this tab */
-  value: string;
-  /** Disable this tab */
-  disabled?: boolean;
-  /** Icon to display before the label */
-  icon?: ReactNode;
   /** Badge content (number or text) */
   badge?: ReactNode;
   /** Tab label */
   children: ReactNode;
   className?: string;
+  /** Disable this tab */
+  disabled?: boolean;
+  /** Icon to display before the label */
+  icon?: ReactNode;
+  /** Unique value identifying this tab */
+  value: string;
 }
 
 export function Tab({
@@ -276,12 +276,12 @@ Tab.displayName = "Tab";
 // =============================================================================
 
 export interface TabPanelProps {
-  /** Value matching the corresponding Tab */
-  value: string;
-  /** Keep panel in DOM when not active */
-  keepMounted?: boolean;
   children: ReactNode;
   className?: string;
+  /** Keep panel in DOM when not active */
+  keepMounted?: boolean;
+  /** Value matching the corresponding Tab */
+  value: string;
 }
 
 export function TabPanel({

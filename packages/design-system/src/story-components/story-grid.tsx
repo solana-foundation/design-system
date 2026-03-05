@@ -3,10 +3,10 @@ import type { ReactNode } from "react";
 export interface StoryGridProps {
   /** Grid content - typically variant examples */
   children: ReactNode;
-  /** Number of columns (auto-adjusts on mobile) */
-  columns?: 2 | 3 | 4 | 5;
   /** Additional CSS classes */
   className?: string;
+  /** Number of columns (auto-adjusts on mobile) */
+  columns?: 2 | 3 | 4 | 5;
 }
 
 const columnClasses = {
@@ -56,10 +56,10 @@ export function GridLabel({ children, header = false }: GridLabelProps) {
 }
 
 export interface GridCellProps {
-  /** Cell content */
-  children: ReactNode;
   /** Center content horizontally */
   center?: boolean;
+  /** Cell content */
+  children: ReactNode;
 }
 
 /**

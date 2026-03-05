@@ -13,7 +13,7 @@
     "example:token-list": "turbo run dev --filter token-list-example"
   },
   "devDependencies": {
-    "turbo": "^2.8.7",
-    "ultracite": "^7.1.5"
+    "turbo": "^2.8.13",
+    "ultracite": "^7.2.4"
   }
 }

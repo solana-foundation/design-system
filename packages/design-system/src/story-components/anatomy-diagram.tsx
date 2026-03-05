@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 
 export interface AnatomyPartProps {
-  /** Part number for reference */
-  number: number;
-  /** Part name */
-  name: string;
   /** Part description */
   description: string;
+  /** Part name */
+  name: string;
+  /** Part number for reference */
+  number: number;
 }
 
 /**
