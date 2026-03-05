@@ -224,13 +224,9 @@ const AddonWrapper = ({
       "relative z-10 flex shrink-0 items-center self-stretch leading-[var(--input-text-line-height)]",
       textClass,
       kind === "static" ? "text-text-low" : "text-text-high",
-      isAction && [
-        "cursor-pointer",
-        "ease transition-[background-color] duration-150",
-        "motion-reduce:transition-none",
-        "hover:bg-[var(--input-addon-hover-bg)]",
-        "has-[:focus-visible]:bg-[var(--input-addon-hover-bg)]",
-      ]
+      isAction
+        ? "cursor-pointer ease transition-[background-color] duration-150 motion-reduce:transition-none hover:bg-[var(--input-addon-hover-bg)] has-[:focus-visible]:bg-[var(--input-addon-hover-bg)]"
+        : undefined
     )}
     data-input-addon-interactive={kind === "interactive" ? "true" : undefined}
     style={{

@@ -19,7 +19,7 @@ export const cssVariablesTheme: ThemeRegistrationRaw = {
     "editor.background": "var(--shiki-background)",
     "editor.foreground": "var(--shiki-foreground)",
   },
-  tokenColors: [
+  settings: [
     // Default foreground — must be first entry (no scope) so Shiki uses it as base
     {
       settings: {

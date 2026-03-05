@@ -155,7 +155,7 @@ function CodeAreaContent({
       scrollEl.removeEventListener("scroll", update);
       ro.disconnect();
     };
-  }, [processedHtml]);
+  }, []);
 
   return (
     <>

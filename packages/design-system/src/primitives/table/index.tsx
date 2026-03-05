@@ -71,7 +71,6 @@ export const Table = forwardRef<HTMLDivElement, TableProps>(
           if (node) updateScrollState(node);
         }}
         role="region"
-        // biome-ignore lint/a11y/noNoninteractiveTabindex: scrollable regions need tabIndex for keyboard access
         tabIndex={0}
         {...props}
       >

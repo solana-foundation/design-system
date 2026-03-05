@@ -1552,6 +1552,7 @@ body {
    Uses CSS counters on Shiki's .line spans
    ============================================================================= */
 
+/* biome-ignore lint/style/noDescendingSpecificity: code block selectors do not overlap prose inline-code styles */
 .code-block-line-numbers code {
   counter-reset: line;
 }
@@ -1812,6 +1813,7 @@ body {
 }
 
 /* Diff mode: uniform gutter layout for all lines */
+/* biome-ignore lint/style/noDescendingSpecificity: code block selectors do not overlap prose inline-code styles */
 .code-block-diff code {
   white-space: normal;
 }
