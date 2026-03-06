@@ -3,10 +3,9 @@
 import { motion, useReducedMotion } from 'motion/react';
 import { type CSSProperties, forwardRef, useId, useLayoutEffect, useRef, useState } from 'react';
 import { cn } from '../../utils';
-import { CodeBlockInner, type CodeBlockTheme } from './index';
-
-/** Mono font constant — maps to the design system's Berkeley Mono variable */
-const FONT_MONO = 'var(--font-berkeley-mono), ui-monospace, monospace';
+import { FONT_MONO } from './constants';
+import { CodeBlockInner } from './code-block-inner';
+import type { CodeBlockTheme } from './types';
 
 export interface CodeBlockGroupItem {
     /** Source code */

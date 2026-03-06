@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.11.0
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build design system
+        run: pnpm --filter @solana/design-system build
+
+      - name: Verify bundle isolation
+        run: pnpm --filter @solana/design-system check:bundles
+
+      - name: Build Next.js consumer fixture
+        run: pnpm --filter token-list-example build
+
+      - name: Typecheck Next.js consumer fixture (public exports)
+        run: pnpm --filter token-list-example typecheck
+
+      - name: Build Vite consumer fixture
+        run: pnpm --filter vite-consumer-fixture build
+
+      - name: Typecheck Vite consumer fixture (public exports)
+        run: pnpm --filter vite-consumer-fixture typecheck

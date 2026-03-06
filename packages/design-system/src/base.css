@@ -8,11 +8,11 @@
  */
 
 @layer base {
-    * {
+    :where(*) {
         @apply border-border outline-ring/50;
     }
 
-    body {
+    :where(body) {
         font-optical-sizing: auto;
 
         -webkit-font-smoothing: antialiased;

@@ -35,6 +35,19 @@ export default defineConfig({
             fileName: (_format, entryName) => `${entryName}.js`,
         },
         rollupOptions: {
+            onwarn(warning, warn) {
+                // Rollup emits this warning for `'use client'` directives when bundling.
+                // We intentionally preserve these directives in output for Next.js via
+                // `rollup-plugin-preserve-use-client`, so this is just noise.
+                if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('"use client"')) return;
+
+                // Vite sometimes logs sourcemap resolution warnings while still producing correct maps.
+                if (warning.code === 'SOURCEMAP_ERROR' && warning.message.includes("Can't resolve original location")) {
+                    return;
+                }
+
+                warn(warning);
+            },
             plugins: [preserveUseClientDirective()],
             external: [
                 'react',

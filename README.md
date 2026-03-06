@@ -17,7 +17,7 @@ This copies the component source into your project so you own the code.
 ### npm package
 
 ```bash
-pnpm add @solana/design-system
+pnpm add @solana/design-system @base-ui/react motion
 ```
 
 Add the design system styles to your Tailwind entry CSS (the file that contains `@import "tailwindcss";`).

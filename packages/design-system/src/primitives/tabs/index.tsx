@@ -1,50 +1,15 @@
 'use client';
 
 import { Tabs as BaseTabs } from '@base-ui/react/tabs';
-import { createContext, type ReactNode, useContext, useMemo } from 'react';
+import { type CSSProperties, type ReactNode, useMemo } from 'react';
 import { cn } from '../../utils';
+import { tabsSizeConfig, type TabsSize } from './constants';
+import { TabsContext, useTabsContext } from './context';
+import { normalizeTabsValue } from './helpers';
 
 // =============================================================================
 // Types
 // =============================================================================
-
-type TabsSize = 'sm' | 'md';
-
-interface TabsContextValue {
-    bordered: boolean;
-    fullWidth: boolean;
-    orientation: 'horizontal' | 'vertical';
-    size: TabsSize;
-}
-
-const TabsContext = createContext<TabsContextValue | null>(null);
-
-function useTabsContext() {
-    const ctx = useContext(TabsContext);
-    if (!ctx) throw new Error('Tab components must be used within <Tabs>');
-    return ctx;
-}
-
-// =============================================================================
-// Size config
-// =============================================================================
-
-const tabsSizeConfig = {
-    sm: {
-        textSize: 'var(--text-button-sm)',
-        paddingX: 'var(--tab-padding-x-sm)',
-        paddingY: 'var(--tab-padding-y-sm)',
-        gap: 'var(--tab-gap-sm)',
-        iconSize: 'var(--tab-icon-sm)',
-    },
-    md: {
-        textSize: 'var(--text-button-md)',
-        paddingX: 'var(--tab-padding-x-md)',
-        paddingY: 'var(--tab-padding-y-md)',
-        gap: 'var(--tab-gap-md)',
-        iconSize: 'var(--tab-icon-md)',
-    },
-} as const;
 
 // =============================================================================
 // Tabs (root)
@@ -94,7 +59,8 @@ export function Tabs({
                 onValueChange={
                     onValueChange
                         ? (val: string | number | null) => {
-                              if (val != null) onValueChange(String(val));
+                              const nextValue = normalizeTabsValue(val);
+                              if (nextValue !== undefined) onValueChange(nextValue);
                           }
                         : undefined
                 }
@@ -152,7 +118,7 @@ function TabIndicator() {
     const isHorizontal = orientation === 'horizontal';
     const config = tabsSizeConfig[size];
 
-    const style: React.CSSProperties = isHorizontal
+    const style: CSSProperties = isHorizontal
         ? {
               left: 0,
               translate: `calc(var(--active-tab-left) + ${config.paddingX}) 0`,

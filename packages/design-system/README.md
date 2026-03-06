@@ -5,7 +5,7 @@ Solana Design System — React components, tokens, and styles for Solana apps.
 ## Install
 
 ```bash
-pnpm add @solana/design-system
+pnpm add @solana/design-system @base-ui/react motion
 ```
 
 ## Usage
@@ -22,6 +22,10 @@ Optional (opt-in global base styles): copy `@solana/design-system/base.css` into
 ```css
 @import '@solana/design-system/base.css';
 ```
+
+For deeper guidance on overrides and theming, see [`docs/css-overrides.md`](./docs/css-overrides.md).
+
+For a complete npm setup guide, see [`docs/getting-started-npm.md`](./docs/getting-started-npm.md).
 
 Then import components.
 
