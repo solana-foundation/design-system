@@ -1,146 +1,27 @@
+'use client';
+
 import { Field } from '@base-ui/react/field';
 import { Select as BaseSelect } from '@base-ui/react/select';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { ChevronDownIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { AnimatePresence, motion } from 'motion/react';
-import {
-    Children,
-    createContext,
-    isValidElement,
-    type ReactNode,
-    useCallback,
-    useContext,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import { type CSSProperties, type ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import { cn } from '../../utils';
-import { type FieldSize, getFieldSizeConfig } from '../_shared/field-size-config';
 import { Tooltip } from '../tooltip';
+import { SelectContext, useSelectContext } from './context';
+import { messageTransition } from './constants';
+import { collectItemRegistry, getSelectConfig } from './helpers';
+import type { SelectContextValue, SelectSize } from './types';
 
 // =============================================================================
 // Types
 // =============================================================================
 
-type SelectSize = FieldSize;
-
-interface ItemRegistryEntry {
-    icon?: ReactNode;
-    label?: string;
-    value: string;
-}
-
-interface SelectContextValue {
-    multiple: boolean;
-    size: SelectSize;
-}
-
-const SelectContext = createContext<SelectContextValue | null>(null);
-
-function useSelectContext() {
-    const ctx = useContext(SelectContext);
-    if (!ctx) throw new Error('Select compound components must be used within <Select>');
-    return ctx;
-}
-
-function collectItemRegistry(children: ReactNode): Map<string, ItemRegistryEntry> {
-    const registry = new Map<string, ItemRegistryEntry>();
-
-    const visit = (nodes: ReactNode) => {
-        for (const child of Children.toArray(nodes)) {
-            if (!isValidElement(child)) continue;
-
-            if (child.type === SelectItem) {
-                const itemProps = child.props as Partial<SelectItemProps>;
-                if (typeof itemProps.value === 'string') {
-                    const label = typeof itemProps.children === 'string' ? itemProps.children : undefined;
-                    registry.set(itemProps.value, {
-                        value: itemProps.value,
-                        icon: itemProps.icon,
-                        label,
-                    });
-                }
-            }
-
-            const nestedChildren = (child.props as { children?: ReactNode }).children;
-            if (nestedChildren) {
-                visit(nestedChildren);
-            }
-        }
-    };
-
-    visit(children);
-    return registry;
-}
-
-const messageTransition = { duration: 0.15, ease: 'easeOut' as const };
-
-// =============================================================================
-// Size config (mirrors TextInput)
-// =============================================================================
-
-const selectTriggerIconSizes: Record<FieldSize, React.CSSProperties> = {
-    xl: {
-        width: 'var(--select-trigger-icon-xl)',
-        height: 'var(--select-trigger-icon-xl)',
-    },
-    lg: {
-        width: 'var(--select-trigger-icon-lg)',
-        height: 'var(--select-trigger-icon-lg)',
-    },
-    md: {
-        width: 'var(--select-trigger-icon-md)',
-        height: 'var(--select-trigger-icon-md)',
-    },
-};
-
-const selectItemIconSizes: Record<FieldSize, React.CSSProperties> = {
-    xl: {
-        width: 'var(--select-item-icon-xl)',
-        height: 'var(--select-item-icon-xl)',
-    },
-    lg: {
-        width: 'var(--select-item-icon-lg)',
-        height: 'var(--select-item-icon-lg)',
-    },
-    md: {
-        width: 'var(--select-item-icon-md)',
-        height: 'var(--select-item-icon-md)',
-    },
-};
-
-const selectIndicatorSizes: Record<FieldSize, string> = {
-    xl: 'var(--select-indicator-size-xl)',
-    lg: 'var(--select-indicator-size-lg)',
-    md: 'var(--select-indicator-size-md)',
-};
-
-function getSelectConfig(size: FieldSize) {
-    const fc = getFieldSizeConfig(size);
-    return {
-        ...fc,
-        wrapperStyle: {
-            height: fc.height,
-            paddingLeft: fc.contentPaddingX,
-            paddingRight: fc.contentPaddingX,
-            borderRadius: fc.radius,
-            gap: fc.contentGap,
-        } as React.CSSProperties,
-        triggerIconStyle: {
-            ...selectTriggerIconSizes[size],
-        } as React.CSSProperties,
-        itemIconStyle: {
-            ...selectItemIconSizes[size],
-        } as React.CSSProperties,
-        indicatorSize: selectIndicatorSizes[size],
-    };
-}
-
 // =============================================================================
 // Trigger icon wrapper (mirrors TextInput's IconWrapper, uses select group)
 // =============================================================================
 
-function TriggerIconWrapper({ children, style }: { children: ReactNode; style: React.CSSProperties }) {
+function TriggerIconWrapper({ children, style }: { children: ReactNode; style: CSSProperties }) {
     return (
         <span
             className={cn(
@@ -226,8 +107,8 @@ export function Select({
 
     // Sync controlled value
     const currentValue = value !== undefined ? value : internalValue;
-    const itemRegistry = useMemo(() => collectItemRegistry(children), [children]);
-    const ctxValue = useMemo(() => ({ size, multiple }), [size, multiple]);
+    const itemRegistry = useMemo(() => collectItemRegistry(children, SelectItem), [children]);
+    const ctxValue = useMemo<SelectContextValue>(() => ({ size, multiple }), [size, multiple]);
 
     // Get icon for selected value (single-select only)
     const selectedIcon = !multiple && typeof currentValue === 'string' ? itemRegistry.get(currentValue)?.icon : null;

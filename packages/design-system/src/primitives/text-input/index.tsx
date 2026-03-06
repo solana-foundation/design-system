@@ -1,3 +1,5 @@
+'use client';
+
 import { Field } from '@base-ui/react/field';
 import { Input as BaseInput } from '@base-ui/react/input';
 import { ChevronDownIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
@@ -14,38 +16,10 @@ import {
     useState,
 } from 'react';
 import { cn } from '../../utils';
-import { type FieldSize, getFieldSizeConfig } from '../_shared/field-size-config';
+import { type FieldSize } from '../_shared/field-size-config';
 import { Tooltip } from '../tooltip';
-
-const messageTransition = { duration: 0.15, ease: 'easeOut' as const };
-const INTERACTIVE_TARGET_SELECTOR = [
-    'a[href]',
-    'button',
-    'input',
-    'select',
-    'textarea',
-    "[role='button']",
-    "[role='checkbox']",
-    "[role='link']",
-    "[role='menuitem']",
-    "[role='option']",
-    "[role='radio']",
-    "[role='switch']",
-    "[tabindex]:not([tabindex='-1'])",
-    "[contenteditable='true']",
-    "[contenteditable='plaintext-only']",
-    "[data-input-addon-interactive='true']",
-].join(', ');
-
-const setForwardedRef = <T,>(ref: React.ForwardedRef<T>, value: T | null) => {
-    if (typeof ref === 'function') {
-        ref(value);
-        return;
-    }
-    if (ref) {
-        ref.current = value;
-    }
-};
+import { INTERACTIVE_TARGET_SELECTOR, messageTransition } from './constants';
+import { getInputConfig, setForwardedRef } from './helpers';
 
 type InputSize = FieldSize;
 type AddonKind = 'static' | 'interactive';
@@ -86,38 +60,7 @@ export interface TextInputProps extends Omit<React.ComponentPropsWithoutRef<'inp
     trailingAddonKind?: AddonKind;
 }
 
-const addonSelectIconSizes: Record<FieldSize, React.CSSProperties> = {
-    xl: {
-        width: 'var(--select-trigger-icon-xl)',
-        height: 'var(--select-trigger-icon-xl)',
-    },
-    lg: {
-        width: 'var(--select-trigger-icon-lg)',
-        height: 'var(--select-trigger-icon-lg)',
-    },
-    md: {
-        width: 'var(--select-trigger-icon-md)',
-        height: 'var(--select-trigger-icon-md)',
-    },
-};
-
-function getInputConfig(size: FieldSize) {
-    const fc = getFieldSizeConfig(size);
-    return {
-        ...fc,
-        wrapperStyle: {
-            height: fc.height,
-            borderRadius: fc.radius,
-        } as React.CSSProperties,
-        iconStyle: {
-            width: fc.iconSize,
-            height: fc.iconSize,
-        } as React.CSSProperties,
-        addonSelectIconStyle: {
-            ...addonSelectIconSizes[size],
-        } as React.CSSProperties,
-    };
-}
+// (constants + helpers live in sibling modules)
 
 const IconWrapper = ({ children, style }: { children: ReactNode; style: React.CSSProperties }) => (
     <span

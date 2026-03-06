@@ -1,3 +1,5 @@
+'use client';
+
 import { Button as BaseButton } from '@base-ui/react/button';
 import { type HTMLMotionProps, motion } from 'motion/react';
 import { Children, cloneElement, forwardRef, isValidElement, type ReactNode } from 'react';

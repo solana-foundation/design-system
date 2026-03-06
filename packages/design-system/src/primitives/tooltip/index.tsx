@@ -1,9 +1,10 @@
-import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip';
-import { createContext, type ReactElement, type ReactNode, useContext } from 'react';
-import { cn } from '../../utils';
+'use client';
 
-// Context to detect if a TooltipProvider ancestor exists
-const TooltipProviderContext = createContext(false);
+import { Tooltip as BaseTooltip } from '@base-ui/react/tooltip';
+import { type ReactElement, type ReactNode, useContext } from 'react';
+import { cn } from '../../utils';
+import { DEFAULT_TOOLTIP_CLOSE_DELAY, DEFAULT_TOOLTIP_DELAY, DEFAULT_TOOLTIP_TIMEOUT } from './constants';
+import { TooltipProviderContext } from './context';
 
 export interface TooltipProviderProps {
     children: ReactNode;
@@ -15,7 +16,12 @@ export interface TooltipProviderProps {
     timeout?: number;
 }
 
-export function TooltipProvider({ children, delay = 0, closeDelay = 150, timeout = 300 }: TooltipProviderProps) {
+export function TooltipProvider({
+    children,
+    delay = DEFAULT_TOOLTIP_DELAY,
+    closeDelay = DEFAULT_TOOLTIP_CLOSE_DELAY,
+    timeout = DEFAULT_TOOLTIP_TIMEOUT,
+}: TooltipProviderProps) {
     return (
         <TooltipProviderContext value={true}>
             <BaseTooltip.Provider closeDelay={closeDelay} delay={delay} timeout={timeout}>
@@ -51,8 +57,8 @@ export function Tooltip({
     align = 'center',
     sideOffset = 8,
     arrow = true,
-    delay = 0,
-    closeDelay = 150,
+    delay = DEFAULT_TOOLTIP_DELAY,
+    closeDelay = DEFAULT_TOOLTIP_CLOSE_DELAY,
 }: TooltipProps) {
     const hasProvider = useContext(TooltipProviderContext);
 

@@ -1,16 +1,10 @@
+'use client';
+
 import { Check, Copy } from 'lucide-react';
-import {
-    forwardRef,
-    type HTMLAttributes,
-    type UIEvent as ReactUIEvent,
-    type TdHTMLAttributes,
-    type ThHTMLAttributes,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import { forwardRef, type HTMLAttributes, type TdHTMLAttributes, type ThHTMLAttributes, useRef } from 'react';
+import { useCopyToClipboard } from '../../hooks/use-copy-to-clipboard';
 import { cn } from '../../utils';
+import { useScrollShadows } from './use-scroll-shadows';
 
 /* =============================================================================
    Table
@@ -22,35 +16,7 @@ export interface TableProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const Table = forwardRef<HTMLDivElement, TableProps>(({ className, children, onScroll, ...props }, ref) => {
     const scrollRef = useRef<HTMLDivElement | null>(null);
-    const [scrollState, setScrollState] = useState({
-        left: false,
-        right: false,
-    });
-
-    const updateScrollState = useCallback((el: HTMLDivElement) => {
-        const { scrollLeft, scrollWidth, clientWidth } = el;
-        const left = scrollLeft > 0;
-        const right = scrollLeft < scrollWidth - clientWidth - 1;
-
-        setScrollState(prev => {
-            if (prev.left === left && prev.right === right) return prev;
-            return { left, right };
-        });
-    }, []);
-
-    const handleScroll = useCallback(
-        (event: ReactUIEvent<HTMLDivElement>) => {
-            updateScrollState(event.currentTarget);
-            onScroll?.(event);
-        },
-        [onScroll, updateScrollState],
-    );
-
-    useEffect(() => {
-        const el = scrollRef.current;
-        if (!el) return;
-        updateScrollState(el);
-    }, [updateScrollState]);
+    const { scrollState, updateScrollState, handleScroll } = useScrollShadows<HTMLDivElement>();
 
     return (
         <div
@@ -62,7 +28,10 @@ export const Table = forwardRef<HTMLDivElement, TableProps>(({ className, childr
             )}
             data-scroll-left={scrollState.left}
             data-scroll-right={scrollState.right}
-            onScroll={handleScroll}
+            onScroll={event => {
+                handleScroll(event);
+                onScroll?.(event);
+            }}
             ref={node => {
                 scrollRef.current = node;
                 if (typeof ref === 'function') ref(node);
@@ -244,14 +213,7 @@ export interface TableCellCopyableProps extends TdHTMLAttributes<HTMLTableCellEl
 
 export const TableCellCopyable = forwardRef<HTMLTableCellElement, TableCellCopyableProps>(
     ({ className, align = 'left', mono = false, value, truncate, pinned, children, ...props }, ref) => {
-        const [copied, setCopied] = useState(false);
-
-        const handleCopy = () => {
-            const text = value ?? (typeof children === 'string' ? children : String(children));
-            navigator.clipboard.writeText(text);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 1500);
-        };
+        const { copied, copy } = useCopyToClipboard(1500);
 
         const truncateStyle = truncate
             ? {
@@ -292,7 +254,10 @@ export const TableCellCopyable = forwardRef<HTMLTableCellElement, TableCellCopya
                     <button
                         aria-label="Copy to clipboard"
                         className="shrink-0 cursor-pointer text-text-low opacity-0 transition-opacity duration-150 hover:text-text-high group-hover/copy:opacity-100"
-                        onClick={handleCopy}
+                        onClick={() => {
+                            const text = value ?? (typeof children === 'string' ? children : String(children));
+                            void copy(text);
+                        }}
                         type="button"
                     >
                         {copied ? <Check size={14} /> : <Copy size={14} />}

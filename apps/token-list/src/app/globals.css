@@ -1,4 +1,5 @@
-@import '@solana/design-system/defaults.css';
+@import 'tailwindcss';
+@import '@solana/design-system/styles';
 
 @keyframes page-enter {
     from {

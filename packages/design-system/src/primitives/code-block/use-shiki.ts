@@ -1,3 +1,5 @@
+'use client';
+
 import type { HighlighterCore } from '@shikijs/core';
 import type { DecorationItem } from '@shikijs/core/types';
 import { startTransition, useEffect, useState } from 'react';
