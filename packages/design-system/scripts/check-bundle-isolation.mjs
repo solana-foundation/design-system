@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path';
 
 const distDir = resolve(import.meta.dirname, '..', 'dist');
 
+// Bundles that must remain Shiki-free (no @shikijs/* references, wasm loads, etc).
 const safeEntries = [
     'animated-icon.js',
     'badge.js',
@@ -18,7 +19,8 @@ const safeEntries = [
     'tooltip.js',
 ];
 
-const heavyEntry = 'code-block.js';
+// Bundles expected to include Shiki references (regression canaries).
+const heavyEntries = ['code-block.js', 'code-block-group.js'];
 
 const heavyNeedles = ['@shikijs/', 'shiki/wasm', 'shiki/langs/', "import('@shikijs/core')", "import('shiki/wasm')"];
 
@@ -82,21 +84,29 @@ async function main() {
         if (found) offenders.push(filename);
     }
 
-    const heavyPath = resolve(distDir, heavyEntry);
-    const heavyGraphFiles = await collectReachableFiles(heavyPath);
-    const heavyHasNeedle = await (async () => {
-        for (const filePath of heavyGraphFiles) {
-            if (await fileContainsAny(filePath, heavyNeedles)) return true;
-        }
-        return false;
-    })();
+    const heavyMissingNeedles = [];
+
+    for (const filename of heavyEntries) {
+        const heavyPath = resolve(distDir, filename);
+        const heavyGraphFiles = await collectReachableFiles(heavyPath);
+        const heavyHasNeedle = await (async () => {
+            for (const filePath of heavyGraphFiles) {
+                if (await fileContainsAny(filePath, heavyNeedles)) return true;
+            }
+            return false;
+        })();
+
+        if (!heavyHasNeedle) heavyMissingNeedles.push(filename);
+    }
 
     if (offenders.length > 0) {
         throw new Error(`Bundle isolation failed. Shiki references found in: ${offenders.join(', ')}`);
     }
 
-    if (!heavyHasNeedle) {
-        throw new Error(`Bundle isolation failed. Expected Shiki references in ${heavyEntry}, but found none.`);
+    if (heavyMissingNeedles.length > 0) {
+        throw new Error(
+            `Bundle isolation failed. Expected Shiki references in ${heavyMissingNeedles.join(', ')}, but found none.`,
+        );
     }
 }
 

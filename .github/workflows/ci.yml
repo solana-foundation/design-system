@@ -30,7 +30,7 @@ jobs:
         run: pnpm --filter @solana/design-system build
 
       - name: Verify bundle isolation
-        run: pnpm --filter @solana/design-system check:bundles
+        run: pnpm --filter @solana/design-system exec node ./scripts/check-bundle-isolation.mjs
 
       - name: Build Next.js consumer fixture
         run: pnpm --filter token-list-example build
