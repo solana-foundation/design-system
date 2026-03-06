@@ -1,3 +1,5 @@
+'use client';
+
 import { Toggle } from '@base-ui/react/toggle';
 import { ToggleGroup } from '@base-ui/react/toggle-group';
 import { motion, useReducedMotion } from 'motion/react';

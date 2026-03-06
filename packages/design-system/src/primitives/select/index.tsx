@@ -1,3 +1,5 @@
+'use client';
+
 import { Field } from '@base-ui/react/field';
 import { Select as BaseSelect } from '@base-ui/react/select';
 import { CheckIcon } from '@heroicons/react/20/solid';

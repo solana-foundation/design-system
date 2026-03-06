@@ -10,8 +10,65 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js"
         },
-        "./styles": "./src/globals.css",
+        "./badge": {
+            "types": "./dist/badge.d.ts",
+            "import": "./dist/badge.js"
+        },
+        "./animated-icon": {
+            "types": "./dist/animated-icon.d.ts",
+            "import": "./dist/animated-icon.js"
+        },
+        "./button": {
+            "types": "./dist/button.d.ts",
+            "import": "./dist/button.js"
+        },
+        "./code-block": {
+            "types": "./dist/code-block.d.ts",
+            "import": "./dist/code-block.js"
+        },
+        "./code-block-group": {
+            "types": "./dist/code-block-group.d.ts",
+            "import": "./dist/code-block-group.js"
+        },
+        "./copy-button": {
+            "types": "./dist/copy-button.d.ts",
+            "import": "./dist/copy-button.js"
+        },
+        "./inline-code": {
+            "types": "./dist/inline-code.d.ts",
+            "import": "./dist/inline-code.js"
+        },
+        "./segmented-control": {
+            "types": "./dist/segmented-control.d.ts",
+            "import": "./dist/segmented-control.js"
+        },
+        "./select": {
+            "types": "./dist/select.d.ts",
+            "import": "./dist/select.js"
+        },
+        "./spinner": {
+            "types": "./dist/spinner.d.ts",
+            "import": "./dist/spinner.js"
+        },
+        "./table": {
+            "types": "./dist/table.d.ts",
+            "import": "./dist/table.js"
+        },
+        "./tabs": {
+            "types": "./dist/tabs.d.ts",
+            "import": "./dist/tabs.js"
+        },
+        "./text-input": {
+            "types": "./dist/text-input.d.ts",
+            "import": "./dist/text-input.js"
+        },
+        "./tooltip": {
+            "types": "./dist/tooltip.d.ts",
+            "import": "./dist/tooltip.js"
+        },
+        "./styles": "./src/defaults.css",
         "./defaults": "./src/defaults.css",
+        "./base.css": "./src/base.css",
         "./utils": {
             "types": "./dist/utils/index.d.ts",
             "import": "./dist/utils/index.js"
@@ -59,6 +116,7 @@
         "@heroicons/react": "^2.2.0",
         "@shikijs/core": "^3.2.1",
         "@shikijs/engine-oniguruma": "^3.2.1",
+        "lucide-react": "^0.575.0",
         "motion": "^12.26.0",
         "shiki": "^3.2.1"
     },
@@ -75,9 +133,9 @@
         "@types/react-dom": "^19.0.2",
         "corner-smoothing": "^0.1.5",
         "dompurify": "^3.3.1",
-        "lucide-react": "^0.575.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
+        "rollup-plugin-preserve-use-client": "^3.0.1",
         "storybook": "10.2.13",
         "tailwindcss": "^4.1.18",
         "typescript": "^5.9.3",

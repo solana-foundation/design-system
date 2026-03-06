@@ -1,0 +1,22 @@
+/* Opt-in global base styles for consuming applications.
+ *
+ * Import this only if you want the design system to define element-level defaults
+ * (e.g. body typography/background and baseline outline/border styling).
+ *
+ * Recommended: keep this file in your app and customize it, rather than relying on
+ * the package for global element defaults.
+ */
+
+@layer base {
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        font-optical-sizing: auto;
+
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        @apply bg-background text-foreground;
+    }
+}

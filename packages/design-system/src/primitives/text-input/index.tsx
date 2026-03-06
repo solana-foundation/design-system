@@ -1,3 +1,5 @@
+'use client';
+
 import { Field } from '@base-ui/react/field';
 import { Input as BaseInput } from '@base-ui/react/input';
 import { ChevronDownIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';

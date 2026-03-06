@@ -1,3 +1,5 @@
+'use client';
+
 import { Tabs as BaseTabs } from '@base-ui/react/tabs';
 import { createContext, type ReactNode, useContext, useMemo } from 'react';
 import { cn } from '../../utils';
