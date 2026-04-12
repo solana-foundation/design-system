@@ -32,3 +32,7 @@ storybook-static
 *.sw?
 *storybook.log
 .vercel
+
+.claude
+.cursor
+.zed
