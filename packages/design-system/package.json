@@ -105,6 +105,11 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/solana-foundation/design-system",
+        "directory": "packages/design-system"
+    },
     "publishConfig": {
         "access": "public"
     },
