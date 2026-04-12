@@ -17,13 +17,35 @@ This copies the component source into your project so you own the code.
 ### npm package
 
 ```bash
-pnpm add @solana/design-system
+pnpm add @solana/design-system @base-ui/react motion
 ```
 
-```tsx
-import { Button, Spinner, SegmentControl } from '@solana/design-system';
-import '@solana/design-system/styles';
+Add the design system styles to your Tailwind entry CSS (the file that contains `@import "tailwindcss";`).
+
+```css
+@import 'tailwindcss';
+@import '@solana/design-system/styles';
 ```
+
+Optional (opt-in global base styles): copy `@solana/design-system/base.css` into your app and customize it, or import it after `styles`.
+
+```css
+@import '@solana/design-system/base.css';
+```
+
+Then import components (recommended: subpath imports for tree-shaking and clearer Next.js boundaries).
+
+```tsx
+import { Button } from '@solana/design-system/button';
+import { Spinner } from '@solana/design-system/spinner';
+import { SegmentedControl } from '@solana/design-system/segmented-control';
+```
+
+## Next.js App Router notes
+
+- Most primitives are **Client Components** (they rely on Base UI, Motion, and/or React hooks).
+- Prefer importing them from subpaths (e.g. `@solana/design-system/button`) from within your app’s client components.
+- Keep `@solana/design-system/styles` imported from your global Tailwind CSS entry file.
 
 ## Components
 

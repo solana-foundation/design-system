@@ -1,0 +1,3 @@
+export const DEFAULT_TOOLTIP_DELAY = 0;
+export const DEFAULT_TOOLTIP_CLOSE_DELAY = 150;
+export const DEFAULT_TOOLTIP_TIMEOUT = 300;

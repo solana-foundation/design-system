@@ -1,0 +1,28 @@
+{
+    "name": "vite-consumer-fixture",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc -p tsconfig.json --noEmit && vite build",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@base-ui/react": "^1.1.0",
+        "@solana/design-system": "workspace:*",
+        "motion": "^12.26.0",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "tailwindcss": "^4.1.18"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.1.18",
+        "@types/react": "^19.0.6",
+        "@types/react-dom": "^19.0.2",
+        "@vitejs/plugin-react": "^4.7.0",
+        "typescript": "^5.9.3",
+        "vite": "^6.0.7"
+    }
+}

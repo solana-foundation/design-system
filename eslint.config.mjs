@@ -62,5 +62,12 @@ export default [
             'react-hooks/rules-of-hooks': 'off',
         },
     },
+    {
+        files: ['packages/design-system/src/**/*.{ts,tsx}'],
+        rules: {
+            // Library code should not leak `any` into consumer types.
+            '@typescript-eslint/no-explicit-any': 'error',
+        },
+    },
     eslintConfigPrettier,
 ];

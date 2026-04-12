@@ -1,3 +1,5 @@
+'use client';
+
 import { CheckIcon, Square2StackIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useCallback, useEffect, useState } from 'react';
 import { useCopyToClipboard } from '../../hooks/use-copy-to-clipboard';

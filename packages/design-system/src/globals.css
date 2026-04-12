@@ -1,7 +1,3 @@
-@import 'tailwindcss/theme' layer(theme);
-@import 'tailwindcss/preflight' layer(base);
-@import 'tailwindcss/utilities' layer(utilities);
-
 @custom-variant dark (&:is(.dark *));
 
 /* Tailwind-animate utilities for Tailwind v4 */
@@ -32,25 +28,25 @@
 }
 
 @utility animate-in {
-    animation-name: enter;
-    animation-duration: 150ms;
-    animation-fill-mode: forwards;
     --tw-enter-opacity: initial;
     --tw-enter-scale: initial;
     --tw-enter-rotate: initial;
     --tw-enter-translate-x: initial;
     --tw-enter-translate-y: initial;
+    animation-name: enter;
+    animation-duration: 150ms;
+    animation-fill-mode: forwards;
 }
 
 @utility animate-out {
-    animation-name: exit;
-    animation-duration: 150ms;
-    animation-fill-mode: forwards;
     --tw-exit-opacity: initial;
     --tw-exit-scale: initial;
     --tw-exit-rotate: initial;
     --tw-exit-translate-x: initial;
     --tw-exit-translate-y: initial;
+    animation-name: exit;
+    animation-duration: 150ms;
+    animation-fill-mode: forwards;
 }
 
 @utility fade-in-0 {
@@ -117,13 +113,13 @@
 .prose li code,
 .prose td code,
 .prose th code {
-    background-color: oklch(0.927 0.005 286.25) !important; /* sand-200 */
-    color: oklch(0.2269 0.002 286.25) !important; /* sand-1500 */
     padding: 0.125rem 0.375rem !important;
-    border-radius: 0.375rem !important;
-    font-size: 0.75rem !important; /* text-xs */
-    border: 1px solid oklch(0.839 0.009 286.25) !important; /* sand-400 */
     font-family: var(--font-berkeley-mono), ui-monospace, monospace !important;
+    font-size: 0.75rem !important; /* text-xs */
+    color: oklch(0.2269 0.002 286.25) !important; /* sand-1500 */
+    background-color: oklch(0.927 0.005 286.25) !important; /* sand-200 */
+    border: 1px solid oklch(0.839 0.009 286.25) !important; /* sand-400 */
+    border-radius: 0.375rem !important;
 }
 
 /* Ensure code blocks stay clean - NO background or styling */
@@ -133,16 +129,16 @@
 .prose code[class*='shiki'],
 .prose code[class*='hljs'],
 .prose code[class*='prism'] {
+    padding: 0 !important;
     background: transparent !important;
     background-color: transparent !important;
     border: none !important;
-    padding: 0 !important;
 }
 
 /* Add padding to code blocks */
 .prose pre {
-    padding-left: 1rem !important;
     padding-right: 1.5rem !important;
+    padding-left: 1rem !important;
 }
 
 @keyframes spinner-rotate {
@@ -226,14 +222,6 @@
     --color-status-info-bg: var(--status-info-bg);
     --color-status-info-border: var(--status-info-border);
     --color-status-info-text: var(--status-info-text);
-
-    /* Numeric value colors */
-    --color-number-positive: var(--status-success-text);
-    --color-number-negative: var(--status-error-text);
-    --color-number-neutral: var(--text-medium);
-
-    /* Tracking */
-    --tracking-tighter: -0.02em;
 
     /* Solana brand colors */
     --color-solana-purple: var(--solana-purple);
@@ -343,7 +331,6 @@
     --font-weight-bold: calc(var(--font-weight-bold-base) * var(--fw-mult));
 
     /* Typography - Tracking */
-    --tracking-tighter: -0.02em;
     --tracking-tight: -0.01em;
     --tracking-normal: 0;
     --tracking-wide: 0.01em;
@@ -377,20 +364,62 @@
      ============================================================================= */
 
     --table-row-height: 44px;
-    --table-header-height: 44px;
+    --table-header-height: 40px;
     --table-cell-padding-x: 16px;
     --table-cell-padding-x-edge: 20px;
     --table-cell-padding-y: 12px;
-    --table-header-padding-y: 12px;
+    --table-header-padding-y: 10px;
     --table-header-bg: color-mix(in srgb, var(--gray-1400) 3%, transparent);
     --table-header-text: var(--text-medium);
-    --table-row-bg-hover: color-mix(in srgb, var(--gray-1400) 5%, transparent);
+    --table-row-bg-hover: color-mix(in srgb, var(--gray-1400) 3%, transparent);
     --table-row-bg-selected: color-mix(in srgb, var(--gray-1400) 6%, transparent);
     --table-border: var(--border-light);
     --table-caption-text: var(--text-low);
     --table-radius: 12px;
     --table-scrollbar-thumb: var(--gray-300);
     --table-scrollbar-thumb-hover: var(--gray-400);
+
+    /* Solid equivalents for sticky/pinned cells (can't be transparent over scrolling content) */
+    --table-bg: var(--background);
+    --table-header-bg-solid: color-mix(in srgb, var(--gray-1400) 3%, var(--background));
+    --table-row-bg-hover-solid: color-mix(in srgb, var(--gray-1400) 3%, var(--background));
+
+    /* =============================================================================
+     BADGE TOKENS
+     ============================================================================= */
+
+    --badge-height: 20px;
+    --badge-padding-x: 8px;
+    --badge-radius: 9999px;
+    --badge-dot-size: 5px;
+    --badge-gap: 5px;
+    --badge-font-size: var(--text-body-sm-size);
+    --badge-font-weight: var(--font-weight-medium);
+
+    /* Badge - Default (gray) */
+    --badge-default-bg: color-mix(in srgb, var(--gray-1400) 8%, transparent);
+    --badge-default-text: var(--text-high);
+    --badge-default-dot: var(--gray-700);
+
+    /* Badge - Success (green) H=155 */
+    --badge-success-bg: oklch(0.955 0.045 155);
+    --badge-success-text: oklch(0.4 0.1 155);
+    --badge-success-dot: oklch(0.55 0.14 155);
+
+    /* Badge - Warning (amber) H=84 */
+    --badge-warning-bg: oklch(0.955 0.05 84);
+    --badge-warning-text: oklch(0.4 0.1 84);
+    --badge-warning-dot: oklch(0.55 0.14 84);
+
+    /* Badge - Danger (red) H=29 */
+    --badge-danger-bg: oklch(0.955 0.04 29);
+    --badge-danger-text: oklch(0.4 0.1 29);
+    --badge-danger-dot: oklch(0.55 0.14 29);
+
+    /* Badge - Info (blue) H=250 */
+    --badge-info-bg: oklch(0.955 0.04 250);
+    --badge-info-text: oklch(0.4 0.1 250);
+    --badge-info-dot: oklch(0.55 0.14 250);
 
     /* =============================================================================
      BUTTON TOKENS
@@ -847,12 +876,6 @@
     letter-spacing: var(--tracking-tight);
 }
 
-body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-feature-settings: 'ss01' 1;
-}
-
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
@@ -975,10 +998,34 @@ body {
 
     /* Table - dark mode: white-based transparency */
     --table-header-bg: color-mix(in srgb, var(--white) 4%, transparent);
-    --table-row-bg-hover: color-mix(in srgb, var(--white) 6%, transparent);
+    --table-row-bg-hover: color-mix(in srgb, var(--white) 4%, transparent);
     --table-row-bg-selected: color-mix(in srgb, var(--white) 8%, transparent);
     --table-scrollbar-thumb: var(--gray-500);
     --table-scrollbar-thumb-hover: var(--gray-400);
+
+    /* Solid equivalents for sticky/pinned cells - dark mode */
+    --table-header-bg-solid: color-mix(in srgb, var(--white) 4%, var(--background));
+    --table-row-bg-hover-solid: color-mix(in srgb, var(--white) 4%, var(--background));
+
+    /* Badge - dark mode overrides */
+    --badge-default-bg: color-mix(in srgb, var(--white) 14%, transparent);
+    --badge-default-dot: var(--gray-600);
+
+    --badge-success-bg: oklch(0.26 0.06 155);
+    --badge-success-text: oklch(0.82 0.1 155);
+    --badge-success-dot: oklch(0.6 0.14 155);
+
+    --badge-warning-bg: oklch(0.26 0.07 84);
+    --badge-warning-text: oklch(0.82 0.1 84);
+    --badge-warning-dot: oklch(0.6 0.14 84);
+
+    --badge-danger-bg: oklch(0.26 0.06 29);
+    --badge-danger-text: oklch(0.82 0.1 29);
+    --badge-danger-dot: oklch(0.6 0.14 29);
+
+    --badge-info-bg: oklch(0.26 0.06 250);
+    --badge-info-text: oklch(0.82 0.1 250);
+    --badge-info-dot: oklch(0.6 0.14 250);
 
     /* Input - dark mode overrides */
     --input-border-idle: color-mix(in srgb, var(--white) 20%, transparent);
@@ -1412,15 +1459,15 @@ body {
 }
 
 .code-block-line-numbers code .line::before {
-    content: counter(line);
     display: inline-block;
     width: 1.5rem;
     margin-right: 0.75rem;
-    text-align: right;
-    color: var(--code-block-line-number);
-    user-select: none;
-    font-variant-numeric: tabular-nums;
     font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--code-block-line-number);
+    text-align: right;
+    user-select: none;
+    content: counter(line);
 }
 
 .code-block-line-numbers .overflow-x-auto,
@@ -1453,10 +1500,10 @@ body {
 
 .code-block-copy-btn:hover,
 .code-block-copy-btn[data-copied] {
-    opacity: 1;
     color: var(--shiki-foreground);
     background: color-mix(in srgb, var(--shiki-foreground) 8%, var(--code-block-bg));
     border-color: color-mix(in srgb, var(--shiki-foreground) 16%, var(--code-block-bg));
+    opacity: 1;
 }
 
 .code-block-copy-btn:active {
@@ -1486,10 +1533,10 @@ body {
    ============================================================================= */
 
 .line[data-highlight] {
-    background: var(--code-block-line-highlight);
     display: block;
-    margin: 0 -1rem;
     padding: 0 1rem;
+    margin: 0 -1rem;
+    background: var(--code-block-line-highlight);
 }
 
 /* =============================================================================
@@ -1584,9 +1631,9 @@ body {
 
 .code-block-diff code .line {
     display: block;
-    white-space: pre;
-    margin: 0 -1rem;
     padding: 0 1rem 0 1.75rem;
+    margin: 0 -1rem;
+    white-space: pre;
     border-left: 3px solid transparent;
 }
 
@@ -1608,23 +1655,23 @@ body {
 .line[data-diff-added]::after,
 .line[data-diff-removed]::after {
     position: absolute;
-    left: 0.625rem;
     top: 0;
+    left: 0.625rem;
     font-size: 0.8125rem;
     font-weight: 600;
     line-height: inherit;
-    user-select: none;
     pointer-events: none;
+    user-select: none;
 }
 
 .line[data-diff-added]::after {
-    content: '+';
     color: var(--code-block-diff-added-marker);
+    content: '+';
 }
 
 .line[data-diff-removed]::after {
-    content: '\2212';
     color: var(--code-block-diff-removed-marker);
+    content: '\2212';
 }
 
 /* =============================================================================
@@ -1636,10 +1683,10 @@ body {
     top: 0;
     right: 0;
     bottom: 0;
-    width: 2rem;
-    background: linear-gradient(to right, transparent, var(--code-block-bg));
-    pointer-events: none;
     z-index: 1;
+    width: 2rem;
+    pointer-events: none;
+    background: linear-gradient(to right, transparent, var(--code-block-bg));
     opacity: 0;
     transition: opacity 150ms ease-out;
 }
@@ -1669,8 +1716,8 @@ body {
 /* Firefox fallback: thin native scrollbar */
 @supports not selector(::-webkit-scrollbar) {
     .table-scroll-container {
-        scrollbar-width: thin;
         scrollbar-color: var(--table-scrollbar-thumb) transparent;
+        scrollbar-width: thin;
     }
 }
 
@@ -1680,9 +1727,9 @@ body {
     position: absolute;
     top: 0;
     bottom: 8px; /* clear the scrollbar track */
+    z-index: 1;
     width: 16px;
     pointer-events: none;
-    z-index: 1;
     opacity: 0;
     transition: opacity 150ms ease-out;
 }
@@ -1713,12 +1760,12 @@ body {
 
 .code-block-fade-overlay {
     position: absolute;
+    right: 0;
     bottom: 0;
     left: 0;
-    right: 0;
     height: 4rem;
-    background: linear-gradient(to bottom, transparent, var(--code-block-bg));
     pointer-events: none;
+    background: linear-gradient(to bottom, transparent, var(--code-block-bg));
     border-radius: 0 0 inherit inherit;
 }
 
@@ -1726,16 +1773,16 @@ body {
     position: absolute;
     bottom: 0.5rem;
     left: 50%;
-    transform: translateX(-50%);
     z-index: 2;
     padding: 0.25rem 0.75rem;
     font-size: 0.75rem;
     font-weight: 500;
-    cursor: pointer;
     color: color-mix(in srgb, var(--shiki-foreground) 70%, var(--code-block-bg));
+    cursor: pointer;
     background: color-mix(in srgb, var(--shiki-foreground) 4%, var(--code-block-bg));
     border: 1px solid color-mix(in srgb, var(--shiki-foreground) 14%, var(--code-block-bg));
     border-radius: 6px;
+    transform: translateX(-50%);
     transition:
         color 150ms ease-out,
         background 150ms ease-out,
@@ -1763,12 +1810,12 @@ body {
     display: inline-block;
     width: 1.5rem;
     margin-right: 0.75rem;
-    text-align: right;
-    color: var(--code-block-line-number);
-    user-select: none;
-    font-variant-numeric: tabular-nums;
     font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--code-block-line-number);
+    text-align: right;
     cursor: pointer;
+    user-select: none;
     transition: color 150ms ease-out;
 }
 
@@ -1781,10 +1828,10 @@ body {
    ============================================================================= */
 
 .highlighted-word {
-    background: color-mix(in srgb, var(--shiki-token-keyword) 18%, transparent);
-    border-radius: 3px;
     padding: 1px 3px;
     margin: -1px -3px;
+    background: color-mix(in srgb, var(--shiki-token-keyword) 18%, transparent);
+    border-radius: 3px;
 }
 
 /* =============================================================================
@@ -1793,14 +1840,14 @@ body {
 
 .code-block-group-tablist {
     display: flex;
-    align-items: center;
     gap: 0.125rem;
+    align-items: center;
+    min-height: 2.5rem;
     padding: 0 0.75rem;
     font-family: var(--font-berkeley-mono), ui-monospace, monospace;
     font-size: 0.75rem;
     background: var(--code-block-header-bg);
     border-bottom: 1px solid var(--code-block-header-border);
-    min-height: 2.5rem;
 }
 
 .code-block-group-tablist [role='tab'] {
@@ -1810,14 +1857,14 @@ body {
     justify-content: center;
     min-height: 2.5rem;
     padding: 0 0.75rem;
+    line-height: 1.15;
     color: var(--code-block-header-text);
     text-align: center;
-    line-height: 1.15;
+    white-space: nowrap;
     cursor: pointer;
+    background: transparent;
     border: none;
     transition: color 150ms ease-out;
-    white-space: nowrap;
-    background: transparent;
 }
 
 .code-block-group-tablist [role='tab']:hover {
@@ -1864,33 +1911,9 @@ body {
     }
 
     .code-block-copy-btn {
-        opacity: 1;
         width: 44px;
         height: 44px;
-    }
-}
-
-@layer base {
-    * {
-        @apply border-border outline-ring/50;
-    }
-
-    body {
-        @apply bg-background text-foreground;
-
-        /* ==========================================================================
-       Font Smoothing
-
-       Grayscale antialiasing provides consistent rendering:
-       - Prevents color fringing from subpixel rendering
-       - Especially important on dark backgrounds
-       - Standard practice for design systems
-       ========================================================================== */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-
-        /* Enable Inter's optical size axis for automatic size-based tuning */
-        font-optical-sizing: auto;
+        opacity: 1;
     }
 }
 
@@ -2039,9 +2062,10 @@ body {
 }
 
 .product-card-diagonal::before {
-    content: '';
     position: absolute;
     inset: 0;
+    pointer-events: none;
+    content: '';
     background-image: repeating-linear-gradient(
         45deg,
         transparent,
@@ -2051,7 +2075,6 @@ body {
     );
     opacity: 0;
     transition: opacity 180ms ease-in-out;
-    pointer-events: none;
 }
 
 .group:hover .product-card-diagonal::before {
@@ -2114,31 +2137,6 @@ body {
 .font-inter-bold {
     font-family: var(--font-sans);
     font-weight: var(--font-weight-bold);
-}
-
-/* =============================================================================
-   NUMERIC TYPOGRAPHY UTILITIES
-   ============================================================================= */
-
-/* Inter open digits — more distinct 1, 4, 6, 9 for data-dense views */
-@utility open-digits {
-    font-feature-settings: 'ss01' 1;
-}
-
-/* Numeric width utilities — for live-updating values (zero layout shift) */
-@utility num-width-sm {
-    min-width: 6ch;
-    font-variant-numeric: tabular-nums;
-}
-
-@utility num-width-md {
-    min-width: 10ch;
-    font-variant-numeric: tabular-nums;
-}
-
-@utility num-width-lg {
-    min-width: 14ch;
-    font-variant-numeric: tabular-nums;
 }
 
 /* Pulse animations for hero lines and borders */
@@ -2365,18 +2363,18 @@ body {
 
 /* Apply animations to layers with staggered delays */
 .cta-layer-1 {
-    animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 1.8s infinite;
     transform-origin: center;
+    animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 1.8s infinite;
 }
 
 .cta-layer-2 {
-    animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 2.1s infinite;
     transform-origin: center;
+    animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 2.1s infinite;
 }
 
 .cta-layer-3 {
-    animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 2.3s infinite;
     transform-origin: center;
+    animation: cta-float 4s cubic-bezier(0.5, 0, 0, 1) 2.3s infinite;
 }
 
 /* Product Hero Entrance Animations */
@@ -2431,4 +2429,47 @@ body {
 
 .illustration-animate {
     animation: illustration-entrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+}
+
+/* =============================================================================
+   TABLE SCROLL SHADOWS
+   Pseudo-elements on the scrollable wrapper to indicate overflow.
+   Controlled via data-scroll-left / data-scroll-right attributes.
+   ============================================================================= */
+
+.table-scroll-container {
+    position: relative;
+}
+
+.table-scroll-container::before,
+.table-scroll-container::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 30;
+    width: 24px;
+    pointer-events: none;
+    content: '';
+    opacity: 0;
+    transition: opacity 150ms ease;
+}
+
+.table-scroll-container::before {
+    left: 0;
+    background: linear-gradient(to right, var(--table-bg), transparent);
+    border-radius: var(--table-radius) 0 0 var(--table-radius);
+}
+
+.table-scroll-container::after {
+    right: 0;
+    background: linear-gradient(to left, var(--table-bg), transparent);
+    border-radius: 0 var(--table-radius) var(--table-radius) 0;
+}
+
+.table-scroll-container[data-scroll-left='true']::before {
+    opacity: 1;
+}
+
+.table-scroll-container[data-scroll-right='true']::after {
+    opacity: 1;
 }
