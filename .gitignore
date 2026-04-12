@@ -33,6 +33,11 @@ storybook-static
 *storybook.log
 .vercel
 
-.claude
-.cursor
-.zed
+.claude/
+.cursor/
+.zed/
+.next/
+AGENTS.md
+AGENT.md
+CLAUDE.md
+
