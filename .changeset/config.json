@@ -7,5 +7,5 @@
     "access": "public",
     "baseBranch": "main",
     "updateInternalDependencies": "patch",
-    "ignore": ["@solana/figma-plugin", "token-list-example"]
+    "ignore": ["@solana/figma-plugin", "token-list-example", "vite-consumer-fixture"]
 }

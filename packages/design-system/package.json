@@ -1,6 +1,6 @@
 {
     "name": "@solana/design-system",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Solana Design System - A collection of React components for building Solana applications",
     "type": "module",
     "main": "./dist/index.js",
