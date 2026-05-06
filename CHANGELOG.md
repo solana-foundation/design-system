@@ -4,6 +4,31 @@ All changes to the Solana Design System with explanations.
 
 ---
 
+## 2026-05-06 (Rim Shadows)
+
+### Added opt-in `shadow-rim`, `shadow-rim-elevated`, `shadow-rim-overlay` utilities
+
+**What:** Three new Tailwind shadow utilities providing a dimensional alternative to flat 1px borders. Implements [@nilseller's recipe](https://twitter.com/nilseller) verbatim: `inset 0 0 0 1px white` + `0 0 0 1px rgba(0,0,0,0.04)`. The white inset acts as a top-edge highlight; the 4% outer suggests the surface lifts off the canvas. Elevated adds a soft drop layer (cards, popovers); overlay adds soft + deep layers (modals, dialogs). Four atom tokens (`--rim-highlight`, `--rim-shadow`, `--rim-drop-soft`, `--rim-drop-deep`) drive the variants and adapt automatically across light/dark.
+
+**Why:** Flat 1px gray borders read muddy because they have no directional info. Stacking a bright inset highlight + a subtle outer hairline gives surfaces a sharper, more dimensional feel — the same trick behind Stripe / Linear / Vercel's button polish.
+
+**How to use:**
+
+```html
+<!-- Replaces border + bg combinations -->
+<div class="bg-gray-50 shadow-rim rounded-xl p-6">Card</div>
+<div class="bg-gray-100 shadow-rim-elevated rounded-xl p-6">Popover</div>
+<div class="bg-gray-100 shadow-rim-overlay rounded-xl p-6">Modal</div>
+```
+
+For Windows High Contrast Mode support, pair with `border border-transparent` — `box-shadow` is stripped in `forced-colors` mode and a transparent border becomes a `CanvasText` boundary.
+
+**When to use it (and when not to):** The rim is for the canonical "card on canvas" pattern — a white surface lifted off a neutral gray page. It does NOT work on tinted/branded surfaces (the dark-gray ring fights the tint), surfaces that match the canvas tonally (no separation to sharpen), or cards darker than their canvas (light-source intuition reverses). For those cases, use `border border-border-medium`. See the Storybook story for examples.
+
+**Scope:** Purely additive. No primitive component changes — every existing flat-border component keeps working as-is.
+
+---
+
 ## 2026-02-18 (Seamless Static Addons)
 
 ### Seamless static addons in InputField and NumberField
