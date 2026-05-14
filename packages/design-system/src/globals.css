@@ -205,6 +205,19 @@
     --color-border-light: var(--border-light);
     --color-border-extra-light: var(--border-extra-light);
 
+    /* Rim shadows — opt-in dimensional alternative to flat 1px borders.
+       1px white inset (top-edge highlight) + 1px black 4% outer (subtle hairline).
+       Per @nilseller's recipe. Pair with `border border-transparent` for forced-colors mode. */
+    --shadow-rim: inset 0 0 0 1px var(--rim-highlight), 0 0 0 1px var(--rim-shadow);
+
+    --shadow-rim-elevated:
+        inset 0 0 0 1px var(--rim-highlight), 0 0 0 1px var(--rim-shadow), 0 2px 4px -1px var(--rim-drop-soft),
+        0 4px 8px -2px var(--rim-drop-soft);
+
+    --shadow-rim-overlay:
+        inset 0 0 0 1px var(--rim-highlight), 0 0 0 1px var(--rim-shadow), 0 4px 8px -2px var(--rim-drop-soft),
+        0 16px 32px -8px var(--rim-drop-deep);
+
     /* Base colors */
     --color-black: var(--black);
     --color-white: var(--white);
@@ -271,6 +284,12 @@
     --border-medium: color-mix(in srgb, var(--gray-1300) 20%, transparent);
     --border-light: color-mix(in srgb, var(--gray-1300) 12%, transparent);
     --border-extra-light: color-mix(in srgb, var(--gray-1300) 4%, transparent);
+
+    /* Rim shadow atoms — Nils' recipe: white inset highlight + black 4% outer hairline */
+    --rim-highlight: var(--white);
+    --rim-shadow: rgb(0 0 0 / 0.04);
+    --rim-drop-soft: rgb(0 0 0 / 0.06);
+    --rim-drop-deep: rgb(0 0 0 / 0.12);
 
     /* Status color tokens (OKLCH, contrast-verified) */
     --status-error-bg: oklch(0.965 0.015 25);
@@ -965,6 +984,12 @@
     --border-medium: color-mix(in srgb, var(--white) 20%, transparent);
     --border-light: color-mix(in srgb, var(--white) 12%, transparent);
     --border-extra-light: color-mix(in srgb, var(--white) 4%, transparent);
+
+    /* Rim shadow atoms — dark mode (lower white inset, deeper outer) */
+    --rim-highlight: rgb(255 255 255 / 0.08);
+    --rim-shadow: rgb(0 0 0 / 0.4);
+    --rim-drop-soft: rgb(0 0 0 / 0.24);
+    --rim-drop-deep: rgb(0 0 0 / 0.5);
 
     /* Status color tokens - dark mode (OKLCH, contrast-verified) */
     --status-error-bg: oklch(0.21 0.04 25);
