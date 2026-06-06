@@ -18,6 +18,7 @@ export default defineConfig({
                 index: resolve(import.meta.dirname, 'src/index.ts'),
                 'glass-surface': resolve(import.meta.dirname, 'src/glass-surface.tsx'),
                 slider: resolve(import.meta.dirname, 'src/slider.tsx'),
+                switch: resolve(import.meta.dirname, 'src/switch.tsx'),
                 tokens: resolve(import.meta.dirname, 'src/tokens.ts'),
             },
             formats: ['es'],

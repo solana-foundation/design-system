@@ -6,5 +6,7 @@ export { GlassLens, GlassSurface } from './glass-surface';
 export type { GlassLensProps, GlassSurfaceProps } from './glass-surface';
 export { Slider } from './slider';
 export type { SliderProps } from './slider';
+export { Switch } from './switch';
+export type { SwitchProps } from './switch';
 export { glassTokens } from './tokens';
 export type { GlassTokens } from './tokens';

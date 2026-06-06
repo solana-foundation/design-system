@@ -9,6 +9,7 @@ The reusable package API begins in `src`:
 - `GlassSurface`: a general frosted surface wrapper.
 - `GlassLens`: a pill-shaped lens wrapper for the visual language.
 - `Slider`: a range slider with a glass thumb node.
+- `Switch`: a native checkbox switch with a glass thumb node by default.
 - `glassTokens`: radius, blur, border, shadow, and highlight constants.
 
 Import the stylesheet once in an app entrypoint:
@@ -20,7 +21,7 @@ import 'glass-design-system/styles.css';
 Use the component:
 
 ```tsx
-import { GlassLens, Slider } from 'glass-design-system';
+import { GlassLens, Slider, Switch } from 'glass-design-system';
 
 export function Example() {
     return (
@@ -29,6 +30,7 @@ export function Example() {
                 <div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>Stable</div>
             </GlassLens>
             <Slider label="Liquidity" showValue defaultValue={42} />
+            <Switch label="Auto-compound" defaultChecked />
         </>
     );
 }

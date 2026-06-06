@@ -27,6 +27,10 @@
             "types": "./dist/slider.d.ts",
             "import": "./dist/slider.js"
         },
+        "./switch": {
+            "types": "./dist/switch.d.ts",
+            "import": "./dist/switch.js"
+        },
         "./tokens": {
             "types": "./dist/tokens.d.ts",
             "import": "./dist/tokens.js"
