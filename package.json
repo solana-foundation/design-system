@@ -1,7 +1,7 @@
 {
     "name": "design-system",
     "private": true,
-    "packageManager": "pnpm@10.30.3",
+    "packageManager": "pnpm@11.5.2",
     "scripts": {
         "build": "turbo run build",
         "dev": "turbo run dev",
@@ -28,7 +28,7 @@
         "eslint-plugin-react-hooks": "^7.1.1",
         "globals": "^17.6.0",
         "prettier": "^3.8.3",
-        "turbo": "^2.9.12",
-        "typescript-eslint": "^8.59.3"
+        "turbo": "^2.9.16",
+        "typescript-eslint": "^8.60.1"
     }
 }

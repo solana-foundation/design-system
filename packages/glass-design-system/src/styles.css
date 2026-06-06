@@ -1,0 +1,376 @@
+.gds-glass-surface {
+    --gds-glass-blur: 18px;
+    --gds-glass-bg: rgba(23, 26, 24, 0.45);
+    --gds-glass-border: rgba(255, 255, 255, 0.2);
+    --gds-glass-text: rgba(255, 255, 255, 0.92);
+
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--gds-glass-text);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 42%), var(--gds-glass-bg);
+    border: 1px solid var(--gds-glass-border);
+    backdrop-filter: blur(var(--gds-glass-blur)) saturate(1.18);
+    -webkit-backdrop-filter: blur(var(--gds-glass-blur)) saturate(1.18);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.42),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.24);
+}
+
+.gds-glass-surface--rounded {
+    border-radius: 18px;
+}
+
+.gds-glass-surface--pill {
+    border-radius: 999px;
+}
+
+.gds-glass-surface--light {
+    --gds-glass-bg: rgba(255, 255, 255, 0.36);
+    --gds-glass-border: rgba(255, 255, 255, 0.56);
+    --gds-glass-text: rgba(16, 20, 20, 0.9);
+}
+
+.gds-glass-surface--clear {
+    --gds-glass-bg: rgba(255, 255, 255, 0.16);
+    --gds-glass-border: rgba(255, 255, 255, 0.34);
+}
+
+.gds-glass-surface--elevated {
+    box-shadow:
+        0 18px 48px rgba(0, 0, 0, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.24);
+}
+
+.gds-glass-surface--interactive {
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease,
+        transform 160ms ease;
+}
+
+.gds-glass-surface--interactive:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow:
+        0 20px 54px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.54),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.gds-glass-surface__shine {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.4), transparent 30%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.24), transparent 42%, rgba(255, 255, 255, 0.18));
+    opacity: 0.78;
+}
+
+.gds-glass-surface__content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+}
+
+.gds-slider {
+    --gds-slider-percent: 0%;
+    --gds-slider-lens-height: 34px;
+    --gds-slider-lens-filter: none;
+    --gds-slider-lens-left: 0px;
+    --gds-slider-lens-radius: 17px;
+    --gds-slider-lens-top: 0px;
+    --gds-slider-lens-width: 56px;
+    --gds-slider-track-height: 6px;
+    --gds-slider-thumb-left: 28px;
+    --gds-slider-hit-area: 44px;
+    --gds-slider-track-bg: rgba(148, 163, 184, 0.34);
+    --gds-slider-fill-bg: #2f7dff;
+    --gds-slider-text: rgba(255, 255, 255, 0.92);
+    --gds-slider-muted: rgba(255, 255, 255, 0.62);
+    --gds-slider-focus: rgba(255, 255, 255, 0.54);
+
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    color: var(--gds-slider-text);
+    font:
+        600 13px/1.35 system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        sans-serif;
+}
+
+.gds-slider--disabled {
+    cursor: not-allowed;
+    opacity: 0.52;
+}
+
+.gds-slider--disabled .gds-slider__control {
+    cursor: not-allowed;
+}
+
+.gds-slider__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.gds-slider__label,
+.gds-slider__value {
+    overflow-wrap: anywhere;
+}
+
+.gds-slider__value {
+    color: var(--gds-slider-muted);
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+}
+
+.gds-slider__control {
+    position: relative;
+    display: block;
+    height: var(--gds-slider-hit-area);
+    cursor: pointer;
+    touch-action: none;
+}
+
+.gds-slider__rail {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.gds-slider__visual {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+}
+
+.gds-slider__track {
+    position: absolute;
+    top: 50%;
+    right: calc(var(--gds-slider-lens-width) / 2);
+    left: calc(var(--gds-slider-lens-width) / 2);
+    height: var(--gds-slider-track-height);
+    overflow: hidden;
+    background: var(--gds-slider-track-bg);
+    border: 0;
+    border-radius: 999px;
+    transform: translateY(-50%);
+}
+
+.gds-slider__fill {
+    display: block;
+    width: var(--gds-slider-percent);
+    height: 100%;
+    background: var(--gds-slider-fill-bg);
+    border-radius: inherit;
+}
+
+.gds-slider__lens {
+    --gds-slider-lens-active-duration: 320ms;
+    --gds-slider-lens-ease: cubic-bezier(0.22, 1.15, 0.36, 1.06);
+    --gds-slider-lens-rest-duration: 520ms;
+
+    position: absolute;
+    top: var(--gds-slider-lens-top);
+    left: var(--gds-slider-lens-left);
+    z-index: 2;
+    width: var(--gds-slider-lens-width);
+    height: var(--gds-slider-lens-height);
+    overflow: visible;
+    pointer-events: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--gds-slider-lens-radius);
+    box-shadow: none;
+    transition:
+        background-color var(--gds-slider-lens-rest-duration) var(--gds-slider-lens-ease),
+        border-color var(--gds-slider-lens-rest-duration) var(--gds-slider-lens-ease),
+        box-shadow var(--gds-slider-lens-rest-duration) var(--gds-slider-lens-ease),
+        transform var(--gds-slider-lens-rest-duration) var(--gds-slider-lens-ease);
+}
+
+.gds-slider__lens::before,
+.gds-slider__lens::after {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    border-radius: inherit;
+    content: '';
+    opacity: 0;
+    transition: opacity var(--gds-slider-lens-rest-duration) var(--gds-slider-lens-ease);
+}
+
+.gds-slider__lens::before {
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0) 18%),
+        linear-gradient(0deg, rgba(203, 213, 225, 0.38), rgba(255, 255, 255, 0) 22%);
+    box-shadow:
+        inset 0 1px 0 rgba(148, 163, 184, 0.22),
+        inset 0 -1px 0 rgba(59, 130, 246, 0.18);
+}
+
+.gds-slider__lens::after {
+    box-shadow:
+        inset 1px 0 0 rgba(59, 130, 246, 0.44),
+        inset -1px 0 0 rgba(100, 116, 139, 0.14),
+        inset 0 0 0 1px rgba(148, 163, 184, 0.18);
+}
+
+.gds-slider__thumb {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+    border: 1px solid rgba(148, 163, 184, 0.18);
+    border-radius: inherit;
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.04),
+        0 3px 10px rgba(15, 23, 42, 0.075);
+}
+
+.gds-slider__lens--frost {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.gds-slider__lens-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    filter: var(--gds-slider-lens-filter);
+    transform-origin: top left;
+}
+
+.gds-slider__lens-source {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.gds-slider__lens-source-bg {
+    position: absolute;
+    inset: 0;
+    background: #ffffff;
+}
+
+.gds-slider__lens-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.gds-slider__lens-glass.gds-glass-surface {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    --gds-glass-bg: transparent;
+    --gds-glass-border: transparent;
+
+    background: var(--gds-glass-bg);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.gds-slider__lens-glass .gds-glass-surface__content {
+    display: none;
+}
+
+.gds-slider__lens-glass .gds-glass-surface__shine {
+    display: none;
+}
+
+.gds-slider__input {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.gds-slider__input:disabled {
+    cursor: not-allowed;
+}
+
+.gds-slider--active .gds-slider__lens {
+    overflow: hidden;
+    background: #ffffff;
+    border-color: rgba(148, 163, 184, 0.18);
+    box-shadow: 0 5px 16px rgba(15, 23, 42, 0.12);
+    transform: scale(1.14);
+    transition:
+        background-color var(--gds-slider-lens-active-duration) var(--gds-slider-lens-ease),
+        border-color var(--gds-slider-lens-active-duration) var(--gds-slider-lens-ease),
+        box-shadow var(--gds-slider-lens-active-duration) var(--gds-slider-lens-ease),
+        transform var(--gds-slider-lens-active-duration) var(--gds-slider-lens-ease);
+}
+
+.gds-slider--active .gds-slider__lens::before,
+.gds-slider--active .gds-slider__lens::after {
+    opacity: 1;
+    transition-duration: var(--gds-slider-lens-active-duration);
+}
+
+.gds-slider--active .gds-slider__lens-content {
+    animation: gds-slider-lens-blur-in var(--gds-slider-lens-active-duration) var(--gds-slider-lens-ease);
+}
+
+.gds-slider--active .gds-slider__lens-glass {
+    animation: gds-slider-lens-frost-in var(--gds-slider-lens-active-duration) var(--gds-slider-lens-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gds-slider__lens,
+    .gds-slider__lens-content,
+    .gds-slider__lens-glass {
+        animation: none;
+        transition: none;
+    }
+}
+
+@keyframes gds-slider-lens-blur-in {
+    from {
+        filter: blur(1.5px) var(--gds-slider-lens-filter);
+    }
+
+    to {
+        filter: blur(0) var(--gds-slider-lens-filter);
+    }
+}
+
+@keyframes gds-slider-lens-frost-in {
+    from {
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+    }
+
+    to {
+        backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(0);
+    }
+}
+
+.gds-filter-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}

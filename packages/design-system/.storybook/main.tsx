@@ -11,9 +11,11 @@ const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
 
 const config: StorybookConfig = {
-
-  previewAnnotations: ["../../.forma/storybook/previewBridge.js"],
-    stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+    previewAnnotations: ['../../.forma/storybook/previewBridge.js'],
+    stories: [
+        '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+        '../../glass-design-system/src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    ],
 
     addons: [
         getAbsolutePath('@storybook/addon-links'),

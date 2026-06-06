@@ -13,7 +13,15 @@ const preview: Preview = {
         layout: 'centered',
         options: {
             storySort: {
-                order: ['Tokens', ['Colors', 'Typography', 'Spacing'], 'Primitives', 'Components', 'Patterns', '*'],
+                order: [
+                    'Tokens',
+                    ['Colors', 'Typography', 'Spacing'],
+                    'Glass',
+                    'Primitives',
+                    'Components',
+                    'Patterns',
+                    '*',
+                ],
             },
         },
     },
