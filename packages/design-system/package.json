@@ -22,6 +22,14 @@
             "types": "./dist/button.d.ts",
             "import": "./dist/button.js"
         },
+        "./glass": {
+            "types": "./dist/glass.d.ts",
+            "import": "./dist/glass.js"
+        },
+        "./glass.css": {
+            "types": "./src/glass-css.d.ts",
+            "default": "./src/primitives/glass/styles.css"
+        },
         "./code-block": {
             "types": "./dist/code-block.d.ts",
             "import": "./dist/code-block.js"
@@ -49,6 +57,14 @@
         "./spinner": {
             "types": "./dist/spinner.d.ts",
             "import": "./dist/spinner.js"
+        },
+        "./slider": {
+            "types": "./dist/slider.d.ts",
+            "import": "./dist/slider.js"
+        },
+        "./switch": {
+            "types": "./dist/switch.d.ts",
+            "import": "./dist/switch.js"
         },
         "./table": {
             "types": "./dist/table.d.ts",

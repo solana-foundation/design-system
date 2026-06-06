@@ -11,6 +11,20 @@ export {
 } from './code-block';
 export { CodeBlockGroup, type CodeBlockGroupItem, type CodeBlockGroupProps } from './code-block/code-block-group';
 export { CopyButton, type CopyButtonProps } from './copy-button';
+export { generateDisplacementMap, getDisplacementMapKey, type DisplacementMapParams } from './glass/displacement-map';
+export { GlassFilter, type GlassFilterProps } from './glass/glass-filter';
+export {
+    GlassRefraction,
+    getGlassFilterBleed,
+    getGlassFilterId,
+    getGlassFilterVersion,
+    type GlassFilterVersionParams,
+    type GlassRefractionProps,
+} from './glass/glass-refraction';
+export { GlassLens, GlassSurface, type GlassLensProps, type GlassSurfaceProps } from './glass/glass-surface';
+export { Slider, type SliderProps } from './glass/slider';
+export { Switch, type SwitchProps } from './glass/switch';
+export { glassTokens, type GlassTokens } from './glass/tokens';
 export { InlineCode, type InlineCodeProps } from './inline-code';
 export { SegmentedControl, type SegmentedControlItem, type SegmentedControlProps } from './segmented-control';
 export {

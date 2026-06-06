@@ -1,5 +1,6 @@
 /* Design System Defaults - Import this in consumer applications */
 @import './globals.css';
+@import './primitives/glass/styles.css';
 
 /* Scan design system components for Tailwind class names */
 @source "./primitives";

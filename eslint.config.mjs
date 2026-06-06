@@ -17,6 +17,8 @@ export default [
             '**/dist/**',
             '**/node_modules/**',
             '**/public/r/**',
+            '**/reference/**',
+            '**/research/**',
             '**/storybook-static/**',
         ],
     },

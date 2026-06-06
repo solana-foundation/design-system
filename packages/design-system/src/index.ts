@@ -30,6 +30,24 @@ export {
     type CodeBlockGroupProps,
 } from './primitives/code-block/code-block-group';
 export { CopyButton, type CopyButtonProps } from './primitives/copy-button';
+export {
+    generateDisplacementMap,
+    getDisplacementMapKey,
+    type DisplacementMapParams,
+} from './primitives/glass/displacement-map';
+export { GlassFilter, type GlassFilterProps } from './primitives/glass/glass-filter';
+export {
+    GlassRefraction,
+    getGlassFilterBleed,
+    getGlassFilterId,
+    getGlassFilterVersion,
+    type GlassFilterVersionParams,
+    type GlassRefractionProps,
+} from './primitives/glass/glass-refraction';
+export { GlassLens, GlassSurface, type GlassLensProps, type GlassSurfaceProps } from './primitives/glass/glass-surface';
+export { Slider, type SliderProps } from './primitives/glass/slider';
+export { Switch, type SwitchProps } from './primitives/glass/switch';
+export { glassTokens, type GlassTokens } from './primitives/glass/tokens';
 export { InlineCode, type InlineCodeProps } from './primitives/inline-code';
 export {
     SegmentedControl,

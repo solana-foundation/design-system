@@ -37,7 +37,8 @@ storybook-static
 .cursor/
 .zed/
 .next/
+reference
+**/reference/**
 AGENTS.md
 AGENT.md
 CLAUDE.md
-
