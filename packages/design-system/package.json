@@ -140,7 +140,7 @@
         "@types/react": "^19.0.6",
         "@types/react-dom": "^19.0.2",
         "corner-smoothing": "^0.1.5",
-        "dompurify": "^3.3.1",
+        "dompurify": "^3.4.17",
         "motion": "^12.26.0",
         "react": "^19.0.0",
         "react-dom": "^19.0.0",
